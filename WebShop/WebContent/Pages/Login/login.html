@@ -6,16 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebShop - Login</title>
 
-    <link rel="stylesheet" href="rest/../Pages/Bootstrap/css/bootstrap.css">
-</head>
-<body>
-    
-    <div class="container">
-        <h1 class="display-1">LOGIN</h1>
-        <button class="btn btn-primary">Testing bootstrap</button>
-    </div>
+    <!-- <link rel="stylesheet" href="rest/../Pages/Bootstrap/css/bootstrap.css"> 
+    <link rel="stylesheet" href="rest/../Pages/Login/login.css"> -->
 
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="login.css">
+</head>
+<body class="text-center">
+    <main class="form-signin">
+        <form>
+            <img class="mb-4" src="../Images/logo.png" alt="" width="72" height=57>
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+            <div class="form-floating">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; Aleksić i Milosavljević Nikole</p>
+        </form>
+    </main>
+    
+    
+
+
+    <!--
     <script src="rest/../Pages/Bootstrap/js/bootstrap.js"></script>
-    <script src="rest/../jquery-3.3.1.min.js"></script>
+    <script src="rest/../jquery-3.3.1.min.js"></script>-->
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../jquery-3.3.1.min.js"></script>
 </body>
 </html>
