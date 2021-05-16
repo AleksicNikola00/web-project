@@ -12,15 +12,17 @@
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css"> 
     <link rel="stylesheet" href="login.css">
 </head>
-<body class="text-center">
-    <main class="form-signin">
+<body>
+    <div class="form-signin card text-center">
         <form>
             <img class="mb-4" src="../Images/logo.png" alt="" width="72" height=57>
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
+            <hr>
+
             <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input type="text" class="form-control" id="floatingInput" placeholder="utraBuyerx123">
+                <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating">
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
@@ -28,9 +30,69 @@
             </div>
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+            <hr>
+
+            <h2 class="h4"><small class="text-muted">No account? <a href="#">Register</a></small></h2>
+
             <p class="mt-5 mb-3 text-muted">&copy; Aleksić i Milosavljević Nikole</p>
-        </form>
-    </main>
+        </form>        
+    </div>
+
+    <div class="form-register card" >
+        <div class="container w-100 text-center">
+            <img class="mb-4" src="../Images/logo.png" alt="" width="72" height=57>
+            <h1 class="h3 mb-3 fw-normal">Registration form</h1>
+        </div>
+
+        <hr>
+
+        <form>
+            
+            <div class="container">
+
+                <div class="row from-margin-correcton">
+                    <div class="col-2 my-auto">
+                        <label class="form-label">Username:</label>
+                    </div>
+                    <div class="col-10 my-auto">
+                        <input type="text" class="form-control w-100" placeholder="eg. ultraBuyerx123">
+                    </div>
+                </div>
+
+                <div class="row from-margin-correcton">
+                    <div class="col-2 my-auto">
+                        <label class="form-label">Password</label>
+                    </div>
+                    <div class="col-10 my-auto">
+                        <input type="password" class="form-control w-100" placeholder="eg. extraSafe123">
+                    </div>
+                </div>
+
+                <div class="row from-margin-correcton">
+                    <div class="col-2 my-auto">
+                        <label class="form-label">First name:</label>
+                    </div>
+                    <div class="col-4 my-auto">
+                        <input type="text" class="form-control w-100" placeholder="Your name">
+                    </div>
+                    <div class="col-2 my-auto">
+                        <label class="form-label">Last name:</label>
+                    </div>
+                    <div class="col-4 my-auto">
+                        <input type="text" class="form-control w-100" placeholder="Your surname">
+                    </div>
+                </div>
+                
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+
+            <div class="container text-center">
+                <p class="mt-5 mb-3 text-muted">&copy; Aleksić i Milosavljević Nikole</p>
+            </div>
+        </form>        
+    </div>
     
     
 
@@ -40,5 +102,6 @@
     <script src="rest/../jquery-3.3.1.min.js"></script>-->
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
     <script src="../../jquery-3.3.1.min.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
