@@ -46,8 +46,17 @@ body {
     padding: 15px;
     margin: auto;
     background-color: #f5f5f5;
+    display: none;
 }
 
 .from-margin-correcton{
     margin-bottom: 20px;
+}
+
+.back-to-login {
+    margin-top: 20px;
+}
+
+.form-username{
+    margin-bottom: 10px;
 }

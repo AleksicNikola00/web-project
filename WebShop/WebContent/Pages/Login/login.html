@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <div class="form-signin card text-center">
+    <div class="form-signin card text-center" id="login">
         <form>
             <img class="mb-4" src="../Images/logo.png" alt="" width="72" height=57>
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <hr>
 
-            <div class="form-floating">
+            <div class="form-floating form-username">
                 <input type="text" class="form-control" id="floatingInput" placeholder="utraBuyerx123">
                 <label for="floatingInput">Username</label>
             </div>
@@ -29,17 +29,17 @@
                 <label for="floatingPassword">Password</label>
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" id="signIn">Sign in</button>
 
             <hr>
 
-            <h2 class="h4"><small class="text-muted">No account? <a href="#">Register</a></small></h2>
+            <h2 class="h4"><small class="text-muted">No account? <a href="#" id="regLink">Register</a></small></h2>
 
             <p class="mt-5 mb-3 text-muted">&copy; Aleksić i Milosavljević Nikole</p>
         </form>        
     </div>
 
-    <div class="form-register card" >
+    <div class="form-register card" id="register">
         <div class="container w-100 text-center">
             <img class="mb-4" src="../Images/logo.png" alt="" width="72" height=57>
             <h1 class="h3 mb-3 fw-normal">Registration form</h1>
@@ -56,7 +56,7 @@
                         <label class="form-label">Username:</label>
                     </div>
                     <div class="col-10 my-auto">
-                        <input type="text" class="form-control w-100" placeholder="eg. ultraBuyerx123">
+                        <input type="text" class="form-control w-100" placeholder="eg. ultraBuyerx123" id="regUsername">
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@
                         <label class="form-label">Password</label>
                     </div>
                     <div class="col-10 my-auto">
-                        <input type="password" class="form-control w-100" placeholder="eg. extraSafe123">
+                        <input type="password" class="form-control w-100" placeholder="eg. extraSafe123" id="regPassword">
                     </div>
                 </div>
 
@@ -74,19 +74,69 @@
                         <label class="form-label">First name:</label>
                     </div>
                     <div class="col-4 my-auto">
-                        <input type="text" class="form-control w-100" placeholder="Your name">
+                        <input type="text" class="form-control w-100" placeholder="Your name" id="regFirstName">
                     </div>
                     <div class="col-2 my-auto">
                         <label class="form-label">Last name:</label>
                     </div>
                     <div class="col-4 my-auto">
-                        <input type="text" class="form-control w-100" placeholder="Your surname">
+                        <input type="text" class="form-control w-100" placeholder="Your surname" id="regSurname">
                     </div>
                 </div>
+
+                <div class="row from-margin-correcton">
+                    <div class="col-2 my-auto">
+                        <label class="form-label">Date of birth:</label>
+                    </div>
+                    <div class="col-4 my-auto">
+                        <select class="form-select" id="regYear">
+
+                        </select>
+                    </div>
+                    <div class="col-3 my-auto">
+                        <select class="form-select" id="regMonth">
+                            <option selected value="january">January</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="august">August</option>
+                            <option value="september">September</option>
+                            <option value="october">October</option>
+                            <option value="november">November</option>
+                            <option value="december">December</option>
+                        </select>
+                    </div>
+                    <div class="col-3 my-auto">
+                        <select class="form-select" id="regDay">
+                            
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row from-margin-correcton">
+                    <div class="col-2 my-auto">
+                        <label class="form-label">Gender:</label>
+                    </div>
+                    <div class="col-4 my-auto">
+                        <select class="form-select" id="regGender">
+                            <option selected value="Prefer not to say">Prefer not to say</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
                 
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit" id="doRegister">Register</button>
+
+            <div class="text-center back-to-login">
+                <h5 class="text-muted"><a href="#" id="backToLogin">Back to login</a></h5>
+            </div>
 
             <div class="container text-center">
                 <p class="mt-5 mb-3 text-muted">&copy; Aleksić i Milosavljević Nikole</p>
@@ -94,7 +144,20 @@
         </form>        
     </div>
     
-    
+    <div class="modal-dialog modal-dialog-centered d-none" id="modalError">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Oops...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="errorDisplay"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 
 
     <!--
