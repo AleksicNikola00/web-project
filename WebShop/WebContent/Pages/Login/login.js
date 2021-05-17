@@ -4,25 +4,29 @@ $(document).ready(function(){
     fillDay();
 
     $("#regLink").on("click", function(){
-
+        clearRegForm();
         $("#login").slideToggle(500);
 
         setTimeout(function(){
             $("#register").slideToggle(500);
+            clearSignInForm();
         }, 500);
     });
 
     $("#backToLogin").on("click", function(){
 
+        clearSignInForm();
         $("#register").slideToggle(500);
 
         setTimeout(function(){
             $("#login").slideToggle(500);
+            clearRegForm();
         }, 500);
-
     });
 
     $("#signIn").on("click", function(){
+        clearSignInForm();
+        clearRegForm();
         /* try login */
     });
 
@@ -37,38 +41,66 @@ $(document).ready(function(){
     $("#doRegister").on("click", function(){
 
         if (!validateInput()){
-            /* display error */
+            $("#staticBackdrop").modal('show');
+        }
+        else{
+            clearRegForm();
+            clearSignInForm();
         }
 
         /* try register */
 
     });
+
+    $('.modal').on('shown.bs.modal', function() {
+        $(this).find('[autofocus]').focus();
+    });
 });
 
 function validateInput(){
-    let username = $("#regUsername");
-    let password = $("#regPassword");
-    let firstName = $("#regFirstName");
-    let lastName = $("#regSurname");
-    let dateOfBirth = $("#regDate");
+    let username = $("#regUsername").val();
+    let password = $("#regPassword").val();
+    let firstName = $("#regFirstName").val();
+    let lastName = $("#regSurname").val();
+
+    let year = $("#regYear").val();
+    let month = $("#regMonth").val();
+    let day = $("#regDay").val();
 
     let dispText = $("#errorDisplay").empty();
+    let hadError = false;
 
     if (!username.match("^([a-zA-Z0-9]+)$")){
         dispText.append("Username is not in the correct format! <br>");
+        hadError = true;
     }
 
     if (password.length <= 8){
         dispText.append("Password needs to be atleast 8 characters... <br>");
+        hadError = true;
     }
 
     if (!firstName.match("^([a-zA-Z]+)$")){
         dispText.append("First name has some wrong characters... <br>");
+        hadError = true;
     }
 
     if (!lastName.match("^([a-zA-Z]+)$")){
         dispText.append("Last name has some wrong characters... <br>");
+        hadError = true;
     }
+
+    let date = new Date(parseInt(year), parseInt(month), parseInt(day));
+    let today = new Date();
+
+    console.log(date.toDateString() + ' > ' + today.toDateString())
+
+    if (date > today){
+        dispText.append("You sure can't be that young... <br>");
+        hadError = true;
+    }
+
+    return !hadError;
 };
 
 function fillDay(){
@@ -121,3 +153,21 @@ function fillYear(){
 
     year.append("<option value='" + end + "' selected>" + end + "</option>");
 };
+
+function clearRegForm(){
+    $("#regUsername").val("");
+    $("#regPassword").val("");
+    $("#regFirstName").val("");
+    $("#regSurname").val("");
+
+    $("#regGender").val("Prefer not to say");
+
+    $("#regYear").val(new Date().getFullYear());
+    $("#regMonth").val("1");
+    $("#regDay").val("1");
+}
+
+function clearSignInForm(){
+    $("#floatingInput").val("");
+    $("#floatingPassword").val("");
+}
