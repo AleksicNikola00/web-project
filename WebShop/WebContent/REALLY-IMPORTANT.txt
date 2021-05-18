@@ -1,7 +1,2 @@
-Trenutno imamo bag sa putanjama. U suštini, putanje tokom pravljenja frontenda i nakon toga neće biti iste.
-Workaround koji sam našao je da kad stavljaš na server uradiš sledeće:
-
-rest/../ + ostatak
-
-1. rest/.. <- ovo te pozicionira unutar WebContent foldera
-2. ostatak je relativna putanja u odnosu na WebContent
+Kada se prave stranice offline bez servera koristiti relativne putanje U ODNOSU NA STRANICU
+Kada se prebace na server koristiti relativne putanje U ODNOSU NA WEBCONTENT FOLDER PROJEKTA
