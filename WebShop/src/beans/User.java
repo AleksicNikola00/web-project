@@ -1,29 +1,58 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class User implements Serializable {
 	
 	private String firstName;
 	private String lastName;
-	private String email;
 	private String username;
 	private String password;
+	private String gender;
+	private Role role;
+	private Date dateOfBirth;
 	
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String email, String username, String password) {
+	public User(String firstName, String lastName, String username, String password, String gender, Role role, Date dateOfBirth2) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.gender = gender;
+		this.role = role;
+		this.dateOfBirth = dateOfBirth2;
 	}
 
 
-
+	public String getGender() {
+		return gender;
+	}
+	
+	public void setGender(String newGender) {
+		gender = newGender;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+	
+	public void setRole(Role newRole) {
+		role = newRole;
+	}
+	
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+	
+	public void setDateOfBirth(Date newDate) {
+		dateOfBirth = newDate;
+	}
+	
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -38,14 +67,6 @@ public class User implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getUsername() {
@@ -68,7 +89,6 @@ public class User implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -85,10 +105,10 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
+		if (role == null) {
+			if (other.role != null)
 				return false;
-		} else if (!email.equals(other.email))
+		} else if (!role.equals(other.role))
 			return false;
 		if (firstName == null) {
 			if (other.firstName != null)
@@ -115,8 +135,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", username=" + username
-				+ ", password=" + password + "]";
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", role=" + role + ", username=" + username
+				+ ", password=" + password + ", gender= " + gender + ", dateOfBirth= " + dateOfBirth.toString() +  "]";
 	}
 
 	private static final long serialVersionUID = 6640936480584723344L;

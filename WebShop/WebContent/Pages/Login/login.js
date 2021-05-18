@@ -25,9 +25,26 @@ $(document).ready(function(){
     });
 
     $("#signIn").on("click", function(){
+        
+        if (!validateInputSignIn()){
+        	$("#staticBackdrop").modal('show');
+        	return;
+        }
+        
+        let username = $("#floatingInput").val();
+		let password = $("#floatingPassword").val();
+        
         clearSignInForm();
         clearRegForm();
-        /* try login */
+        
+        $.post({
+			url: 'rest/login',
+			data: JSON.stringify({username: username, password: password, role: 0}),
+			contentType: 'application/json',
+			success: function(data) {
+                console.log(data);
+			}
+		});
     });
 
     $("#regMonth").on("change", function(){
@@ -57,6 +74,26 @@ $(document).ready(function(){
     });
 });
 
+function validateInputSignIn(){
+	let username = $("#floatingInput").val();
+	let password = $("#floatingPassword").val();
+	
+	let dispText = $("#errorDisplay").empty();
+    let hadError = false;
+	
+	if (username.length == 0){
+		dispText.append("Username is required...<br>");
+		hadError = true;
+	}
+	if (password.length < 8){
+		dispText.append("Last time I remember your password was atleast 8 characters long...<br>");
+		hadError = true;
+	}
+	
+	return !hadError;
+	
+}
+
 function validateInput(){
     let username = $("#regUsername").val();
     let password = $("#regPassword").val();
@@ -75,7 +112,7 @@ function validateInput(){
         hadError = true;
     }
 
-    if (password.length <= 8){
+    if (password.length < 8){
         dispText.append("Password needs to be atleast 8 characters... <br>");
         hadError = true;
     }

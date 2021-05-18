@@ -10,8 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
+import beans.PotentialUser;
+import beans.Shopper;
 import beans.User;
 import dao.UserDAO;
 
@@ -40,14 +41,29 @@ public class LoginService {
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response login(User user, @Context HttpServletRequest request) {
+	public String login(PotentialUser pu, @Context HttpServletRequest request) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		PotentialUser foundUser = userDao.checkIfExists(pu);
+		
+		if (foundUser == null) {
+			return "Invalid username and/or password";
+		}
+		
+		if (foundUser.getRole() == beans.Role.SHOPPER) {
+			System.out.println("Found : " + foundUser.getRole().toString() + " is equal to " + beans.Role.SHOPPER.toString());
+			Shopper shopper = userDao.findShopper(foundUser.getUsername(), foundUser.getPassword());
+			request.getSession().setAttribute("user", shopper);
+		}
+		
+		/*
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		User loggedUser = userDao.find(user.getUsername(), user.getPassword());
 		if (loggedUser != null) {
 			return Response.status(400).entity("Invalid username and/or password").build();
 		}
 		request.getSession().setAttribute("user", loggedUser);
-		return Response.status(200).build();
+		*/
+		return "";
 	}
 	
 	
@@ -63,7 +79,7 @@ public class LoginService {
 	@Path("/currentUser")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User login(@Context HttpServletRequest request) {
+	public User loginer(@Context HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("user");
 	}
 }

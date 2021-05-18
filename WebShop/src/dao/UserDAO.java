@@ -1,13 +1,13 @@
 package dao;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.Date;
+import java.util.Scanner;
 
+import beans.PotentialUser;
+import beans.Shopper;
 import beans.User;
 
 /***
@@ -19,8 +19,11 @@ import beans.User;
  *
  */
 public class UserDAO {
-	private Map<String, User> users = new HashMap<>();
+	private ArrayList<PotentialUser> potentialUsers;
 	
+	private ArrayList<Shopper> shoppers;
+	
+	private String contextPath;
 	
 	public UserDAO() {
 		
@@ -29,9 +32,16 @@ public class UserDAO {
 	/***
 	 * @param contextPath Putanja do aplikacije u Tomcatu. Može se pristupiti samo iz servleta.
 	 */
+	
 	public UserDAO(String contextPath) {
-		loadUsers(contextPath);
+		this.contextPath = contextPath;
+		potentialUsers = new ArrayList<PotentialUser>();
+		loadCredentials();
+		
+		shoppers = new ArrayList<Shopper>();
+		loadShoppers();
 	}
+	
 	
 	/**
 	 * Vraæa korisnika za prosleðeno korisnièko ime i šifru. Vraæa null ako korisnik ne postoji
@@ -40,18 +50,12 @@ public class UserDAO {
 	 * @return
 	 */
 	public User find(String username, String password) {
-		if (!users.containsKey(username)) {
-			return null;
-		}
-		User user = users.get(username);
-		if (!user.getPassword().equals(password)) {
-			return null;
-		}
-		return user;
+		
+		return null;
 	}
 	
-	public Collection<User> findAll() {
-		return users.values();
+	public Collection<PotentialUser> findAllPotentialUsers() {
+		return potentialUsers;
 	}
 	
 	/**
@@ -59,38 +63,88 @@ public class UserDAO {
 	 * Kljuè je korisnièko ime korisnika.
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
-	private void loadUsers(String contextPath) {
-		BufferedReader in = null;
+	private void loadCredentials() {
 		try {
-			File file = new File(contextPath + "/users.txt");
-			in = new BufferedReader(new FileReader(file));
-			String line;
-			StringTokenizer st;
-			while ((line = in.readLine()) != null) {
-				line = line.trim();
-				if (line.equals("") || line.indexOf('#') == 0)
-					continue;
-				st = new StringTokenizer(line, ";");
-				while (st.hasMoreTokens()) {
-					String firstName = st.nextToken().trim();
-					String lastName = st.nextToken().trim();
-					String email = st.nextToken().trim();
-					String username = st.nextToken().trim();
-					String password = st.nextToken().trim();
-					users.put(username, new User(firstName, lastName, email, username, password));
-				}
+			
+			String path = contextPath + "DataBase/credentials.txt";
+			
+			File credentialsDB = new File(path);
+			Scanner reader = new Scanner(credentialsDB);
+			while(reader.hasNextLine()) {
+				String data = reader.nextLine();
 				
+				String[] usrpass = data.split(":");
+				
+				PotentialUser pu = new PotentialUser(usrpass[0], usrpass[1], beans.Role.values()[Integer.parseInt(usrpass[2])]);
+				potentialUsers.add(pu);
 			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				}
-				catch (Exception e) { }
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Loading credentials not successful...");
+		}
+		
+	}
+	
+	private void loadShoppers() {
+		try {
+			
+			String path = contextPath + "DataBase/shoppers.txt";
+			
+			File shoppersDB = new File(path);
+			Scanner reader = new Scanner(shoppersDB);
+			
+			while(reader.hasNextLine()) {
+				String data = reader.nextLine();
+				
+				String[] input = data.split(":");
+				
+				int[] parsedDate = parseDate(input[6]);
+				Shopper temp = new Shopper(input[0], input[1], input[2], input[3], input[4], new Date(parsedDate[0], parsedDate[1], parsedDate[2]), Integer.parseInt(input[7]));
+				
+				shoppers.add(temp);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Loading shoppers not successful...");
+		}
+	}
+	
+	private int[] parseDate(String str) {
+		int[] ret = new int[3];
+		
+		String[] parts = str.split("-");
+		
+		int day = Integer.parseInt(parts[0]);
+		int month = Integer.parseInt(parts[1]);
+		int year = Integer.parseInt(parts[2]);
+		
+		ret[0] = year;
+		ret[1] = month;
+		ret[2] = day;
+		
+		return ret;
+	}
+	
+	public PotentialUser checkIfExists(PotentialUser pu) {
+		
+		for (PotentialUser p : potentialUsers) {
+			if (p.getUsername().equals(pu.getUsername()) && p.getPassword().equals(pu.getPassword())) {
+				return p;
 			}
 		}
+		
+		return null;
+		
+	}
+	
+	public Shopper findShopper(String username, String password) {
+		for(Shopper sp : shoppers) {
+			if (sp.getUsername().equals(username) && sp.getPassword().equals(password)) {
+				return sp;
+			}
+		}
+		return null;
 	}
 	
 }
