@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import beans.PotentialUser;
+import beans.Role;
 import beans.Shopper;
 import beans.User;
 
@@ -39,13 +40,12 @@ public class UserDAO {
 	
 	public UserDAO(String contextPath) {
 		this.contextPath = contextPath;
-		dataBasePath = contextPath + File.separator + "WEB-INF" + File.separator + "DataBase";
+		dataBasePath = contextPath.split(".metadata")[0] + "WebProjekat" + File.separator + "DataBase";
 		potentialUsers = new ArrayList<PotentialUser>();
 		loadCredentials();
 		
 		shoppers = new ArrayList<Shopper>();
 		loadShoppers();
-		
 	}
 	
 	
@@ -70,25 +70,31 @@ public class UserDAO {
 	 * @param contextPath Putanja do aplikacije u Tomcatu
 	 */
 	private void loadCredentials() {
+		File credentialsDB;
+		Scanner reader = null;
 		try {
 			
 			String path = dataBasePath + File.separator + "credentials.txt";
 			
-			File credentialsDB = new File(path);
-			Scanner reader = new Scanner(credentialsDB);
+			credentialsDB = new File(path);
+			reader = new Scanner(credentialsDB);
 			while(reader.hasNextLine()) {
 				String data = reader.nextLine();
 				
+				if (data.length() == 0)
+					continue;
+				
 				String[] usrpass = data.split(":");
 				
-				PotentialUser pu = new PotentialUser(usrpass[0], usrpass[1], beans.Role.values()[Integer.parseInt(usrpass[2])]);
+				PotentialUser pu = new PotentialUser(usrpass[0], usrpass[1], beans.Role.valueOf(usrpass[2]));
 				potentialUsers.add(pu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Loading credentials not successful...");
+		} finally {
+			reader.close();
 		}
-		System.out.println("Credentials size : " + potentialUsers.size());
 	}
 	
 	private void loadShoppers() {
@@ -102,10 +108,13 @@ public class UserDAO {
 			while(reader.hasNextLine()) {
 				String data = reader.nextLine();
 				
+				if (data.length() == 0)
+					continue;
+				
 				String[] input = data.split(":");
 				
-				int[] parsedDate = parseDate(input[6]);
-				Shopper temp = new Shopper(input[0], input[1], input[2], input[3], input[4], new Date(parsedDate[0], parsedDate[1], parsedDate[2]), Integer.parseInt(input[7]));
+				int[] parsedDate = parseDate(input[5]);
+				Shopper temp = new Shopper(input[0], input[1], input[2], input[3], input[4], new Date(parsedDate[0], parsedDate[1], parsedDate[2]), Integer.parseInt(input[6]));
 				
 				shoppers.add(temp);
 			}
@@ -114,8 +123,6 @@ public class UserDAO {
 			e.printStackTrace();
 			System.out.println("Loading shoppers not successful...");
 		}
-		
-		System.out.println("Shopper size : " + shoppers.size());
 	}
 	
 	private int[] parseDate(String str) {
@@ -167,16 +174,13 @@ public class UserDAO {
 	public void saveCredentials(PotentialUser newUser) {
 		this.potentialUsers.add(newUser);
 		
-		String path = contextPath + "DataBase" + File.separator + "credentials.txt";
+		String path = dataBasePath + File.separator + "credentials.txt";
 		
-		try {
-			FileWriter fw = new FileWriter(path);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter pw = new PrintWriter(bw);
+		try (FileWriter fw = new FileWriter(path)){
 			
-			pw.println(newUser.format());
-			
-			System.out.println("credentials saved");
+			for (PotentialUser user : potentialUsers) {
+				fw.append(user.format() + "\n");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -184,20 +188,18 @@ public class UserDAO {
 	
 	public void registerShopper(Shopper newShopper) {
 		//Create credentials
-		saveCredentials(new PotentialUser(newShopper.getUsername(), newShopper.getPassword(), newShopper.getRole()));
+		saveCredentials(new PotentialUser(newShopper.getUsername(), newShopper.getPassword(), Role.SHOPPER));
 		
 		//Create shopper
 		shoppers.add(newShopper);
 		
-		String path = contextPath + "DataBase" + File.separator + "shoppers.txt";
-		try {
-			FileWriter fw = new FileWriter(path);
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter pw = new PrintWriter(bw);
+		String path = dataBasePath + File.separator + "shoppers.txt";
+		try (FileWriter fw = new FileWriter(path)){
 			
-			pw.println(newShopper.format());
+			for (Shopper user : shoppers) {
+				fw.append(user.format() + "\n");
+			}
 			
-			System.out.println("shopper saved");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

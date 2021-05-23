@@ -42,7 +42,17 @@ $(document).ready(function(){
 			data: JSON.stringify({username: username, password: password, role: 0}),
 			contentType: 'application/json',
 			success: function(data) {
-                //Logic for login
+                if (data.length != 0){
+                    let dispText = $("#errorDisplay").empty();
+                    dispText.append(data);
+                    $("#staticBackdrop").modal('show');
+                } else{
+                    let dispText = $("#errorDisplay").empty();
+                    dispText.append("Successful!");
+                    $("#staticBackdrop").modal('show');
+                    clearRegForm();
+                    clearSignInForm();
+                }
 			}
 		});
     });
@@ -92,6 +102,9 @@ $(document).ready(function(){
                         $("#staticBackdrop").modal('show');
                     }
                     else{
+                        let dispText = $("#errorDisplay").empty();
+                        dispText.append("Successful!");
+                        $("#staticBackdrop").modal('show');
                         clearRegForm();
                         clearSignInForm();
                     }
