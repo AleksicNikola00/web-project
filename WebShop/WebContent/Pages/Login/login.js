@@ -3,6 +3,9 @@ $(document).ready(function(){
     fillYear();
     fillDay();
 
+    if (window.location.href.indexOf("?#") == -1)
+        window.location.href = window.location.href + "?#";
+
     $("#regLink").on("click", function(){
         clearRegForm();
         $("#login").slideToggle(500);
@@ -33,9 +36,6 @@ $(document).ready(function(){
         
         let username = $("#floatingInput").val();
 		let password = $("#floatingPassword").val();
-        
-        clearSignInForm();
-        clearRegForm();
         
         $.post({
 			url: 'rest/login',
