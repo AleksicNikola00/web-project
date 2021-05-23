@@ -42,7 +42,7 @@ $(document).ready(function(){
 			data: JSON.stringify({username: username, password: password, role: 0}),
 			contentType: 'application/json',
 			success: function(data) {
-                console.log(data);
+                //Logic for login
 			}
 		});
     });
@@ -61,11 +61,44 @@ $(document).ready(function(){
             $("#staticBackdrop").modal('show');
         }
         else{
-            clearRegForm();
-            clearSignInForm();
-        }
+            let username = $("#regUsername").val();
+            let password = $("#regPassword").val();
+            let firstName = $("#regFirstName").val();
+            let lastName = $("#regSurname").val();
 
-        /* try register */
+            let year = $("#regYear").val();
+            let month = $("#regMonth").val();
+            let day = $("#regDay").val();
+
+            let gender = $("#regGender").val();
+
+            let potentialUser = {username: username,
+                                password: password,
+                                firstName: firstName,
+                                lastName: lastName,
+                                dateOfBirth: new Date(year,month,day),
+                                role: 0,
+                                gender: gender,
+                                points: 0};
+            
+            $.post({
+                url: 'rest/register',
+                data: JSON.stringify(potentialUser),
+                contentType: 'application/json',
+                success: function(data) {
+                    if (data.length != 0){
+                        let dispText = $("#errorDisplay").empty();
+                        dispText.append(data);
+                        $("#staticBackdrop").modal('show');
+                    }
+                    else{
+                        clearRegForm();
+                        clearSignInForm();
+                    }
+			}
+            });
+
+        }
 
     });
 

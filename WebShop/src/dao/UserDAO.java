@@ -1,6 +1,10 @@
 package dao;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -20,10 +24,11 @@ import beans.User;
  */
 public class UserDAO {
 	private ArrayList<PotentialUser> potentialUsers;
-	
 	private ArrayList<Shopper> shoppers;
 	
 	private String contextPath;
+	
+	private static String dataBasePath;
 	
 	public UserDAO() {
 		
@@ -35,11 +40,13 @@ public class UserDAO {
 	
 	public UserDAO(String contextPath) {
 		this.contextPath = contextPath;
+		dataBasePath = contextPath + File.separator + "WEB-INF" + File.separator + "DataBase";
 		potentialUsers = new ArrayList<PotentialUser>();
 		loadCredentials();
 		
 		shoppers = new ArrayList<Shopper>();
 		loadShoppers();
+		
 	}
 	
 	
@@ -66,7 +73,7 @@ public class UserDAO {
 	private void loadCredentials() {
 		try {
 			
-			String path = contextPath + "DataBase/credentials.txt";
+			String path = dataBasePath + File.separator + "credentials.txt";
 			
 			File credentialsDB = new File(path);
 			Scanner reader = new Scanner(credentialsDB);
@@ -82,13 +89,13 @@ public class UserDAO {
 			e.printStackTrace();
 			System.out.println("Loading credentials not successful...");
 		}
-		
+		System.out.println("Credentials size : " + potentialUsers.size());
 	}
 	
 	private void loadShoppers() {
 		try {
 			
-			String path = contextPath + "DataBase/shoppers.txt";
+			String path = dataBasePath + File.separator +  "shoppers.txt";
 			
 			File shoppersDB = new File(path);
 			Scanner reader = new Scanner(shoppersDB);
@@ -108,6 +115,8 @@ public class UserDAO {
 			e.printStackTrace();
 			System.out.println("Loading shoppers not successful...");
 		}
+		
+		System.out.println("Shopper size : " + shoppers.size());
 	}
 	
 	private int[] parseDate(String str) {
@@ -145,6 +154,54 @@ public class UserDAO {
 			}
 		}
 		return null;
+	}
+	
+	public boolean checkUsername(Shopper newShopper) {
+		for(Shopper sp : shoppers) {
+			if (sp.getUsername().equals(newShopper.getUsername())) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void saveCredentials(PotentialUser newUser) {
+		this.potentialUsers.add(newUser);
+		
+		String path = contextPath + "DataBase" + File.separator + "credentials.txt";
+		
+		try {
+			FileWriter fw = new FileWriter(path);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			pw.println(newUser.format());
+			
+			System.out.println("credentials saved");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void registerShopper(Shopper newShopper) {
+		//Create credentials
+		saveCredentials(new PotentialUser(newShopper.getUsername(), newShopper.getPassword(), newShopper.getRole()));
+		
+		//Create shopper
+		shoppers.add(newShopper);
+		
+		String path = contextPath + "DataBase" + File.separator + "shoppers.txt";
+		try {
+			FileWriter fw = new FileWriter(path);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			pw.println(newShopper.format());
+			
+			System.out.println("shopper saved");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

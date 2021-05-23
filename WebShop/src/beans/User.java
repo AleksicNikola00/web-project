@@ -138,6 +138,15 @@ public class User implements Serializable {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", role=" + role + ", username=" + username
 				+ ", password=" + password + ", gender= " + gender + ", dateOfBirth= " + dateOfBirth.toString() +  "]";
 	}
+	
+	public String format() {
+		String out = "";
+		
+		out += this.firstName + ":" + this.lastName + ":" + this.username + ":" + this.password + ":" 
+				+ this.gender + ":" + this.dateOfBirth.getDay() + "-" + this.dateOfBirth.getMonth() + "-" + this.dateOfBirth.getYear();
+		
+		return out;
+	}
 
 	private static final long serialVersionUID = 6640936480584723344L;
 

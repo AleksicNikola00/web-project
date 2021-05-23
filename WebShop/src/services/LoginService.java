@@ -40,7 +40,7 @@ public class LoginService {
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String login(PotentialUser pu, @Context HttpServletRequest request) {
 		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
 		PotentialUser foundUser = userDao.checkIfExists(pu);
@@ -50,19 +50,11 @@ public class LoginService {
 		}
 		
 		if (foundUser.getRole() == beans.Role.SHOPPER) {
-			System.out.println("Found : " + foundUser.getRole().toString() + " is equal to " + beans.Role.SHOPPER.toString());
 			Shopper shopper = userDao.findShopper(foundUser.getUsername(), foundUser.getPassword());
 			request.getSession().setAttribute("user", shopper);
 		}
 		
-		/*
-		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
-		User loggedUser = userDao.find(user.getUsername(), user.getPassword());
-		if (loggedUser != null) {
-			return Response.status(400).entity("Invalid username and/or password").build();
-		}
-		request.getSession().setAttribute("user", loggedUser);
-		*/
+		
 		return "";
 	}
 	
@@ -81,5 +73,23 @@ public class LoginService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User loginer(@Context HttpServletRequest request) {
 		return (User) request.getSession().getAttribute("user");
+	}
+	
+	@POST
+	@Path("/register")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String register(Shopper newShopper, @Context HttpServletRequest request) {
+		UserDAO userDao = (UserDAO) ctx.getAttribute("userDAO");
+		
+		if(userDao.checkUsername(newShopper)) {
+			userDao.registerShopper(newShopper);
+		}
+		else {
+			return "Ooops! That username is registered...";
+		}
+		
+		
+		return "";
 	}
 }

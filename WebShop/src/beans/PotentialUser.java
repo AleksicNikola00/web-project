@@ -32,4 +32,10 @@ public class PotentialUser {
 	public Role getRole() {
 		return role;
 	}
+	
+	public String format() {
+		String out = "";
+		out += this.username + ":" + this.password + ":" + this.role;
+		return out;
+	}
 }

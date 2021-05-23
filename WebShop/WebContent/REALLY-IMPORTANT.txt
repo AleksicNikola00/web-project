@@ -1,2 +1,1 @@
-Kada se prave stranice offline bez servera koristiti relativne putanje U ODNOSU NA STRANICU
-Kada se prebace na server koristiti relativne putanje U ODNOSU NA WEBCONTENT FOLDER PROJEKTA
+Posto baza ne moze da se deployuje tj. ne bi trebalo, dodati apsolutne putanje do database foldera
