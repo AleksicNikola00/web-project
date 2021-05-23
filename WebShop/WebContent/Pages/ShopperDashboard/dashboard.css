@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;
+    background-image: url("../Images/aqua-background.png");
+    background-size: 100%;
+  }
+
+.mysidebar {
+    height: 890px;
+    background-color: ;
+}
+
+.mytoppadding {
+    margin-top: 20px;
+}
+
+.myButtonMenu {
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+.myJumbotron {
+    height: 270px;
+}
+
+.mySlideItems {
+    object-fit: cover;
+    height: 268px;
+    width: auto;
+    object-position: left top;
+    opacity: 0.9;
+}
+
+.mycanvas {
+    height: 100px;
+    position: 0% 100%;
+}
+
+.myMainRestaurants {
+    height: 600px;
+}
+
