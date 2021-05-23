@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
 import beans.Product;
@@ -104,9 +102,5 @@ public class ProductDAO {
 			}
 		}
 		
-	}
-	
-	public void editProduct(Product product) {
-		products.put(product.getId(), product);
 	}
 }
