@@ -4,13 +4,12 @@ body {
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: #f5f5f5;
-    background-image: url("../Images/aqua-background.png");
     background-size: 100%;
   }
 
 .mysidebar {
     height: 890px;
-    background-color: ;
+    margin-left: 100px;
 }
 
 .mytoppadding {
@@ -42,4 +41,15 @@ body {
 .myMainRestaurants {
     height: 600px;
 }
+
+.headerRow {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.normalRow {
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
 
