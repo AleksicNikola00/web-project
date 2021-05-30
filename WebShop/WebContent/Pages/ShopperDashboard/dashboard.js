@@ -1,21 +1,89 @@
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        products : [
-            {name: 'pera'},
-            {name: 'mika'},
-            {name: 'zika'},
-            {name: 'zare'},
-            {name: 'afs'},
-            {name: 'fsfs'},
-            {name: 'pesfsfra'}
+        restaurants : [
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },
+            {
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            },{
+                name : 'Ciao',
+                type : 'Italian',
+                rating : '4.7*',
+                address : 'Bulevar oslobodjenja',
+                city : 'Novi Sad'
+            }
         ],
         selectedButton : {},
         currentUser : {},
         visible : 'myProfile'
     },
     mounted (){
-        this.products.push({name: 'lol'});
     },
     methods : {
         selectSubmenu : function(submenu){
