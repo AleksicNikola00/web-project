@@ -74,7 +74,7 @@
                             <label class="form-label">Name:</label>
                         </div>
                         <div class="col-2 my-auto">
-                            <input class="form-control my-auto">
+                            <input class="form-control my-auto" v-model="filterObj.name">
                         </div>
 
                         <div class="col-1"></div>
@@ -83,13 +83,13 @@
                             <label class="form-label">Type:</label>
                         </div>
                         <div class="col-2 my-auto">
-                            <input class="form-control">
+                            <input class="form-control" v-model="filterObj.type">
                         </div>
                         
                         <div class="col-1 my-auto"></div>
 
                         <div class="col-2 my-auto">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ascendingRadio">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" :checked="filterObj.isAsc" id="ascendingRadio">
                             <label class="form-check-label" for="ascendingRadio">
                                 Ascending
                               </label>
@@ -107,7 +107,7 @@
                             <label class="form-label">Location:</label>
                         </div>
                         <div class="col-2 my-auto">
-                            <input class="form-control my-auto">
+                            <input class="form-control my-auto" v-model="filterObj.location">
                         </div>
 
                         <div class="col-1"></div>
@@ -116,7 +116,7 @@
                             <label class="form-label">Rating:</label>
                         </div>
                         <div class="col-1 my-auto">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" :value="filterObj.rating">
                                 <option selected value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -125,7 +125,7 @@
                               </select>
                         </div>
                         <div class="col-1 my-auto">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" :checked="filterObj.isOpen">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Is open
                             </label>
@@ -134,7 +134,7 @@
                         <div class="col-1 my-auto"></div>
 
                         <div class="col-2 my-auto">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="descendingRadio">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="descendingRadio" :checked="filterObj.isDesc">
                             <label class="form-check-label" for="descendingRadio">
                                 Descending
                               </label>
@@ -178,6 +178,15 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-6">
+                                                <h5 style="margin-left: 15px; margin-top: 10px;">Currently:</h5>
+                                            </div>
+                                            <div class="col-5 text-end">
+                                                <h5 style="margin-left: 15px; margin-top: 10px; color: grey">{{(restaurant.open == 'true') ? 'Open' : 'Closed'}}</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
                                             <div class="col-12">
                                                 <h5 style="margin-left: 15px; margin-top: 10px; color: grey">{{restaurant.address}}</h5>
                                             </div>
@@ -211,7 +220,7 @@
                                     <label class="form-label">Username:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control" readonly>
+                                    <input class="form-control" v-model="tempCurrUser.username" readonly>
                                 </div>
                             </div>
         
@@ -220,7 +229,7 @@
                                     <label class="form-label">First name:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control">
+                                    <input class="form-control" v-model="tempCurrUser.firstname">
                                 </div>
                             </div>
         
@@ -229,7 +238,7 @@
                                     <label class="form-label">Last name:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control">
+                                    <input class="form-control" v-model="tempCurrUser.lastname"> 
                                 </div>
                             </div>
         
@@ -238,7 +247,7 @@
                                     <label class="form-label">Email:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control">
+                                    <input class="form-control" v-model="tempCurrUser.email">
                                 </div>
                             </div>
         
@@ -247,7 +256,7 @@
                                     <label class="form-label">Date of birth:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
+                                    <input class="form-control" type="date" :value="tempCurrUser.dateOfBirth" id="example-date-input">
                                 </div>
                             </div>
         
@@ -280,10 +289,12 @@
                         </div>
 
                         <div class="col-6 text-center">
-                            <img src="../Images/bronze-member.png" style="width: 20%; height: auto; margin-top: 180px;">
-                            <h3 style="margin-top: 20px;">You have <em>500</em> points!</h3>
+                            <img src="../Images/bronze-member.png" style="width: 20%; height: auto; margin-top: 180px;" v-if="status == 'bronze'">
+                            <img src="../Images/silver-member.png" style="width: 20%; height: auto; margin-top: 180px;" v-if="status == 'silver'">
+                            <img src="../Images/gold-member.png" style="width: 20%; height: auto; margin-top: 180px;" v-if="status == 'gold'">
+                            <h3 style="margin-top: 20px;">You have <em>{{tempCurrUser.points}}</em> points!</h3>
                             <br>
-                            <h3>That makes you a <em>silver</em> buyer!</h3>
+                            <h3>That makes you a <em>{{status}}</em> buyer!</h3>
                         </div>
                     </div>
                 </div>
