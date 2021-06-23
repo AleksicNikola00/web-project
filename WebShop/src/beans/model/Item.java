@@ -1,4 +1,4 @@
-package beans.basic;
+package beans.model;
 
 import beans.enumerations.ItemType;
 import beans.enumerations.ItemUnit;

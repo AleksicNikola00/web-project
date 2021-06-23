@@ -1,28 +1,30 @@
 package repository.repos.itemRepo;
 
-import java.util.*;
-
-import beans.basic.Item;
+import beans.model.Item;
 
 public class WriteItemRepoText implements IWriteItemRepo {
-   private static String path;
-	
+	private static String path;
+
+	public WriteItemRepoText(String path) {
+		this.path = path;
+	}
+
 	@Override
 	public void add(Item value) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void update(Item value) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void delete(Item value) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

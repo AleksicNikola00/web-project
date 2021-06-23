@@ -1,6 +1,6 @@
 package repository.repos.credentialsRepo;
 
-import beans.basic.Credentials;
+import beans.model.Credentials;
 
 public interface IWriteCredentialsRepo extends repository.IWriteRepo<Credentials> {
 }

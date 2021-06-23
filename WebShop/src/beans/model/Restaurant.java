@@ -1,4 +1,4 @@
-package beans.basic;
+package beans.model;
 
 import beans.enumerations.RestaurantType;
 import beans.enumerations.RestaurantStatus;

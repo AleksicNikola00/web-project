@@ -1,10 +1,16 @@
 package services;
 
-import java.util.*;
+import beans.model.Credentials;
 
 public class CredentialsService extends BaseService {
-   public void addCredentials() {
-      // TODO: implement
-   }
+	
+	public CredentialsService(String path) {
+		super(path);
+	}
+	
+	public void addCredentials(Credentials credentials) {
+		uow.getCredentialsWriteRepo()
+			.add(credentials);
+	}
 
 }

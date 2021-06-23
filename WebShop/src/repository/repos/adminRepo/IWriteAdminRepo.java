@@ -1,6 +1,6 @@
 package repository.repos.adminRepo;
 
-import beans.basic.Admin;
+import beans.model.Admin;
 
 public interface IWriteAdminRepo extends repository.IWriteRepo<Admin> {
 }

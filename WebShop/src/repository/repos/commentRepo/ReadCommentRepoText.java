@@ -1,8 +1,9 @@
 package repository.repos.commentRepo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
-import beans.basic.Comment;
+import beans.model.Comment;
 
 public class ReadCommentRepoText implements IReadCommentRepo {
    private static String path;

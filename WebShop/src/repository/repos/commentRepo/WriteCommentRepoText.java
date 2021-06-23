@@ -1,8 +1,6 @@
 package repository.repos.commentRepo;
 
-import java.util.*;
-
-import beans.basic.Comment;
+import beans.model.Comment;
 
 public class WriteCommentRepoText implements IWriteCommentRepo {
    private static String path;

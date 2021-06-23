@@ -1,6 +1,6 @@
 package repository.repos.managerRepo;
 
-import beans.basic.Manager;
+import beans.model.Manager;
 
 public interface IWriteManagerRepo extends repository.IWriteRepo<Manager> {
 }

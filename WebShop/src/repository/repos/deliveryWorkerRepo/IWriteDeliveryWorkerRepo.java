@@ -1,6 +1,6 @@
 package repository.repos.deliveryWorkerRepo;
 
-import beans.basic.DeliveryWorker;
+import beans.model.DeliveryWorker;
 
 public interface IWriteDeliveryWorkerRepo extends repository.IWriteRepo<DeliveryWorker> {
 }

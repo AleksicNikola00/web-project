@@ -1,4 +1,4 @@
-package beans.basic;
+package beans.model;
 
 import beans.enumerations.TypeOfShopper;
 import java.util.*;

@@ -1,28 +1,30 @@
 package repository.repos.adminRepo;
 
-import java.util.*;
-
-import beans.basic.Admin;
+import beans.model.Admin;
 
 public class WriteAdminRepoText implements IWriteAdminRepo {
-   private static String path;
+	private static String path;
 
+	public WriteAdminRepoText(String path) {
+		this.path = path;
+	}
+	
 	@Override
 	public void add(Admin value) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void update(Admin value) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public void delete(Admin value) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -1,6 +1,6 @@
 package repository.repos.itemRepo;
 
-import beans.basic.Item;
+import beans.model.Item;
 
 public interface IWriteItemRepo extends repository.IWriteRepo<Item> {
 }

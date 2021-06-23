@@ -1,6 +1,6 @@
 package repository.repos.shopperRepo;
 
-import beans.basic.Shopper;
+import beans.model.Shopper;
 
 public interface IWriteShopperRepo extends repository.IWriteRepo<Shopper> {
 }

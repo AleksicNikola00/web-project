@@ -1,4 +1,4 @@
-package beans.basic;
+package beans.model;
 
 import java.util.UUID;
 
