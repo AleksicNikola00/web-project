@@ -72,7 +72,7 @@ var webShop = new Vue({
             points : '600'
         },
         tempCurrUser : {},
-        visible : 'specificRestaurant',
+        visible : 'viewCart',
         status : {},
         filterObj : {
             name : '',
@@ -154,7 +154,14 @@ var webShop = new Vue({
                 price : '150'
             }
         ],
-        cart : []
+        cart : [
+            {
+                name : 'pizza',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            }
+        ]
     },
     created (){
     },
