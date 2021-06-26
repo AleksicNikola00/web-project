@@ -1,7 +1,10 @@
+//visible : restaurants, viewCart, myProfile, orders, specificRestaurant, comment
+
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        restaurants : [
+        restaurants : [],
+        receivedRestaurants : [
             {
                 name : 'Ciao',
                 type : 'Italian',
@@ -11,7 +14,7 @@ var webShop = new Vue({
                 open : 'true'
             },
             {
-                name : 'Ciao',
+                name : 'Neki',
                 type : 'Italian',
                 rating : '4.7*',
                 address : 'Bulevar oslobodjenja',
@@ -19,7 +22,7 @@ var webShop = new Vue({
                 open : 'false'
             },
             {
-                name : 'Ciao',
+                name : 'Drugi',
                 type : 'Italian',
                 rating : '4.7*',
                 address : 'Bulevar oslobodjenja',
@@ -27,7 +30,7 @@ var webShop = new Vue({
                 open : 'false'
             },
             {
-                name : 'Ciao',
+                name : 'Opet',
                 type : 'Italian',
                 rating : '4.7*',
                 address : 'Bulevar oslobodjenja',
@@ -84,6 +87,7 @@ var webShop = new Vue({
     created (){
     },
     mounted (){
+        this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
         this.selectSubmenu(this.visible);
 
         this.tempCurrUser = Object.assign({}, this.currentUser);
@@ -99,14 +103,22 @@ var webShop = new Vue({
     },
     methods : {
         selectSubmenu : function(submenu){
+            actualSubmenu = submenu;
+            if (submenu == 'specificRestaurant')
+                actualSubmenu = 'restaurants';
+            else if (submenu == 'comment')
+                actualSubmenu = 'orders';
+
             if (Object.keys(this.selectedButton).length != 0){
                 this.selectedButton.removeClass('btn-primary');
                 this.selectedButton.addClass('btn-light');
             }
-            this.selectedButton = $('#' + submenu);
+            
+            this.selectedButton = $('#' + actualSubmenu);
             this.selectedButton.removeClass('btn-light');
             this.selectedButton.addClass('btn-primary');
             this.visible = submenu;
+            return;
         },
         convertDate : function(date) {
             parts = date.split('-');
@@ -132,6 +144,20 @@ var webShop = new Vue({
             d = parts[2] + "-" + month + "-" + day;
 
             return d;
+        },
+        filterName : function() {
+            this.restaurants = this.receivedRestaurants.filter(rest => rest.name.toLowerCase().includes(this.filterObj.name.toLowerCase()));
+            return;
+        }
+    },
+    computed: {
+        filterObjName() {
+            return this.filterObj.name;
+        }
+    },
+    watch: {
+        filterObjName() {
+            this.filterName();
         }
     }
 })
