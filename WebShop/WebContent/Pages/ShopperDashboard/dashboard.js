@@ -72,7 +72,7 @@ var webShop = new Vue({
             points : '600'
         },
         tempCurrUser : {},
-        visible : 'viewCart',
+        visible : 'restaurants',
         status : {},
         filterObj : {
             name : '',
@@ -156,76 +156,12 @@ var webShop = new Vue({
         ],
         cart : [
             {
-                name : 'pizza',
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150',
                 amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'cola',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'whatever',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'snake',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'pizza',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'cola',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'pizza',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'cola',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'pizza',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'cola',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'pizza',
-                amount : '2',
-                price : '500',
-                picPath : ''
-            },
-            {
-                name : 'cola',
-                amount : '2',
-                price : '500',
-                picPath : ''
+                restaurant : 'Ciao'
             }
         ]
     },
@@ -404,6 +340,29 @@ var webShop = new Vue({
 
         removeFromCart : function(index){
             this.cart.splice(index,1);
+        },
+
+        addToCart : function(index) {
+            let input = $('input[name="inputs"]')[index].value;      
+            $('input[name="inputs"]')[index].value = '';       
+            let currentItem = this.menuForRestaurant[index];
+
+            let newItem = {
+                name : currentItem.name,
+                amount : input,
+                price : currentItem.price,
+                picturePath : currentItem.picturePath,
+                restaurant : this.selectedRestaurant.name
+            };
+
+            for (item of this.cart){
+                if (item.restaurant == newItem.restaurant && item.name == newItem.name){
+                    item.amount += newItem.amount;
+                    return;
+                }
+            }
+
+            this.cart.push(newItem);
         }
     },
     computed: {

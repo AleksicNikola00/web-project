@@ -370,7 +370,7 @@
                                 <div class="container"
                                     style="width: 100%; height: 100%; overflow-y: scroll; box-sizing: content-box; padding-right: 17px;">
                                     <div class="row">
-                                        <div class="card bg-light" v-for="food in menuForRestaurant"
+                                        <div class="card bg-light" v-for="(food, index) in menuForRestaurant"
                                             style="width: 47%; height: 350px; margin-bottom: 10px; margin-right: 20px;">
 
                                             <!-- food picture -->
@@ -414,10 +414,10 @@
                                                         <h6>Amount :</h6>
                                                     </div>
                                                     <div class="col-4">
-                                                        <input type="number" min="0" step="1" class="form-control">
+                                                        <input type="number" min="0" step="1" class="form-control" name="inputs">
                                                     </div>
                                                     <div class="col-2">
-                                                        <button class="btn-success btn">Add</button>
+                                                        <button class="btn-success btn" v-on:click="addToCart(index)">Add</button>
                                                     </div>
 
                                                     <div class="col-1"></div>
@@ -494,12 +494,13 @@
                     <hr>
                     <div class="container">
                         <div class="row" style="width: 100%;">
-                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar" style="overflow-x: hidden;">
                                 <table class="table table-striped align-middle" style="margin-left: 50px; width: 1150px;">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Food</th>
+                                            <th scope="col">Restaurant</th>
                                             <th scope="col">Amount</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Picture</th>
@@ -510,6 +511,7 @@
                                         <tr v-for="(item, index) in cart">
                                             <th scope="row">{{index + 1}}.</th>
                                             <td>{{item.name}}</td>
+                                            <td>{{item.restaurant}}</td>
                                             <td>{{item.amount}}</td>
                                             <td>{{item.price * item.amount}}</td>
                                             <td><img src="../Images/bronze-member.png" class="rounded" style="max-width: 50px;">
@@ -533,6 +535,10 @@
                         </div>
                         <div class="col-2">
                             <h2 style="margin-left: 200px;">{{calculateTotal()}}</h2>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-2" style="margin-left: 60px;">
+                            <button type="button" class="btn btn-success">Send order</button>
                         </div>
                     </div>
 
