@@ -160,6 +160,72 @@ var webShop = new Vue({
                 amount : '2',
                 price : '500',
                 picPath : ''
+            },
+            {
+                name : 'cola',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'whatever',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'snake',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'pizza',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'cola',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'pizza',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'cola',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'pizza',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'cola',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'pizza',
+                amount : '2',
+                price : '500',
+                picPath : ''
+            },
+            {
+                name : 'cola',
+                amount : '2',
+                price : '500',
+                picPath : ''
             }
         ]
     },
@@ -324,6 +390,20 @@ var webShop = new Vue({
             this.visible = 'specificRestaurant';
             this.selectedRestaurant = restaurant;
             this.selectSubmenu(this.visible);
+        },
+
+        calculateTotal : function(){
+            let total = 0.0;
+
+            for(const item of this.cart){
+                total += item.price * item.amount;
+            }
+
+            return total;
+        },
+
+        removeFromCart : function(index){
+            this.cart.splice(index,1);
         }
     },
     computed: {

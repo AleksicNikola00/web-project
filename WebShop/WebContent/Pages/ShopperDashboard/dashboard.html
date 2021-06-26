@@ -43,9 +43,7 @@
                         <button type="button" class="btn btn-ligt w-100">Logout</button>
                     </div>
                 </div>
-
             </div>
-
 
             <!-- Restaurants view -->
             <div class="col-10" v-if="visible == 'restaurants'">
@@ -103,9 +101,7 @@
 
                         <div class="col-1"></div>
                     </div>
-
                     <div class="row" style="margin-top: 5px; margin-bottom: 5px;"></div>
-
                     <div class="row">
                         <div class="col-1"></div>
 
@@ -148,10 +144,8 @@
                                 Descending
                             </label>
                         </div>
-
                         <div class="col-1"></div>
                     </div>
-
                     <hr>
                 </div>
 
@@ -482,15 +476,69 @@
                                                 <div class="col-1"></div>
                                             </div>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Chosen restaurants menu -->
+            <div class="col-10" v-if="visible == 'viewCart'">
+                <div class="container">
+                    <div class="row headerRow">
+                        <h2 style="margin-left: 40px;">Your cart</h2>
+                    </div>
+
+                    <hr>
+                    <div class="container">
+                        <div class="row" style="width: 100%;">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table table-striped align-middle" style="margin-left: 50px; width: 1150px;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Food</th>
+                                            <th scope="col">Amount</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Picture</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, index) in cart">
+                                            <th scope="row">{{index + 1}}.</th>
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.amount}}</td>
+                                            <td>{{item.price * item.amount}}</td>
+                                            <td><img src="../Images/bronze-member.png" class="rounded" style="max-width: 50px;">
+                                            </td>
+                                            <td style="width: 200px;">
+                                                <button type="button" class="btn btn-danger" v-on:click="removeFromCart(index)">Remove</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row headerRow">
+                        <div class="col-2"></div>
+                        <div class="col-2">
+                            <h2 style="margin-left: 200px;">Total:</h2>
+                        </div>
+                        <div class="col-2">
+                            <h2 style="margin-left: 200px;">{{calculateTotal()}}</h2>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 
