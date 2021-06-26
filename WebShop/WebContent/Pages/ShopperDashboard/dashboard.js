@@ -72,7 +72,7 @@ var webShop = new Vue({
             points : '600'
         },
         tempCurrUser : {},
-        visible : 'restaurants',
+        visible : 'specificRestaurant',
         status : {},
         filterObj : {
             name : '',
@@ -83,11 +83,87 @@ var webShop = new Vue({
             isAsc : true,
             isDesc : false
         },
-        selectedRestestaurant : {}
+        selectedRestaurant : {},
+        commentsForRestaurant : [
+            {
+                user : 'Nikola',
+                text : 'Amazing restaurant 10/10 would bangh foahisfhjaofjaifjasfioafjsaoifsj',
+                rating : '5'
+            },
+            {
+                user : 'Neko drugi',
+                text : 'Bas je sranje necu nikad vise ovde obedovati...',
+                rating : '1'
+            },
+            {
+                user : 'Neko drugi',
+                text : 'Bas je sranje necu nikad vise ovde obedovati...',
+                rating : '1'
+            },
+            {
+                user : 'Neko drugi',
+                text : 'Bas je sranje necu nikad vise ovde obedovati...',
+                rating : '1'
+            },
+            {
+                user : 'Neko drugi',
+                text : 'Bas je sranje necu nikad vise ovde obedovati...',
+                rating : '1'
+            },
+            {
+                user : 'Neko drugi',
+                text : 'Bas je sranje necu nikad vise ovde obedovati...',
+                rating : '1'
+            }
+        ],
+        menuForRestaurant : [
+            {
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150'
+            },
+            {
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150'
+            },
+            {
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150'
+            },
+            {
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150'
+            },
+            {
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150'
+            },
+            {
+                picturePath : '',
+                name : 'food 1',
+                type : 'drink',
+                price : '150'
+            }
+        ],
+        cart : []
     },
     created (){
     },
     mounted (){
+        //While working
+        this.selectedRestaurant = this.receivedRestaurants[0];
+
+
+        //Actual
         this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
         this.selectSubmenu(this.visible);
 
@@ -108,10 +184,6 @@ var webShop = new Vue({
         },
         selectSubmenu : function(submenu){
             actualSubmenu = submenu;
-            if (submenu == 'specificRestaurant')
-                actualSubmenu = 'restaurants';
-            else if (submenu == 'comment')
-                actualSubmenu = 'orders';
 
             if (Object.keys(this.selectedButton).length != 0){
                 this.selectedButton.removeClass('btn-primary');
@@ -242,7 +314,9 @@ var webShop = new Vue({
         },
 
         pressedRestaurant : function(restaurant){
-            
+            this.visible = 'specificRestaurant';
+            this.selectedRestaurant = restaurant;
+            this.selectSubmenu(this.visible);
         }
     },
     computed: {
