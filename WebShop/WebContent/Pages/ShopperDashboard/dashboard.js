@@ -178,10 +178,11 @@ var webShop = new Vue({
                     {
                         name : 'pizza',
                         amount : '2',
-                        price : '500'
+                        price : '1500'
                     }
                 ],
-                status : 'Delievered'
+                status : 'Delievered',
+                date : '2:23 7-6-2021',
             },
             {
                 restaurantName : 'Neki',
@@ -197,7 +198,8 @@ var webShop = new Vue({
                         price : '500'
                     }
                 ],
-                status : 'Pending'
+                status : 'Pending',
+                date : '23:23 7-6-2021',
             },
             {
                 restaurantName : 'Naki',
@@ -213,7 +215,8 @@ var webShop = new Vue({
                         price : '500'
                     }
                 ],
-                status : 'Pending'
+                status : 'Pending',
+                date : '12:12 5-4-2021',
             },
         ],
         orderFilterObj : {
@@ -225,13 +228,16 @@ var webShop = new Vue({
             upperDate : new Date(),
             orderStatus : '',
             restaurantType : ''
-        }
+        },
+        selectedRestaurantForComment : {},
+        commentText : ''
     },
     created (){
     },
     mounted (){
         //While working
         this.selectedRestaurant = this.receivedRestaurants[0];
+        this.selectedRestaurantForComment = this.receivedRestaurants[0];
 
         //Actual
         this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
@@ -302,6 +308,18 @@ var webShop = new Vue({
             d = parts[2] + "-" + month + "-" + day;
 
             return d;
+        },
+        calculateDate : function(date) {
+            let result = new Date();
+            
+            let specificTime = date.split(' ')[0];
+            let specificDate = date.split(' ')[1];
+
+            result.setHours(parseInt(specificTime.split(':')[0]), parseInt(specificTime.split(':')[1]));
+
+            result.setFullYear(parseInt(specificDate.split('-')[2]), parseInt(specificDate.split('-')[0]) - 1, parseInt(specificDate.split('-')[1]));
+
+            return result;
         },
         filterName : function(restaurants) {
             let result;
@@ -461,12 +479,37 @@ var webShop = new Vue({
             return total;
         },
 
+        doTotal : function(items){
+            let total = 0;
+
+            for(item of items){
+                total += parseFloat(item.price) * parseInt(item.amount);
+            }
+
+            return total;
+        },
+
         isOnlyNotDelieveredClick : function() {
             this.orderFilterObj.isOnlyNotDelievered = !this.orderFilterObj.isOnlyNotDelievered;
         },
 
         orderFilterRestName : function(orders){
-            let result = orders.filter(order => order.restaurantName.includes(this.orderFilterObj.restaurant));
+            let result = orders.filter(order => order.restaurantName.toLowerCase().includes(this.orderFilterObj.restaurant.toLowerCase()));
+
+            return result;
+        },
+        orderFilterBottomPrice : function(orders){
+            let result = orders.filter(order => this.doTotal(order.items) >= parseFloat(this.orderFilterObj.bottomPrice));
+
+            return result;
+        },
+        orderFilterUpperPrice : function(orders){
+            let result = orders.filter(order => this.doTotal(order.items) <= parseFloat(this.orderFilterObj.upperPrice));
+
+            return result;
+        },
+        orderFilterBottomDate : function(orders){
+            let result = orders.filter(order => this.calculateDate(order.date) >= Date.parse(this.orderFilterObj.bottomDate));
 
             return result;
         },
@@ -477,8 +520,45 @@ var webShop = new Vue({
             if (this.orderFilterObj.restaurant != ''){
                 result = this.orderFilterRestName(result);
             }
+            if (this.orderFilterObj.bottomPrice != '' && parseFloat(this.orderFilterObj.bottomPrice) > 0){
+                result = this.orderFilterBottomPrice(result);
+            }
+            if (this.orderFilterObj.upperPrice != '' && parseFloat(this.orderFilterObj.upperPrice) > 0){
+                if (this.orderFilterObj.bottomPrice == '' || parseFloat(this.orderFilterObj.bottomPrice) < parseFloat(this.orderFilterObj.upperPrice)){
+                    result = this.orderFilterUpperPrice(result);
+                }
+            }
+            if (Date.parse(this.orderFilterObj.bottomDate) < new Date()){
+                result = this.orderFilterBottomDate(result);
+            }
 
             this.pastOrders = result;
+        },
+
+        rateRestaurant : function(restaurantName) {
+            let restaurant;
+
+            for(rest of this.receivedRestaurants){
+                if (rest.name == restaurantName){
+                    restaurant = rest;
+                    break;
+                }
+            }
+
+            this.selectedRestaurantForComment = restaurant;
+            this.visible = 'comment';
+        },
+        submitComment : function(){
+            if (this.commentText.match(/^(\s*)$/)){
+                $('#commentToastFail').toast('show');
+                return;
+            }
+
+            let comment = this.commentText.replace(/(\s{2,})/, ' ');
+            this.commentText = '';
+            $('#commentToastSuccess').toast('show');
+
+            this.visible = 'orders';
         }
     },
     computed: {
@@ -546,25 +626,25 @@ var webShop = new Vue({
             this.doOrderFilter();
         },
         orderfilterIsShowNotDelievered(){
-
+            this.doOrderFilter();
         },
         orderfilterPriceRangeBottom() {
-
+            this.doOrderFilter();
         },
         orderfilterPriceRangeUpper() {
-
+            this.doOrderFilter();
         },
         orderfilterDateRangeBottom() {
-
+            this.doOrderFilter();
         },
         orderfilterDateRangeUpper() {
-
+            this.doOrderFilter();
         },
         orderfilterStatus(){
-
+            this.doOrderFilter();
         },
         orderfilterRestaurantType (){
-
+            this.doOrderFilter();
         }
     }
 })

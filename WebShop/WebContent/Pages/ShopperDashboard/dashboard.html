@@ -667,6 +667,19 @@
                                                 </div>
                                             </div>
     
+                                            <div class="row my-auto">
+                                                <div class="col-1"></div>
+
+                                                <div class="col-3">
+                                                    <h5>Date :</h5>
+                                                </div>
+
+                                                <div class="col-1"></div>
+                                                <div class="col-5">
+                                                    <h5>{{pastOrder.date}}</h5>
+                                                </div>
+                                            </div>
+
                                             <div class="row my-auto" style="margin-bottom: 25px;">
                                                 <div class="col-1"></div>
                                                 
@@ -689,7 +702,7 @@
                                                 <div class="col-5"></div>
     
                                                 <div class="col-2">
-                                                    <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;">Rate</button>
+                                                    <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="rateRestaurant(pastOrder.restaurantName)">Rate</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -733,7 +746,7 @@
                                 <div class="col-1"></div>
                                 
                                 <div class="col-3">
-                                    <input type="number" class="form-control" v-model="orderFilterObj.bottomPrice">
+                                    <input type="number" class="form-control" min="0" v-model="orderFilterObj.bottomPrice">
                                 </div>
                                 <div class="col-1 text-center my-auto">
                                     <h5>-</h5>
@@ -750,14 +763,12 @@
                             </div>
 
                             <div class="row" style="padding-top: 15px;">
-                                <div class="col-5">
-                                    <input type="datetime-local" class="form-control" v-model="orderFilterObj.bottomDate">
+                                <div class="col-6">
+                                    <input type="datetime-local" class="form-control" name="datepicker" v-model="orderFilterObj.bottomDate">
                                 </div>
-                                <div class="col-2 text-center my-auto">
-                                    <h5>-</h5>
-                                </div>
-                                <div class="col-5">
-                                    <input type="datetime-local" class="form-control" v-model="orderFilterObj.upperDate">
+                                
+                                <div class="col-6">
+                                    <input type="datetime-local" class="form-control" name="datepicker" v-model="orderFilterObj.upperDate">
                                 </div>
                             </div>
 
@@ -784,6 +795,71 @@
                             
                         </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment window -->
+            <div class="col-10" v-if="visible == 'comment'">
+                <div class="container">
+                    <div class="row headerRow">
+                        <h2 style="margin-left: 40px;">Past orders</h2>
+                    </div>
+    
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <img src="../Images/bronze-member.png" style="max-width: 135px;">
+                        </div>
+                    </div>
+
+                    <div class="row" style="padding-top: 50px;">
+                        <div class="col-12 text-center">
+                            <h4>{{selectedRestaurantForComment.name}}</h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-center" style="padding-top: 50px;">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="floatingTextarea2" style="height: 250px; max-height: 250px; min-height: 250px;" v-model="commentText"></textarea>
+                                <label for="floatingTextarea2">Comments</label>
+                              </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-center" style="padding-top: 50px;">
+                            <button type="button" class="btn btn-primary btn-lg" v-on:click="submitComment()">Submit</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!--Toasts-->
+            <div class="toast-container">
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div name="liveToasts" id="commentToastSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                        <div class="toast-header bg-success">
+                            <strong class="me-auto" style="color: white;">WebShop</strong>
+                            <small style="color: white;">just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Comment submitted successfully! Thank you!
+                        </div>
+                    </div>
+                    <div name="liveToasts" id="commentToastFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                        <div class="toast-header bg-danger">
+                            <strong class="me-auto" style="color: white;">WebShop</strong>
+                            <small style="color: white;">just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Atleast type something...
+                        </div>
                     </div>
                 </div>
             </div>
