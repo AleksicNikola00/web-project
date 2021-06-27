@@ -153,9 +153,9 @@
                 <div class="container mytoppadding myMainRestaurants">
                     <div class="overflow-auto container" style="height: 460px;">
                         <div class="row">
-                            <div class="col-sm-3" v-for="restaurant in restaurants">
+                            <div class="col-sm-3" v-for="(restaurant, index) in restaurants">
                                 <div class="card mytoppadding myRestaurantCard bg-light"
-                                    v-on:click="pressedRestaurant(restaurant)">
+                                    v-on:click="pressedRestaurant(restaurant, index)">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-6">
@@ -208,6 +208,21 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Toasts area -->
+                <div class="toast-container">
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div v-bind:id="'restToast' + index" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(rest, index) in restaurants">
+                            <div class="toast-header bg-danger">
+                                <strong class="me-auto" style="color: white;">WebShop</strong>
+                                <small style="color: white;">just now</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Restaurant {{rest.name}} isn't currently open so you can't order from there...
                             </div>
                         </div>
                     </div>
@@ -584,6 +599,192 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <div class="col-10" v-if="visible == 'orders'">
+                <div class="container">
+                    <div class="row headerRow">
+                        <h2 style="margin-left: 40px;">Past orders</h2>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <!-- Past order cards-->
+                        <div class="col-5">
+
+                            <div class="container" style="height: 780px; width: 90%; overflow: hidden;">
+                                <div class="container"
+                                    style="width: 100%; height: 100%; overflow-y: scroll; box-sizing: content-box; padding-right: 17px;">
+
+                                    <div class="row">
+                                        <div class="card bg-light" style="height: auto; margin-bottom: 20px;" v-for="(pastOrder, index) in pastOrders">
+                                            <div class="row my-auto">
+                                                <div class="col-2" style="padding: 0%;">
+                                                    <img src="../Images/bronze-member.png" style="max-width: 90px; padding-top: 20px; padding-left: 20px;">
+                                                </div>
+                                                <div class="col-3"></div>
+                                                <div class="col-7" style="padding-top: 30px;">
+                                                    <h4>{{pastOrder.restaurantName}}</h4>
+                                                </div>
+                                            </div>
+    
+                                            <hr>
+    
+                                            <!--Ordered items-->
+                                            <div class="row my-auto" v-for="(item) in pastOrder.items">
+                                                <div class="col-1"></div>
+                                                
+                                                <div class="col-3">
+                                                    <h5>{{item.name}}</h5>
+                                                </div>
+    
+                                                <div class="col-1">
+                                                    <h5>-</h5>
+                                                </div>
+    
+                                                <div class="col-5">
+                                                    <h5>{{item.amount}}x, {{item.amount * item.price}}</h5>
+                                                </div>
+    
+                                                <div class="col-2"></div>
+                                            </div>
+    
+                                            <hr>
+                                            <!--Total, status and rate-->
+                                            <div class="row my-auto">
+                                                <div class="col-1"></div>
+    
+                                                <div class="col-3">
+                                                    <h5>Total :</h5>
+                                                </div>
+    
+                                                <div class="col-1"></div>
+    
+                                                <div class="col-5">
+                                                    <h5>{{getTotalForItems(index)}}</h5>
+                                                </div>
+                                            </div>
+    
+                                            <div class="row my-auto" style="margin-bottom: 25px;">
+                                                <div class="col-1"></div>
+                                                
+                                                <div class="col-3 my-auto">
+                                                    <h5>Status :</h5>
+                                                </div>
+                                                
+                                                <div class="col-1"></div>
+    
+                                                <div class="col-4 my-auto">
+                                                    <h5>{{pastOrder.status}}</h5>
+                                                </div>
+    
+                                                <div class="col-2 my-auto" v-if="pastOrder.status == 'Pending'">
+                                                    <button type="button" class="btn btn-secondary">Cancel</button>
+                                                </div>
+                                            </div>
+    
+                                            <div class="row">
+                                                <div class="col-5"></div>
+    
+                                                <div class="col-2">
+                                                    <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;">Rate</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2"></div>
+                        
+                        <!-- Filtering area -->
+                        <div class="col-5">
+                            <h3>Filters:</h3>
+                            <div class="row" style="padding-top: 30px;">
+                                <div class="col-4"></div>
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" :checked="orderFilterObj.isOnlyNotDelievered" v-on:click="isOnlyNotDelieveredClick()" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Show only not delievered orders
+                                        </label>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-4 my-auto">
+                                    <h5>Restaurant</h5>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control" v-model="orderFilterObj.restaurant">
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-4 my-auto">
+                                    <h5>Price range</h5>
+                                </div>
+                                <div class="col-1"></div>
+                                
+                                <div class="col-3">
+                                    <input type="number" class="form-control" v-model="orderFilterObj.bottomPrice">
+                                </div>
+                                <div class="col-1 text-center my-auto">
+                                    <h5>-</h5>
+                                </div>
+                                <div class="col-3">
+                                    <input type="number" class="form-control" v-model="orderFilterObj.upperPrice">
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-12 my-auto text-center">
+                                    <h5>Date range</h5>
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-5">
+                                    <input type="datetime-local" class="form-control" v-model="orderFilterObj.bottomDate">
+                                </div>
+                                <div class="col-2 text-center my-auto">
+                                    <h5>-</h5>
+                                </div>
+                                <div class="col-5">
+                                    <input type="datetime-local" class="form-control" v-model="orderFilterObj.upperDate">
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-4 my-auto">
+                                    <h5>Order status</h5>
+                                </div>
+
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control" v-model="orderFilterObj.orderStatus">
+                                </div>
+                            </div>
+
+                            <div class="row" style="padding-top: 15px;">
+                                <div class="col-4 my-auto">
+                                    <h5>Restaurant type</h5>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-7">
+                                    <input type="text" class="form-control" v-model="orderFilterObj.restaurantType">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
                 </div>
             </div>
 

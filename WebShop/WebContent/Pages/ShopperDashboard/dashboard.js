@@ -72,7 +72,7 @@ var webShop = new Vue({
             points : '600'
         },
         tempCurrUser : {},
-        visible : 'restaurants',
+        visible : 'orders',
         status : {},
         filterObj : {
             name : '',
@@ -164,7 +164,68 @@ var webShop = new Vue({
                 restaurant : 'Ciao'
             }
         ],
-        lastInputFoodQuantity : {}
+        lastInputFoodQuantity : {},
+        pastOrders : [],
+        pastReceivedOrders : [
+            {
+                restaurantName : 'Ciao',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'Delievered'
+            },
+            {
+                restaurantName : 'Neki',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'Pending'
+            },
+            {
+                restaurantName : 'Naki',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'Pending'
+            },
+        ],
+        orderFilterObj : {
+            isOnlyNotDelievered : false,
+            restaurant : '',
+            bottomPrice : 0,
+            upperPrice : 0,
+            bottomDate : new Date(),
+            upperDate : new Date(),
+            orderStatus : '',
+            restaurantType : ''
+        }
     },
     created (){
     },
@@ -172,9 +233,9 @@ var webShop = new Vue({
         //While working
         this.selectedRestaurant = this.receivedRestaurants[0];
 
-
         //Actual
         this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
+        this.pastOrders = this.pastReceivedOrders.filter(order => order.restaurantName.includes(''));
         this.selectSubmenu(this.visible);
 
         this.tempCurrUser = Object.assign({}, this.currentUser);
@@ -323,7 +384,13 @@ var webShop = new Vue({
             this.restaurants = result;
         },
 
-        pressedRestaurant : function(restaurant){
+        pressedRestaurant : function(restaurant, index){
+            if(restaurant.open == 'false'){
+                let toast = $('#restToast' + index);
+                toast.toast('show');
+                return;
+            }
+
             this.visible = 'specificRestaurant';
             this.selectedRestaurant = restaurant;
             this.selectSubmenu(this.visible);
@@ -382,6 +449,36 @@ var webShop = new Vue({
             }
 
             this.cart.push(newItem);
+        },
+
+        getTotalForItems : function(index){
+            let total = 0;
+            
+            for(item of this.pastOrders[index].items){
+                total += parseFloat(item.price) * parseInt(item.amount);
+            }
+
+            return total;
+        },
+
+        isOnlyNotDelieveredClick : function() {
+            this.orderFilterObj.isOnlyNotDelievered = !this.orderFilterObj.isOnlyNotDelievered;
+        },
+
+        orderFilterRestName : function(orders){
+            let result = orders.filter(order => order.restaurantName.includes(this.orderFilterObj.restaurant));
+
+            return result;
+        },
+
+        doOrderFilter : function() {
+            let result = this.pastReceivedOrders;
+
+            if (this.orderFilterObj.restaurant != ''){
+                result = this.orderFilterRestName(result);
+            }
+
+            this.pastOrders = result;
         }
     },
     computed: {
@@ -400,6 +497,31 @@ var webShop = new Vue({
         },
         filterObjIsOpen() {
             return this.filterObj.isOpen;
+        },
+
+        orderfilterRestaurant() {
+            return this.orderFilterObj.restaurant;
+        },
+        orderfilterIsShowNotDelievered(){
+            return this.orderFilterObj.isOnlyNotDelievered;
+        },
+        orderfilterPriceRangeBottom() {
+            return this.orderFilterObj.bottomPrice;
+        },
+        orderfilterPriceRangeUpper() {
+            return this.orderFilterObj.upperPrice;
+        },
+        orderfilterDateRangeBottom() {
+            return this.orderFilterObj.bottomDate;
+        },
+        orderfilterDateRangeUpper() {
+            return this.orderFilterObj.upperDate;
+        },
+        orderfilterStatus(){
+            return this.orderFilterObj.status;
+        },
+        orderfilterRestaurantType (){
+            return this.orderFilterObj.restaurantType;
         }
     },
     watch: {
@@ -418,6 +540,31 @@ var webShop = new Vue({
         },
         filterObjIsOpen() {
             this.doFilter();
+        },
+
+        orderfilterRestaurant(){
+            this.doOrderFilter();
+        },
+        orderfilterIsShowNotDelievered(){
+
+        },
+        orderfilterPriceRangeBottom() {
+
+        },
+        orderfilterPriceRangeUpper() {
+
+        },
+        orderfilterDateRangeBottom() {
+
+        },
+        orderfilterDateRangeUpper() {
+
+        },
+        orderfilterStatus(){
+
+        },
+        orderfilterRestaurantType (){
+
         }
     }
 })
