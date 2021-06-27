@@ -182,7 +182,8 @@ var webShop = new Vue({
                     }
                 ],
                 status : 'Delievered',
-                date : '2:23 7-6-2021',
+                date : '2:23 6-6-2021',
+                restaurantType : 'Italian'
             },
             {
                 restaurantName : 'Neki',
@@ -199,7 +200,8 @@ var webShop = new Vue({
                     }
                 ],
                 status : 'Pending',
-                date : '23:23 7-6-2021',
+                date : '23:23 6-16-2021',
+                restaurantType : 'Italian'
             },
             {
                 restaurantName : 'Naki',
@@ -217,6 +219,7 @@ var webShop = new Vue({
                 ],
                 status : 'Pending',
                 date : '12:12 5-4-2021',
+                restaurantType : 'Greek'
             },
         ],
         orderFilterObj : {
@@ -240,6 +243,8 @@ var webShop = new Vue({
         this.selectedRestaurantForComment = this.receivedRestaurants[0];
 
         //Actual
+        this.orderFilterObj.bottomDate = new Date(0);
+        this.orderFilterObj.upperDate = new Date() + 1;
         this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
         this.pastOrders = this.pastReceivedOrders.filter(order => order.restaurantName.includes(''));
         this.selectSubmenu(this.visible);
@@ -513,12 +518,36 @@ var webShop = new Vue({
 
             return result;
         },
+        orderFilterUpperDate : function(orders){
+            let result = orders.filter(order => this.calculateDate(order.date) <= Date.parse(this.orderFilterObj.upperDate));
+
+            return result;
+        },
+        orderFilterStatus : function(orders){
+            let result = orders.filter(order => order.status.toLowerCase().includes(this.orderFilterObj.orderStatus.toLowerCase()));
+
+            return result;
+        },
+        orderFilterRestType : function(orders){
+            let result = orders.filter(order => order.restaurantType.toLowerCase().includes(this.orderFilterObj.restaurantType.toLowerCase()));
+
+            return result;
+        },
+        orderFilterOnlyNotDelievered : function(orders){
+            let result = orders.filter(order => order.status.toLowerCase() != 'delievered');
+
+            return result;
+        },
 
         doOrderFilter : function() {
             let result = this.pastReceivedOrders;
 
-            if (this.orderFilterObj.restaurant != ''){
-                result = this.orderFilterRestName(result);
+
+            if (Date.parse(this.orderFilterObj.bottomDate) < new Date()){
+                result = this.orderFilterBottomDate(result);
+            }
+            if (Date.parse(this.orderFilterObj.upperDate) < new Date() && Date.parse(this.orderFilterObj.upperDate) > Date.parse(this.orderFilterObj.bottomDate)){
+                result = this.orderFilterUpperDate(result);
             }
             if (this.orderFilterObj.bottomPrice != '' && parseFloat(this.orderFilterObj.bottomPrice) > 0){
                 result = this.orderFilterBottomPrice(result);
@@ -528,9 +557,18 @@ var webShop = new Vue({
                     result = this.orderFilterUpperPrice(result);
                 }
             }
-            if (Date.parse(this.orderFilterObj.bottomDate) < new Date()){
-                result = this.orderFilterBottomDate(result);
+            if (this.orderFilterObj.orderStatus != ''){
+                result = this.orderFilterStatus(result);
             }
+            if (this.orderFilterObj.restaurantType != ''){
+                result = this.orderFilterRestType(result);
+            }
+            if (this.orderFilterObj.restaurant != ''){
+                result = this.orderFilterRestName(result);
+            }
+            if (this.orderFilterObj.isOnlyNotDelievered){
+                result = this.orderFilterOnlyNotDelievered(result);
+            } 
 
             this.pastOrders = result;
         },
@@ -598,7 +636,7 @@ var webShop = new Vue({
             return this.orderFilterObj.upperDate;
         },
         orderfilterStatus(){
-            return this.orderFilterObj.status;
+            return this.orderFilterObj.orderStatus;
         },
         orderfilterRestaurantType (){
             return this.orderFilterObj.restaurantType;
