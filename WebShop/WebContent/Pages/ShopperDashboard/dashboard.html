@@ -414,10 +414,12 @@
                                                         <h6>Amount :</h6>
                                                     </div>
                                                     <div class="col-4">
-                                                        <input type="number" min="0" step="1" class="form-control" name="inputs">
+                                                        <input type="number" min="0" step="1" class="form-control"
+                                                            name="inputs" id="index">
                                                     </div>
                                                     <div class="col-2">
-                                                        <button class="btn-success btn" v-on:click="addToCart(index)">Add</button>
+                                                        <button class="btn-success btn"
+                                                            v-on:click="addToCart(index)">Add</button>
                                                     </div>
 
                                                     <div class="col-1"></div>
@@ -432,7 +434,7 @@
 
                         <!--comment area-->
                         <div class="col-4">
-                            <div class="card bg-light" style="height: 670px; width: 109%;">
+                            <div class="card bg-light" style="height: 670px; width: 103%;">
                                 <div class="row" style="margin-top: 20px;">
                                     <div class="text-center">
                                         <h2>Comment</h2>
@@ -481,6 +483,43 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Toast area -->
+                    <div class="toast-container">
+                        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                            <div name="liveToasts" v-bind:id="'toast' + index" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                                <div class="toast-header bg-success">
+                                    <strong class="me-auto" style="color: white;">WebShop</strong>
+                                    <small style="color: white;">just now</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    Successfully added {{food.name}} to the cart!
+                                </div>
+                            </div>
+                            <div name="liveToasts" v-bind:id="'toastFail' + index" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                                <div class="toast-header bg-danger">
+                                    <strong class="me-auto" style="color: white;">WebShop</strong>
+                                    <small style="color: white;">just now</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    Cannot add {{lastInputFoodQuantity}} to the cart! It has to be a round number...
+                                </div>
+                            </div>
+                            <div name="liveToasts" v-bind:id="'toastFailEmpty' + index" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                                <div class="toast-header bg-danger">
+                                    <strong class="me-auto" style="color: white;">WebShop</strong>
+                                    <small style="color: white;">just now</small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    You cannot add none {{food.name}} to the cart... Enter a round number.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -495,7 +534,8 @@
                     <div class="container">
                         <div class="row" style="width: 100%;">
                             <div class="table-wrapper-scroll-y my-custom-scrollbar" style="overflow-x: hidden;">
-                                <table class="table table-striped align-middle" style="margin-left: 50px; width: 1150px;">
+                                <table class="table table-striped align-middle"
+                                    style="margin-left: 50px; width: 1150px;">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -514,10 +554,12 @@
                                             <td>{{item.restaurant}}</td>
                                             <td>{{item.amount}}</td>
                                             <td>{{item.price * item.amount}}</td>
-                                            <td><img src="../Images/bronze-member.png" class="rounded" style="max-width: 50px;">
+                                            <td><img src="../Images/bronze-member.png" class="rounded"
+                                                    style="max-width: 50px;">
                                             </td>
                                             <td style="width: 200px;">
-                                                <button type="button" class="btn btn-danger" v-on:click="removeFromCart(index)">Remove</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    v-on:click="removeFromCart(index)">Remove</button>
                                             </td>
                                         </tr>
                                     </tbody>

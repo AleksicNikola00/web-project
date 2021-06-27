@@ -163,7 +163,8 @@ var webShop = new Vue({
                 amount : '2',
                 restaurant : 'Ciao'
             }
-        ]
+        ],
+        lastInputFoodQuantity : {}
     },
     created (){
     },
@@ -343,7 +344,22 @@ var webShop = new Vue({
         },
 
         addToCart : function(index) {
-            let input = $('input[name="inputs"]')[index].value;      
+            let input = $('input[name="inputs"]')[index].value;
+            $('input[name="inputs"]')[index].value = ''; 
+            
+            if (input == '' || input == '0'){
+                let toastFail = $('#toastFailEmpty' + index);
+                toastFail.toast('show');
+                return;
+            }
+
+            if (input.includes('.')){
+                this.lastInputFoodQuantity = input;
+                let toastFail = $('#toastFail' + index);
+                toastFail.toast('show');
+                return;
+            }
+
             $('input[name="inputs"]')[index].value = '';       
             let currentItem = this.menuForRestaurant[index];
 
@@ -355,9 +371,12 @@ var webShop = new Vue({
                 restaurant : this.selectedRestaurant.name
             };
 
+            let toast = $('#toast' + index);
+            toast.toast('show');
+
             for (item of this.cart){
                 if (item.restaurant == newItem.restaurant && item.name == newItem.name){
-                    item.amount += newItem.amount;
+                    item.amount = parseInt(item.amount) + parseInt(newItem.amount);
                     return;
                 }
             }
