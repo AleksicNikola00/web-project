@@ -44,7 +44,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/osgi-resource-locator-1.0.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/persistence-api-1.0.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/validation-api-1.1.0.Final.jar"/>
-	<classpathentry kind="lib" path="D:/FAX/Treca godina/Letnji sem/WEB/vezbe/Vezbe5/Tomcat/apache-tomcat-8.0.47/lib/servlet-api.jar">
+	<classpathentry kind="lib" path="D:/Fax/web/apache-tomcat-8.0.47/lib/servlet-api.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="https://docs.oracle.com/javaee/7/api/"/>
 		</attributes>
