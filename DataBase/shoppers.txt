@@ -1,0 +1,21 @@
+[ {
+  "username" : "mili",
+  "name" : "Nikola",
+  "surname" : "Milosavljevic",
+  "gender" : "MALE",
+  "dateOfBirth" : 931046400000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : null,
+  "deleted" : false
+}, {
+  "username" : "aleksic",
+  "name" : "Nikola",
+  "surname" : "Aleksic",
+  "gender" : "MALE",
+  "dateOfBirth" : 915148800000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : null,
+  "deleted" : false
+} ]

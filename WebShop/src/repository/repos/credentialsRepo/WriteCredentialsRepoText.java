@@ -5,8 +5,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -28,11 +33,15 @@ public class WriteCredentialsRepoText implements IWriteCredentialsRepo {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		try {
-			String json = mapper.writeValueAsString(value);
+			String data = Files.readString(Paths.get(this.path));
+			ArrayList<Credentials> credentialsData = mapper.readValue(data, new TypeReference<ArrayList<Credentials>>(){});
+			credentialsData.add(value);
+			
+			String json = mapper.writeValueAsString(credentialsData);
 			
 			File database = new File(path);
 			System.out.println(database.getAbsolutePath());
-			fw = new FileWriter(database, true);
+			fw = new FileWriter(database);
 			bw = new BufferedWriter(fw);
 			pw = new PrintWriter(bw);
 			
@@ -65,7 +74,5 @@ public class WriteCredentialsRepoText implements IWriteCredentialsRepo {
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 }

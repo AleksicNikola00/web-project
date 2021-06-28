@@ -12,5 +12,9 @@ public class CredentialsService extends BaseService {
 		uow.getCredentialsWriteRepo()
 			.add(credentials);
 	}
+	
+	public Credentials getCredentials(String username) {
+		return uow.getCredentialsReadRepo().getById(username);
+	}
 
 }
