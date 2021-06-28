@@ -69,10 +69,11 @@ var webShop = new Vue({
             lastname : 'Milosavljevic',
             email : 'nikolamilosa20@gmail.com',
             dateOfBirth: '4-7-1999',
-            points : '600'
+            points : '600',
+            password : 'Milosavko99'
         },
         tempCurrUser : {},
-        visible : 'orders',
+        visible : 'myProfile',
         status : {},
         filterObj : {
             name : '',
@@ -233,7 +234,12 @@ var webShop = new Vue({
             restaurantType : ''
         },
         selectedRestaurantForComment : {},
-        commentText : ''
+        comment : {
+            text : '',
+            rating : ''
+        },
+        validationMessage : ''
+
     },
     created (){
     },
@@ -252,6 +258,8 @@ var webShop = new Vue({
         this.tempCurrUser = Object.assign({}, this.currentUser);
         this.tempCurrUser.dateOfBirth = this.convertDate(this.tempCurrUser.dateOfBirth);
         this.tempCurrUser.points = parseInt(this.tempCurrUser.points);
+        this.tempCurrUser.newPass = '';
+        this.tempCurrUser.oldPass = '';
         this.selectStatus();
         
     },
@@ -437,15 +445,15 @@ var webShop = new Vue({
             let input = $('input[name="inputs"]')[index].value;
             $('input[name="inputs"]')[index].value = ''; 
             
-            if (input == '' || input == '0'){
-                let toastFail = $('#toastFailEmpty' + index);
+            if (input.includes('.')){
+                this.lastInputFoodQuantity = input;
+                let toastFail = $('#toastFail' + index);
                 toastFail.toast('show');
                 return;
             }
 
-            if (input.includes('.')){
-                this.lastInputFoodQuantity = input;
-                let toastFail = $('#toastFail' + index);
+            if (input == '' || input == '0' || parseFloat(input) < 0){
+                let toastFail = $('#toastFailEmpty' + index);
                 toastFail.toast('show');
                 return;
             }
@@ -587,16 +595,124 @@ var webShop = new Vue({
             this.visible = 'comment';
         },
         submitComment : function(){
-            if (this.commentText.match(/^(\s*)$/)){
+            if (this.comment.text.match(/^(\s*)$/)){
                 $('#commentToastFail').toast('show');
                 return;
             }
 
-            let comment = this.commentText.replace(/(\s{2,})/, ' ');
-            this.commentText = '';
+            let comment = this.comment.text.replace(/(\s{2,})/, ' ');
+            let rating = this.comment.rating;
+
+            this.comment.text = '';
+            this.comment.rating = '5';
             $('#commentToastSuccess').toast('show');
 
             this.visible = 'orders';
+        },
+
+        validateString : function(input) {
+            if (!input.match(/^(s*([a-zA-Z]+)s*)$/)){
+                return 'incorrect input format';
+            }
+
+            return '';
+        },
+        validateEmail : function(input){
+            if (!input.match(/^(s*([a-zA-Z0-9]+([a-zA-Z0-9]*|[\.])*[@].*)s*)$/)){
+                return 'incorrect mail format';
+            }
+
+            return '';
+        },
+
+        validateDateOfBirth : function(input){
+            let refDate = new Date();
+            refDate.setFullYear(1920,0,1);
+
+            if (refDate >= Date.parse(input)){
+                return 'too old. Lowest date : 1.1.1920';
+            }
+
+            if (Date.parse(input) > new Date()){
+                return 'too young. Date of birth is in the future';
+            }
+
+            return '';
+        },
+        validatePasswords : function() {
+            if (this.tempCurrUser.oldPass == '' && this.tempCurrUser.newPass == ''){
+                return '';
+            }
+
+            if (this.tempCurrUser.oldPass != '' && this.tempCurrUser.oldPass != this.currentUser.password){
+                return 'Old password has to match the \none in the database';
+            }
+
+            if (this.tempCurrUser.oldPass != '' && this.tempCurrUser.newPass == ''){
+                return 'New password is required if you \nwant to change. If not leave both password\nfields empty';
+            }
+
+            if (this.tempCurrUser.newPass != '' && this.tempCurrUser.oldPass == ''){
+                return 'Cannot apply new password without\nold password entered to confirm identity';
+            }
+
+            if (this.tempCurrUser.newPass.length < 8){
+                return 'New password has to be atleast 8 \ncharacters long';
+            }
+
+            return '';
+        },
+        checkIfAnythingChanged : function() {
+            if (this.tempCurrUser.firstname != this.currentUser.firstname ||
+                this.tempCurrUser.lastname != this.currentUser.lastname ||
+                this.tempCurrUser.email != this.currentUser.email ||
+                this.tempCurrUser.dateOfBirth != this.convertDate(this.currentUser.dateOfBirth) ||
+                this.tempCurrUser.oldPass != '' || this.tempCurrUser.newPass != '')
+                return true;
+
+            return false;
+        },
+
+        validateAccountDetails : function() {
+            if (!this.checkIfAnythingChanged())
+                return;
+
+            this.validationMessage = '';
+
+            let firstnameValidation = this.validateString(this.tempCurrUser.firstname);
+            if (firstnameValidation != ''){
+                this.validationMessage += 'Firstname - ' + firstnameValidation + '\n';
+            }
+
+            let lastnameValidation = this.validateString(this.tempCurrUser.lastname);
+            if (lastnameValidation != ''){
+                this.validationMessage += 'Lastname - ' + lastnameValidation + '\n';
+            }
+
+            let emailValidation = this.validateEmail(this.tempCurrUser.email);
+            if (emailValidation != ''){
+                this.validationMessage += 'Email - ' + emailValidation + '\n';
+            }
+
+            let dateValidation = this.validateDateOfBirth(this.tempCurrUser.dateOfBirth);
+            if (dateValidation != ''){
+                this.validationMessage += "Date of birth - " + dateValidation + '\n';
+            }
+
+            let validatePasswords = this.validatePasswords();
+            if (validatePasswords != ''){
+                this.validationMessage += "Passwords - " + validatePasswords + '\n';
+            }
+
+            if (this.validationMessage != ''){
+                $('#accountToastFail').toast('show'); 
+            }else{
+                $('#accountToastSuccess').toast('show');
+            }
+
+        },
+        validatePassword : function() {
+
         }
     },
     computed: {

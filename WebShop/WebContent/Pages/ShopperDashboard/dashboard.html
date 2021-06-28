@@ -281,7 +281,7 @@
                                     <label class="form-label">Date of birth:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control" type="date" :value="tempCurrUser.dateOfBirth"
+                                    <input class="form-control" type="date" v-model="tempCurrUser.dateOfBirth"
                                         id="example-date-input">
                                 </div>
                             </div>
@@ -293,7 +293,7 @@
                                     <label class="form-label">Old password:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control" type="password" id="example-date-input">
+                                    <input class="form-control" type="password" v-model="tempCurrUser.oldPass">
                                 </div>
                             </div>
 
@@ -302,14 +302,14 @@
                                     <label class="form-label">New password:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control" type="password" id="example-date-input">
+                                    <input class="form-control" type="password" v-model="tempCurrUser.newPass">
                                 </div>
                             </div>
 
                             <div class="row normalRow">
                                 <div class="col-4"></div>
                                 <div class="col-6">
-                                    <button class="btn btn-primary">Apply changes</button>
+                                    <button class="btn btn-primary" v-on:click="validateAccountDetails()">Apply changes</button>
                                 </div>
                             </div>
                         </div>
@@ -324,6 +324,35 @@
                             <h3 style="margin-top: 20px;">You have <em>{{tempCurrUser.points}}</em> points!</h3>
                             <br>
                             <h3>That makes you a <em>{{status}}</em> buyer!</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toasts -->
+                <div class="toast-container">
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="accountToastFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(rest, index) in restaurants">
+                            <div class="toast-header bg-danger">
+                                <strong class="me-auto" style="color: white;">WebShop</strong>
+                                <small style="color: white;">just now</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Oops! <br>
+                                <span style="white-space: pre;">{{validationMessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="accountToastSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(rest, index) in restaurants">
+                            <div class="toast-header bg-success">
+                                <strong class="me-auto" style="color: white;">WebShop</strong>
+                                <small style="color: white;">just now</small>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                Account details updated successfully!
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -823,9 +852,26 @@
                     <div class="row">
                         <div class="col-12 text-center" style="padding-top: 50px;">
                             <div class="form-floating">
-                                <textarea class="form-control" id="floatingTextarea2" style="height: 250px; max-height: 250px; min-height: 250px;" v-model="commentText"></textarea>
+                                <textarea class="form-control" id="floatingTextarea2" style="height: 250px; max-height: 250px; min-height: 250px;" v-model="comment.text"></textarea>
                                 <label for="floatingTextarea2">Comments</label>
                               </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5 my-auto">
+                            <div style="flex-direction: row-reverse; display: flex; margin-top: 50px;">
+                                <h5>Rating:</h5>
+                            </div>
+                        </div>
+                        <div class="col-2" style="padding-top: 50px;" v-model="comment.rating">
+                            <select class="form-select">
+                                <option selected value='5'>5</option>
+                                <option value='4'>4</option>
+                                <option value='3'>3</option>
+                                <option value='2'>2</option>
+                                <option value='1'>1</option>
+                            </select>
                         </div>
                     </div>
 
