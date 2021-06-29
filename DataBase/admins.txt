@@ -1,0 +1,17 @@
+[ {
+  "username" : "admin",
+  "name" : "MainAdmin",
+  "surname" : "MainAdminSurname",
+  "gender" : "FEMALE",
+  "dateOfBirth" : 326419200000,
+  "role" : "ADMIN",
+  "deleted" : false
+}, {
+  "username" : "admin2",
+  "name" : "changed",
+  "surname" : "changed",
+  "gender" : "MALE",
+  "dateOfBirth" : 331430400000,
+  "role" : "ADMIN",
+  "deleted" : true
+} ]
