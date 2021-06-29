@@ -3,7 +3,6 @@ body {
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #efe8d8;
     background-size: 100%;
     overflow: hidden;
   }
@@ -57,4 +56,17 @@ body {
     height: 320px;
 }
 
+.myChosenRestHeader {
+    height: 200px;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 640px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
 

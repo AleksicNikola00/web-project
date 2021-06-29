@@ -39,17 +39,19 @@ $(document).ready(function(){
         
         $.post({
 			url: 'rest/login',
-			data: JSON.stringify({username: username, password: password, role: 0}),
+			data: JSON.stringify({username: username, password: password, role: "0"}),
 			contentType: 'application/json',
 			success: function(data) {
-                if (data.length != 0){
+                if (!data.includes('{')){
                     let dispText = $("#errorDisplay").empty();
                     dispText.append(data);
                     $("#staticBackdrop").modal('show');
                 } else{
-                    let dispText = $("#errorDisplay").empty();
-                    dispText.append("Successful!");
-                    $("#staticBackdrop").modal('show');
+					let user = JSON.parse(data);
+                    window.localStorage.setItem('User',data);
+					if (user.role == "SHOPPER"){
+						window.location.replace("http://localhost:8080/WebShop/Pages/ShopperDashboard/dashboard.html");	
+					}
                     clearRegForm();
                     clearSignInForm();
                 }
@@ -84,12 +86,11 @@ $(document).ready(function(){
 
             let potentialUser = {username: username,
                                 password: password,
-                                firstName: firstName,
-                                lastName: lastName,
+                                name: firstName,
+                                surname: lastName,
                                 dateOfBirth: new Date(year,month,day),
-                                role: 0,
-                                gender: gender,
-                                points: 0};
+                                role: "0",
+                                gender: gender};
             
             $.post({
                 url: 'rest/register',

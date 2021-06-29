@@ -13,6 +13,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+WebShop/.classpath
 .recommenders
 
 # External tool builders
@@ -82,7 +83,6 @@ local.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
