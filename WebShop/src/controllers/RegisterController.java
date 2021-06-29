@@ -9,6 +9,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.enumerations.Role;
+import beans.enumerations.TypeOfShopper;
 import beans.model.Credentials;
 import beans.model.Shopper;
 import dto.NewShopper;
@@ -47,6 +48,7 @@ public class RegisterController {
 		newUser.setGender(newShopper.getGender());
 		newUser.setDateOfBirth(newShopper.getDateOfBirth());
 		newUser.setRole(Role.SHOPPER);
+		newUser.setShopperType(TypeOfShopper.BRONZE);
 		
 		shopperService.addShopper(newUser);
 		

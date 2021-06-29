@@ -63,17 +63,9 @@ var webShop = new Vue({
             }
         ],
         selectedButton : {},
-        currentUser : {
-            username : 'mili',
-            firstname : 'Nikola',
-            lastname : 'Milosavljevic',
-            email : 'nikolamilosa20@gmail.com',
-            dateOfBirth: '4-7-1999',
-            points : '600',
-            password : 'Milosavko99'
-        },
+        currentUser : {},
         tempCurrUser : {},
-        visible : 'myProfile',
+        visible : 'restaurants',
         status : {},
         filterObj : {
             name : '',
@@ -244,9 +236,8 @@ var webShop = new Vue({
     created (){
     },
     mounted (){
-        //While working
-        this.selectedRestaurant = this.receivedRestaurants[0];
-        this.selectedRestaurantForComment = this.receivedRestaurants[0];
+        let user = window.localStorage.getItem('User');
+        this.currentUser = JSON.parse(user);
 
         //Actual
         this.orderFilterObj.bottomDate = new Date(0);
@@ -264,6 +255,13 @@ var webShop = new Vue({
         
     },
     methods : {
+        logout : function(){
+            this.currentUser = undefined;
+            this.tempCurrUser = undefined;
+            window.localStorage.removeItem('User');
+
+            window.location.replace("http://localhost:8080/WebShop/")
+        },
         selectStatus : function() {
             if (this.tempCurrUser.points < 500)
             this.status = 'bronze';
@@ -617,13 +615,6 @@ var webShop = new Vue({
 
             return '';
         },
-        validateEmail : function(input){
-            if (!input.match(/^(s*([a-zA-Z0-9]+([a-zA-Z0-9]*|[\.])*[@].*)s*)$/)){
-                return 'incorrect mail format';
-            }
-
-            return '';
-        },
 
         validateDateOfBirth : function(input){
             let refDate = new Date();
@@ -665,7 +656,6 @@ var webShop = new Vue({
         checkIfAnythingChanged : function() {
             if (this.tempCurrUser.firstname != this.currentUser.firstname ||
                 this.tempCurrUser.lastname != this.currentUser.lastname ||
-                this.tempCurrUser.email != this.currentUser.email ||
                 this.tempCurrUser.dateOfBirth != this.convertDate(this.currentUser.dateOfBirth) ||
                 this.tempCurrUser.oldPass != '' || this.tempCurrUser.newPass != '')
                 return true;
@@ -687,11 +677,6 @@ var webShop = new Vue({
             let lastnameValidation = this.validateString(this.tempCurrUser.lastname);
             if (lastnameValidation != ''){
                 this.validationMessage += 'Lastname - ' + lastnameValidation + '\n';
-            }
-
-            let emailValidation = this.validateEmail(this.tempCurrUser.email);
-            if (emailValidation != ''){
-                this.validationMessage += 'Email - ' + emailValidation + '\n';
             }
 
             let dateValidation = this.validateDateOfBirth(this.tempCurrUser.dateOfBirth);

@@ -17,7 +17,7 @@ public class ReadShopperRepoText implements IReadShopperRepo {
 	private static String path;
 
 	public ReadShopperRepoText(String path) {
-		this.path = path + File.separator + "shoppers";
+		this.path = path + File.separator + "shoppers.txt";
 	}
 
 	@Override

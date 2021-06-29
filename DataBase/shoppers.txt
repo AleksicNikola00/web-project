@@ -6,7 +6,7 @@
   "dateOfBirth" : 931046400000,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
-  "shopperType" : null,
+  "shopperType" : "BRONZE",
   "deleted" : false
 }, {
   "username" : "aleksic",
@@ -16,6 +16,16 @@
   "dateOfBirth" : 915148800000,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
-  "shopperType" : null,
+  "shopperType" : "BRONZE",
+  "deleted" : false
+}, {
+  "username" : "testUsername",
+  "name" : "Test",
+  "surname" : "Test",
+  "gender" : "MALE",
+  "dateOfBirth" : 1373666400000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
   "deleted" : false
 } ]

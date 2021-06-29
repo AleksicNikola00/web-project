@@ -40,7 +40,7 @@
 
                     <div class="container mt-auto text-center" style="margin-bottom: 20px;">
                         <hr>
-                        <button type="button" class="btn btn-ligt w-100">Logout</button>
+                        <button type="button" class="btn btn-ligt w-100" v-on:click="logout()">Logout</button>
                     </div>
                 </div>
             </div>
@@ -269,10 +269,14 @@
 
                             <div class="row normalRow">
                                 <div class="col-4 my-auto">
-                                    <label class="form-label">Email:</label>
+                                    <label class="form-label">Gender:</label>
                                 </div>
                                 <div class="col-7 my-auto">
-                                    <input class="form-control" v-model="tempCurrUser.email">
+                                    <select class="form-control" v-model="tempCurrUser.gender">
+                                        <option value="MALE">Male</option>
+                                        <option value="FEMALE">Female</option>
+                                        <option value="UNKNOWN">Prefer not to say</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -916,7 +920,7 @@
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
     <script src="../../jquery-3.3.1.min.js"></script>
     <script src="../../vue.js"></script>
-    <script src="dashboard.js"></script>
+    <script src="../ShopperDashboard/dashboard.js"></script>
 </body>
 
 </html>

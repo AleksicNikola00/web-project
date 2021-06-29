@@ -2,15 +2,19 @@ package controllers;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import beans.model.Credentials;
 import beans.model.Shopper;
+import dto.LoggedInShopper;
 import services.CredentialsService;
 import services.ShopperService;
 
@@ -19,7 +23,8 @@ public class LoginController {
 	@Context
 	ServletContext ctx;
 	
-	@GET
+	@SuppressWarnings("deprecation")
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String tryLogin(Credentials user) {
@@ -32,6 +37,32 @@ public class LoginController {
 			return "Invalid password";
 		}
 		
-		return "Successful login!";
+		ShopperService shopperService = new ShopperService(ctx.getRealPath(""));
+		Shopper currentShopper = shopperService.getShopper(credsInDatabase.getUsername());
+		
+		LoggedInShopper retShopper = new LoggedInShopper();
+		retShopper.setFirstname(currentShopper.getName());
+		retShopper.setLastname(currentShopper.getSurname());
+		retShopper.setUsername(currentShopper.getUsername());
+		retShopper.setDateOfBirth(currentShopper.getDateOfBirth().getDate() + "-" + 
+					(currentShopper.getDateOfBirth().getMonth() + 1) + "-" +
+					(currentShopper.getDateOfBirth().getYear() + 1900));
+		retShopper.setPoints("" + currentShopper.getCollectedPoints());
+		retShopper.setPassword(credsInDatabase.getPassword());
+		retShopper.setGender(currentShopper.getGender());
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+		String json = "";
+		
+		try {
+			json = mapper.writeValueAsString(retShopper);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return json;
 	}
 }
