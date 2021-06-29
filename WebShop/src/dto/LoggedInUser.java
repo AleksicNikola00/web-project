@@ -1,8 +1,9 @@
 package dto;
 
 import beans.enumerations.Gender;
+import beans.enumerations.Role;
 
-public class LoggedInShopper {
+public class LoggedInUser {
 	private String username;
 	private String firstname;
 	private String lastname;
@@ -10,6 +11,15 @@ public class LoggedInShopper {
 	private String points;
 	private String password;
 	private Gender gender;
+	private Role role;
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 	public Gender getGender() {
 		return gender;
@@ -19,7 +29,7 @@ public class LoggedInShopper {
 		this.gender = gender;
 	}
 
-	public LoggedInShopper() {}
+	public LoggedInUser() {}
 
 	public String getUsername() {
 		return username;

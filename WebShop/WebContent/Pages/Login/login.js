@@ -47,8 +47,11 @@ $(document).ready(function(){
                     dispText.append(data);
                     $("#staticBackdrop").modal('show');
                 } else{
+					let user = JSON.parse(data);
                     window.localStorage.setItem('User',data);
-					window.location.replace("http://localhost:8080/WebShop/Pages/ShopperDashboard/dashboard.html");
+					if (user.role == "SHOPPER"){
+						window.location.replace("http://localhost:8080/WebShop/Pages/ShopperDashboard/dashboard.html");	
+					}
                     clearRegForm();
                     clearSignInForm();
                 }

@@ -12,9 +12,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import beans.enumerations.Role;
 import beans.model.Credentials;
 import beans.model.Shopper;
-import dto.LoggedInShopper;
+import dto.LoggedInUser;
 import services.CredentialsService;
 import services.ShopperService;
 
@@ -37,19 +38,7 @@ public class LoginController {
 			return "Invalid password";
 		}
 		
-		ShopperService shopperService = new ShopperService(ctx.getRealPath(""));
-		Shopper currentShopper = shopperService.getShopper(credsInDatabase.getUsername());
-		
-		LoggedInShopper retShopper = new LoggedInShopper();
-		retShopper.setFirstname(currentShopper.getName());
-		retShopper.setLastname(currentShopper.getSurname());
-		retShopper.setUsername(currentShopper.getUsername());
-		retShopper.setDateOfBirth(currentShopper.getDateOfBirth().getDate() + "-" + 
-					(currentShopper.getDateOfBirth().getMonth() + 1) + "-" +
-					(currentShopper.getDateOfBirth().getYear() + 1900));
-		retShopper.setPoints("" + currentShopper.getCollectedPoints());
-		retShopper.setPassword(credsInDatabase.getPassword());
-		retShopper.setGender(currentShopper.getGender());
+		LoggedInUser retUser = generateReturnUser(credsInDatabase);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -57,12 +46,42 @@ public class LoginController {
 		String json = "";
 		
 		try {
-			json = mapper.writeValueAsString(retShopper);
+			json = mapper.writeValueAsString(retUser);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Mapping failed in LogginController post method");
 			e.printStackTrace();
 		}
 		
 		return json;
+	}
+	
+	/* private functions */
+	private LoggedInUser generateReturnUser(Credentials creds) {
+		
+		if (creds.getRole() == Role.SHOPPER) {
+			return generateLoggedInShopper(creds);
+		}
+		
+		return null;
+	}
+	
+	private LoggedInUser generateLoggedInShopper(Credentials creds) {
+		ShopperService shopperService = new ShopperService(ctx.getRealPath(""));
+		Shopper currentShopper = shopperService.getShopper(creds.getUsername());
+		
+		LoggedInUser retShopper = new LoggedInUser();
+		retShopper.setFirstname(currentShopper.getName());
+		retShopper.setLastname(currentShopper.getSurname());
+		retShopper.setUsername(currentShopper.getUsername());
+		retShopper.setDateOfBirth(currentShopper.getDateOfBirth().getDate() + "-" + 
+					(currentShopper.getDateOfBirth().getMonth() + 1) + "-" +
+					(currentShopper.getDateOfBirth().getYear() + 1900));
+		retShopper.setPoints("" + currentShopper.getCollectedPoints());
+		retShopper.setPassword(creds.getPassword());
+		retShopper.setGender(currentShopper.getGender());
+		retShopper.setRole(currentShopper.getRole());
+		
+		return retShopper;
 	}
 }
