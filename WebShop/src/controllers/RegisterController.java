@@ -10,11 +10,11 @@ import javax.ws.rs.core.MediaType;
 
 import beans.enumerations.Role;
 import beans.enumerations.TypeOfShopper;
+import beans.errors.DatabaseErrors;
 import beans.model.Credentials;
 import beans.model.Shopper;
 import dto.NewShopper;
-import services.CredentialsService;
-import services.ShopperService;
+import services.RegisterService;
 
 @Path("/register")
 public class RegisterController {
@@ -27,32 +27,30 @@ public class RegisterController {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String registerNewShopper(NewShopper newShopper) {
 		
-		CredentialsService credService = new CredentialsService(ctx.getRealPath(""));
+		Credentials credsPart = new Credentials();
+		credsPart.setRole(Role.SHOPPER);
+		credsPart.setUsername(newShopper.getUsername());
+		credsPart.setPassword(newShopper.getPassword());
 		
-		Credentials credsInDatabase = credService.getCredentials(newShopper.getUsername());
-		if (credsInDatabase != null) {
-			return "Username already registered";
+		Shopper shopperPart = new Shopper();
+		shopperPart.setCollectedPoints(0);
+		shopperPart.setRole(Role.SHOPPER);
+		shopperPart.setName(newShopper.getName());
+		shopperPart.setSurname(newShopper.getSurname());
+		shopperPart.setDateOfBirth(newShopper.getDateOfBirth());
+		shopperPart.setGender(newShopper.getGender());
+		shopperPart.setShopperType(TypeOfShopper.BRONZE);
+		
+		RegisterService service = new RegisterService(ctx.getRealPath(""));
+		
+		String result = service.registerNewShopper(credsPart, shopperPart);
+		
+		if (result.equals(DatabaseErrors.ALREADY_EXISTS)) {
+			return "That user is already occupied!";
 		}
-		
-		credsInDatabase = new Credentials();
-		credsInDatabase.setUsername(newShopper.getUsername());
-		credsInDatabase.setPassword(newShopper.getPassword());
-		credsInDatabase.setRole(Role.SHOPPER);
-		credService.addCredentials(credsInDatabase);
-		
-		ShopperService shopperService = new ShopperService(ctx.getRealPath(""));
-		Shopper newUser = new Shopper();
-		newUser.setUsername(newShopper.getUsername());
-		newUser.setName(newShopper.getName());
-		newUser.setSurname(newShopper.getSurname());
-		newUser.setGender(newShopper.getGender());
-		newUser.setDateOfBirth(newShopper.getDateOfBirth());
-		newUser.setRole(Role.SHOPPER);
-		newUser.setShopperType(TypeOfShopper.BRONZE);
-		
-		shopperService.addShopper(newUser);
-		
-		return "Successful register!";
+		else {
+			return "";
+		}
 	}
 	
 }

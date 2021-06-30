@@ -1,1 +1,13 @@
-[]
+[ {
+  "id" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "name" : "Novi Sad",
+  "country" : "Serbia",
+  "postalCode" : 0,
+  "deleted" : false
+}, {
+  "id" : "21bbf30f-41e1-4952-9311-f85b5556ce8a",
+  "name" : "Belgrade",
+  "country" : "Serbia",
+  "postalCode" : 0,
+  "deleted" : false
+} ]

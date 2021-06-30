@@ -56,4 +56,24 @@ public class ReadCityRepoText implements IReadCityRepo {
 		return null;
 	}
 
+	@Override
+	public City getCityByName(String name) {
+		try {
+			String readString = Files.readString(Paths.get(this.path));
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			ArrayList<City> cities = objectMapper.readValue(readString, new TypeReference<ArrayList<City>>(){});
+			
+			for(City c : cities) {
+				if (c.getName().equalsIgnoreCase(name)) {
+					return c;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error in reading from path : " + this.path);
+		}
+		return null;
+	}
+
 }

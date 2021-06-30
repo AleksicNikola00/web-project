@@ -12,6 +12,15 @@ public class Restaurant {
 	private String logoPath;
 	private UUID geoLocationId;
 	private boolean isDeleted;
+	private double rating;
+
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 
 	public Restaurant() {}
 

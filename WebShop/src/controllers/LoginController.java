@@ -59,6 +59,7 @@ public class LoginController {
 	/* private functions */
 	private LoggedInUser generateReturnUser(Credentials creds) {
 		
+		/* add for other roles*/
 		if (creds.getRole() == Role.SHOPPER) {
 			return generateLoggedInShopper(creds);
 		}

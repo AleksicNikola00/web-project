@@ -28,4 +28,14 @@
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
   "deleted" : false
+}, {
+  "username" : null,
+  "name" : "abvgd",
+  "surname" : "abvgd",
+  "gender" : "MALE",
+  "dateOfBirth" : 1404165600000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "deleted" : false
 } ]

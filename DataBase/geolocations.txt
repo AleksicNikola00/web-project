@@ -1,1 +1,49 @@
-[]
+[ {
+  "x" : 72.2226,
+  "y" : 66.5554,
+  "streetName" : "Stevana Mokranjca",
+  "number" : 24,
+  "id" : "94f0bc68-cd53-4627-a775-b405214a8c69",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 71.122,
+  "y" : 56.223,
+  "streetName" : "Pasiceva",
+  "number" : 24,
+  "id" : "b459976d-7407-43c5-bf1a-e518a0f8bc37",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 66.23,
+  "y" : 76.22,
+  "streetName" : "Trg slobode",
+  "number" : 24,
+  "id" : "61888de1-67f8-430f-973d-4e248dd9a261",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 98.0,
+  "y" : 76.21,
+  "streetName" : "1300 kaplara",
+  "number" : 12,
+  "id" : "bb6f2a18-b1ed-4a19-8bbc-61599974b0f6",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 65.0,
+  "y" : 79.2,
+  "streetName" : "1300 kaplara",
+  "number" : 12,
+  "id" : "2ffc70cc-bb14-418d-8c89-f16e9283b23c",
+  "cityId" : "21bbf30f-41e1-4952-9311-f85b5556ce8a",
+  "deleted" : false
+}, {
+  "x" : 65.0,
+  "y" : 79.2,
+  "streetName" : "Tosin bunar",
+  "number" : 12,
+  "id" : "56fd439b-abd8-467f-b3a1-297fded1b2a2",
+  "cityId" : "21bbf30f-41e1-4952-9311-f85b5556ce8a",
+  "deleted" : false
+} ]

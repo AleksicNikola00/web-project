@@ -4,7 +4,11 @@ import java.util.*;
 
 public enum RestaurantType {
    ITALIAN,
-   CHINEESE,
+   CHINESE,
+   GREEK,
+   INDIAN,
+   CAFE,
+   PUB,
    BARBECUE;
 
    public static String convertToString(RestaurantType restaurantType) {
