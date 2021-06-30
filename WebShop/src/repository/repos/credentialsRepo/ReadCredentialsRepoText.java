@@ -27,7 +27,7 @@ public class ReadCredentialsRepoText implements IReadCredentialsRepo {
 			ArrayList<Credentials> credentials = objectMapper.readValue(readString, new TypeReference<ArrayList<Credentials>>(){});
 			
 			for(Credentials c : credentials) {
-				if (c.getUsername().equals(id) && !c.isDeleted()) {
+				if (c.getUsername().equals(id)) {
 					return c;
 				}
 			}
@@ -40,7 +40,17 @@ public class ReadCredentialsRepoText implements IReadCredentialsRepo {
 
 	@Override
 	public ArrayList<Credentials> getAll() {
-		// TODO Auto-generated method stub
+		try {
+			String readString = Files.readString(Paths.get(this.path));
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			ArrayList<Credentials> credentials = objectMapper.readValue(readString, new TypeReference<ArrayList<Credentials>>(){});
+			
+			return credentials;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error in reading from path : " + this.path);
+		}
 		return null;
 	}
 

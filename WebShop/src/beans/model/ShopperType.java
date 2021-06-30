@@ -8,6 +8,15 @@ public class ShopperType {
 	private TypeOfShopper type;
 	private double discount;
 	private int requiredPoints;
+	private boolean deleted;
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public ShopperType() {}
 

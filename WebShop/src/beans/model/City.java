@@ -7,7 +7,6 @@ public class City {
 	private String name;
 	private String country;
 	private int postalCode;
-	private UUID cityId;
 	private boolean isDeleted;
 
 	public City() {}
@@ -42,14 +41,6 @@ public class City {
 
 	public void setPostalCode(int postalCode) {
 		this.postalCode = postalCode;
-	}
-
-	public UUID getCityId() {
-		return cityId;
-	}
-
-	public void setCityId(UUID cityId) {
-		this.cityId = cityId;
 	}
 
 	public boolean isDeleted() {

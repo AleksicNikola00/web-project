@@ -10,6 +10,10 @@ import repository.repos.cityRepo.IReadCityRepo;
 import repository.repos.cityRepo.IWriteCityRepo;
 import repository.repos.cityRepo.ReadCityRepoText;
 import repository.repos.cityRepo.WriteCityRepoText;
+import repository.repos.commentRepo.IReadCommentRepo;
+import repository.repos.commentRepo.IWriteCommentRepo;
+import repository.repos.commentRepo.ReadCommentRepoText;
+import repository.repos.commentRepo.WriteCommentRepoText;
 import repository.repos.credentialsRepo.IReadCredentialsRepo;
 import repository.repos.credentialsRepo.IWriteCredentialsRepo;
 import repository.repos.credentialsRepo.ReadCredentialsRepoText;
@@ -70,6 +74,8 @@ public final class UnitOfWork {
 	private IWriteShopperRepo shopperWriteRepo;
 	private IReadShopperTypeRepo shopperTypeReadRepo;
 	private IWriteShopperTypeRepo shopperTypeWriteRepo;
+	private IReadCommentRepo commentReadRepo;
+	private IWriteCommentRepo commentWriteRepo;
 	
 	private String path;
 
@@ -78,6 +84,14 @@ public final class UnitOfWork {
 		InitializeTextRepos();
 	}
 
+	public IReadCommentRepo getCommentReadRepo() {
+		return commentReadRepo;
+	}
+	
+	public IWriteCommentRepo getCommentWriteRepo() {
+		return commentWriteRepo;
+	}
+	
 	public IReadAdminRepo getAdminReadRepo() {
 		return adminReadRepo;
 	}
@@ -164,13 +178,15 @@ public final class UnitOfWork {
 
 	public IWriteShopperTypeRepo getShopperTypeWriteRepo() {
 		return shopperTypeWriteRepo;
-	}
+	}	
 
 	private void InitializeTextRepos() {
 		adminReadRepo = new ReadAdminRepoText(path);
 		adminWriteRepo = new WriteAdminRepoText(path);
 		cityReadRepo = new ReadCityRepoText(path);
 		cityWriteRepo = new WriteCityRepoText(path);
+		commentReadRepo = new ReadCommentRepoText(path);
+		commentWriteRepo = new WriteCommentRepoText(path);
 		credentialsReadRepo = new ReadCredentialsRepoText(path);
 		credentialsWriteRepo = new WriteCredentialsRepoText(path);
 		deliveryWorkerReadRepo = new ReadDeliveryWorkerRepoText(path);

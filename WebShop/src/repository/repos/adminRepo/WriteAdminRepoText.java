@@ -136,7 +136,7 @@ public class WriteAdminRepoText implements IWriteAdminRepo {
 			pw = new PrintWriter(bw);
 			
 			pw.println(json);
-			System.out.println("Successfully appended to Admins");
+			System.out.println("Successfully deleted from Admins");
 			pw.flush();
 			
 		} catch (JsonProcessingException e) {

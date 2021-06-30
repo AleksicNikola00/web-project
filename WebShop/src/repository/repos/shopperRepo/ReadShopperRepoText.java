@@ -43,7 +43,17 @@ public class ReadShopperRepoText implements IReadShopperRepo {
 
 	@Override
 	public ArrayList<Shopper> getAll() {
-		// TODO Auto-generated method stub
+		try {
+			String readString = Files.readString(Paths.get(this.path));
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			ArrayList<Shopper> shoppers = objectMapper.readValue(readString, new TypeReference<ArrayList<Shopper>>(){});
+			
+			return shoppers;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error in reading from path : " + this.path);
+		}
 		return null;
 	}
 

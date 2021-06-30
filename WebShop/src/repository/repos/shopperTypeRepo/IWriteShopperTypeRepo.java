@@ -1,6 +1,6 @@
 package repository.repos.shopperTypeRepo;
 
-import beans.enumerations.TypeOfShopper;
+import beans.model.ShopperType;
 
-public interface IWriteShopperTypeRepo extends repository.IWriteRepo<TypeOfShopper> {
+public interface IWriteShopperTypeRepo extends repository.IWriteRepo<ShopperType> {
 }

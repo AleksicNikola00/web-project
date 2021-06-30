@@ -64,13 +64,91 @@ public class WriteShopperRepoText implements IWriteShopperRepo {
 
 	@Override
 	public void update(Shopper value) {
-		// TODO Auto-generated method stub
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		PrintWriter pw = null;
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			String data = Files.readString(Paths.get(this.path));
+			ArrayList<Shopper> shopperData = mapper.readValue(data, new TypeReference<ArrayList<Shopper>>(){});
+			
+			for (int i = 0; i < shopperData.size(); i++) {
+				if (shopperData.get(i).getUsername().equals(value.getUsername())) {
+					shopperData.set(i, value);
+					break;
+				}
+			}
+			
+			String json = mapper.writeValueAsString(shopperData);
+			
+			File database = new File(path);
+			System.out.println(database.getAbsolutePath());
+			fw = new FileWriter(database);
+			bw = new BufferedWriter(fw);
+			pw = new PrintWriter(bw);
+			
+			pw.println(json);
+			System.out.println("Successfully edited Shoppers\nEdited username : " + value.getUsername());
+			pw.flush();
+			
+		} catch (JsonProcessingException e) {
+			System.out.println("Converting Shoppers to json did not work");
+		} catch (IOException e) {
+			System.out.println("Something went wrong with files...\nPath: " + path);
+		} finally {
+			try {
+				pw.close();
+				bw.close();
+				fw.close();
+			} catch (IOException io) {}
+		}
 
 	}
 
 	@Override
 	public void delete(Shopper value) {
-		// TODO Auto-generated method stub
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		PrintWriter pw = null;
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			String data = Files.readString(Paths.get(this.path));
+			ArrayList<Shopper> shopperData = mapper.readValue(data, new TypeReference<ArrayList<Shopper>>(){});
+			
+			for (int i = 0; i < shopperData.size(); i++) {
+				if (shopperData.get(i).getUsername().equals(value.getUsername())) {
+					shopperData.get(i).setDeleted(true);
+					break;
+				}
+			}
+			
+			String json = mapper.writeValueAsString(shopperData);
+			
+			File database = new File(path);
+			System.out.println(database.getAbsolutePath());
+			fw = new FileWriter(database);
+			bw = new BufferedWriter(fw);
+			pw = new PrintWriter(bw);
+			
+			pw.println(json);
+			System.out.println("Successfully deleted from Shoppers");
+			pw.flush();
+			
+		} catch (JsonProcessingException e) {
+			System.out.println("Converting Shoppers to json did not work");
+		} catch (IOException e) {
+			System.out.println("Something went wrong with files...\nPath: " + path);
+		} finally {
+			try {
+				pw.close();
+				bw.close();
+				fw.close();
+			} catch (IOException io) {}
+		}
 
 	}
 

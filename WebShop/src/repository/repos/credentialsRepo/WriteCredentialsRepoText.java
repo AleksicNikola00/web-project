@@ -65,13 +65,91 @@ public class WriteCredentialsRepoText implements IWriteCredentialsRepo {
 
 	@Override
 	public void update(Credentials value) {
-		// TODO Auto-generated method stub
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		PrintWriter pw = null;
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			String data = Files.readString(Paths.get(this.path));
+			ArrayList<Credentials> credentialsData = mapper.readValue(data, new TypeReference<ArrayList<Credentials>>(){});
+			
+			for (int i = 0; i < credentialsData.size(); i++) {
+				if (credentialsData.get(i).getUsername().equals(value.getUsername())) {
+					credentialsData.set(i, value);
+					break;
+				}
+			}
+			
+			String json = mapper.writeValueAsString(credentialsData);
+			
+			File database = new File(path);
+			System.out.println(database.getAbsolutePath());
+			fw = new FileWriter(database);
+			bw = new BufferedWriter(fw);
+			pw = new PrintWriter(bw);
+			
+			pw.println(json);
+			System.out.println("Successfully edited Credentials\nEdited username : " + value.getUsername());
+			pw.flush();
+			
+		} catch (JsonProcessingException e) {
+			System.out.println("Converting Credentials to json did not work");
+		} catch (IOException e) {
+			System.out.println("Something went wrong with files...\nPath: " + path);
+		} finally {
+			try {
+				pw.close();
+				bw.close();
+				fw.close();
+			} catch (IOException io) {}
+		}
 
 	}
 
 	@Override
 	public void delete(Credentials value) {
-		// TODO Auto-generated method stub
+		FileWriter fw = null;
+		BufferedWriter bw = null;
+		PrintWriter pw = null;
+		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			String data = Files.readString(Paths.get(this.path));
+			ArrayList<Credentials> credentialsData = mapper.readValue(data, new TypeReference<ArrayList<Credentials>>(){});
+			
+			for (int i = 0; i < credentialsData.size(); i++) {
+				if (credentialsData.get(i).getUsername().equals(value.getUsername())) {
+					credentialsData.get(i).setDeleted(true);
+					break;
+				}
+			}
+			
+			String json = mapper.writeValueAsString(credentialsData);
+			
+			File database = new File(path);
+			System.out.println(database.getAbsolutePath());
+			fw = new FileWriter(database);
+			bw = new BufferedWriter(fw);
+			pw = new PrintWriter(bw);
+			
+			pw.println(json);
+			System.out.println("Successfully deleted from Credentials");
+			pw.flush();
+			
+		} catch (JsonProcessingException e) {
+			System.out.println("Converting Credentials to json did not work");
+		} catch (IOException e) {
+			System.out.println("Something went wrong with files...\nPath: " + path);
+		} finally {
+			try {
+				pw.close();
+				bw.close();
+				fw.close();
+			} catch (IOException io) {}
+		}
 
 	}
 
