@@ -1,1 +1,17 @@
-[]
+[ {
+  "name" : "Amigos",
+  "id" : "f32dc524-ca79-4511-b055-731969d9f72d",
+  "type" : "BARBECUE",
+  "status" : "CLOSED",
+  "logoPath" : "otherLogoPath",
+  "geoLocationId" : null,
+  "deleted" : true
+}, {
+  "name" : "Ciao",
+  "id" : "23954572-57fc-4f7d-9463-2d70b3402d7d",
+  "type" : "ITALIAN",
+  "status" : "OPEN",
+  "logoPath" : "someLogoPath",
+  "geoLocationId" : null,
+  "deleted" : false
+} ]

@@ -13,10 +13,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import beans.model.Admin;
 import beans.model.City;
-import services.AdminService;
+import beans.model.Restaurant;
 import services.CityService;
+import services.RestaurantService;
 
 @Path("/test")
 public class TestController {
@@ -26,34 +26,43 @@ public class TestController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String add(City city) {
-		CityService service = new CityService(ctx.getRealPath(""));
+	public String add(Restaurant restaurant) {
+		if (restaurant.getId() == null) {
+			restaurant.setId(UUID.randomUUID());
+		}
+		RestaurantService service = new RestaurantService(ctx.getRealPath(""));
 		
-		return service.add(city);
+		return service.add(restaurant);
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String update(City city) {
-		CityService service = new CityService(ctx.getRealPath(""));
+	public String update(Restaurant restaurant) {
+		if (restaurant.getId() == null) {
+			return "Restaurant id is required for updateing";
+		}
+		RestaurantService service = new RestaurantService(ctx.getRealPath(""));
 		
-		return service.update(city);
+		return service.update(restaurant);
 	}
 	
 	@PUT
 	@Path("/delete")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String delete(City city) {
-		CityService service = new CityService(ctx.getRealPath(""));
+	public String delete(Restaurant restaurant) {
+		if (restaurant.getId() == null) {
+			return "Restaurant id is required for deleting";
+		}
+		RestaurantService service = new RestaurantService(ctx.getRealPath(""));
 		
-		return service.delete(city);
+		return service.delete(restaurant);
 	}
 	
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<City> getAll(){
-		CityService service = new CityService(ctx.getRealPath(""));
+	public ArrayList<Restaurant> getAll(){
+		RestaurantService service = new RestaurantService(ctx.getRealPath(""));
 		
 		return service.getAll();
 	}
@@ -61,9 +70,9 @@ public class TestController {
 	@GET
 	@Path("/id")
 	@Produces(MediaType.APPLICATION_JSON)
-	public City getById(String id) {
-		CityService service = new CityService(ctx.getRealPath(""));
+	public Restaurant getById(UUID id) {
+		RestaurantService service = new RestaurantService(ctx.getRealPath(""));
 		
-		return service.getById(UUID.fromString(id));
+		return service.getById(id);
 	}
 }
