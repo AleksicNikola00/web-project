@@ -20,7 +20,7 @@ public class RestaurantGetController {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<RestaurantsDTO> getBasicRestaurantInfo(){
+	public ArrayList<RestaurantsDTO> getBasicRestaurantInfo(){		
 		RestaurantAggregationService service = new RestaurantAggregationService(ctx.getRealPath(""));
 		
 		return service.getRestaurantsAggregated();

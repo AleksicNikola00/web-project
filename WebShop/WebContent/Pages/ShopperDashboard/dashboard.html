@@ -158,12 +158,12 @@
                                     v-on:click="pressedRestaurant(restaurant, index)">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-6">
+                                            <div class="col-4">
                                                 <img class="mb-4" src="../Images/logo.png" alt="" width="72"
                                                     height="57">
                                             </div>
-                                            <div class="col-6">
-                                                <h5 class="card-title" style="margin-top: 20px; margin-right: 60px;">
+                                            <div class="col-8">
+                                                <h5 class="card-title" style="margin-top: 20px;">
                                                     {{restaurant.name}}</h5>
                                             </div>
                                         </div>
@@ -190,7 +190,7 @@
                                             </div>
                                             <div class="col-5 text-end">
                                                 <h5 style="margin-left: 15px; margin-top: 10px; color: grey">
-                                                    {{(restaurant.open == 'true') ? 'Open' : 'Closed'}}</h5>
+                                                    {{(restaurant.open == true) ? 'Open' : 'Closed'}}</h5>
                                             </div>
                                         </div>
 
@@ -919,6 +919,7 @@
 
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
     <script src="../../jquery-3.3.1.min.js"></script>
+    <script src="../../axios.js"></script>
     <script src="../../vue.js"></script>
     <script src="../ShopperDashboard/dashboard.js"></script>
 </body>

@@ -4,64 +4,7 @@ var webShop = new Vue({
     el: '#dashboard',
     data: {
         restaurants : [],
-        receivedRestaurants : [
-            {
-                name : 'Pizza',
-                type : 'Italian',
-                rating : '2',
-                address : 'Test a',
-                city : 'Novi Sad',
-                open : 'true'
-            },
-            {
-                name : 'Neki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Test b',
-                city : 'Novi Sad',
-                open : 'false'
-            },
-            {
-                name : 'Naki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                open : 'false'
-            },
-            {
-                name : 'Opet',
-                type : 'Cheenese',
-                rating : '2',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                open : 'true'
-            },
-            {
-                name : 'Ciao',
-                type : 'Italian',
-                rating : '5',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                open : 'true'
-            },
-            {
-                name : 'Ciao',
-                type : 'Itelian',
-                rating : '1',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                open : 'false'
-            },
-            {
-                name : 'Ciao',
-                type : 'Cheenese',
-                rating : '4',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                open : 'true'
-            }
-        ],
+        receivedRestaurants : [],
         selectedButton : {},
         currentUser : {},
         tempCurrUser : {},
@@ -147,16 +90,7 @@ var webShop = new Vue({
                 price : '150'
             }
         ],
-        cart : [
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150',
-                amount : '2',
-                restaurant : 'Ciao'
-            }
-        ],
+        cart : [],
         lastInputFoodQuantity : {},
         pastOrders : [],
         pastReceivedOrders : [
@@ -235,10 +169,12 @@ var webShop = new Vue({
     },
     created (){
     },
-    mounted (){
+    async mounted (){
         let user = window.localStorage.getItem('User');
         this.currentUser = JSON.parse(user);
-
+		
+		await this.requestRestaurants();
+		
         //Actual
         this.orderFilterObj.bottomDate = new Date(0);
         this.orderFilterObj.upperDate = new Date() + 1;
@@ -255,6 +191,15 @@ var webShop = new Vue({
         
     },
     methods : {
+        async requestRestaurants(){
+			
+			return await axios.get('/WebShop/rest/getrestaurants')
+						.then(response => {
+							this.receivedRestaurants = response.data;
+							console.log(this.receivedRestaurants);
+						});
+			
+        },
         logout : function(){
             this.currentUser = undefined;
             this.tempCurrUser = undefined;
@@ -332,6 +277,14 @@ var webShop = new Vue({
 
             return result;
         },
+        sortIsOpen : function(restaurants){
+            let result;
+            result = restaurants.sort(function(x, y){
+                return (x.open == y.open)? 0 : x? -1 : 1;
+            });
+
+            return result;
+        },
         filterName : function(restaurants) {
             let result;
             result = restaurants.filter(rest => rest.name.toLowerCase().includes(this.filterObj.name.toLowerCase()));
@@ -391,8 +344,7 @@ var webShop = new Vue({
             return result;
         },
         doFilter : function(){
-            let result = this.receivedRestaurants;
-            
+            let result = this.sortIsOpen(this.receivedRestaurants);
             
             if (this.filterObj.rating != 'all'){
                 result = this.filterRating(result);
