@@ -30,10 +30,10 @@
   "deleted" : false
 }, {
   "username" : null,
-  "name" : "abvgd",
-  "surname" : "abvgd",
-  "gender" : "MALE",
-  "dateOfBirth" : 1404165600000,
+  "name" : "foajsfi",
+  "surname" : "foaijsfa",
+  "gender" : "UNKNOWN",
+  "dateOfBirth" : 1170284400000,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",

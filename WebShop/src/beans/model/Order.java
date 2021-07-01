@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Order {
 	private UUID id;
-	private ArrayList<UUID> orderedItems;
+	private ArrayList<OrderItemIDAmount> orderedItems;
 	private UUID restaurant;
 	private java.util.Date date;
 	private double price;
@@ -23,11 +23,11 @@ public class Order {
 		this.id = id;
 	}
 
-	public ArrayList<UUID> getOrderedItems() {
+	public ArrayList<OrderItemIDAmount> getOrderedItems() {
 		return orderedItems;
 	}
 
-	public void setOrderedItems(ArrayList<UUID> orderedItems) {
+	public void setOrderedItems(ArrayList<OrderItemIDAmount> orderedItems) {
 		this.orderedItems = orderedItems;
 	}
 

@@ -13,9 +13,12 @@ import beans.model.City;
 import beans.model.Comment;
 import beans.model.GeoLocation;
 import beans.model.Item;
+import beans.model.Order;
 import beans.model.Restaurant;
 import dto.NewRestaurantDTO;
+import services.CRUDCommentService;
 import services.CRUDItemService;
+import services.CRUDOrderService;
 import services.CRUDRestaurantService;
 
 @Path("/test")
@@ -69,6 +72,19 @@ public class TestController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addComment(Comment comment) {
-		return "";
+		CRUDCommentService service = new CRUDCommentService(ctx.getRealPath(""));
+		
+		return service.add(comment);		
+	}
+	
+	//Adding past orders 
+	@PUT
+	@Path("/order")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addOrder(Order order) {
+		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
+		
+		return service.add(order);
 	}
 }

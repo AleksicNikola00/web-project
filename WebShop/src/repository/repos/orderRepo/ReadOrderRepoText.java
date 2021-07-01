@@ -1,5 +1,6 @@
 package repository.repos.orderRepo;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,7 +16,7 @@ public class ReadOrderRepoText implements IReadOrderRepo {
 	private static String path;
 
 	public ReadOrderRepoText(String path) {
-		this.path = path;
+		this.path = path + File.separator + "orders.txt";
 	}
 
 	@Override

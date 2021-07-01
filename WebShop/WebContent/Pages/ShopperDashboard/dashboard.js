@@ -20,98 +20,12 @@ var webShop = new Vue({
             isDesc : false
         },
         selectedRestaurant : {},
-        commentsForRestaurant : [
-            {
-                user : 'Nikola',
-                text : 'Amazing restaurant 10/10 would bangh foahisfhjaofjaifjasfioafjsaoifsj',
-                rating : '5'
-            },
-            {
-                user : 'Neko drugi',
-                text : 'Bas je sranje necu nikad vise ovde obedovati...',
-                rating : '1'
-            },
-            {
-                user : 'Neko drugi',
-                text : 'Bas je sranje necu nikad vise ovde obedovati...',
-                rating : '1'
-            },
-            {
-                user : 'Neko drugi',
-                text : 'Bas je sranje necu nikad vise ovde obedovati...',
-                rating : '1'
-            },
-            {
-                user : 'Neko drugi',
-                text : 'Bas je sranje necu nikad vise ovde obedovati...',
-                rating : '1'
-            },
-            {
-                user : 'Neko drugi',
-                text : 'Bas je sranje necu nikad vise ovde obedovati...',
-                rating : '1'
-            }
-        ],
+        commentsForRestaurant : [],
         menuForRestaurant : [],
         cart : [],
         lastInputFoodQuantity : {},
         pastOrders : [],
-        pastReceivedOrders : [
-            {
-                restaurantName : 'Ciao',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '1500'
-                    }
-                ],
-                status : 'Delievered',
-                date : '2:23 6-6-2021',
-                restaurantType : 'Italian'
-            },
-            {
-                restaurantName : 'Neki',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'Pending',
-                date : '23:23 6-16-2021',
-                restaurantType : 'Italian'
-            },
-            {
-                restaurantName : 'Naki',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'Pending',
-                date : '12:12 5-4-2021',
-                restaurantType : 'Greek'
-            },
-        ],
+        pastReceivedOrders : [],
         orderFilterObj : {
             isOnlyNotDelievered : false,
             restaurant : '',
@@ -137,6 +51,7 @@ var webShop = new Vue({
         this.currentUser = JSON.parse(user);
 		
 		await this.requestRestaurants();
+		await this.requestPastOrders();
 		
         //Actual
         this.orderFilterObj.bottomDate = new Date(0);
@@ -163,6 +78,15 @@ var webShop = new Vue({
 						});
 			
         },
+		async requestPastOrders(){
+			return await axios.get('/WebShop/rest/getorders/' + this.currentUser.username)
+						.then(response => {
+							this.pastReceivedOrders = response.data;
+							for (order of this.pastReceivedOrders){
+								order.status = order.status.replace("_"," ");
+							}
+						});
+		},
         logout : function(){
             this.currentUser = undefined;
             this.tempCurrUser = undefined;
@@ -348,9 +272,14 @@ var webShop = new Vue({
 			
 			await axios.get('/WebShop/rest/getitemsforrestaurant/' + restaurant.id)
 						.then(response => {
-							console.log(response.data);
 							this.menuForRestaurant = response.data;
 						});
+						
+			await axios.get('/WebShop/rest/getcomments/' + restaurant.id)
+						.then(response => {
+							this.commentsForRestaurant = response.data;
+						});
+						
 			
             this.visible = 'specificRestaurant';
             this.selectedRestaurant = restaurant;

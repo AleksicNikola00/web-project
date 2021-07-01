@@ -1,1 +1,33 @@
-[]
+[ {
+  "id" : "fdc95151-9486-4794-886f-63d05aac0612",
+  "username" : "mili",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "text" : "Amazing restaurant and amazing food. Simply fantastic!",
+  "mark" : 5.0,
+  "allowed" : true,
+  "deleted" : false
+}, {
+  "id" : "c422e92c-4bfb-4d7c-9c73-efba756839d3",
+  "username" : "aleksic",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "text" : "Shambolic service people... Really gutted...",
+  "mark" : 2.0,
+  "allowed" : true,
+  "deleted" : false
+}, {
+  "id" : "baa53e37-4655-4b92-b42c-b4cf2207d85c",
+  "username" : "mili",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "text" : "Second comment that i had to post... That good...",
+  "mark" : 5.0,
+  "allowed" : true,
+  "deleted" : false
+}, {
+  "id" : "80fafeae-3085-4217-8117-ac3199cf9098",
+  "username" : "mili",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "text" : "Third comment that i had to post... Probably not allowed but i know!",
+  "mark" : 5.0,
+  "allowed" : false,
+  "deleted" : false
+} ]
