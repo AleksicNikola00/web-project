@@ -10,27 +10,35 @@
 </head>
 <body>
     <h2 class="my-3 text-center"> Delivery Dashboard</h2>
-    <div class="container-fluid g-5">
+    <div class="container-fluid g-5" id="dashboard">
+
         <div class="row">
+
+            <!-- Main menu -->
           <div class="col-2  columns">
-            <div class="card bg-light">
+            <div class="card bg-light h-100">
 
                 <div class="container-fluid mainmenu text-center">
                     <h4>Main menu</h4>
+                    <hr style="color: black;"/>
                 </div>
-                <hr style="color: black;"/>
-                <div class="container">
-                    <hr>
-                </div>
-            
 
+                <button type="button" id="restaurants" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('restaurants')">Restaurants</button>
+                <button type="button" id="myProfile" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('myProfile')">My profile</button>
+                <button type="button" id="orders" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('orders')">Orders</button>
+               
                 <div class="container mt-auto text-center" style="margin-bottom: 20px;">
-                    <hr>
-                    <button type="button" class="btn btn-ligt w-100" v-on:click="logout()">Logout</button>
+                    <hr style="color: black;"/>
+                    <button type="button" class="btn btn-ligt w-100" v-on:click="">Logout</button>
                 </div>
             </div>
           </div>
-          <div class="col-10 mainframe columns bg-primary">
+
+        <!-- Main frame restaurants -->
+          <div class="col-10  columns bg-primary" v-if="activeSubmenu == 'restaurants'">
                 <div class="container-fluid g-0">
                     <div class="row picturecontainer mh-100">
                         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -54,7 +62,10 @@
                     </div>
                 </div>
           </div>
+
+
         </div>
+
       </div>
 
 
@@ -62,6 +73,6 @@
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
     <script src="../../jquery-3.3.1.min.js"></script>
     <script src="../../vue.js"></script>
-    <script src="../ShopperDashboard/dashboard.js"></script>
+    <script src="../DeliveryBoyDashboard/dashboard.js"></script>
 </body>
 </html>

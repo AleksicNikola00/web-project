@@ -4,6 +4,12 @@
     margin-top: 20px;
 }
 
+.myButtonMenu {
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
 .columns{
     border: 2px solid;
     color: azure;
