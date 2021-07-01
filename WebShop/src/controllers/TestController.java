@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import beans.enumerations.RestaurantStatus;
 import beans.model.City;
+import beans.model.Comment;
 import beans.model.GeoLocation;
 import beans.model.Item;
 import beans.model.Restaurant;
@@ -60,5 +61,14 @@ public class TestController {
 		CRUDItemService service = new CRUDItemService(ctx.getRealPath(""));
 		
 		return service.add(item);
+	}
+	
+	//Adding comments for restaurants
+	@PUT
+	@Path("/newComment")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addComment(Comment comment) {
+		return "";
 	}
 }
