@@ -20,8 +20,14 @@ var app = new Vue({
             elem.addClass('btn-primary');
             this.changeVisibility();
 		},
+
         changeVisibility: function(){
             this.activeSubmenu = this.selectedButton;
+        },
+
+        updateTextInput: function(value){
+            //alert(value)
+            document.getElementById('textInput').value=document.getElementById('mark').value; 
         }
 
 	}
