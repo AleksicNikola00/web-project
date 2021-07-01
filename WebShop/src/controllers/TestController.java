@@ -11,8 +11,10 @@ import javax.ws.rs.core.MediaType;
 import beans.enumerations.RestaurantStatus;
 import beans.model.City;
 import beans.model.GeoLocation;
+import beans.model.Item;
 import beans.model.Restaurant;
 import dto.NewRestaurantDTO;
+import services.CRUDItemService;
 import services.CRUDRestaurantService;
 
 @Path("/test")
@@ -47,5 +49,16 @@ public class TestController {
 		CRUDRestaurantService service = new CRUDRestaurantService(ctx.getRealPath(""));
 		return service.addRestaurant(restaurant, geoLocation, city);
 		
+	}
+	
+	//Adding items in restaurants 
+	@PUT
+	@Path("/newitem")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addItem(Item item) {
+		CRUDItemService service = new CRUDItemService(ctx.getRealPath(""));
+		
+		return service.add(item);
 	}
 }

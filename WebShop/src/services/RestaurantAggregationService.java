@@ -1,5 +1,6 @@
 package services;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import beans.enumerations.RestaurantStatus;
@@ -34,7 +35,7 @@ public class RestaurantAggregationService extends BaseService {
 			current.setId(r.getId());
 			current.setX(geoloc.getX());
 			current.setY(geoloc.getY());
-			current.setLogoPath(r.getLogoPath());
+			current.setLogoPath(r.getLogoPath() + File.separator + r.getId() + ".png");
 			
 			ret.add(current);
 		}

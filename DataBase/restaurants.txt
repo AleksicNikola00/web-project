@@ -2,8 +2,8 @@
   "name" : "Amigos",
   "id" : "b05e12e8-02b1-4543-bef4-9a7cd2a759fa",
   "type" : "BARBECUE",
-  "status" : "OPEN",
-  "logoPath" : "",
+  "status" : "CLOSED",
+  "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "94f0bc68-cd53-4627-a775-b405214a8c69",
   "rating" : 1.0,
   "deleted" : false
@@ -12,7 +12,7 @@
   "id" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "type" : "ITALIAN",
   "status" : "OPEN",
-  "logoPath" : "",
+  "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "b459976d-7407-43c5-bf1a-e518a0f8bc37",
   "rating" : 1.0,
   "deleted" : false
@@ -21,7 +21,7 @@
   "id" : "c8dde9f3-0f27-4d7a-a090-e43bcfd777bc",
   "type" : "ITALIAN",
   "status" : "OPEN",
-  "logoPath" : "",
+  "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "61888de1-67f8-430f-973d-4e248dd9a261",
   "rating" : 1.0,
   "deleted" : false
@@ -30,7 +30,7 @@
   "id" : "457082ac-ae11-4900-8913-dee6fb764e7c",
   "type" : "INDIAN",
   "status" : "OPEN",
-  "logoPath" : "",
+  "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "bb6f2a18-b1ed-4a19-8bbc-61599974b0f6",
   "rating" : 1.0,
   "deleted" : false
@@ -39,7 +39,7 @@
   "id" : "6e949705-9eee-4b86-a77d-62459ab21d68",
   "type" : "PUB",
   "status" : "OPEN",
-  "logoPath" : "",
+  "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "2ffc70cc-bb14-418d-8c89-f16e9283b23c",
   "rating" : 1.0,
   "deleted" : false
@@ -48,7 +48,7 @@
   "id" : "fe904610-9201-4b31-b5c4-ec045b0256a0",
   "type" : "GREEK",
   "status" : "OPEN",
-  "logoPath" : "",
+  "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "56fd439b-abd8-467f-b3a1-297fded1b2a2",
   "rating" : 1.0,
   "deleted" : false

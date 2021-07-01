@@ -9,8 +9,17 @@ public class Comment {
 	private String username;
 	private UUID restaurantId;
 	private String text;
-	private Mark mark;
+	private double mark;
 	private boolean isDeleted;
+	private boolean isAllowed;
+
+	public boolean isAllowed() {
+		return isAllowed;
+	}
+
+	public void setAllowed(boolean isAllowed) {
+		this.isAllowed = isAllowed;
+	}
 
 	public Comment() {}
 
@@ -46,11 +55,11 @@ public class Comment {
 		this.text = text;
 	}
 
-	public Mark getMark() {
+	public double getMark() {
 		return mark;
 	}
 
-	public void setMark(Mark mark) {
+	public void setMark(double mark) {
 		this.mark = mark;
 	}
 

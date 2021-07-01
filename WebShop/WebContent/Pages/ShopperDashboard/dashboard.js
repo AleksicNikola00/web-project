@@ -52,44 +52,7 @@ var webShop = new Vue({
                 rating : '1'
             }
         ],
-        menuForRestaurant : [
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150'
-            },
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150'
-            },
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150'
-            },
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150'
-            },
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150'
-            },
-            {
-                picturePath : '',
-                name : 'food 1',
-                type : 'drink',
-                price : '150'
-            }
-        ],
+        menuForRestaurant : [],
         cart : [],
         lastInputFoodQuantity : {},
         pastOrders : [],
@@ -179,6 +142,7 @@ var webShop = new Vue({
         this.orderFilterObj.bottomDate = new Date(0);
         this.orderFilterObj.upperDate = new Date() + 1;
         this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
+		this.restaurants = this.sortIsOpen(this.restaurants);
         this.pastOrders = this.pastReceivedOrders.filter(order => order.restaurantName.includes(''));
         this.selectSubmenu(this.visible);
 
@@ -196,7 +160,6 @@ var webShop = new Vue({
 			return await axios.get('/WebShop/rest/getrestaurants')
 						.then(response => {
 							this.receivedRestaurants = response.data;
-							console.log(this.receivedRestaurants);
 						});
 			
         },
@@ -278,11 +241,13 @@ var webShop = new Vue({
             return result;
         },
         sortIsOpen : function(restaurants){
-            let result;
-            result = restaurants.sort(function(x, y){
-                return (x.open == y.open)? 0 : x? -1 : 1;
-            });
+            let result = restaurants.slice();
 
+			result = result.sort(function(x, y){
+                	return (x.open == y.open)? 0 : y? -1 : 1;
+            });
+			
+            
             return result;
         },
         filterName : function(restaurants) {
@@ -291,11 +256,7 @@ var webShop = new Vue({
             result.sort(function(a, b){
                 return ('' + a.name).localeCompare(b.name);
             });
-
-            if (this.filterObj.isDesc)
-            {
-                result.reverse();
-            }
+			
             return result;
         },
         filterType : function(restaurants) {
@@ -304,23 +265,17 @@ var webShop = new Vue({
             result.sort(function(a, b){
                 return ('' + a.type).localeCompare(b.type);
             });
-
-            if (this.filterObj.isDesc)
-            {
-                result.reverse();
-            }
+			
+			
             return result;
         },
         filterLocation : function(restaurants){
             let result;
             result = restaurants.filter(rest => rest.address.toLowerCase().includes(this.filterObj.location.toLowerCase()));
             result.sort(function(a, b){
-                return ('' + a.location).localeCompare(b.location);
+                	return ('' + a.location).localeCompare(b.location);
             });
 
-            if (this.filterObj.isDesc){
-                result.reverse();
-            }
 
             return result;
         },
@@ -330,48 +285,73 @@ var webShop = new Vue({
             result.sort(function(a, b){
                 return a.rating - b.rating;
             });
-
-            if (this.filterObj.isDesc){
-                result.reverse();
-            }
-
+			
+			
             return result;
         },
         filterIsOpen : function(restaurants){
             let result;
-            result = restaurants.filter(rest => rest.open == 'true');
+            result = restaurants.filter(rest => rest.open == true);
 
             return result;
         },
+		getRestByCurr : function(isOpen){
+			let ret = [];
+			for (rest of this.receivedRestaurants){
+				if (rest.open == isOpen){
+					ret.push(rest);
+				}
+			}
+			
+			return ret;
+		},
         doFilter : function(){
-            let result = this.sortIsOpen(this.receivedRestaurants);
-            
+			let result = this.getRestByCurr(true);
+			let resultClosed = this.getRestByCurr(false);
+			
             if (this.filterObj.rating != 'all'){
                 result = this.filterRating(result);
-            }
-            if (this.filterObj.isOpen){
-                result = this.filterIsOpen(result);
+				resultClosed = this.filterRating(resultClosed);
             }
             if (this.filterObj.type != ''){
                 result = this.filterType(result);
+				resultClosed = this.filterType(resultClosed);
             }
             if (this.filterObj.location != ''){
                 result = this.filterLocation(result);
+				resultClosed = this.filterLocation(resultClosed);
             }
             if (this.filterObj.name != ''){
                 result = this.filterName(result);
+				resultClosed = this.filterName(resultClosed);
             }
-
-            this.restaurants = result;
+			
+			if (this.filterObj.isDesc){
+				result.reverse();
+				resultClosed.reverse();
+			}
+			
+			if (this.filterObj.isOpen){
+            	this.restaurants = result;
+			} else {
+				this.restaurants = result.concat(resultClosed);
+			}
         },
-
-        pressedRestaurant : function(restaurant, index){
-            if(restaurant.open == 'false'){
+        async pressedRestaurant(restaurant, index){
+            if(restaurant.open == false){
                 let toast = $('#restToast' + index);
                 toast.toast('show');
                 return;
             }
-
+			
+			console.log(restaurant.id);
+			
+			await axios.get('/WebShop/rest/getitemsforrestaurant/' + restaurant.id)
+						.then(response => {
+							console.log(response.data);
+							this.menuForRestaurant = response.data;
+						});
+			
             this.visible = 'specificRestaurant';
             this.selectedRestaurant = restaurant;
             this.selectSubmenu(this.visible);

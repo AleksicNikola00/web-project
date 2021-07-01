@@ -159,7 +159,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-4">
-                                                <img class="mb-4" src="../Images/logo.png" alt="" width="72"
+                                                <img class="mb-4" v-bind:src="restaurant.logoPath" alt="" width="72"
                                                     height="57">
                                             </div>
                                             <div class="col-8">
@@ -373,7 +373,7 @@
                                 <div class="row">
                                     <div class="col-2">
                                         <!--picture-->
-                                        <img src="../Images/bronze-member.png" style="max-width: 170px;"
+                                        <img v-bind:src="selectedRestaurant.logoPath" style="max-width: 170px;"
                                             class="rounded">
                                     </div>
                                     <div class="col-4">
@@ -401,7 +401,7 @@
                                             {{selectedRestaurant.rating + '*'}}
                                         </h2>
                                         <h2 style="margin-top: 55px; margin-left: 40px;" class="text-muted">
-                                            {{selectedRestaurant.open == 'true' ? 'Open' : 'Closed'}}
+                                            {{selectedRestaurant.open == true ? 'Open' : 'Closed'}}
                                         </h2>
                                     </div>
                                 </div>
@@ -414,17 +414,17 @@
                     <div class="row" style="margin-top: 20px;">
                         <!--menu area-->
                         <div class="col-8">
-                            <div class="container w-100" style="height: 670px; width: 100%; overflow: hidden;">
+                            <div class="container w-100" style="height: 670px; width: 100%; overflow: hidden; position: relative;">
                                 <div class="container"
                                     style="width: 100%; height: 100%; overflow-y: scroll; box-sizing: content-box; padding-right: 17px;">
                                     <div class="row">
                                         <div class="card bg-light" v-for="(food, index) in menuForRestaurant"
-                                            style="width: 47%; height: 350px; margin-bottom: 10px; margin-right: 20px;">
+                                            style="width: 47%; height: 450px; margin-bottom: 10px; margin-right: 20px;">
 
                                             <!-- food picture -->
                                             <div class="text-center" style="margin-top: 15px;">
-                                                <img src="../Images/bronze-member.png" class="rounded"
-                                                    style="max-width: 70px;">
+                                                <img v-bind:src="food.picturePath" class="rounded"
+                                                    style="width: auto; height: 70px;">
                                             </div>
 
                                             <div class="container">
@@ -453,9 +453,22 @@
                                             <div class="container">
                                                 <hr>
                                             </div>
+                                            
+                                            <div class="container">
+                                            	<div class="col-1"></div>
+                                            	<div class="col-10">
+                                            		<p style="font-style: italic; height: 75px; margin-bottom:0;">
+                                            			{{food.description}}
+                                            		</p>
+                                            	</div>
+                                            </div>
+                                            
+                                            <div class="container">
+                                                <hr>
+                                            </div>
                                             <!-- add button and stuff -->
                                             <div class="container">
-                                                <div class="row">
+                                                <div class="row" style="margin-bottom: 15px;">
                                                     <div class="col-1"></div>
 
                                                     <div class="col-4 my-auto">
@@ -571,7 +584,7 @@
                 </div>
             </div>
 
-            <!-- Chosen restaurants menu -->
+            <!-- Cart view -->
             <div class="col-10" v-if="visible == 'viewCart'">
                 <div class="container">
                     <div class="row headerRow">
@@ -590,7 +603,7 @@
                                             <th scope="col">Food</th>
                                             <th scope="col">Restaurant</th>
                                             <th scope="col">Amount</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Price [rsd]</th>
                                             <th scope="col">Picture</th>
                                             <th></th>
                                         </tr>
@@ -602,8 +615,8 @@
                                             <td>{{item.restaurant}}</td>
                                             <td>{{item.amount}}</td>
                                             <td>{{item.price * item.amount}}</td>
-                                            <td><img src="../Images/bronze-member.png" class="rounded"
-                                                    style="max-width: 50px;">
+                                            <td><img v-bind:src="item.picturePath" class="rounded"
+                                                    style="max-height: 50px;">
                                             </td>
                                             <td style="width: 200px;">
                                                 <button type="button" class="btn btn-danger"

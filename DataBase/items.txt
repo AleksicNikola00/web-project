@@ -1,1 +1,56 @@
-[]
+[ {
+  "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+  "name" : "Pizza",
+  "price" : 1000.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 690.0,
+  "description" : "An amazing food item created by the best chefs in the area!",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "deleted" : false
+}, {
+  "id" : "c8427e3f-d1a5-4416-abb1-b8656e07db58",
+  "name" : "Pizza XL",
+  "price" : 1200.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 790.0,
+  "description" : "An amazing food item created by the best chefs in the area! But this one is larger...",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "deleted" : false
+}, {
+  "id" : "cbd10a0e-2288-411e-8222-990660c80264",
+  "name" : "Pizza XXL",
+  "price" : 1500.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 1000.0,
+  "description" : "An amazing food item created by the best chefs in the area! Reeeeeeaaly large...",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "deleted" : false
+}, {
+  "id" : "3483b4e0-f555-420f-ae27-57941c2c54cb",
+  "name" : "Coca cola",
+  "price" : 150.0,
+  "type" : "DRINK",
+  "unitType" : "LITER",
+  "unitAmount" : 0.33,
+  "description" : "A beverage to go with our food!",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "deleted" : false
+}, {
+  "id" : "1111bc84-3b14-4b81-97c1-6dbc872cf66f",
+  "name" : "Sprite",
+  "price" : 170.0,
+  "type" : "DRINK",
+  "unitType" : "LITER",
+  "unitAmount" : 0.33,
+  "description" : "A beverage to go with our food!",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "deleted" : false
+} ]
