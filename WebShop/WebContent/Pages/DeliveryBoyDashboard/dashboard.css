@@ -1,0 +1,31 @@
+
+.mainmenu{
+    color: black;
+    margin-top: 20px;
+}
+
+.columns{
+    border: 2px solid;
+    color: azure;
+    height: 890px;
+}
+
+.picturecontainer {
+    height: 200px;
+    background-color: blueviolet;
+}
+
+.caroselimage{
+    height: 200px;
+}
+
+.secondrow{
+    height: 650px;
+    background-color: blue;
+}
+
+.mysidebar {
+    height: 890px;
+    margin-left: 100px;
+}
+
