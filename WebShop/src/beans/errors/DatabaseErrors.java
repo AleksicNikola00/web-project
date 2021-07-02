@@ -13,4 +13,9 @@ public class DatabaseErrors {
 	
 	//Order cancelation
 	public static String WRONG_ORDER_STATUS = "The order isn't in the pending state";
+	
+	//Success options
+	public static String OK = "OK";
+	public static String PARTIAL = "PARTIAL";
+	public static String FAILED = "FAILED";
 }

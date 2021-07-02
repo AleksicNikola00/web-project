@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -45,5 +46,34 @@ public class CRUDOrderService extends BaseService {
 		uow.getOrderWriteRepo().update(order);
 		
 		return DatabaseErrors.NO_ERROR;
+	}
+	
+	public String submitOrders(ArrayList<Order> orders) {
+		
+		int succededNumber = 0;
+		
+		for(Order order : orders) {
+			Restaurant restInDataBase = uow.getRestaurantReadRepo().getById(order.getRestaurant());
+			Shopper shopperInDataBase = uow.getShopperReadRepo().getById(order.getUsername());
+			
+			if (restInDataBase == null || restInDataBase.isDeleted() ||
+					shopperInDataBase == null || shopperInDataBase.isDeleted()) {
+				continue;
+			}
+			
+			order.setDate(new Date());
+			order.setId(UUID.randomUUID());
+			
+			uow.getOrderWriteRepo().add(order);
+			succededNumber++;
+		}
+		
+		if (succededNumber == orders.size()) {
+			return DatabaseErrors.OK;
+		} else if (succededNumber == 0) {
+			return DatabaseErrors.FAILED;
+		} else {
+			return DatabaseErrors.PARTIAL;
+		}
 	}
 }

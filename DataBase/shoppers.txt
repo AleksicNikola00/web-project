@@ -3,7 +3,7 @@
   "name" : "Nikola",
   "surname" : "Milosavljevic",
   "gender" : "MALE",
-  "dateOfBirth" : 931046400000,
+  "dateOfBirth" : 931039200000,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
@@ -20,10 +20,10 @@
   "deleted" : false
 }, {
   "username" : "testUsername",
-  "name" : "Test",
-  "surname" : "Test",
+  "name" : "promenjeno ime",
+  "surname" : "promenjeno prezime",
   "gender" : "MALE",
-  "dateOfBirth" : 1373666400000,
+  "dateOfBirth" : 1625247287202,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",

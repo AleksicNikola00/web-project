@@ -2,6 +2,7 @@ package dto;
 
 import beans.enumerations.Gender;
 import beans.enumerations.Role;
+import beans.enumerations.TypeOfShopper;
 
 public class LoggedInUser {
 	private String username;
@@ -12,6 +13,15 @@ public class LoggedInUser {
 	private String password;
 	private Gender gender;
 	private Role role;
+	private TypeOfShopper shopperType;
+
+	public TypeOfShopper getShopperType() {
+		return shopperType;
+	}
+
+	public void setShopperType(TypeOfShopper shopperType) {
+		this.shopperType = shopperType;
+	}
 
 	public Role getRole() {
 		return role;

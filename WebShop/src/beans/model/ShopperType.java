@@ -9,6 +9,15 @@ public class ShopperType {
 	private double discount;
 	private int requiredPoints;
 	private boolean deleted;
+	private String logoPath;
+
+	public String getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(String logoPath) {
+		this.logoPath = logoPath;
+	}
 
 	public boolean isDeleted() {
 		return deleted;

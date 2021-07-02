@@ -1,1 +1,22 @@
-[]
+[ {
+  "typeName" : "bronze",
+  "type" : "BRONZE",
+  "discount" : 0.0,
+  "requiredPoints" : 0,
+  "deleted" : false,
+  "logoPath" : "/WebShop/Pages/Images/bronze-member.png"
+}, {
+  "typeName" : "silver",
+  "type" : "SILVER",
+  "discount" : 0.1,
+  "requiredPoints" : 2500,
+  "deleted" : false,
+  "logoPath" : "/WebShop/Pages/Images/silver-member.png"
+}, {
+  "typeName" : "gold",
+  "type" : "GOLDEN",
+  "discount" : 0.2,
+  "requiredPoints" : 5000,
+  "deleted" : false,
+  "logoPath" : "/WebShop/Pages/Images/gold-member.png"
+} ]

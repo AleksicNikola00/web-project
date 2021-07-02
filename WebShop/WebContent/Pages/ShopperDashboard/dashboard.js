@@ -8,6 +8,7 @@ var webShop = new Vue({
         selectedButton : {},
         currentUser : {},
         tempCurrUser : {},
+		shopperTypeInfo : {},
         visible : 'restaurants',
         status : {},
         filterObj : {
@@ -50,6 +51,7 @@ var webShop = new Vue({
         let user = window.localStorage.getItem('User');
         this.currentUser = JSON.parse(user);
 		
+		await this.requestTypeOfShopper();
 		await this.requestRestaurants();
 		await this.requestPastOrders();
 		
@@ -58,7 +60,6 @@ var webShop = new Vue({
         this.orderFilterObj.upperDate = new Date() + 1;
         this.restaurants = this.receivedRestaurants.filter(rest => rest.name.includes(''));
 		this.restaurants = this.sortIsOpen(this.restaurants);
-        this.pastOrders = this.pastReceivedOrders.filter(order => order.restaurantName.includes(''));
         this.selectSubmenu(this.visible);
 
         this.tempCurrUser = Object.assign({}, this.currentUser);
@@ -70,6 +71,12 @@ var webShop = new Vue({
         
     },
     methods : {
+		async requestTypeOfShopper(){
+			return await axios.get('/WebShop/rest/user/getshoppertype/' + this.currentUser.shopperType)
+							.then(response =>{
+								this.shopperTypeInfo = response.data;
+							});	
+		},
         async requestRestaurants(){
 			
 			return await axios.get('/WebShop/rest/getrestaurants')
@@ -85,6 +92,11 @@ var webShop = new Vue({
 							for (order of this.pastReceivedOrders){
 								order.status = order.status.replace("_"," ");
 							}
+							
+							this.pastReceivedOrders.reverse();
+						})
+						.then(() => {
+        					this.pastOrders = this.pastReceivedOrders.filter(order => order.restaurantName.includes(''));
 						});
 		},
         logout : function(){
@@ -268,8 +280,6 @@ var webShop = new Vue({
                 return;
             }
 			
-			console.log(restaurant.id);
-			
 			await axios.get('/WebShop/rest/getitemsforrestaurant/' + restaurant.id)
 						.then(response => {
 							this.menuForRestaurant = response.data;
@@ -325,7 +335,9 @@ var webShop = new Vue({
                 amount : input,
                 price : currentItem.price,
                 picturePath : currentItem.picturePath,
-                restaurant : this.selectedRestaurant.name
+                restaurant : this.selectedRestaurant.name,
+				restaurantId : currentItem.restaurantId,
+				id : currentItem.id
             };
 
             let toast = $('#toast' + index);
@@ -533,7 +545,33 @@ var webShop = new Vue({
             return false;
         },
 
-        validateAccountDetails : function() {
+		async updateAccountDetails() {
+			let userToUpdate = {
+				username : this.tempCurrUser.username,
+				name : this.tempCurrUser.firstname,
+				surname : this.tempCurrUser.lastname,
+				gender : this.tempCurrUser.gender,
+				dateOfBirth : new Date(),
+				password : this.tempCurrUser.newPass
+			}
+			
+			let year = parseInt(this.tempCurrUser.dateOfBirth.split("-")[0]);
+			let day = parseInt(this.tempCurrUser.dateOfBirth.split("-")[2]);
+			let month = parseInt(this.tempCurrUser.dateOfBirth.split("-")[1]) - 1;
+			
+			userToUpdate.dateOfBirth = new Date(year,month,day);
+			
+			await axios.put('/WebShop/rest/user/updateshopper',userToUpdate)
+					.then(response => {
+						this.currentUser = response.data;
+						this.tempCurrUser = Object.assign({},this.currentUser);
+						this.tempCurrUser.dateOfBirth = this.convertDate(this.tempCurrUser.dateOfBirth);
+					});
+					
+			await this.requestTypeOfShopper();
+		},
+
+        async validateAccountDetails() {
             if (!this.checkIfAnythingChanged())
                 return;
 
@@ -563,15 +601,68 @@ var webShop = new Vue({
                 $('#accountToastFail').toast('show'); 
             }else{
                 $('#accountToastSuccess').toast('show');
+				this.updateAccountDetails();
             }
 
+
         },
-		
-		postOrder : function() {
+		async createAndSubmitOrder(){
+			let orders = new Array();
+			for(item of this.cart){
+				let handeled = false;
+				
+				for (order of orders){
+					if (order.restaurant == item.restaurantId){
+						order.orderedItems.push({
+							id : item.id,
+							amount : item.amount,
+							price : item.price
+						});
+						handeled = true;
+					}
+				}
+				
+				if (!handeled){
+					let newOrder = {
+						orderedItems : new Array(),
+						restaurant : item.restaurantId,
+						username : this.currentUser.username,
+						status : "PENDING"
+					};
+					
+					newOrder.orderedItems.push({
+						id : item.id,
+						amount : item.amount,
+						price : item.price
+					});
+					
+					orders.push(newOrder);
+				}
+			}
+			
+			for (order of orders){
+				let totalPrice = 0;
+				for (item of order.orderedItems){
+					totalPrice += item.price * item.amount;
+					delete item.price;
+				}
+				
+				order.price = totalPrice;
+			}
+			
+			await axios.post('/WebShop/rest/order/submitorder', orders);
+			
+			await this.requestPastOrders();
+			
+			await this.requestTypeOfShopper();
+		},
+		async postOrder() {
 			if (this.cart.length == 0){
 				$('#sendOrderFail').toast('show');
 				return;
 			}
+			
+			await this.createAndSubmitOrder();
 			
 			$('#sendOrderSuccess').toast('show');
 			this.cart = new Array();

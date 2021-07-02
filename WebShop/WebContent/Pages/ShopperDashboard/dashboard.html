@@ -318,16 +318,13 @@
                             </div>
                         </div>
 
-                        <div class="col-6 text-center">
-                            <img src="../Images/bronze-member.png" style="width: 20%; height: auto; margin-top: 180px;"
-                                v-if="status == 'bronze'">
-                            <img src="../Images/silver-member.png" style="width: 20%; height: auto; margin-top: 180px;"
-                                v-if="status == 'silver'">
-                            <img src="../Images/gold-member.png" style="width: 20%; height: auto; margin-top: 180px;"
-                                v-if="status == 'gold'">
+                        <div class="col-6 text-center" style="padding-left:20px;">
+                            <img v-bind:src="shopperTypeInfo.logoPath" style="width: 20%; height: auto; margin-top: 130px;">
                             <h3 style="margin-top: 20px;">You have <em>{{tempCurrUser.points}}</em> points!</h3>
                             <br>
-                            <h3>That makes you a <em>{{status}}</em> buyer!</h3>
+                            <h3>That makes you a <em>{{shopperTypeInfo.typeName}}</em> buyer! <br>
+                            	Keep on buying to earn more points and have bigger discounts! <br>
+                            	Current discount {{shopperTypeInfo.discount * 100}}%</h3>
                         </div>
                     </div>
                 </div>

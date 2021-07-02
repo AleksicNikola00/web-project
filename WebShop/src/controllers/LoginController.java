@@ -82,6 +82,7 @@ public class LoginController {
 		retShopper.setPassword(creds.getPassword());
 		retShopper.setGender(currentShopper.getGender());
 		retShopper.setRole(currentShopper.getRole());
+		retShopper.setShopperType(currentShopper.getShopperType());
 		
 		return retShopper;
 	}

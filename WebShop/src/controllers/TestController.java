@@ -15,11 +15,13 @@ import beans.model.GeoLocation;
 import beans.model.Item;
 import beans.model.Order;
 import beans.model.Restaurant;
+import beans.model.ShopperType;
 import dto.NewRestaurantDTO;
 import services.CRUDCommentService;
 import services.CRUDItemService;
 import services.CRUDOrderService;
 import services.CRUDRestaurantService;
+import services.CRUDShopperTypeService;
 
 @Path("/test")
 public class TestController {
@@ -86,5 +88,16 @@ public class TestController {
 		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
 		
 		return service.add(order);
+	}
+	
+	//Adding shopperTypes
+	@PUT
+	@Path("/shopperType")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addShopperType(ShopperType shopperType) {
+		CRUDShopperTypeService service = new CRUDShopperTypeService(ctx.getRealPath(""));
+		
+		return service.add(shopperType);
 	}
 }
