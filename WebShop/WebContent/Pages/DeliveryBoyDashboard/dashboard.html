@@ -66,30 +66,27 @@
 
                           <div class="container-fluid">
                             <div class="row">
-                              <div class="col g-3">
 
+                              <div class="col g-3" v-for="r in restaurants">
                                 <div class="card myCard" style="width: 18rem;">
                                   <img src="../Images/bronze-member.png" class="card-img-top logoImage" alt="...">
                                   <div class="card-body px-3">
-                                    <h5 class="card-title">Ime restorana</h5>
-                                    <p class="text-end g-0 mb-0" style="color: green;">opened</p> 
+                                    <h5 class="card-title">{{r.name}}</h5>
+                                    <p v-if="r.open == 'true'" class="text-end g-0 mb-0" style="color: green;">opened</p> 
+                                    <p v-else class="text-end g-0 mb-0" style="color: red;">closed</p> 
                                   </div>
                                   <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Type: <label>Italian</label></label></li>
-                                    <li class="list-group-item">City: <label>Novi Sad</label></label></li>
-                                    <li class="list-group-item">Adress: <label>Stanoja Glavasa BB</label></label></li>
-                                    <li class="list-group-item">Average mark: <label>3.4</label></label></li>
+                                    <li class="list-group-item">Type: <label>{{r.type}}</label></label></li>
+                                    <li class="list-group-item">City: <label>{{r.city}}</label></label></li>
+                                    <li class="list-group-item">Adress: <label>{{r.address}}</label></label></li>
+                                    <li class="list-group-item">Average mark: <label>{{r.rating}}</label></label></li>
                                   </ul>
                                   <div class="card-body text-center">
                                     <button class="btn btn-primary" type="button">Details</button>
                                   </div>
                                 </div>
-
                               </div>
 
-                            
-
-                              
 
                             </div>
                           </div>
