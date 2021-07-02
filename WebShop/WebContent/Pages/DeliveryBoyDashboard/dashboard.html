@@ -30,14 +30,14 @@
                 <button type="button" id="orders" class="btn btn-light myButtonMenu"
                             v-on:click="selectSubmenu('orders')">Orders</button>
                
-                <div class="container mt-auto text-center" style="margin-bottom: 20px;">
+                <div class="container mt-auto text-center putDown">
                     <hr style="color: black;"/>
                     <button type="button" class="btn btn-ligt w-100" v-on:click="">Logout</button>
                 </div>
             </div>
           </div>
 
-        <!-- Main frame restaurants -->
+          <!-- Main frame restaurants -->
           <div class="col-10  columns" v-if="activeSubmenu == 'restaurants'">
                 <div class="container-fluid g-0">
 
@@ -61,7 +61,40 @@
 
                     <div class="row secondrow  mh-100">
 
-                        <div class="col-8  m-3 bg-light shadow-sm">1</div>
+                        <!-- Restaurants view-->
+                        <div class="col-8  m-3 bg-light shadow-sm blackLetters restaurantView">
+
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col g-3">
+
+                                <div class="card myCard" style="width: 18rem;">
+                                  <img src="../Images/bronze-member.png" class="card-img-top logoImage" alt="...">
+                                  <div class="card-body px-3">
+                                    <h5 class="card-title">Ime restorana</h5>
+                                    <p class="text-end g-0 mb-0" style="color: green;">opened</p> 
+                                  </div>
+                                  <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Type: <label>Italian</label></label></li>
+                                    <li class="list-group-item">City: <label>Novi Sad</label></label></li>
+                                    <li class="list-group-item">Adress: <label>Stanoja Glavasa BB</label></label></li>
+                                    <li class="list-group-item">Average mark: <label>3.4</label></label></li>
+                                  </ul>
+                                  <div class="card-body text-center">
+                                    <button class="btn btn-primary" type="button">Details</button>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                            
+
+                              
+
+                            </div>
+                          </div>
+
+                        </div>
                         
                         <!-- Filter restaurants -->
                          <div class="col-3 m-3  bg-light shadow-sm">
@@ -83,11 +116,30 @@
                                 <input type="range" class="form-range" min="0" max="5" step="1" id="mark"  v-on:change="updateTextInput()">
                                 <input type="text" id="textInput" disabled value="">
 
+                                <div class="form-check form-switch mt-3 ">
+                                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                  <label class="form-check-label blackLetters" for="flexSwitchCheckDefault">Only open restaurants</label>
+                                </div>
+                                
+                                <h5 class="blackLetters text-center" style="margin-top:100px ;">Sort order:</h5>
+                                <div class="form-check ">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                  <label class="form-check-label blackLetters" for="exampleRadios1">
+                                    Ascending
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                  <label class="form-check-label blackLetters" for="exampleRadios2">
+                                    Descending
+                                  </label>
+                                </div>
                          </div>
 
                     </div>
                 </div>
-          </div>
+          </div> 
+          <!--Mainframe restaurants end-->
 
 
         </div>

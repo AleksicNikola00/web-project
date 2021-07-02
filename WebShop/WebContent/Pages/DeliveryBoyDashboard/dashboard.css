@@ -16,6 +16,21 @@
     height: 890px;
 }
 
+.restaurantView{
+        overflow-y:scroll; 
+        max-height: 97%;
+}
+
+.myCard{
+    max-width: 250px;
+    max-height: 470px;
+}
+
+.logoImage{
+    max-width: 250px;
+    max-height: 150px;
+}
+
 .picturecontainer {
     height: 200px;
 }
@@ -30,6 +45,10 @@
 
 .blackLetters{
     color: black;
+}
+
+.putDown{
+    margin-bottom: 20px;
 }
 
 .mysidebar {

@@ -2,7 +2,8 @@ var app = new Vue({
 	el: '#dashboard',
 	data: {
         selectedButton : '',
-        activeSubmenu : ''
+        activeSubmenu : '',
+        restaurants : {}
 	},
 	mounted() {
 		this.selectedButton = 'restaurants';
@@ -25,8 +26,7 @@ var app = new Vue({
             this.activeSubmenu = this.selectedButton;
         },
 
-        updateTextInput: function(value){
-            //alert(value)
+        updateTextInput: function(){
             document.getElementById('textInput').value=document.getElementById('mark').value; 
         }
 
