@@ -7,7 +7,7 @@ var app = new Vue({
             name : '',
             location : '',
             type : '',
-            rating : 'all',
+            rating : 0,
             isOpen : false,
             isAsc : true,
             isDesc : false
@@ -187,6 +187,7 @@ var app = new Vue({
 
         updateTextInput: function(){
             document.getElementById('textInput').value=document.getElementById('mark').value; 
+            this.filterRestaurant.rating = document.getElementById('mark').value;
         },
 
         filterOut: function(){
@@ -203,6 +204,18 @@ var app = new Vue({
 
         filterByType: function(){
             this.restaurants = this.allRestaurants.filter(r => r.type.toLowerCase().includes(this.filterRestaurant.type.toLowerCase()));
+        },
+
+        filterByRating: function(){
+            
+            this.restaurants = this.allRestaurants.filter(r => r.rating >= this.filterRestaurant.rating);
+        },
+        //open or closed
+        filterByStatus: function(){
+            if(this.filterRestaurant.isOpen)
+                this.restaurants = this.allRestaurants.filter(r => r.open == this.filterRestaurant.isOpen.toString());
+            else
+                this.restaurants = this.allRestaurants;
         },
 
 
@@ -223,6 +236,13 @@ var app = new Vue({
         'filterRestaurant.type': function(){
             this.filterByType();
         },
+        'filterRestaurant.rating': function(){
+            this.filterByRating();
+        },
+        'filterRestaurant.isOpen': function(){
+            this.filterByStatus();
+        },
+
 
     }
 
