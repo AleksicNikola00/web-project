@@ -464,9 +464,11 @@ var webShop = new Vue({
 
             this.comment.text = '';
             this.comment.rating = '5';
-            $('#commentToastSuccess').toast('show');
+			let temp = $('#commentToastSuccess');
+            temp.toast('show');
 
-            this.visible = 'orders';
+			this.visible = 'orders';
+
         },
 
         validateString : function(input) {

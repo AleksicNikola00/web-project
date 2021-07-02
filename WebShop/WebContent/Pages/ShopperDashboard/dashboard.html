@@ -856,7 +856,7 @@
 
                     <div class="row">
                         <div class="col-12 text-center">
-                            <img src="../Images/bronze-member.png" style="max-width: 135px;">
+                            <img v-bind:src="selectedRestaurantForComment.logoPath" style="max-width: 135px;">
                         </div>
                     </div>
 
@@ -900,11 +900,11 @@
 
                 </div>
             </div>
-
+			
             <!--Toasts-->
             <div class="toast-container">
                 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                    <div name="liveToasts" id="commentToastSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                    <div name="liveToasts" id="commentToastSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header bg-success">
                             <strong class="me-auto" style="color: white;">WebShop</strong>
                             <small style="color: white;">just now</small>
@@ -914,7 +914,7 @@
                             Comment submitted successfully! Thank you!
                         </div>
                     </div>
-                    <div name="liveToasts" id="commentToastFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(food, index) in menuForRestaurant">
+                    <div name="liveToasts" id="commentToastFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header bg-danger">
                             <strong class="me-auto" style="color: white;">WebShop</strong>
                             <small style="color: white;">just now</small>
