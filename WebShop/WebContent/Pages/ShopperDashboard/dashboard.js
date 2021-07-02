@@ -39,7 +39,7 @@ var webShop = new Vue({
         selectedRestaurantForComment : {},
         comment : {
             text : '',
-            rating : ''
+            rating : '5'
         },
         validationMessage : ''
 
@@ -459,8 +459,15 @@ var webShop = new Vue({
                 return;
             }
 
-            let comment = this.comment.text.replace(/(\s{2,})/, ' ');
+            let comment = this.comment.text.replace(/(\s+)/, ' ');
             let rating = this.comment.rating;
+			
+			axios.post('/WebShop/rest/comment/submit', {
+				restaurantId : this.selectedRestaurantForComment.id,
+				username : this.currentUser.username,
+				text : comment,
+				mark : rating
+			});
 
             this.comment.text = '';
             this.comment.rating = '5';
@@ -559,9 +566,17 @@ var webShop = new Vue({
             }
 
         },
-        validatePassword : function() {
-
-        }
+		
+		postOrder : function() {
+			if (this.cart.length == 0){
+				$('#sendOrderFail').toast('show');
+				return;
+			}
+			
+			$('#sendOrderSuccess').toast('show');
+			this.cart = new Array();
+			this.visible = 'restaurants';
+		}
     },
     computed: {
         /* used for filtering */
