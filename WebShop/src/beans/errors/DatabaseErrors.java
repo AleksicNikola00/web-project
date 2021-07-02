@@ -10,4 +10,7 @@ public class DatabaseErrors {
 	
 	//Food for restaurant
 	public static String NO_RESTAURANT_FOUND = "No restaurant found for requested id";
+	
+	//Order cancelation
+	public static String WRONG_ORDER_STATUS = "The order isn't in the pending state";
 }

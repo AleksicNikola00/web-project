@@ -1,6 +1,7 @@
 package dto;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import beans.enumerations.OrderStatus;
 import beans.enumerations.RestaurantType;
@@ -12,7 +13,16 @@ public class PastOrderDTO {
 	private String date;
 	private OrderStatus status;
 	private RestaurantType restaurantType;
+	private UUID id;
 	
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
 	public RestaurantType getRestaurantType() {
 		return restaurantType;
 	}

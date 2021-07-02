@@ -3,6 +3,7 @@ package services;
 import java.util.Date;
 import java.util.UUID;
 
+import beans.enumerations.OrderStatus;
 import beans.errors.DatabaseErrors;
 import beans.model.Order;
 import beans.model.Restaurant;
@@ -28,6 +29,20 @@ public class CRUDOrderService extends BaseService {
 		order.setDate(new Date());
 		
 		uow.getOrderWriteRepo().add(order);
+		
+		return DatabaseErrors.NO_ERROR;
+	}
+	
+	public String cancelOrder(UUID id) {
+		Order order = uow.getOrderReadRepo().getById(id);
+		
+		if (order.getStatus() != OrderStatus.PENDING) {
+			return DatabaseErrors.WRONG_ORDER_STATUS;
+		}
+		
+		order.setStatus(OrderStatus.CANCELED);
+		
+		uow.getOrderWriteRepo().update(order);
 		
 		return DatabaseErrors.NO_ERROR;
 	}

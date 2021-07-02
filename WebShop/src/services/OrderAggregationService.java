@@ -30,6 +30,7 @@ public class OrderAggregationService extends BaseService {
 			}
 			
 			PastOrderDTO current = new PastOrderDTO();
+			current.setId(order.getId());
 			current.setItems(new ArrayList<PastOrderedItemDTO>());
 			
 			ArrayList<Item> items = uow.getItemReadRepo().getAll();

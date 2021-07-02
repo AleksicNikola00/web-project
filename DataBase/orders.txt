@@ -11,7 +11,7 @@
   "date" : 1625176571166,
   "price" : 2150.0,
   "username" : "mili",
-  "status" : "IN_PREPARATION",
+  "status" : "CANCELED",
   "deleted" : false
 }, {
   "id" : "6f061e6b-07b8-4be2-b29e-8b50a428fd50",
@@ -26,7 +26,7 @@
   "date" : 1625176589150,
   "price" : 2300.0,
   "username" : "mili",
-  "status" : "PENDING",
+  "status" : "CANCELED",
   "deleted" : false
 }, {
   "id" : "1b08231c-00ef-4a54-ac84-fde21e1ff4b2",

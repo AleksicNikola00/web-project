@@ -576,7 +576,13 @@ var webShop = new Vue({
 			$('#sendOrderSuccess').toast('show');
 			this.cart = new Array();
 			this.visible = 'restaurants';
-		}
+		},
+		
+		cancelOrder : function(pastOrder){
+			
+			axios.get('/WebShop/rest/order/cancelorder/' + pastOrder.id);
+			pastOrder.status = "CANCELED";
+		} 
     },
     computed: {
         /* used for filtering */
