@@ -50,6 +50,7 @@ public class OrderAggregationService extends BaseService {
 			current.setDate(buildDate(order.getDate()));
 			current.setStatus(order.getStatus());
 			current.setRestaurantType(restaurant.getType());
+			current.setPrice(order.getPrice());
 			
 			ret.add(current);
 		}

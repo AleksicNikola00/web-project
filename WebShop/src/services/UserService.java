@@ -36,6 +36,10 @@ public class UserService extends BaseService {
 		return ret;
 	}
 	
+	public LoggedInUser generateUserData(String username) {
+		return generateLoggedInShopper(uow.getCredentialsReadRepo().getById(username));
+	}
+	
 	private LoggedInUser generateLoggedInShopper(Credentials creds) {
 		Shopper currentShopper = uow.getShopperReadRepo().getById(creds.getUsername());
 		

@@ -1,72 +1,24 @@
 [ {
-  "id" : "b65e0174-ac72-4b3b-bd3a-6cb7bbcd335e",
+  "id" : "19767dcd-6103-4c84-8869-6e2e450fa6ef",
   "orderedItems" : [ {
-    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "id" : "297db321-44c4-4c94-bb18-e5071115c3a3",
     "amount" : 2
-  }, {
-    "id" : "3483b4e0-f555-420f-ae27-57941c2c54cb",
-    "amount" : 1
   } ],
-  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
-  "date" : 1625176571166,
-  "price" : 2150.0,
+  "restaurant" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "date" : 1625263687330,
+  "price" : 1900.0,
   "username" : "mili",
   "status" : "PENDING",
   "deleted" : false
 }, {
-  "id" : "6f061e6b-07b8-4be2-b29e-8b50a428fd50",
+  "id" : "412806b1-0ffa-4ef4-8db1-bd1a3492e42c",
   "orderedItems" : [ {
     "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
-    "amount" : 2
-  }, {
-    "id" : "3483b4e0-f555-420f-ae27-57941c2c54cb",
-    "amount" : 2
-  } ],
-  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
-  "date" : 1625176589150,
-  "price" : 2300.0,
-  "username" : "mili",
-  "status" : "IN_PREPARATION",
-  "deleted" : false
-}, {
-  "id" : "1b08231c-00ef-4a54-ac84-fde21e1ff4b2",
-  "orderedItems" : [ {
-    "id" : "3483b4e0-f555-420f-ae27-57941c2c54cb",
-    "amount" : 2
-  } ],
-  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
-  "date" : 1625176621660,
-  "price" : 300.0,
-  "username" : "mili",
-  "status" : "DELIEVERED",
-  "deleted" : false
-}, {
-  "id" : "7711eacb-0865-4492-b427-44fae76707bc",
-  "orderedItems" : [ {
-    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
-    "amount" : 2
-  }, {
-    "id" : "c8427e3f-d1a5-4416-abb1-b8656e07db58",
     "amount" : 1
   } ],
   "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
-  "date" : 1625242638161,
-  "price" : 3200.0,
-  "username" : "mili",
-  "status" : "CANCELED",
-  "deleted" : false
-}, {
-  "id" : "e2019c90-13bd-41bd-90c8-88f23ecb141f",
-  "orderedItems" : [ {
-    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
-    "amount" : 2
-  }, {
-    "id" : "c8427e3f-d1a5-4416-abb1-b8656e07db58",
-    "amount" : 1
-  } ],
-  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
-  "date" : 1625243045415,
-  "price" : 3200.0,
+  "date" : 1625263687354,
+  "price" : 1000.0,
   "username" : "mili",
   "status" : "PENDING",
   "deleted" : false

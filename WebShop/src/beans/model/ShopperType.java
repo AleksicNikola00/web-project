@@ -10,6 +10,15 @@ public class ShopperType {
 	private int requiredPoints;
 	private boolean deleted;
 	private String logoPath;
+	private int maximumPoints;
+
+	public int getMaximumPoints() {
+		return maximumPoints;
+	}
+
+	public void setMaximumPoints(int maximumPoints) {
+		this.maximumPoints = maximumPoints;
+	}
 
 	public String getLogoPath() {
 		return logoPath;

@@ -75,6 +75,7 @@ var webShop = new Vue({
 			return await axios.get('/WebShop/rest/user/getshoppertype/' + this.currentUser.shopperType)
 							.then(response =>{
 								this.shopperTypeInfo = response.data;
+								console.log(this.shopperTypeInfo);
 							});	
 		},
         async requestRestaurants(){
@@ -97,6 +98,17 @@ var webShop = new Vue({
 						})
 						.then(() => {
         					this.pastOrders = this.pastReceivedOrders.filter(order => order.restaurantName.includes(''));
+						});
+		},
+		async requestUserData(){
+			return await axios.get('/WebShop/rest/user/getbyuser/' + this.currentUser.username)
+						.then(response => {
+							this.currentUser = response.data;
+							this.tempCurrUser = Object.assign({}, this.currentUser);
+							this.tempCurrUser.dateOfBirth = this.convertDate(this.tempCurrUser.dateOfBirth);
+					        this.tempCurrUser.points = parseInt(this.tempCurrUser.points);
+					        this.tempCurrUser.newPass = '';
+					        this.tempCurrUser.oldPass = '';
 						});
 		},
         logout : function(){
@@ -302,8 +314,8 @@ var webShop = new Vue({
             for(const item of this.cart){
                 total += item.price * item.amount;
             }
-
-            return total;
+			
+            return total * (1 - this.shopperTypeInfo.discount);
         },
 
         removeFromCart : function(index){
@@ -353,16 +365,6 @@ var webShop = new Vue({
             this.cart.push(newItem);
         },
 
-        getTotalForItems : function(index){
-            let total = 0;
-            
-            for(item of this.pastOrders[index].items){
-                total += parseFloat(item.price) * parseInt(item.amount);
-            }
-
-            return total;
-        },
-
         doTotal : function(items){
             let total = 0;
 
@@ -383,12 +385,12 @@ var webShop = new Vue({
             return result;
         },
         orderFilterBottomPrice : function(orders){
-            let result = orders.filter(order => this.doTotal(order.items) >= parseFloat(this.orderFilterObj.bottomPrice));
+            let result = orders.filter(order => order.price >= parseFloat(this.orderFilterObj.bottomPrice));
 
             return result;
         },
         orderFilterUpperPrice : function(orders){
-            let result = orders.filter(order => this.doTotal(order.items) <= parseFloat(this.orderFilterObj.upperPrice));
+            let result = orders.filter(order => order.price <= parseFloat(this.orderFilterObj.upperPrice));
 
             return result;
         },
@@ -566,6 +568,9 @@ var webShop = new Vue({
 						this.currentUser = response.data;
 						this.tempCurrUser = Object.assign({},this.currentUser);
 						this.tempCurrUser.dateOfBirth = this.convertDate(this.tempCurrUser.dateOfBirth);
+						this.tempCurrUser.points = parseInt(this.tempCurrUser.points);
+					    this.tempCurrUser.newPass = '';
+					    this.tempCurrUser.oldPass = '';
 					});
 					
 			await this.requestTypeOfShopper();
@@ -647,12 +652,14 @@ var webShop = new Vue({
 					delete item.price;
 				}
 				
-				order.price = totalPrice;
+				order.price = totalPrice * (1 - this.shopperTypeInfo.discount);
 			}
 			
 			await axios.post('/WebShop/rest/order/submitorder', orders);
 			
 			await this.requestPastOrders();
+			
+			await this.requestUserData();
 			
 			await this.requestTypeOfShopper();
 		},
@@ -669,10 +676,14 @@ var webShop = new Vue({
 			this.visible = 'restaurants';
 		},
 		
-		cancelOrder : function(pastOrder){
+		async cancelOrder(pastOrder){
 			
-			axios.get('/WebShop/rest/order/cancelorder/' + pastOrder.id);
+			await axios.get('/WebShop/rest/order/cancelorder/' + pastOrder.id);
 			pastOrder.status = "CANCELED";
+			
+			await this.requestUserData();
+			
+			await this.requestTypeOfShopper();
 		} 
     },
     computed: {
@@ -716,7 +727,7 @@ var webShop = new Vue({
         },
         orderfilterRestaurantType (){
             return this.orderFilterObj.restaurantType;
-        }
+        },
     },
     watch: {
         /* used for filtering */

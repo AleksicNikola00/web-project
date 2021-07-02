@@ -9,6 +9,7 @@ import beans.errors.DatabaseErrors;
 import beans.model.Order;
 import beans.model.Restaurant;
 import beans.model.Shopper;
+import beans.model.ShopperType;
 
 public class CRUDOrderService extends BaseService {
 	
@@ -16,6 +17,7 @@ public class CRUDOrderService extends BaseService {
 		super(path);
 	}
 	
+	//Testing
 	public String add(Order order) {
 		
 		Restaurant restaurantInDatabase = uow.getRestaurantReadRepo().getById(order.getRestaurant());
@@ -45,6 +47,10 @@ public class CRUDOrderService extends BaseService {
 		
 		uow.getOrderWriteRepo().update(order);
 		
+		Shopper shopper = uow.getShopperReadRepo().getById(order.getUsername());
+		
+		subtractPointsForUser(shopper, order);
+		
 		return DatabaseErrors.NO_ERROR;
 	}
 	
@@ -65,6 +71,9 @@ public class CRUDOrderService extends BaseService {
 			order.setId(UUID.randomUUID());
 			
 			uow.getOrderWriteRepo().add(order);
+			
+			addPointsForUser(shopperInDataBase, order);
+			
 			succededNumber++;
 		}
 		
@@ -75,5 +84,46 @@ public class CRUDOrderService extends BaseService {
 		} else {
 			return DatabaseErrors.PARTIAL;
 		}
+	}
+	
+	private void addPointsForUser(Shopper shopper, Order order) {
+		int newPoints = (int) (shopper.getCollectedPoints() + order.getPrice() * 133 / 1000);
+		
+		shopper.setCollectedPoints(newPoints);
+		
+		calculateShopperType(shopper);
+	}
+	
+	private void calculateShopperType(Shopper shopper) {
+		ShopperType currentType = uow.getShopperTypeReadRepo().getById(shopper.getShopperType());
+		
+		ArrayList<ShopperType> allTypes = uow.getShopperTypeReadRepo().getAll();
+		
+		for(int i = 0; i < allTypes.size(); i++) {
+			if (i == allTypes.size() - 1) {
+				shopper.setShopperType(allTypes.get(i).getType());
+				break;
+			}
+			
+			if (allTypes.get(i).getMaximumPoints() > shopper.getCollectedPoints() &&
+					allTypes.get(i).getRequiredPoints() <= shopper.getCollectedPoints()) {
+				shopper.setShopperType(allTypes.get(i).getType());
+				break;
+			}
+		}
+		
+		uow.getShopperWriteRepo().update(shopper);
+	}
+	
+	private void subtractPointsForUser(Shopper shopper, Order order) {
+		int newPoints = (int) (shopper.getCollectedPoints() - order.getPrice() * 133 * 4 / 1000);
+		
+		if (newPoints < 0) {
+			newPoints = 0;
+		}
+		
+		shopper.setCollectedPoints(newPoints);
+		
+		calculateShopperType(shopper);
 	}
 }

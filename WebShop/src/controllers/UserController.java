@@ -34,6 +34,15 @@ public class UserController {
 	}
 	
 	@GET
+	@Path("/getbyuser/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public LoggedInUser getUser(@PathParam("id") String username) {
+		UserService service = new UserService(ctx.getRealPath(""));
+		
+		return service.generateUserData(username);
+	}
+	
+	@GET
 	@Path("/getshoppertype/{type}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public ShopperType getShopperType(@PathParam("type") TypeOfShopper type) {

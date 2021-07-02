@@ -53,4 +53,48 @@
   "picturePath" : "/WebShop/DatabasePictures/items",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "deleted" : false
+}, {
+  "id" : "0595cb04-5377-436e-acb6-5929304c0897",
+  "name" : "Pasta",
+  "price" : 790.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 400.0,
+  "description" : "Best pasta in Europe and further!",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "6e949705-9eee-4b86-a77d-62459ab21d68",
+  "deleted" : false
+}, {
+  "id" : "4922f03d-ef78-4c9a-aac7-6084cfa3566a",
+  "name" : "Chicken curry",
+  "price" : 1050.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 550.0,
+  "description" : "Who doesn't like curry...",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "6e949705-9eee-4b86-a77d-62459ab21d68",
+  "deleted" : false
+}, {
+  "id" : "297db321-44c4-4c94-bb18-e5071115c3a3",
+  "name" : "Chicken curry",
+  "price" : 950.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 550.0,
+  "description" : "The best curry in town!",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "deleted" : false
+}, {
+  "id" : "27a9f087-fadd-4fb1-b7b5-1410c4b95132",
+  "name" : "Ramen",
+  "price" : 440.0,
+  "type" : "FOOD",
+  "unitType" : "GRAM",
+  "unitAmount" : 200.0,
+  "description" : "Atleast we try...",
+  "picturePath" : "/WebShop/DatabasePictures/items",
+  "restaurantId" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "deleted" : false
 } ]

@@ -14,7 +14,17 @@ public class PastOrderDTO {
 	private OrderStatus status;
 	private RestaurantType restaurantType;
 	private UUID id;
+	private double price;
 	
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public UUID getId() {
 		return id;
 	}

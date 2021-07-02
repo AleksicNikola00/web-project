@@ -4,19 +4,22 @@
   "discount" : 0.0,
   "requiredPoints" : 0,
   "deleted" : false,
-  "logoPath" : "/WebShop/Pages/Images/bronze-member.png"
+  "logoPath" : "/WebShop/Pages/Images/bronze-member.png",
+  "maximumPoints" : 2500
 }, {
   "typeName" : "silver",
   "type" : "SILVER",
   "discount" : 0.1,
   "requiredPoints" : 2500,
   "deleted" : false,
-  "logoPath" : "/WebShop/Pages/Images/silver-member.png"
+  "logoPath" : "/WebShop/Pages/Images/silver-member.png",
+  "maximumPoints" : 5000
 }, {
   "typeName" : "gold",
   "type" : "GOLDEN",
   "discount" : 0.2,
   "requiredPoints" : 5000,
   "deleted" : false,
-  "logoPath" : "/WebShop/Pages/Images/gold-member.png"
+  "logoPath" : "/WebShop/Pages/Images/gold-member.png",
+  "maximumPoints" : -1
 } ]
