@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="admindashboard.css">
+
+    <title>Admin dashboard</title>
+
+</head>
+<body>
+    
+    <div class="whole-container" id="dashboard">
+
+        <!-- Menu -->
+        <div class="menu">
+            <div>
+                <!--header-->
+                <div class="menu-header-container">
+                    <p class="menu-header-text">Menu</p>
+                </div>
+
+                <!--Menu items-->
+                <div class="flex flex-column">
+                    <button class="menu-item restaurant-menu">
+                        <span class="menu-item-text" onclick="displaySubmenu('restaurantSubmenu')">Restaurants</span>
+                    </button>
+
+                    <div class="submenu flex relative flex-column" name="restaurantSubmenu">
+                        <button class="submenu-item search-submenu">
+                            <span class="submenu-item-text" v-on:click="changeDisplay('restaurants')">Show restaurants</span>
+                        </button>
+                        <button class="submenu-item add-submenu">
+                            <span class="submenu-item-text" v-on:click="changeDisplay('addEditRestaurant')">Add restaurant</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-column">
+                    <button class="menu-item user-menu">
+                        <span class="menu-item-text" onclick="displaySubmenu('userSubmenu')">Users</span>
+                    </button>
+
+                    <div class="submenu flex relative flex-column" name="userSubmenu">
+                        <button class="submenu-item search-submenu">
+                            <span class="submenu-item-text" v-on:click="changeDisplay('users')">Show users</span>
+                        </button>
+                        <button class="submenu-item add-submenu" v-on:click="changeDisplay('specificUser')">
+                            <span class="submenu-item-text">Add users</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!--Logout menu item-->
+            <div class="menu-logout">
+                <button class="logout-button">
+                    <span class="menu-item-text logout-text">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Panels -->
+        <!-- Restaurants view -->
+        <div class="content" v-if="visible == 'restaurants'">
+
+            <!-- Header -->
+            <div class="content-header flex flex-column relative">
+                <div style="border-bottom: 1px solid black;">
+                    <p class="menu-header-text content-header-text">Restaurants view</p>
+                </div>
+            </div>
+
+            <div class="flex relative filtering-area">
+                <input type="text" class="text-input name-input-filter" placeholder="Restaurant name..." v-model="restaurantFilterObj.name">
+                <input type="text" class="text-input name-input-filter" placeholder="Type..." v-model="restaurantFilterObj.type">
+                <input type="text" class="text-input name-input-filter" placeholder="Location..." v-model="restaurantFilterObj.location">
+                
+                <div class="flex relative flex-column">
+                    <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('typefilterselect')" name="typefilterselect">
+                        <span class="placeholder-text">Mark :        </span> {{restaurantFilterObj.mark}}
+                    </div>
+                    <div class="combo-options" name="typefilterselectdropdown">
+                        <button class="combo-option combo-option-first" v-on:click="changeFilterMark('All marks', 'typefilterselect')">All marks</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('1', 'typefilterselect')">1</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('2', 'typefilterselect')">2</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('3', 'typefilterselect')">3</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('4', 'typefilterselect')">4</button>
+                        <button class="combo-option combo-option-last" v-on:click="changeFilterMark('5', 'typefilterselect')">5</button>
+                    </div>
+                </div>
+
+                <button class="asc-desc text-input" v-on:click="changeAscDes()" name="ascDescButton">
+                    <span class="placeholder-text">Order :    </span> {{restaurantFilterObj.ascDes}}
+                </button>
+                
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../jquery-3.3.1.min.js"></script>
+    <script src="../../axios.js"></script>
+    <script src="../../vue.js"></script>
+    <script src="../AdminDashboard/admindashboard.js"></script>
+
+</body>
+</html>

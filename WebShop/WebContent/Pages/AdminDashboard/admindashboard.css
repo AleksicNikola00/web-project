@@ -1,0 +1,242 @@
+/* Basics */
+body::-webkit-scrollbar{
+    display: none;
+}
+
+button {
+    border: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.relative {
+    position: relative;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.whole-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+/* Menu */
+
+.menu {
+    background-color: #021056;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.submenu {
+    display: none;
+    width: 100%;
+}
+
+.menu-header-container {
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.menu-header-text {
+    font-size: 35px;
+    font: Inter;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.menu-item {
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 75px;
+    background-color: #021056;
+    background-repeat: no-repeat;
+    background-position: center left 25px;
+    border-bottom: 1px solid #DADADA;
+}
+
+.menu-item:hover{
+    background-color: #3757F5;
+}
+
+.menu-item-text {
+    font: Inter;
+    font-size: 20px;
+    color: white;
+}
+
+.submenu-item {
+    height: 35px;
+    border-bottom: 1px solid #DADADA;
+    background-color: #021056;
+    background-repeat: no-repeat;
+    background-position: center left 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
+    width: 100%;
+}
+
+.submenu-item:hover {
+    background-color: #3757F5;
+}
+
+.submenu-item-text {
+    font: Inter;
+    font-size: 15px;
+    color: white;
+}
+
+.menu-logout {
+    position: relative;
+    display: flex;
+    height: 100px;
+    width: 100%;
+}
+
+.logout-button {
+    background-color: #021056;
+    width: 100%;
+}
+
+.logout-button:hover {
+    background-color: #3757F5;
+}
+
+.logout-text {
+    text-transform: uppercase;
+}
+
+/* Specific items */ 
+.restaurant-menu {
+    background-image: url("../Images/restaurant.png");
+}
+
+
+.user-menu {
+    background-image: url("../Images/user.png");
+}
+
+.add-submenu {
+    background-image: url("../Images/plus.png");
+}
+
+.search-submenu {
+    background-image: url("../Images/magnifyingGlass.png");
+}
+
+
+/* Views */
+.content {
+    width: calc(100% - 250px);
+    background-color: #F2F6F9;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.content-header {
+    height: 100px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.content-header-text {
+    color: black !important;
+}
+
+/* Restaurant filtering area */
+.filtering-area {
+    height: 40px;
+}
+
+.text-input {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    padding-left: 26px;
+    padding-right: 26px;
+    border: 0;
+    outline-width: 0;
+    font: Inter;
+    background-repeat: no-repeat;
+    background-position: center right 20px;
+    margin-right: 25px;
+    height: 40px;
+}
+
+.combo-imput {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    padding-left: 26px;
+    border: 0;
+    outline-width: 0;
+    font: Inter;
+    margin-right: 25px;
+    background-image: url("../Images/angleDown.png");
+    background-repeat: no-repeat;
+    align-items: center;
+    display: flex;
+    height: 40px !important;
+    cursor: pointer;
+}
+
+.combo-options {
+    position: absolute;
+    top: 40px;
+    width: calc(100% - 25px);
+    display: none;
+}
+
+.combo-option-first {
+    border-radius: 25px 25px 0 0;
+}
+
+.combo-option-last {
+    border-radius: 0 0 25px 25px;
+    border-bottom: none !important;
+}
+
+.combo-option {
+    width: 100%;
+    height: 40px;
+    background-color: #E7EDF1;
+    border-bottom: 1px solid #DADADA;
+}
+
+.name-input-filter {
+    width: 250px;
+    background-image: url("../Images/blackMagniGlass.png");
+    padding-right: 50px !important;
+}
+
+.rest-type-width-filtering {
+    width: 270px;
+    background-position: center right 15px;
+}
+
+.asc-desc {
+    width: 230px;
+    background-image: url("../Images/angleUp.png");
+    justify-content: start;
+    align-items: center;
+    display: flex;
+}
+
+.placeholder-text {
+    white-space: pre;
+    color: #877575;
+}
