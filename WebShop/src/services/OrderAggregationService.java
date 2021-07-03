@@ -1,16 +1,17 @@
 package services;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-import beans.enumerations.RestaurantType;
 import beans.model.Item;
 import beans.model.Order;
 import beans.model.OrderItemIDAmount;
 import beans.model.Restaurant;
 import dto.PastOrderDTO;
 import dto.PastOrderedItemDTO;
+import repository.DatabaseConstants;
 
 public class OrderAggregationService extends BaseService {
 
@@ -45,7 +46,8 @@ public class OrderAggregationService extends BaseService {
 			}
 			
 			Restaurant restaurant = uow.getRestaurantReadRepo().getById(order.getRestaurant());
-			current.setLogoPath(restaurant.getLogoPath() + "/" + restaurant.getId() + ".png");
+			File file = new File(uow.getDatabasePath() + DatabaseConstants.RESTAURANTS_LOGO_PATH + restaurant.getId() + ".png");
+			current.setLogoPath(DatabaseConstants.encodeBase64(file));
 			current.setRestaurantName(restaurant.getName());
 			current.setDate(buildDate(order.getDate()));
 			current.setStatus(order.getStatus());

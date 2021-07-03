@@ -8,6 +8,7 @@ import beans.model.City;
 import beans.model.GeoLocation;
 import beans.model.Restaurant;
 import dto.RestaurantsDTO;
+import repository.DatabaseConstants;
 
 public class RestaurantAggregationService extends BaseService {
 
@@ -35,7 +36,10 @@ public class RestaurantAggregationService extends BaseService {
 			current.setId(r.getId());
 			current.setX(geoloc.getX());
 			current.setY(geoloc.getY());
-			current.setLogoPath(r.getLogoPath() + File.separator + r.getId() + ".png");
+			
+			File picutre = new File(uow.getDatabasePath() + DatabaseConstants.RESTAURANTS_LOGO_PATH + r.getId() + ".png");
+			
+			current.setLogoPath(DatabaseConstants.encodeBase64(picutre));
 			
 			ret.add(current);
 		}

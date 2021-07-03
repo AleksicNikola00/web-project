@@ -159,7 +159,7 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-4">
-                                                <img class="mb-4" v-bind:src="restaurant.logoPath" alt="" width="72"
+                                                <img class="mb-4" v-bind:src="'data:image/png;base64, ' + restaurant.logoPath" alt="" width="72"
                                                     height="57">
                                             </div>
                                             <div class="col-8">
@@ -332,7 +332,7 @@
                 <!-- Toasts -->
                 <div class="toast-container">
                     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                        <div id="accountToastFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(rest, index) in restaurants">
+                        <div id="accountToastFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header bg-danger">
                                 <strong class="me-auto" style="color: white;">WebShop</strong>
                                 <small style="color: white;">just now</small>
@@ -345,7 +345,7 @@
                         </div>
                     </div>
                     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                        <div id="accountToastSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" v-for="(rest, index) in restaurants">
+                        <div id="accountToastSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header bg-success">
                                 <strong class="me-auto" style="color: white;">WebShop</strong>
                                 <small style="color: white;">just now</small>
@@ -370,7 +370,7 @@
                                 <div class="row">
                                     <div class="col-2">
                                         <!--picture-->
-                                        <img v-bind:src="selectedRestaurant.logoPath" style="max-width: 170px;"
+                                        <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" style="max-width: 170px;"
                                             class="rounded">
                                     </div>
                                     <div class="col-4">
@@ -420,7 +420,7 @@
 
                                             <!-- food picture -->
                                             <div class="text-center" style="margin-top: 15px;">
-                                                <img v-bind:src="food.picturePath" class="rounded"
+                                                <img v-bind:src="'data:image/png;base64, ' + food.picturePath" class="rounded"
                                                     style="width: auto; height: 70px;">
                                             </div>
 
@@ -612,7 +612,7 @@
                                             <td>{{item.restaurant}}</td>
                                             <td>{{item.amount}}</td>
                                             <td>{{item.price * item.amount}}</td>
-                                            <td><img v-bind:src="item.picturePath" class="rounded"
+                                            <td><img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="rounded"
                                                     style="max-height: 50px;">
                                             </td>
                                             <td style="width: 200px;">
@@ -664,7 +664,7 @@
                                         <div class="card bg-light" style="height: auto; margin-bottom: 20px;" v-for="(pastOrder, index) in pastOrders">
                                             <div class="row my-auto">
                                                 <div class="col-2" style="padding: 0%;">
-                                                    <img v-bind:src="pastOrder.logoPath" style="max-width: 90px; padding-top: 20px; padding-left: 20px;">
+                                                    <img v-bind:src="'data:image/png;base64, ' + pastOrder.logoPath" style="max-width: 90px; padding-top: 20px; padding-left: 20px;">
                                                 </div>
                                                 <div class="col-3"></div>
                                                 <div class="col-7" style="padding-top: 30px;">
@@ -854,7 +854,7 @@
 
                     <div class="row">
                         <div class="col-12 text-center">
-                            <img v-bind:src="selectedRestaurantForComment.logoPath" style="max-width: 135px;">
+                            <img v-bind:src="'data:image/png;base64, ' + selectedRestaurantForComment.logoPath" style="max-width: 135px;">
                         </div>
                     </div>
 

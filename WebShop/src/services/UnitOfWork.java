@@ -84,6 +84,10 @@ public final class UnitOfWork {
 		InitializeTextRepos();
 	}
 
+	public String getDatabasePath() {
+		return path;
+	}
+	
 	public IReadCommentRepo getCommentReadRepo() {
 		return commentReadRepo;
 	}
