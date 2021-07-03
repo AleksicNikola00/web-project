@@ -9,8 +9,7 @@ var app = new Vue({
             type : '',
             rating : 0,
             isOpen : false,
-            isAsc : true,
-            isDesc : false
+            isAsc : true
         },
         restaurants : [
             {
@@ -162,6 +161,7 @@ var app = new Vue({
 	mounted() {
 		this.selectedButton = 'restaurants';
         this.changeVisibility();
+        this.sortByStatus();
 	},
 
 	methods: {
@@ -194,28 +194,55 @@ var app = new Vue({
            
         },
 
+        filterRestaurants: function(){
+            this.filterByName();
+            this.filterByLocation();
+            this.filterByType();
+            this.filterByRating();
+            this.filterByStatus();
+        },
+
+        sortRestaurants: function(){
+            this.sortByStatus();
+        },
+
+        sortByStatus: function(){
+                this.restaurants.sort(this.booleanComparator);
+
+        },
+
+        booleanComparator: function(a,b){
+
+            if(a.open === b.open)
+                return 0;
+            if(a.open)
+                return -1;
+            else
+                return 1;
+            
+           
+        },
+
+
         filterByName: function(){
             this.restaurants = this.allRestaurants.filter(r => r.name.toLowerCase().includes(this.filterRestaurant.name.toLowerCase()));
         },
 
         filterByLocation: function(){
-            this.restaurants = this.allRestaurants.filter(r => r.location.toLowerCase().includes(this.filterRestaurant.location.toLowerCase()));
+            this.restaurants = this.restaurants.filter(r => r.location.toLowerCase().includes(this.filterRestaurant.location.toLowerCase()));
         },
 
         filterByType: function(){
-            this.restaurants = this.allRestaurants.filter(r => r.type.toLowerCase().includes(this.filterRestaurant.type.toLowerCase()));
+            this.restaurants = this.restaurants.filter(r => r.type.toLowerCase().includes(this.filterRestaurant.type.toLowerCase()));
         },
 
         filterByRating: function(){
-            
-            this.restaurants = this.allRestaurants.filter(r => r.rating >= this.filterRestaurant.rating);
+            this.restaurants = this.restaurants.filter(r => r.rating >= this.filterRestaurant.rating);
         },
-        //open or closed
-        filterByStatus: function(){
+        
+        filterByStatus: function(){//open or closed
             if(this.filterRestaurant.isOpen)
-                this.restaurants = this.allRestaurants.filter(r => r.open == this.filterRestaurant.isOpen.toString());
-            else
-                this.restaurants = this.allRestaurants;
+                this.restaurants = this.restaurants.filter(r => r.open == this.filterRestaurant.isOpen.toString());
         },
 
 
@@ -228,22 +255,25 @@ var app = new Vue({
 
     watch:{
         'filterRestaurant.name': function(){
-            this.filterByName();
+            this.filterRestaurants();
         },
         'filterRestaurant.location': function(){
-            this.filterByLocation();
+            this.filterRestaurants();
         },
         'filterRestaurant.type': function(){
-            this.filterByType();
+            this.filterRestaurants();
         },
         'filterRestaurant.rating': function(){
-            this.filterByRating();
+            this.filterRestaurants();
         },
         'filterRestaurant.isOpen': function(){
-            this.filterByStatus();
+            this.filterRestaurants();
+        },
+        'filterRestaurant.isAsc': function(){
+            this.sortRestaurants();
         },
 
-
+        
     }
 
 });

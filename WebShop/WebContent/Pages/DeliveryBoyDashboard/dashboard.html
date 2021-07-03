@@ -120,13 +120,13 @@
                                 
                                 <h5 class="blackLetters text-center" style="margin-top:100px ;">Sort order</h5>
                                 <div class="form-check ">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                  <input class="form-check-input" type="radio" v-model="filterRestaurant.isAsc" v-bind:value="true"  name="exampleRadios" id="exampleRadios1" value="option1" checked>
                                   <label class="form-check-label blackLetters" for="exampleRadios1">
                                     Ascending
                                   </label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                  <input class="form-check-input" type="radio" v-model="filterRestaurant.isAsc" v-bind:value="false" name="exampleRadios" id="exampleRadios2" value="option2">
                                   <label class="form-check-label blackLetters" for="exampleRadios2">
                                     Descending
                                   </label>
