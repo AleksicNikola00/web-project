@@ -37,9 +37,10 @@
             </div>
           </div>
 
-          <!-- Main frame restaurants -->
-          <div class="col-10  columns" v-if="activeSubmenu == 'restaurants'">
-                <div class="container-fluid g-0">
+          
+          <div class="col-10  columns" >
+               <!-- Main frame restaurants -->
+                <div class="container-fluid g-0 " v-if="activeSubmenu == 'restaurants'">
 
                     <div class="row picturecontainer mh-100 shadow-sm">
                         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -155,8 +156,69 @@
 
                     </div>
                 </div>
+                <!--Mainframe restaurants end-->
+
+                <!--Mainframe profile-->
+                <div class="container-fluid bg-light g-0" v-if="activeSubmenu == 'myProfile'">
+
+                  <div class="container-fluid mainmenu">
+                    <h4 >My profile</h4>
+                    <hr style="color: black;"/>
+                  </div>
+
+                  <div class="container-fluid profileFrame">  
+
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Username</span>
+                      <input type="text" class="form-control" v-model="user.username" disabled aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Name</span>
+                      <input type="text" class="form-control" v-model="user.name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Surname </span>
+                      <input type="text" class="form-control" v-model="user.surname" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Gender </span>
+                      <select class="form-control" v-model="user.gender">
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="UNKNOWN">Prefer not to say</option>
+                      </select>
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel"   id="inputGroup-sizing-lg">Date of birth </span>
+                      <input class="form-control" type="date" v-model="user.date" id="example-date-input">
+                    </div>
+
+                   
+                    
+                    <div class="container-fluid mainmenu">
+                      <h4 >Change password</h4>
+                      <hr style="color: black;"/>
+                    </div>
+                    
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">New password</span>
+                      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Old password</span>
+                      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="card-body text-center">
+                      <button class="btn btn-primary"  type="button" v-on:click="changeUser()" >Apply changes</button>
+                    </div>
+
+                  </div>
+                    
+                </div>
+                <!--Mainframe profile end-->
+
           </div> 
-          <!--Mainframe restaurants end-->
+          
 
 
         </div>

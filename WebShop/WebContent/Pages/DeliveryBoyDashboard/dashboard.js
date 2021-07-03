@@ -4,6 +4,14 @@ var app = new Vue({
         selectedButton : '',
         activeSubmenu : '',
         restaurantSorter: '',
+        user : {
+            username: 'Koljisivoje',
+            name: 'Njikalaj',
+            surname: 'Aljeksijevic',
+            gender: 'FEMALE',
+            date: '2000-02-22',
+            password : '12345678'
+        },
         filterRestaurant : {
             name : '',
             location : '',
@@ -177,6 +185,10 @@ var app = new Vue({
             elem.addClass('btn-primary');
             this.changeVisibility();
 		},
+
+        changeUser: function(){
+            alert(this.user.name+this.user.surname+this.user.gender+this.user.date);
+        },
 
         changeVisibility: function(){
             this.activeSubmenu = this.selectedButton;

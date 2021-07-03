@@ -20,6 +20,22 @@
         overflow-y:scroll; 
         max-height: 97%;
 }
+.myInputLabel{
+    min-width: 150px;
+    background-color: grey;
+    color: black;
+    font-weight: 520;
+}
+
+.profileInput{
+    max-width: 600px;
+    margin-top: 50px;
+    margin-left: 430px;
+}
+
+.profileFrame{
+    min-height: 770px;
+}
 
 .myCard{
     max-width: 270px;
