@@ -3,6 +3,7 @@ var app = new Vue({
 	data: {
         selectedButton : '',
         activeSubmenu : '',
+        restaurantSorter: '',
         filterRestaurant : {
             name : '',
             location : '',
@@ -20,7 +21,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad Test a',
-                open : 'true'
+                open : true
             },
             {
                 name : 'Neki',
@@ -30,7 +31,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad Test b',
-                open : 'false'
+                open : false
             },
             {
                 name : 'Naki',
@@ -40,7 +41,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad  Bulevar oslobodjenja',
-                open : 'false'
+                open : false
             },
             {
                 name : 'Opet',
@@ -50,7 +51,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 2',
-                open : 'true'
+                open : true
             },
             {
                 name : 'Ciao',
@@ -60,7 +61,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/gold-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 3',
-                open : 'true'
+                open : true
             },
             {
                 name : 'Ciao',
@@ -70,7 +71,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/silver-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 5',
-                open : 'false'
+                open : false
             },
             {
                 name : 'Ciao',
@@ -80,7 +81,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/silver-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 22',
-                open : 'true'
+                open : true
             }
         ],
         allRestaurants :[
@@ -92,7 +93,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad Test a',
-                open : 'true'
+                open : true
             },
             {
                 name : 'Neki',
@@ -102,7 +103,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad Test b',
-                open : 'false'
+                open : false
             },
             {
                 name : 'Naki',
@@ -112,7 +113,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad  Bulevar oslobodjenja',
-                open : 'false'
+                open : false
             },
             {
                 name : 'Opet',
@@ -122,7 +123,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/bronze-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 2',
-                open : 'true'
+                open : true
             },
             {
                 name : 'Ciao',
@@ -132,7 +133,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/gold-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 3',
-                open : 'true'
+                open : true
             },
             {
                 name : 'Ciao',
@@ -142,7 +143,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/silver-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 5',
-                open : 'false'
+                open : false
             },
             {
                 name : 'Ciao',
@@ -152,7 +153,7 @@ var app = new Vue({
                 city : 'Novi Sad',
                 img : '../Images/silver-member.png',
                 location : 'Novi Sad Bulevar oslobodjenja 22',
-                open : 'true'
+                open : true
             }
         ],
         
@@ -190,38 +191,49 @@ var app = new Vue({
             this.filterRestaurant.rating = document.getElementById('mark').value;
         },
 
-        filterOut: function(){
-           
-        },
-
         filterRestaurants: function(){
             this.filterByName();
             this.filterByLocation();
             this.filterByType();
             this.filterByRating();
             this.filterByStatus();
+            this.sortRestaurants();
         },
 
         sortRestaurants: function(){
-            this.sortByStatus();
+            if(this.restaurantSorter == 'name')
+                this.sortByName();
+            else if(this.restaurantSorter == 'location')
+                this.sortByLocation();
+            else if(this.restaurantSorter == 'mark')
+                this.sortByMark();
+
+            if(!this.filterRestaurant.isAsc)//ako vec stoji na desc da ga obrne
+                this.restaurants.reverse();
+        },
+
+        setSorter: function(preference){
+            this.restaurantSorter = preference;
+        },
+
+        sortByName: function(){
+            this.restaurants.sort((a,b) => a.name.localeCompare(b.name));
+        },
+
+        sortByLocation: function(){
+            this.restaurants.sort((a,b) => a.location.localeCompare(b.location));
+        },
+
+        sortByMark: function(){
+            this.restaurants.sort((a,b) => b.rating - a.rating);
         },
 
         sortByStatus: function(){
-                this.restaurants.sort(this.booleanComparator);
-
+            for(i = 0;i<3;i++)//pojma nemam zasto al kad tri put izvrti onda ga sortira kako treba
+                this.restaurants.sort((x, y) => x.open == y.open? 0 : y? -1 : 1);   
         },
 
-        booleanComparator: function(a,b){
 
-            if(a.open === b.open)
-                return 0;
-            if(a.open)
-                return -1;
-            else
-                return 1;
-            
-           
-        },
 
 
         filterByName: function(){
@@ -242,7 +254,7 @@ var app = new Vue({
         
         filterByStatus: function(){//open or closed
             if(this.filterRestaurant.isOpen)
-                this.restaurants = this.restaurants.filter(r => r.open == this.filterRestaurant.isOpen.toString());
+                this.restaurants = this.restaurants.filter(r => r.open === this.filterRestaurant.isOpen);
         },
 
 
@@ -270,6 +282,9 @@ var app = new Vue({
             this.filterRestaurants();
         },
         'filterRestaurant.isAsc': function(){
+            this.restaurants.reverse();
+        },
+        'restaurantSorter':function(){
             this.sortRestaurants();
         },
 

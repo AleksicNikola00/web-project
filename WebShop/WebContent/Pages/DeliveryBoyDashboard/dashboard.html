@@ -72,7 +72,7 @@
                                   <img v-bind:src="r.img" class="card-img-top logoImage" alt="...">
                                   <div class="card-body px-3">
                                     <h5 class="card-title">{{r.name}}</h5>
-                                    <p v-if="r.open == 'true'" class="text-end g-0 mb-0" style="color: green;">opened</p> 
+                                    <p v-if="r.open" class="text-end g-0 mb-0" style="color: green;">opened</p> 
                                     <p v-else class="text-end g-0 mb-0" style="color: red;">closed</p> 
                                   </div>
                                   <ul class="list-group list-group-flush">
@@ -95,7 +95,7 @@
                         
                         <!-- Filter restaurants -->
                          <div class="col-3 m-3  bg-light shadow-sm">
-                             <h4 class="blackLetters text-center mt-3">Filter restaurants</h4>
+                             <h4 class="blackLetters text-center mt-3">Search restaurants</h4>
                             
                              <div class="form-floating mb-3">
                                 <input type="text" class="form-control" v-model="filterRestaurant.name" id="floatingInput" placeholder="">
@@ -117,8 +117,28 @@
                                   <input class="form-check-input" type="checkbox" v-model="filterRestaurant.isOpen" id="flexSwitchCheckDefault">
                                   <label class="form-check-label blackLetters" for="flexSwitchCheckDefault">Only open restaurants</label>
                                 </div>
+
+                                <h5 class="blackLetters text-center mt-3">Sort by</h5>
+                                <div class="form-check ">
+                                  <input class="form-check-input" type="radio" v-on:click="setSorter('name')"   name="exampleRadios1" id="exampleRadios11" value="option11" >
+                                  <label class="form-check-label blackLetters" for="exampleRadios11">
+                                    Name
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" v-on:click="setSorter('location')"  name="exampleRadios1" id="exampleRadios21" value="option22">
+                                  <label class="form-check-label blackLetters" for="exampleRadios21">
+                                    Location
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" v-on:click="setSorter('mark')"  name="exampleRadios1" id="exampleRadios22" value="option3">
+                                  <label class="form-check-label blackLetters" for="exampleRadios22">
+                                    Mark
+                                  </label>
+                                </div>
                                 
-                                <h5 class="blackLetters text-center" style="margin-top:100px ;">Sort order</h5>
+                                <h5 class="blackLetters text-center">Sort order</h5>
                                 <div class="form-check ">
                                   <input class="form-check-input" type="radio" v-model="filterRestaurant.isAsc" v-bind:value="true"  name="exampleRadios" id="exampleRadios1" value="option1" checked>
                                   <label class="form-check-label blackLetters" for="exampleRadios1">
