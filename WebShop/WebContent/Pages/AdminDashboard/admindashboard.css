@@ -1,7 +1,7 @@
 /* Basics */
 body::-webkit-scrollbar{
     display: none;
-}
+} 
 
 button {
     border: 0;
@@ -23,6 +23,24 @@ button {
     display: flex;
     justify-content: space-between;
     height: 100vh;
+    overflow: hidden;
+}
+
+.space-between {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.put-center {
+    align-items: center;
+}
+
+.align-center-column {
+    justify-content: center !important;
 }
 
 /* Menu */
@@ -144,6 +162,7 @@ button {
 /* Views */
 .content {
     width: calc(100% - 250px);
+    height: 100vh;
     background-color: #F2F6F9;
     padding-left: 45px;
     padding-right: 45px;
@@ -162,6 +181,8 @@ button {
 /* Restaurant filtering area */
 .filtering-area {
     height: 40px;
+    margin-bottom: 25px;
+    justify-content: space-between;
 }
 
 .text-input {
@@ -174,7 +195,6 @@ button {
     font: Inter;
     background-repeat: no-repeat;
     background-position: center right 20px;
-    margin-right: 25px;
     height: 40px;
 }
 
@@ -185,7 +205,6 @@ button {
     border: 0;
     outline-width: 0;
     font: Inter;
-    margin-right: 25px;
     background-image: url("../Images/angleDown.png");
     background-repeat: no-repeat;
     align-items: center;
@@ -197,8 +216,9 @@ button {
 .combo-options {
     position: absolute;
     top: 40px;
-    width: calc(100% - 25px);
+    width: 100%;
     display: none;
+    z-index: 10;
 }
 
 .combo-option-first {
@@ -213,7 +233,7 @@ button {
 .combo-option {
     width: 100%;
     height: 40px;
-    background-color: #E7EDF1;
+    background-color: #AEADAA;
     border-bottom: 1px solid #DADADA;
 }
 
@@ -239,4 +259,113 @@ button {
 .placeholder-text {
     white-space: pre;
     color: #877575;
+}
+
+/* restaurants */
+.restaurants {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.restaurants::-webkit-scrollbar{
+    display: none;
+}
+
+.single-restaurant {
+    height: 150px;
+    width: 100%;
+    background-color: #E7EDF1;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.single-restaurant:hover {
+    background-color: #8D949E;
+    cursor: pointer;
+}
+
+.picture-area {
+    width: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+
+    margin-right: 30px;
+}
+
+.rest-name-and-type {
+    justify-content: space-between;
+}
+
+.rest-detail-text {
+    font: Inter;
+    font-size: 21px;
+    font-weight: 450;
+}
+
+/* specific restaurant view */
+.edit-restaurant-button {
+    width: 250px;
+    border-radius: 25px;
+    height: 50px;
+    background-color: #1A9900;
+    color: white;
+    font: Inter;
+    font-weight: 500;
+}
+
+.restaurant-items {
+    height: calc(100vh - 100px);
+    padding-right: 25px;
+    overflow: auto;
+    flex-direction: column;
+    position: relative;
+}
+.restaurant-items::-webkit-scrollbar{
+    display: none;
+}
+
+.restaurant-item {
+    border-radius: 25px;
+    margin-bottom: 20px;
+    background-color: #E7EDF1;
+    width: 100%;
+    height: 500px;
+    padding: 26px;
+}
+
+.restaurant-item-header {
+    font: Inter;
+    font-weight: 500;
+    font-size: 23px;
+    font-style: oblique;
+}
+
+.item-detail {
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top: 1px solid #dadada;
+    justify-content: center;
+}
+
+.item-detail-text {
+    font: Inter;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.item-description {
+    font: Inter;
+    font-weight: 300;
+    font-size: 26px;
+    padding: 20px;
+    font-style: italic;
 }

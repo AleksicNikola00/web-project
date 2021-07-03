@@ -70,10 +70,11 @@
             <!-- Header -->
             <div class="content-header flex flex-column relative">
                 <div style="border-bottom: 1px solid black;">
-                    <p class="menu-header-text content-header-text">Restaurants view</p>
+                    <span class="menu-header-text content-header-text">Restaurants view</span>
                 </div>
             </div>
 
+            <!-- Filtering area -->
             <div class="flex relative filtering-area">
                 <input type="text" class="text-input name-input-filter" placeholder="Restaurant name..." v-model="restaurantFilterObj.name">
                 <input type="text" class="text-input name-input-filter" placeholder="Type..." v-model="restaurantFilterObj.type">
@@ -96,9 +97,82 @@
                 <button class="asc-desc text-input" v-on:click="changeAscDes()" name="ascDescButton">
                     <span class="placeholder-text">Order :    </span> {{restaurantFilterObj.ascDes}}
                 </button>
-                
             </div>
 
+            <div class="restaurants">
+
+                <div class="single-restaurant flex relative" v-for="restaurant in restaurants" v-on:click="displaySpecificRestaurant(restaurant)">
+                    <div class="picture-area">
+                        <img src="../Images/gold-member.png" style="max-width: 120px;">
+                    </div>
+
+                    <div class="flex relative space-between">
+                        <div class="rest-name-and-type flex flex-column">
+                            <span class="rest-detail-text">{{restaurant.name}}</span>
+                            <span class="rest-detail-text">{{restaurant.type}}</span>
+                        </div>
+                        <div class="rest-name-and-type flex flex-column align-center-column">
+                            <span class="rest-detail-text">{{restaurant.location}}</span>
+                        </div>
+                        <div class="rest-name-and-type flex flex-column">
+                            <span class="rest-detail-text">{{restaurant.mark}}*</span>
+                            <span class="rest-detail-text">{{restaurant.manager}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Specific restaurant view -->
+        <div class="content" v-if="visible == 'specificRestaurant'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative space-between">
+                <div style="border-bottom: 1px solid black; height: 69px;" class="flex max-width space-between">
+                    <span class="menu-header-text content-header-text">{{selectedRestaurant.name}}</span>
+                    
+                    <button class="edit-restaurant-button">Edit restaurant details</button>
+                </div>
+            </div>
+
+            <div class="flex space-between relative">
+                <div class="restaurant-items w-50 flex relative">
+                    <!-- Single restaurant item -->
+                    <div class="restaurant-item flex space-between" v-for="item in items">
+                        <div class="w-50 flex flex-column" style="padding-right: 10px; border-right: 1px solid #dadada;">
+                            <div class="put-center flex flex-column">
+                                <img src="../Images/silver-member.png" style="max-width: 100px; border-radius: 10px; margin-bottom: 30px;">
+                                <span class="restaurant-item-header">{{item.name}}</span>
+
+                                <div class="flex flex-column item-detail">
+                                    <div class="flex space-between" style="margin-bottom: 20px;">
+                                        <span class="item-detail-text">Price</span>
+                                        <span class="item-detail-text">{{item.price}}</span>
+                                    </div>
+                                    <div class="flex space-between" style="margin-bottom: 20px;">
+                                        <span class="item-detail-text">Amount</span>
+                                        <span class="item-detail-text">{{item.amount + (item.unit == 'GRAM' ? 'g' : 'l')}}</span>
+                                    </div>
+                                    <div class="flex space-between" style="margin-bottom: 20px;">
+                                        <span class="item-detail-text">Type</span>
+                                        <span class="item-detail-text">{{item.type}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="w-50 flex put-center" style ="padding-left: 10px; justify-content: center;">
+                            <span class="item-description text-center">{{item.description}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex w-50" style="padding-left: 25px;">
+                    <div>sfas</div>
+                </div>
+            </div>
         </div>
     </div>
 

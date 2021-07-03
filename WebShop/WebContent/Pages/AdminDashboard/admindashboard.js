@@ -18,25 +18,88 @@ function openDropDown(dropdown){
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible : 'restaurants',
+        visible : 'specificRestaurant',
         currentUser : {},
         receivedRestaurants : [],
         receivedUsers : [],
         users : [],
-        restaurants : [],
+        restaurants : [
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            },
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            },
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            },
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            },
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            },
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            },
+            {
+                name : 'First',
+                type : 'Turkish',
+                mark : '5',
+                manager : 'Dzoni bova',
+                location : 'Stevana Mokranjca 24'
+            }
+        ],
         restaurantFilterObj : {
             name : '',
             type : '',
             location : '',
             mark : 'All marks',
             ascDes : 'Ascending'
-        }
+        },
+        selectedRestaurant : {},
+        items : [
+            {
+                name : 'Pizza',
+                price : '1000',
+                amount : '700',
+                type : 'FOOD',
+                unit : 'GRAM',
+                description : 'Some amazing pizza that has been created by the best chefs!'
+            }
+        ],
     },
     created (){
     },
     async mounted (){
         let user = window.localStorage.getItem('User');
         this.currentUser = JSON.parse(user);
+
+        this.selectedRestaurant = this.restaurants[0];
     },
     methods : {
         changeFilterMark(value, dropdown) {
@@ -56,6 +119,10 @@ var webShop = new Vue({
         },
         changeDisplay(view){
             this.visible = view;
+        },
+        displaySpecificRestaurant(restaurant){
+            this.selectedRestaurant = restaurant;
+            this.visible = 'specificRestaurant';
         }
     },
     computed: {
