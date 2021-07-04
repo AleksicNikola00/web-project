@@ -504,9 +504,15 @@
                     </div>
                 </div>
                 <div class="submit-restaurant-div flex relative">
-                    <button class="add-restaurant-button">Submit</button>
+                    <button class="add-restaurant-button" v-on:click="postNotificaiton()">Submit</button>
                 </div>
             </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="my-notificaiton flex flex-column" id="notification">
+            <div class="notification-header">Notification!</div>
+            <div class="notification-content">{{notificationText}}</div>
         </div>
     </div>
 

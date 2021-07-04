@@ -385,7 +385,9 @@ var webShop = new Vue({
             role : 'ADMIN',
             status : 'normal',
             cameFrom : 'editUser'
-        }
+        },
+
+        notificationText : '',
     },
     created (){
     },
@@ -581,6 +583,15 @@ var webShop = new Vue({
             this.manipulatedUser.cameFrom = 'editUser';
 
             this.visible = 'addEditUser';
+        },
+        postNotificaiton(){
+            this.notificationText = 'Just testing this awesome feature!';
+            
+            $("#notification").fadeIn(700, function() {
+                setTimeout(function() {
+                    $("#notification").fadeOut(700);
+                }, 3000);
+            });
         }
     },
     computed: {
