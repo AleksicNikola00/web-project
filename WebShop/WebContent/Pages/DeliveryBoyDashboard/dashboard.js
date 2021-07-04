@@ -4,6 +4,48 @@ var app = new Vue({
         selectedButton : '',
         activeSubmenu : '',
         restaurantSorter: '',
+        restaurantComments: [
+            {
+                username: 'panda',
+                comment: 'Hrana je krimi-rad necu vise nikad jesti odje!',
+                mark: 1
+            },
+            {
+                username: 'Jole',
+                comment: 'Hrana je Topcina od sad cu uvek ovde da jedem!',
+                mark: 3
+            },
+            {
+                username: 'panda',
+                comment: 'dasdsadasdadasdadsadasdasdasdasdasdnasjdnasodmasspdnmasindas-md[loasmdiasnd0iansm[odaslospdmasidnaspdmap;lknmdain!',
+                mark: 4
+            },
+            {
+                username: 'losmi',
+                comment: 'Hrana je fuj, necu vise nikad jesti odje!',
+                mark: 1
+            },
+        ],
+        restaurantItems: [
+         {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5
+        },
+        {
+            img: '../Images/gold-member.png',
+            name: 'Coca-Fanta',
+            type: 'food',
+            price: 20.5
+        },
+        {
+            img: '../Images/silver-member.png',
+            name: 'Sprite',
+            type: 'food',
+            price: 200.5
+        },
+    ],
         selectedRestaurant: {
                 name : '',
                 type : '',

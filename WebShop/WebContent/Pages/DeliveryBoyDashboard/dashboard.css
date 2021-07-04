@@ -55,9 +55,25 @@
     max-height: 490px;
 }
 
+.myCardItem{
+    max-width: 150px;
+    max-height: 250px;
+}
+
+.myCardComment{
+    max-width: 250px;
+    max-height: fit-content;
+}
+
 .logoImage{
     max-width: 270px;
     max-height: 160px;
+}
+
+.itemImage{
+    max-width: 110px;
+    max-height: 80px;
+    margin-left: 20px;
 }
 
 .picturecontainer {
@@ -74,6 +90,10 @@
 
 .blackLetters{
     color: black;
+}
+
+.greyLetters{
+    color: grey;
 }
 
 .putDown{

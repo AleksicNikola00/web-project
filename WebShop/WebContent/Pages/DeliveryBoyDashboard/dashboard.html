@@ -234,18 +234,18 @@
 
                         <div class="col-6 g-5 mt-3 ">
                           <div class="row">
-                            <h5 class="blackLetters">Name: </h5><label class="restaurantInfo">{{selectedRestaurant.name}}</label>
+                            <h5 class="greyLetters">Name: </h5><label class="restaurantInfo">{{selectedRestaurant.name}}</label>
                           </div>
                           <div class="row">
-                            <h5 class="blackLetters">Type: </h5><label class="restaurantInfo">{{selectedRestaurant.type}}</label>
+                            <h5 class="greyLetters">Type: </h5><label class="restaurantInfo">{{selectedRestaurant.type}}</label>
                           </div>
                       </div>
                       <div class="col-6  g-5 mt-3 ">
                         <div class="row">
-                          <h5 class="blackLetters">Location: </h5><label class="restaurantInfo">{{selectedRestaurant.location}}</label>
+                          <h5 class="greyLetters">Location: </h5><label class="restaurantInfo">{{selectedRestaurant.location}}</label>
                         </div>
                         <div class="row">
-                          <h5 class="blackLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
+                          <h5 class="greyLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
                           <label v-if="selectedRestaurant.open" class="text-end " style="color: green;font-size: 24px;">opened</label> 
                           <label v-else class="text-end" style="color: red;font-size: 24px;">closed</label> 
                         </div>
@@ -258,16 +258,44 @@
                   
                   <hr style="color: black;"/>
                   <!--Items and comments-->
-                  <div class="row bg-light">
+                  <div class="row mh-100">
 
                       <div class="col-9">
-                        123
+                        <div class="container-fluid">
+                          <div class="row ">
+                            <h4 class="blackLetters mt-3 ms-3">Items</h4>
+                            <div class="col g-3" v-for="item in restaurantItems">
+                              <div class="card myCardItem" style="width: 18rem;">
+                                <img v-bind:src="item.img" class="card-img-top itemImage" alt="...">
+                                <div class="card-body px-3">
+                                  <h5 class="card-title blackLetters">{{item.name}}</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                  <li class="list-group-item">Type: <label>{{item.type}}</label></label></li>
+                                  <li class="list-group-item">Price: <label>{{item.price}}</label></label></li>
+                                </ul>
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </div>
                       </div>
 
 
-
-                      <div class="col-3">
-                          123
+                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px;">
+                        <h4 class="blackLetters mt-3 ms-3">Comments</h4>
+                        <div class="col g-3" v-for="comment in restaurantComments">
+                          <div class="card myCardComment m-5" style="width: 25rem;">
+                            <div class="card-body px-3">
+                              <h5 class="card-title blackLetters">{{comment.username}}</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.comment}}</div></label></li>
+                              <li class="list-group-item">Mark: <label>{{comment.mark}}</label></label></li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
 
                   </div>
