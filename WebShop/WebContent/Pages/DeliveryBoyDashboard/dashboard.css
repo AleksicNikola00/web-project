@@ -4,6 +4,12 @@
     margin-top: 20px;
 }
 
+.restaurantInfo{
+    color: black;
+    margin-left: 20px;
+    font-size: 30px;
+}
+
 .myButtonMenu {
     text-align: left;
     margin-bottom: 10px;

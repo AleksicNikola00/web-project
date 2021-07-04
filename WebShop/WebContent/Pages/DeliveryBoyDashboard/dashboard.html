@@ -223,15 +223,38 @@
                 <div class="container-fluid bg-light g-0" v-if="activeSubmenu == 'restaurantDetails'">
 
                   <!--Restaurant info-->
-                  <div class="row bg-primary g-3">
-                   <div class="col-4 bg-secondary">
-                      23232
+                  <div class="row  g-3 mt-2">
+
+                   <div class="col-4  mt-0 text-center">
+                      <img v-bind:src="selectedRestaurant.img"/>
                     </div>
-                    <div class="col-8 bg-primary">
-                      232323
+
+                    <div class="col-8  mt-0">
+                      <div class="row">
+
+                        <div class="col-6 g-5 mt-3 ">
+                          <div class="row">
+                            <h5 class="blackLetters">Name: </h5><label class="restaurantInfo">{{selectedRestaurant.name}}</label>
+                          </div>
+                          <div class="row">
+                            <h5 class="blackLetters">Type: </h5><label class="restaurantInfo">{{selectedRestaurant.type}}</label>
+                          </div>
+                      </div>
+                      <div class="col-6  g-5 mt-3 ">
+                        <div class="row">
+                          <h5 class="blackLetters">Location: </h5><label class="restaurantInfo">{{selectedRestaurant.location}}</label>
+                        </div>
+                        <div class="row">
+                          <h5 class="blackLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
+                        </div>
+                      </div>
+
+                      </div>
                     </div>
+
                   </div>
                   
+                  <hr style="color: black;"/>
                   <!--Items and comments-->
                   <div class="row bg-secondary">
                       123
