@@ -10,7 +10,8 @@ var app = new Vue({
             surname: 'Aljeksijevic',
             gender: 'FEMALE',
             date: '2000-02-22',
-            password : '12345678'
+            password : '12345678',
+            new_password: ''
         },
         filterRestaurant : {
             name : '',
@@ -187,7 +188,15 @@ var app = new Vue({
 		},
 
         changeUser: function(){
-            alert(this.user.name+this.user.surname+this.user.gender+this.user.date);
+            if(this.user.new_password.length > 0)
+            {
+                if(this.user.new_password.length < 8)
+                    {$('#toastPWError1').toast('show'); return;}
+                if(document.getElementById("oldpassword").value.localeCompare(this.user.password) != 0)
+                    {$('#toastPWError2').toast('show'); return;}
+                this.user.password = document.getElementById("oldpassword").value;
+            }
+                $('#toastPWSuccess').toast('show');
         },
 
         changeVisibility: function(){

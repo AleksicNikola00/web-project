@@ -33,6 +33,13 @@
     margin-left: 430px;
 }
 
+.profileInputError{
+    max-width: 800px;
+    margin-top: 50px;
+    margin-left: 430px;
+    max-height: 48px;
+}
+
 .profileFrame{
     min-height: 770px;
 }
