@@ -2,6 +2,78 @@ var app = new Vue({
 	el: '#dashboard',
 	data: {
         selectedButton : '',
+        orders :[
+            {
+                restaurantName : 'Ciao',
+                img : '../Images/gold-member.png',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '1500'
+                    }
+                ],
+                status : 'Delievered',
+                date : '2:23 6-6-2021',
+                restaurantType : 'Italian',
+                price : 2000
+            },
+            {
+                restaurantName : 'Neki',
+                img : '../Images/silver-member.png',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'Waiting delivery',
+                date : '23:23 6-16-2021',
+                restaurantType : 'Italian',
+                price: 1000
+            },
+            {
+                restaurantName : 'Naki',
+                img : '../Images/bronze-member.png',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'In transport',
+                date : '12:12 5-4-2021',
+                restaurantType : 'Greek',
+                price: 1500
+            }
+        ],
         activeSubmenu : '',
         restaurantSorter: '',
         restaurantComments: [
@@ -420,6 +492,15 @@ var app = new Vue({
             if(this.filterRestaurant.isOpen)
                 this.restaurants = this.restaurants.filter(r => r.open === this.filterRestaurant.isOpen);
         },
+
+        deliveredOrder: function(order){
+            order.status = 'Delievered';
+            alert("Successfully delievered!");
+        },
+        requestOrder: function(order){
+            order.status='Pending';
+            alert("Order requested!");
+        }
 
 
 

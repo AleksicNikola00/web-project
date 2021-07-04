@@ -312,9 +312,111 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-8 m-3 bg-light shadow-sm" style="min-height: 790px;overflow-y: scroll;">
-                      
+
+                    <div class="col-8 m-3 bg-light shadow-sm" style="max-height: 790px;overflow-y: scroll;min-height: 790px;">
+                      <!--prikaz ordera-->
+                      <div class="card ms-5 blackLetters mt-3" style="height: auto; width: 800px; margin-bottom: 20px;" v-for="pastOrder in orders">
+                        <div class="row my-auto">
+                            <div class="col-2" style="padding: 0%;">
+                                <img v-bind:src="pastOrder.img" style="max-width: 90px; padding-top: 20px; padding-left: 20px;">
+                            </div>
+                            <div class="col-3"></div>
+                            <div class="col-7" style="padding-top: 30px;">
+                                <h4>{{pastOrder.restaurantName}}</h4>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!--Ordered items-->
+                        <div class="row my-auto" v-for="(item) in pastOrder.items">
+                            <div class="col-1"></div>
+                            
+                            <div class="col-3">
+                                <h5>{{item.name}}</h5>
+                            </div>
+
+                            <div class="col-1">
+                                <h5>-</h5>
+                            </div>
+
+                            <div class="col-5">
+                                <h5>{{item.amount}}x, {{item.amount * item.price}}</h5>
+                            </div>
+
+                            <div class="col-2"></div>
+                        </div>
+
+                        <hr>
+                        <!--Total, status and rate-->
+                        <div class="row my-auto">
+                            <div class="col-1"></div>
+
+                            <div class="col-3">
+                                <h5>Total :</h5>
+                            </div>
+
+                            <div class="col-1"></div>
+
+                            <div class="col-5">
+                                <h5>{{pastOrder.price}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="row my-auto">
+                            <div class="col-1"></div>
+
+                            <div class="col-3">
+                                <h5>Date :</h5>
+                            </div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5">
+                                <h5>{{pastOrder.date}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="row my-auto" style="margin-bottom: 25px;">
+                            <div class="col-1"></div>
+                            
+                            <div class="col-3 my-auto">
+                                <h5>Status :</h5>
+                            </div>
+                            
+                            <div class="col-1"></div>
+
+                            <div class="col-4 my-auto">
+                                <h5>{{pastOrder.status}}</h5>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-5"></div>
+
+                            <div class="col-2">
+
+                              <div class="col-2 my-auto" v-if="pastOrder.status == 'Waiting delivery'">
+                                <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="requestOrder(pastOrder)">Request</button>
+                             </div>
+                             <div class="col-2 my-auto" v-if="pastOrder.status == 'In transport'">
+                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Delievered</button>
+                            </div>
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'Pending'">
+                              <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Pending request</span>
+                            </div>
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'Delievered'">
+                              <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delievered</span>
+                            </div>
+                            
+                            
+                            </div>
+                        </div>
                     </div>
+                      <!--kraj prikaza oredera-->
+                    </div>
+
                     <div class="col-3 m-3  bg-light shadow-sm" >
                         <h4 class="blackLetters text-center mt-3">Search order</h4>
                        
