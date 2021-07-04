@@ -4,6 +4,7 @@ var app = new Vue({
         selectedButton : '',
         activeSubmenu : '',
         restaurantSorter: '',
+        selectedRestaurant: {},
         user : {
             username: 'Koljisivoje',
             name: 'Njikalaj',
@@ -203,8 +204,9 @@ var app = new Vue({
             this.activeSubmenu = this.selectedButton;
         },
 
-        detailsClicked: function(){
-            alert(this.filterRestaurant.name);
+        detailsClicked: function(selectedRestaurant){
+            alert(selectedRestaurant.name);
+            this.activeSubmenu = 'restaurantDetails';
         },
 
         updateTextInput: function(){

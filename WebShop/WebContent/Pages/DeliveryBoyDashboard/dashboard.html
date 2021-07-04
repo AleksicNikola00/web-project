@@ -83,7 +83,7 @@
                                     <li class="list-group-item">Average mark: <label>{{r.rating}}</label></label></li>
                                   </ul>
                                   <div class="card-body text-center">
-                                    <button class="btn btn-primary"  type="button" v-on:click="detailsClicked()" >Details</button>
+                                    <button class="btn btn-primary"  type="button" v-on:click="detailsClicked(r)" >Details</button>
                                   </div>
                                 </div>
                               </div>
@@ -218,6 +218,12 @@
     
                 </div>
                 <!--Mainframe profile end-->
+
+                <div class="container-fluid bg-light g-0" v-if="activeSubmenu == 'restaurantDetails'">
+                  ETO
+                </div>
+
+
 
           </div> 
           
