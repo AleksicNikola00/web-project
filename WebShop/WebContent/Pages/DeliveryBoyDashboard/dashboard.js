@@ -4,7 +4,16 @@ var app = new Vue({
         selectedButton : '',
         activeSubmenu : '',
         restaurantSorter: '',
-        selectedRestaurant: {},
+        selectedRestaurant: {
+                name : '',
+                type : '',
+                rating : '',
+                address : '',
+                city : '',
+                img : '',
+                location : '',
+                open : true
+        },
         user : {
             username: 'Koljisivoje',
             name: 'Njikalaj',
@@ -205,7 +214,7 @@ var app = new Vue({
         },
 
         detailsClicked: function(selectedRestaurant){
-            alert(selectedRestaurant.name);
+            this.selectedRestaurant = selectedRestaurant;
             this.activeSubmenu = 'restaurantDetails';
         },
 
