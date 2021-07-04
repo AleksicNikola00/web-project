@@ -27,51 +27,67 @@ var webShop = new Vue({
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             },
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             },
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             },
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             },
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             },
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             },
             {
                 name : 'First',
                 type : 'Turkish',
-                mark : '5',
+                rating : '5',
                 manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24'
+                location : 'Stevana Mokranjca 24',
+                status : 'OPEN',
+                geoLocation : '86.3333, 100.233'
             }
         ],
         restaurantFilterObj : {
@@ -90,8 +106,36 @@ var webShop = new Vue({
                 type : 'FOOD',
                 unit : 'GRAM',
                 description : 'Some amazing pizza that has been created by the best chefs!'
+            },
+            {
+                name : 'Pizza',
+                price : '1000',
+                amount : '700',
+                type : 'FOOD',
+                unit : 'GRAM',
+                description : 'Some amazing pizza that has been created by the best chefs!'
+            },
+            {
+                name : 'Pizza',
+                price : '1000',
+                amount : '700',
+                type : 'FOOD',
+                unit : 'GRAM',
+                description : 'Some amazing pizza that has been created by the best chefs!'
             }
         ],
+        comments : [
+            {
+                text : 'its really amazing lads go ahead and try!',
+                username : 'ProSlayerXXX',
+                mark : '5'
+            },
+            {
+                text : 'Could be better i guess but whatevs bitches are good',
+                username : 'NiggaHigga',
+                mark : '3'
+            },
+        ]
     },
     created (){
     },

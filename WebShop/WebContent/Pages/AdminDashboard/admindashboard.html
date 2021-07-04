@@ -169,8 +169,36 @@
                     </div>
                 </div>
 
-                <div class="flex w-50" style="padding-left: 25px;">
-                    <div>sfas</div>
+                <div class="flex w-50 flex-column space-between" style="padding-left: 25px;">
+                    <!-- Restaurants details -->
+                    <div class="flex restaurant-details flex-column space-between">
+                        <div class="flex space-between put-center">
+                            <span class="item-detail-text">{{selectedRestaurant.type}}</span>
+                            <img src="../Images/bronze-member.png" style="max-width: 75px; border-radius: 10px;">
+                        </div>
+                        <div class="flex space-between put-center">
+                            <span class="item-detail-text">{{selectedRestaurant.status}}</span>
+                            <span class="item-detail-text">{{selectedRestaurant.location}} <a href="#" style="color: black;">({{selectedRestaurant.geoLocation}})</a></span>
+                        </div>
+                        <div class="flex put-center">
+                            <span class="item-detail-text">{{selectedRestaurant.rating}}*</span>
+                        </div>
+                    </div>
+
+                    <div class="flex restaurant-comments flex-column">
+                        <div class="comments-header flex">
+                            comments
+                        </div>
+                        <div class="comments-content flex flex-column">
+                            <div class="flex flex-column" style="margin-bottom: 40px;" v-for="comment in comments">
+                                <span class="comment-text">{{comment.text}}</span>
+                                <div class="flex space-between">
+                                    <span>Mark : {{comment.mark}}*</span>
+                                    <span>{{comment.username}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
