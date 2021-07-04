@@ -261,7 +261,7 @@
                   <div class="row mh-100">
 
                       <div class="col-9">
-                        <div class="container-fluid">
+                        <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;">
                           <div class="row ">
                             <h4 class="blackLetters mt-3 ms-3">Items</h4>
                             <div class="col g-3" v-for="item in restaurantItems">
@@ -283,7 +283,7 @@
                       </div>
 
 
-                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px;">
+                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; scrollbar-width: none;">
                         <h4 class="blackLetters mt-3 ms-3">Comments</h4>
                         <div class="col g-3" v-for="comment in restaurantComments">
                           <div class="card myCardComment m-5" style="width: 25rem;">

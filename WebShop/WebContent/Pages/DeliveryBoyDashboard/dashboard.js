@@ -45,6 +45,96 @@ var app = new Vue({
             type: 'food',
             price: 200.5
         },
+        {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5
+        },
+        {
+            img: '../Images/gold-member.png',
+            name: 'Coca-Fanta',
+            type: 'food',
+            price: 20.5
+        },
+        {
+            img: '../Images/silver-member.png',
+            name: 'Sprite',
+            type: 'food',
+            price: 200.5
+        },
+        {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5
+        },
+        {
+            img: '../Images/gold-member.png',
+            name: 'Coca-Fanta',
+            type: 'food',
+            price: 20.5
+        },
+        {
+            img: '../Images/silver-member.png',
+            name: 'Sprite',
+            type: 'food',
+            price: 200.5
+        },
+        {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5
+        },
+        {
+            img: '../Images/gold-member.png',
+            name: 'Coca-Fanta',
+            type: 'food',
+            price: 20.5
+        },
+        {
+            img: '../Images/silver-member.png',
+            name: 'Sprite',
+            type: 'food',
+            price: 200.5
+        },
+        {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5
+        },
+        {
+            img: '../Images/gold-member.png',
+            name: 'Coca-Fanta',
+            type: 'food',
+            price: 20.5
+        },
+        {
+            img: '../Images/silver-member.png',
+            name: 'Sprite',
+            type: 'food',
+            price: 200.5
+        },
+        {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5
+        },
+        {
+            img: '../Images/gold-member.png',
+            name: 'Coca-Fanta',
+            type: 'food',
+            price: 20.5
+        },
+        {
+            img: '../Images/silver-member.png',
+            name: 'Sprite',
+            type: 'food',
+            price: 200.5
+        },
     ],
         selectedRestaurant: {
                 name : '',
