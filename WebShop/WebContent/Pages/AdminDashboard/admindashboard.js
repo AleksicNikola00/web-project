@@ -1,397 +1,401 @@
 //visible : restaurants, specificRestaurant, addEditRestaurant, users, addEditUser
-//userVisible : shoppers, managers, deliveryWorkers, admins
+//userVisible : shoppers, managers, deliveryWorkers, admin
 
-function displaySubmenu(submenu){
+function displaySubmenu(submenu) {
     $("div[name='" + submenu + "']").slideToggle(700);
 }
 
-function openDropDown(dropdown){
-    if ( $("div[name='" + dropdown +"']").css('background-image').includes('angleDown.png')){
-        $("div[name='" + dropdown +"']").css('background-image', 'url("../Images/angleUp.png")');
+function openDropDown(dropdown) {
+    if ($("div[name='" + dropdown + "']").css('background-image').includes('angleDown.png')) {
+        $("div[name='" + dropdown + "']").css('background-image', 'url("../Images/angleUp.png")');
     }
     else {
-        $("div[name='" + dropdown +"']").css('background-image', 'url("../Images/angleDown.png")');
+        $("div[name='" + dropdown + "']").css('background-image', 'url("../Images/angleDown.png")');
     }
 
     $("div[name='" + dropdown + "dropdown']").slideToggle(700);
 }
 
-function changeTag(tag){
+function changeTag(tag) {
     $("button[name='tags']").removeClass('selected-tag');
 
     $("#" + tag).addClass('selected-tag');
 }
 
+/* view */
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible : 'addEditUser',
-        userVisible : 'managers',
-        currentUser : {},
-        receivedRestaurants : [],
-        receivedUsers : [],
-        users : [],
-        restaurants : [
+        visible: 'addEditRestaurant',
+        userVisible: 'managers',
+        currentUser: {},
+        receivedRestaurants: [],
+        receivedUsers: [],
+        users: [],
+        restaurants: [
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '1',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '18, 45.267136',
+                managerId: '1',
             },
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '7',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '86.3333, 100.233',
+                managerId: '7',
             },
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '6',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '86.3333, 100.233',
+                managerId: '6',
             },
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '3',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '86.3333, 100.233',
+                managerId: '3',
             },
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '5',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '86.3333, 100.233',
+                managerId: '5',
             },
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '2',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '86.3333, 100.233',
+                managerId: '2',
             },
             {
-                name : 'First',
-                type : 'Turkish',
-                rating : '5',
-                manager : 'Dzoni bova',
-                location : 'Stevana Mokranjca 24',
-                status : 'OPEN',
-                geoLocation : '86.3333, 100.233',
-                managerId : '4',
+                name: 'First',
+                type: 'Turkish',
+                rating: '5',
+                manager: 'Dzoni bova',
+                location: 'Stevana Mokranjca 24',
+                status: 'OPEN',
+                geoLocation: '86.3333, 100.233',
+                managerId: '4',
             }
         ],
-        restaurantFilterObj : {
-            name : '',
-            type : '',
-            location : '',
-            mark : 'All marks',
-            ascDes : 'Ascending'
+        restaurantFilterObj: {
+            name: '',
+            type: '',
+            location: '',
+            mark: 'All marks',
+            ascDes: 'Ascending'
         },
-        selectedRestaurant : {},
-        items : [
+        selectedRestaurant: {},
+        items: [
             {
-                name : 'Pizza',
-                price : '1000',
-                amount : '700',
-                type : 'FOOD',
-                unit : 'GRAM',
-                description : 'Some amazing pizza that has been created by the best chefs!'
+                name: 'Pizza',
+                price: '1000',
+                amount: '700',
+                type: 'FOOD',
+                unit: 'GRAM',
+                description: 'Some amazing pizza that has been created by the best chefs!'
             },
             {
-                name : 'Pizza',
-                price : '1000',
-                amount : '700',
-                type : 'FOOD',
-                unit : 'GRAM',
-                description : 'Some amazing pizza that has been created by the best chefs!'
+                name: 'Pizza',
+                price: '1000',
+                amount: '700',
+                type: 'FOOD',
+                unit: 'GRAM',
+                description: 'Some amazing pizza that has been created by the best chefs!'
             },
             {
-                name : 'Pizza',
-                price : '1000',
-                amount : '700',
-                type : 'FOOD',
-                unit : 'GRAM',
-                description : 'Some amazing pizza that has been created by the best chefs!'
+                name: 'Pizza',
+                price: '1000',
+                amount: '700',
+                type: 'FOOD',
+                unit: 'GRAM',
+                description: 'Some amazing pizza that has been created by the best chefs!'
             }
         ],
-        comments : [
+        comments: [
             {
-                text : 'its really amazing lads go ahead and try!',
-                username : 'ProSlayerXXX',
-                mark : '5'
+                text: 'its really amazing lads go ahead and try!',
+                username: 'ProSlayerXXX',
+                mark: '5'
             },
             {
-                text : 'Could be better i guess but whatevs bitches are good',
-                username : 'NiggaHigga',
-                mark : '3'
+                text: 'Could be better i guess but whatevs bitches are good',
+                username: 'NiggaHigga',
+                mark: '3'
             },
         ],
-        tempRestaurant : {
-            name : '',
-            type : '',
-            location : '',
-            geoLocation : '',
-            logo : '',
-            managerId : '1'
+        tempRestaurant: {
+            name: '',
+            type: '',
+            location: '',
+            geoLocation: '',
+            logo: '',
+            managerId: '1'
         },
-        allTypes : [
+        allTypes: [
             'Turkish',
             'Greek',
             'Italian',
             'Pub',
             'Barbecue'
         ],
-        allManagers : [
+        allManagers: [
             {
-                name : 'Nikola',
-                surname : 'Milosavljevic',
-                id : '1',
+                name: 'Nikola',
+                surname: 'Milosavljevic',
+                id: '1',
             },
             {
-                name : 'Nikola',
-                surname : 'Aleksic',
-                id : '2',
+                name: 'Nikola',
+                surname: 'Aleksic',
+                id: '2',
             },
             {
-                name : 'Momo',
-                surname : 'Kapor',
-                id : '3',
+                name: 'Momo',
+                surname: 'Kapor',
+                id: '3',
             },
             {
-                name : 'Istvan',
-                surname : 'Becar',
-                id : '4',
+                name: 'Istvan',
+                surname: 'Becar',
+                id: '4',
             },
             {
-                name : 'Maksim',
-                surname : 'Uskokovic',
-                id : '5',
+                name: 'Maksim',
+                surname: 'Uskokovic',
+                id: '5',
             },
             {
-                name : 'Deki',
-                surname : 'Stankela',
-                id : '6',
+                name: 'Deki',
+                surname: 'Stankela',
+                id: '6',
             },
             {
-                name : 'Emina',
-                surname : 'Jahovic',
-                id : '7',
+                name: 'Emina',
+                surname: 'Jahovic',
+                id: '7',
             },
             {
-                name : 'Boris',
-                surname : 'Dzonsonovic',
-                id : '8',
+                name: 'Boris',
+                surname: 'Dzonsonovic',
+                id: '8',
             },
             {
-                name : 'Kemal',
-                surname : 'Monteno',
-                id : '9',
+                name: 'Kemal',
+                surname: 'Monteno',
+                id: '9',
             }
         ],
-        receivedShoppers : [],
-        shoppers : [
+        receivedShoppers: [],
+        shoppers: [
             {
-                name : 'Nikola',
-                surname : 'Milosavljevic',
-                username : 'nikkiyuh',
-                dateOfBirth : '1999-07-04',
-                gender : 'MALE',
-                collectedPoints : '1300',
-                type : 'BRONZE',
-                status : 'normal'
+                name: 'Nikola',
+                surname: 'Milosavljevic',
+                username: 'nikkiyuh',
+                dateOfBirth: '1999-07-04',
+                gender: 'MALE',
+                collectedPoints: '1300',
+                type: 'BRONZE',
+                status: 'normal'
             },
             {
-                name : 'Nikola',
-                surname : 'Aleksic',
-                username : 'otherNikky',
-                dateOfBirth : '1940-07-02',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'suspicious'
+                name: 'Nikola',
+                surname: 'Aleksic',
+                username: 'otherNikky',
+                dateOfBirth: '1940-07-02',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'suspicious'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'blocked'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'blocked'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'normal'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'normal'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'suspicious'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'suspicious'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'normal'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'normal'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'suspicious'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'suspicious'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'blocked'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'blocked'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'normal'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'normal'
             },
             {
-                name : 'Filler',
-                surname : 'User',
-                username : 'fillerUser',
-                dateOfBirth : '1.1.1940',
-                gender : 'MALE',
-                collectedPoints : '2600',
-                type : 'SILVER',
-                status : 'suspicious'
+                name: 'Filler',
+                surname: 'User',
+                username: 'fillerUser',
+                dateOfBirth: '1.1.1940',
+                gender: 'MALE',
+                collectedPoints: '2600',
+                type: 'SILVER',
+                status: 'suspicious'
             }
         ],
-        shopperFilterObj : {
-            name : '',
-            surname : '',
-            username : '',
-            ascDes : 'Ascending',
-            points : 0,
-            shopperType : 'BRONZE',
+        shopperFilterObj: {
+            name: '',
+            surname: '',
+            username: '',
+            ascDes: 'Ascending',
+            points: 0,
+            shopperType: 'BRONZE',
         },
 
-        receivedManagers : [],
-        managers : [
+        receivedManagers: [],
+        managers: [
             {
-                name : 'Dzoni',
-                surname : 'Stagod',
-                dateOfBirth : '1941-05-26',
-                gender : 'MALE',
-                restaurant : 'Ciao',
-                username : 'nikkiyyuh'
+                name: 'Dzoni',
+                surname: 'Stagod',
+                dateOfBirth: '1941-05-26',
+                gender: 'MALE',
+                restaurant: 'Ciao',
+                username: 'nikkiyyuh'
             }
         ],
-        managerFilterObj : {
-            name : '',
-            surname : '',
-            username : '',
-            ascDes : 'Ascending'
+        managerFilterObj: {
+            name: '',
+            surname: '',
+            username: '',
+            ascDes: 'Ascending'
         },
 
-        receivedDeliveryWorkers : [],
-        deliveryWorkers : [
+        receivedDeliveryWorkers: [],
+        deliveryWorkers: [
             {
-                name : 'Nikola',
-                surname : 'Milosavljevic',
-                username : 'nikkiyuh',
-                dateOfBirth : '4.7.1999.',
-                gender : 'MALE'
+                name: 'Nikola',
+                surname: 'Milosavljevic',
+                username: 'nikkiyuh',
+                dateOfBirth: '4.7.1999.',
+                gender: 'MALE'
             }
         ],
-        deliveryWorkerFilterObj : {
-            name : '',
-            surname : '',
-            username : '',
-            ascDes : 'Ascending'
+        deliveryWorkerFilterObj: {
+            name: '',
+            surname: '',
+            username: '',
+            ascDes: 'Ascending'
         },
 
-        receivedAdmins : [],
-        admins : [
+        receivedAdmins: [],
+        admins: [
             {
-                name : 'Nikola',
-                surname : 'Milosavljevic',
-                dateOfBirth : '4.7.1999.',
-                username : 'nikkiyuh',
-                gender : 'MALE'
+                name: 'Nikola',
+                surname: 'Milosavljevic',
+                dateOfBirth: '4.7.1999.',
+                username: 'nikkiyuh',
+                gender: 'MALE'
             }
         ],
-        adminFilterObj : {
-            name : '',
-            surname : '',
-            username : '',
-            ascDes : 'Ascending'
-        },
-        
-        manipulatedUser : {
-            username : 'some username',
-            password : '',
-            name : 'some name',
-            surname : 'some surname',
-            dateOfBirth : '1999-07-04',
-            gender : 'MALE',
-            role : 'ADMIN',
-            status : 'normal',
-            cameFrom : 'editUser'
+        adminFilterObj: {
+            name: '',
+            surname: '',
+            username: '',
+            ascDes: 'Ascending'
         },
 
-        notificationText : '',
+        manipulatedUser: {
+            username: 'some username',
+            password: '',
+            name: 'some name',
+            surname: 'some surname',
+            dateOfBirth: '1999-07-04',
+            gender: 'MALE',
+            role: 'ADMIN',
+            status: 'normal',
+            cameFrom: 'editUser'
+        },
+
+        notificationText: '',
+
+        map: {},
+        vectorLayer: {}
     },
-    created (){
+    created() {
     },
-    async mounted (){
+    async mounted() {
         let user = window.localStorage.getItem('User');
         this.currentUser = JSON.parse(user);
         this.currentUser = {};
@@ -400,15 +404,82 @@ var webShop = new Vue({
         this.changeDisplayedUsers('shoppers');
 
         this.selectedRestaurant = this.restaurants[0];
+
+        this.instantiateMap([19.833549,45.267136]);
     },
-    methods : {
+    methods: {
+        instantiateMap(coordinates) {
+            this.map = new ol.Map({
+                target: 'map-div',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat(coordinates),
+                    zoom: 12,
+                    minZoom: 10,
+                    maxZoom: 17
+                })
+            });
+
+            let vm = this;
+
+            this.map.on('click', function (e) {
+                vm.addPin(e.coordinate);
+            });
+
+            this.addPin(ol.proj.transform(coordinates, 'EPSG:4326', 'EPSG:3857'));
+        },
+        addPin(coordinates) {
+            var x = coordinates[0];
+            var y = coordinates[1];
+
+            var Markers = { x: x, y: y };
+
+            //addPin
+            if (this.vectorLayer) {
+                this.map.removeLayer(this.vectorLayer);
+            }
+
+            var x = Markers.x;
+            var y = Markers.y;
+
+            var iconFeature = new ol.Feature({
+                geometry: new ol.geom.Point([x, y])
+            });
+
+            var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 1],
+                    src: "../Images/locationPin.png"
+                })
+            });
+
+            iconFeature.setStyle(iconStyle);
+
+            var vectorSource = new ol.source.Vector({
+                features: [iconFeature]
+            });
+
+            this.vectorLayer = new ol.layer.Vector({
+                source: vectorSource
+            });
+
+            this.map.addLayer(this.vectorLayer);
+
+            var lonlat = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
+
+            this.tempRestaurant.geoLocation = lonlat[0].toString().substring(0,6) + ', ' + lonlat[1].toString().substring(0,6);
+        },
         changeFilterMark(value, dropdown) {
             this.restaurantFilterObj.mark = value;
-            
+
             openDropDown(dropdown);
         },
         changeAscDes() {
-            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('ascending')){
+            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('ascending')) {
                 this.restaurantFilterObj.ascDes = 'Descending';
                 $("button[name='ascDescButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
             }
@@ -418,8 +489,8 @@ var webShop = new Vue({
             }
         },
         changeAscDesUser() {
-            if (this.userVisible == 'shoppers'){
-                if (this.shopperFilterObj.ascDes.toLowerCase().includes('ascending')){
+            if (this.userVisible == 'shoppers') {
+                if (this.shopperFilterObj.ascDes.toLowerCase().includes('ascending')) {
                     this.shopperFilterObj.ascDes = 'Descending';
                     $("button[name='ascDescShopperButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
                 }
@@ -428,8 +499,8 @@ var webShop = new Vue({
                     $("button[name='ascDescShopperButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
                 }
             }
-            else if (this.userVisible == 'managers'){
-                if (this.managerFilterObj.ascDes.toLowerCase().includes('ascending')){
+            else if (this.userVisible == 'managers') {
+                if (this.managerFilterObj.ascDes.toLowerCase().includes('ascending')) {
                     this.managerFilterObj.ascDes = 'Descending';
                     $("button[name='ascDescManagerButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
                 }
@@ -438,8 +509,8 @@ var webShop = new Vue({
                     $("button[name='ascDescManagerButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
                 }
             }
-            else if (this.userVisible == 'deliveryWorkers'){
-                if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('ascending')){
+            else if (this.userVisible == 'deliveryWorkers') {
+                if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('ascending')) {
                     this.deliveryWorkerFilterObj.ascDes = 'Descending';
                     $("button[name='ascDescDeliveryButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
                 }
@@ -448,8 +519,8 @@ var webShop = new Vue({
                     $("button[name='ascDescDeliveryButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
                 }
             }
-            else if (this.userVisible == 'admins'){
-                if (this.adminFilterObj.ascDes.toLowerCase().includes('ascending')){
+            else if (this.userVisible == 'admins') {
+                if (this.adminFilterObj.ascDes.toLowerCase().includes('ascending')) {
                     this.adminFilterObj.ascDes = 'Descending';
                     $("button[name='ascDescAdminButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
                 }
@@ -459,72 +530,79 @@ var webShop = new Vue({
                 }
             }
         },
-        changeDisplay(view){
+        changeDisplay(view) {
             this.visible = view;
         },
-        displaySpecificRestaurant(restaurant){
+        displaySpecificRestaurant(restaurant) {
             this.selectedRestaurant = restaurant;
             this.visible = 'specificRestaurant';
         },
-        chooseManager(value, dropdown){
+        chooseManager(value, dropdown) {
             this.tempRestaurant.managerId = value.id;
 
             openDropDown(dropdown);
         },
-        chooseType(value, dropdown){
+        chooseType(value, dropdown) {
             this.tempRestaurant.type = value;
 
             openDropDown(dropdown);
         },
-        editRestaurantViewChange(){
+        editRestaurantViewChange() {
             this.tempRestaurant = Object.assign({}, this.selectedRestaurant);
+
+            loc = this.tempRestaurant.geoLocation.split(', ');
+            coords = [parseFloat(loc[0]), parseFloat(loc[1])];
+
+            this.addPin(ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857'));
+            this.map.getView().setCenter(ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857'));
+            
 
             this.visible = 'addEditRestaurant';
         },
-        addRestaurantViewChange(){
+        addRestaurantViewChange() {
             this.tempRestaurant = {
-                name : '',
-                type : '',
-                location : '',
-                geoLocation : '',
-                logo : '',
-                managerId : ''
+                name: '',
+                type: '',
+                location: '',
+                geoLocation: '',
+                logo: '',
+                managerId: ''
             }
-            
+
             this.visible = 'addEditRestaurant';
         },
-        getManagerByNameSurnameById(id){
-            for(manager of this.allManagers){
-                if (id == manager.id){
+        getManagerByNameSurnameById(id) {
+            for (manager of this.allManagers) {
+                if (id == manager.id) {
                     return manager.name + ' ' + manager.surname;
                 }
             }
         },
-        changeDisplayedUsers(users){
+        changeDisplayedUsers(users) {
             this.userVisible = users;
 
             changeTag(users);
         },
-        changeFilterShopperType(value, dropdown){
+        changeFilterShopperType(value, dropdown) {
             this.shopperFilterObj.shopperType = value;
 
             openDropDown(dropdown);
         },
-        chooseGender(value, dropdown){
+        chooseGender(value, dropdown) {
             this.manipulatedUser.gender = value;
 
             openDropDown(dropdown);
         },
-        displayRole(){
-            return this.manipulatedUser.role.replace('_',' ');
+        displayRole() {
+            return this.manipulatedUser.role.replace('_', ' ');
         },
-        chooseRole(value, dropdown){
+        chooseRole(value, dropdown) {
             this.manipulatedUser.role = value;
 
             openDropDown(dropdown);
         },
-        
-        editShopper(shopper){
+
+        editShopper(shopper) {
             this.manipulatedUser.username = shopper.username;
             this.manipulatedUser.name = shopper.name;
             this.manipulatedUser.surname = shopper.surname;
@@ -536,7 +614,7 @@ var webShop = new Vue({
 
             this.visible = 'addEditUser';
         },
-        editManager(manager){
+        editManager(manager) {
             this.manipulatedUser.username = manager.username;
             this.manipulatedUser.name = manager.name;
             this.manipulatedUser.surname = manager.surname;
@@ -548,7 +626,7 @@ var webShop = new Vue({
 
             this.visible = 'addEditUser';
         },
-        editDeliveryWorker(delWorker){
+        editDeliveryWorker(delWorker) {
             this.manipulatedUser.username = delWorker.username;
             this.manipulatedUser.name = delWorker.name;
             this.manipulatedUser.surname = delWorker.surname;
@@ -560,7 +638,7 @@ var webShop = new Vue({
 
             this.visible = 'addEditUser';
         },
-        addNewUser(){
+        addNewUser() {
             this.manipulatedUser.username = '';
             this.manipulatedUser.name = '';
             this.manipulatedUser.surname = '';
@@ -584,11 +662,11 @@ var webShop = new Vue({
 
             this.visible = 'addEditUser';
         },
-        postNotificaiton(){
+        postNotificaiton() {
             this.notificationText = 'Just testing this awesome feature!';
-            
-            $("#notification").fadeIn(700, function() {
-                setTimeout(function() {
+
+            $("#notification").fadeIn(700, function () {
+                setTimeout(function () {
                     $("#notification").fadeOut(700);
                 }, 3000);
             });

@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="admindashboard.css">
+    <link rel="stylesheet" href="../OpenLayers/openlayers.css">
 
     <title>Admin dashboard</title>
 
@@ -211,7 +212,7 @@
         </div>
 
         <!-- AddEdit restaurant view -->
-        <div class="content" v-if="visible == 'addEditRestaurant'">
+        <div class="content" v-show="visible == 'addEditRestaurant'">
             <!-- Header -->
             <div class="content-header flex flex-column relative space-between">
                 <div style="border-bottom: 1px solid black; height: 69px;" class="flex max-width space-between">
@@ -283,8 +284,7 @@
                 </div>
 
                 <div class="flex relative w-50" >
-                    <div class="map-div flex">
-
+                    <div class="map-div flex map" id="map-div">
                     </div>
                 </div>
             </div>
@@ -516,6 +516,7 @@
         </div>
     </div>
 
+    <script src="../OpenLayers/openlayers.js"></script>
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
     <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../jquery-3.3.1.min.js"></script>
