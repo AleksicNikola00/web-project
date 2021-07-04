@@ -34,7 +34,7 @@
                             <span class="submenu-item-text" v-on:click="changeDisplay('restaurants')">Show restaurants</span>
                         </button>
                         <button class="submenu-item add-submenu">
-                            <span class="submenu-item-text" v-on:click="changeDisplay('addEditRestaurant')">Add restaurant</span>
+                            <span class="submenu-item-text" v-on:click="addRestaurantViewChange()">Add restaurant</span>
                         </button>
                     </div>
                 </div>
@@ -114,9 +114,9 @@
                         <div class="rest-name-and-type flex flex-column align-center-column">
                             <span class="rest-detail-text">{{restaurant.location}}</span>
                         </div>
-                        <div class="rest-name-and-type flex flex-column">
-                            <span class="rest-detail-text">{{restaurant.mark}}*</span>
-                            <span class="rest-detail-text">{{restaurant.manager}}</span>
+                        <div class="rest-name-and-type flex flex-column" style="min-width: 250px;">
+                            <span class="rest-detail-text">{{restaurant.rating}}*</span>
+                            <span class="rest-detail-text">{{getManagerByNameSurnameById(restaurant.managerId)}}</span>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                 <div style="border-bottom: 1px solid black; height: 69px;" class="flex max-width space-between">
                     <span class="menu-header-text content-header-text">{{selectedRestaurant.name}}</span>
                     
-                    <button class="edit-restaurant-button">Edit restaurant details</button>
+                    <button class="edit-restaurant-button" v-on:click="editRestaurantViewChange()">Edit restaurant details</button>
                 </div>
             </div>
 
@@ -180,8 +180,9 @@
                             <span class="item-detail-text">{{selectedRestaurant.status}}</span>
                             <span class="item-detail-text">{{selectedRestaurant.location}} <a href="#" style="color: black;">({{selectedRestaurant.geoLocation}})</a></span>
                         </div>
-                        <div class="flex put-center">
+                        <div class="flex put-center space-between">
                             <span class="item-detail-text">{{selectedRestaurant.rating}}*</span>
+                            <span class="item-detail-text">{{getManagerByNameSurnameById(selectedRestaurant.managerId)}}</span>
                         </div>
                     </div>
 
@@ -196,6 +197,128 @@
                                     <span>Mark : {{comment.mark}}*</span>
                                     <span>{{comment.username}}</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AddEdit restaurant view -->
+        <div class="content" v-if="visible == 'addEditRestaurant'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative space-between">
+                <div style="border-bottom: 1px solid black; height: 69px;" class="flex max-width space-between">
+                    <span class="menu-header-text content-header-text">Manipulate restaurants</span>
+                </div>
+            </div>
+
+            <div class="flex relative">
+                <div class="flex relative w-50 flex-column">
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Name :</span>
+                        <input type="text" class="text-input input-field" v-model="tempRestaurant.name">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Type :</span>
+                        <div class="flex input-field">
+                            
+                            <div class="flex relative flex-column">
+                                <div class="combo-imput manager-select-width" onclick="openDropDown('typeSelect')" name="typeSelect">
+                                    {{tempRestaurant.type}}
+                                </div>
+                                <div class="combo-options manager-combo-options" name="typeSelectdropdown">
+                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == allTypes.length - 1 ? 'combo-option-last' : '')"
+                                        v-for="(type, index) in allTypes" v-on:click="chooseType(type,'typeSelect')">
+                                        {{type}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Location :</span>
+                        <input type="text" class="text-input input-field" v-model="tempRestaurant.location">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Coordinates :</span>
+                        <input type="text" class="text-input input-field" disabled v-model="tempRestaurant.geoLocation">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Upload logo :</span>
+                        <input type="file"  class="custom-file-input" style="margin-right: 75px; width: 50%;" v-model="tempRestaurant.logo">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Manager :</span>
+                        <div class="flex">
+                            
+                            <div class="flex relative flex-column">
+                                <div class="combo-imput manager-select-width" onclick="openDropDown('managerSelect')" name="managerSelect">
+                                    {{getManagerByNameSurnameById(tempRestaurant.managerId)}}
+                                </div>
+                                <div class="combo-options manager-combo-options" name="managerSelectdropdown">
+                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == allManagers.length - 1 ? 'combo-option-last' : '')"
+                                        v-for="(manager, index) in allManagers" v-on:click="chooseManager(manager,'managerSelect')">
+                                        {{manager.name}} {{manager.surname}}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button class="add-new-manager-button">
+                                <span class="add-new-manager-text">Add new manager?</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="submit-restaurant-div flex relative">
+                        <button class="add-restaurant-button">Add restaurant</button>
+                    </div>
+                    
+                </div>
+
+                <div class="flex relative w-50" >
+                    <div class="map-div flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="content" v-if="visible == 'users'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative">
+                <div style="border-bottom: 1px solid black;">
+                    <span class="menu-header-text content-header-text">users view</span>
+                </div>
+            </div>
+
+            <div class="flex relative flex-column">
+                <div class="user-categories flex">
+                    <button class="category first-category" id="shoppers" name="tags" v-on:click="changeDisplayedUsers('shoppers')">Shoppers</button>
+                    <button class="category" id="managers" name="tags" v-on:click="changeDisplayedUsers('managers')">Managers</button>
+                    <button class="category" id="deliveryWorkers" name="tags" v-on:click="changeDisplayedUsers('deliveryWorkers')">Delivery workers</button>
+                    <button class="category last-category" id="admins" name="tags" v-on:click="changeDisplayedUsers('admins')">Admins</button>
+                </div>
+                <!-- Shoppers -->
+                <div class="users-for-category flex flex-column" v-if="userVisible == 'shoppers'">
+                    <div class="flex">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name...">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name...">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username...">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescShopperButton">
+                            <span class="placeholder-text">Order : </span> {{shopperFilterObj.ascDes}}
+                        </button>
+                        <input type="number" class="text-input user-text-filter user-filter" placeholder="Points..." min="0" oninput="validity.valid||(value='');">
+                        <div class="flex relative flex-column">
+                            <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('shoppertypefilterselect')" name="shoppertypefilterselect">
+                                <span class="placeholder-text">Type of shopper : </span> {{shopperFilterObj.shopperType}}
+                            </div>
+                            <div class="combo-options" name="shoppertypefilterselectdropdown">
+                                <button class="combo-option combo-option-first" v-on:click="changeFilterShopperType('ALL', 'shoppertypefilterselect')">ALL</button>
+                                <button class="combo-option"  v-on:click="changeFilterShopperType('BRONZE', 'shoppertypefilterselect')">BRONZE</button>
+                                <button class="combo-option"  v-on:click="changeFilterShopperType('SILVER', 'shoppertypefilterselect')">SILVER</button>
+                                <button class="combo-option combo-option-last" v-on:click="changeFilterShopperType('GOLD', 'shoppertypefilterselect')">GOLD</button>
                             </div>
                         </div>
                     </div>

@@ -186,7 +186,7 @@ button {
 }
 
 .text-input {
-    border-radius: 25px;
+    border-radius: 25px !important;
     background-color: #E7EDF1;
     padding-left: 26px;
     padding-right: 26px;
@@ -410,4 +410,136 @@ button {
     font-style: oblique;
     font-size: 16px;
     text-align: end;
+}
+
+/* Manipulate restaurants */
+.input-group {
+    padding-right: 20px;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.input-field {
+    margin-right: 240px;
+}
+
+.input-label {
+    font: Inter;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.add-new-manager-button {
+    border-radius: 25px;
+    background-color: chocolate;
+    color: white;
+    width: 220px;
+    margin-left: 20px;
+    background-image: url("../Images/plus.png");
+    background-repeat: no-repeat;
+    background-position: left 10px center;
+    display: flex;
+}
+
+.add-new-manager-text {
+    position: relative;
+    top: 6px;
+    left: 45px;
+}
+
+.manager-select-width {
+    width: 220px;
+    background-position: center right 15px;
+}
+
+.manager-combo-options {
+    height: 200px;
+    overflow: auto;
+}
+
+.manager-combo-options::-webkit-scrollbar{
+    display: none;
+}
+
+/* custom file upload button */
+input[type=file]::file-selector-button {
+    border-radius: 25px;
+    padding-left: 26px;
+    padding-right: 26px;
+    height: 40px;
+    border: none;
+    width: 220px;
+    margin-right: 25px;
+    background-color: #E7EDF1;
+    cursor: pointer;
+  }
+
+.submit-restaurant-div {
+    justify-content: center;
+    align-items: center;
+    height: 300px
+}
+
+.add-restaurant-button {
+    border-radius: 25px;
+    height: 50px;
+    width: 150px;
+    background-color: #1A9900;
+    color: white;
+    font: Inter;
+    font-weight: 500;
+}
+
+.map-div {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    height: 500px;
+    width: 100%;
+}
+
+/* users view */
+.user-categories {
+    height: 75px;
+    padding-left: 100px;
+}
+
+.category {
+    background-color: #877575;
+    width: 170px;
+    font-size: 20px;
+}
+
+.first-category {
+    border-top-left-radius: 25px;
+}
+
+.last-category {
+    border-top-right-radius: 25px;
+}
+
+.users-for-category {
+    background-color: #E7EDF1;
+    height: 750px;
+    border-radius: 25px;
+    width: 100%;
+    padding: 26px;
+}
+
+.selected-tag {
+    background-color: #E7EDF1 !important;
+}
+
+.user-text-filter {
+    background-color: white !important;
+    background-image: url("../Images/blackMagniGlass.png");
+    padding-right: 45px;
+}
+
+.user-filter {
+    margin-right: 20px;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
