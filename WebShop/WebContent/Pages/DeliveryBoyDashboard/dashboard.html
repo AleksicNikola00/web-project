@@ -246,6 +246,8 @@
                         </div>
                         <div class="row">
                           <h5 class="blackLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
+                          <label v-if="selectedRestaurant.open" class="text-end " style="color: green;font-size: 24px;">opened</label> 
+                          <label v-else class="text-end" style="color: red;font-size: 24px;">closed</label> 
                         </div>
                       </div>
 
@@ -256,8 +258,18 @@
                   
                   <hr style="color: black;"/>
                   <!--Items and comments-->
-                  <div class="row bg-secondary">
-                      123
+                  <div class="row bg-light">
+
+                      <div class="col-9">
+                        123
+                      </div>
+
+
+
+                      <div class="col-3">
+                          123
+                      </div>
+
                   </div>
 
                 </div>
