@@ -48,10 +48,16 @@
                         <button class="submenu-item search-submenu">
                             <span class="submenu-item-text" v-on:click="changeDisplay('users')">Show users</span>
                         </button>
-                        <button class="submenu-item add-submenu" v-on:click="changeDisplay('specificUser')">
+                        <button class="submenu-item add-submenu" v-on:click="addNewUser()">
                             <span class="submenu-item-text">Add users</span>
                         </button>
                     </div>
+                </div>
+
+                <div class="flex flex-column">
+                    <button class="menu-item account-menu">
+                        <span class="menu-item-text" v-on:click="editMyAccount()">My Account</span>
+                    </button>
                 </div>
             </div>
 
@@ -65,7 +71,7 @@
 
         <!-- Panels -->
         <!-- Restaurants view -->
-        <div class="content" v-if="visible == 'restaurants'">
+        <div class="content" v-show="visible == 'restaurants'">
 
             <!-- Header -->
             <div class="content-header flex flex-column relative">
@@ -285,7 +291,7 @@
         </div>
 
         <!-- Users -->
-        <div class="content" v-if="visible == 'users'">
+        <div class="content" v-show="visible == 'users'">
             <!-- Header -->
             <div class="content-header flex flex-column relative">
                 <div style="border-bottom: 1px solid black;">
@@ -301,15 +307,15 @@
                     <button class="category last-category" id="admins" name="tags" v-on:click="changeDisplayedUsers('admins')">Admins</button>
                 </div>
                 <!-- Shoppers -->
-                <div class="users-for-category flex flex-column" v-if="userVisible == 'shoppers'">
-                    <div class="flex">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name...">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name...">
-                        <input type="text" class="text-input user-text-filter " placeholder="Username...">
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'shoppers'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="shopperFilterObj.name">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="shopperFilterObj.surname">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="shopperFilterObj.username">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescShopperButton">
                             <span class="placeholder-text">Order : </span> {{shopperFilterObj.ascDes}}
                         </button>
-                        <input type="number" class="text-input user-text-filter user-filter" placeholder="Points..." min="0" oninput="validity.valid||(value='');">
+                        <input type="number" class="text-input user-text-filter user-filter" placeholder="Points..." min="0" oninput="validity.valid||(value='');" v-model="shopperFilterObj.points">
                         <div class="flex relative flex-column">
                             <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('shoppertypefilterselect')" name="shoppertypefilterselect">
                                 <span class="placeholder-text">Type of shopper : </span> {{shopperFilterObj.shopperType}}
@@ -322,6 +328,183 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="users-content">
+                        <div v-bind:class="'single-user flex ' + (shopper.status == 'normal' ? 'non-sus-user' : (shopper.status == 'suspicious' ? 'sus-user' : 'blocked-user'))" 
+                            v-for="shopper in shoppers" v-on:click="editShopper(shopper)">
+                            <div class="green-mark" v-if="shopper.status == 'normal'"></div>
+                            <div class="warning-sign" v-if="shopper.status == 'suspicious'"></div>
+                            <div class="red-cross" v-if="shopper.status == 'blocked'"></div>
+
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail shopper-detail">{{shopper.name}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.surname}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.username}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.dateOfBirth}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.gender}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.collectedPoints}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.type}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Managers -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'managers'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="managerFilterObj.name">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="managerFilterObj.surname">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="managerFilterObj.username">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescManagerButton">
+                            <span class="placeholder-text">Order : </span> {{managerFilterObj.ascDes}}
+                        </button>
+                    </div>
+
+                    <div class="users-content">
+                        <div class="single-user flex" v-for="manager in managers" style="border: 1px solid grey;" v-on:click="editManager(manager)">
+                            <div class="picture-area">
+                                <img src="../Images/bronze-member.png" style="max-width: 75px;">
+                            </div>
+
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail manager-detail">{{manager.name}}</div>
+                                <div class="user-detail manager-detail">{{manager.surname}}</div>
+                                <div class="user-detail manager-detail">{{manager.username}}</div>
+                                <div class="user-detail manager-detail">{{manager.dateOfBirth}}</div>
+                                <div class="user-detail manager-detail">{{manager.gender}}</div>
+                                <div class="user-detail manager-detail">{{manager.restaurant}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery workers -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'deliveryWorkers'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="deliveryWorkerFilterObj.name">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="deliveryWorkerFilterObj.surname">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="deliveryWorkerFilterObj.username">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescDeliveryButton">
+                            <span class="placeholder-text">Order : </span> {{deliveryWorkerFilterObj.ascDes}}
+                        </button>
+                    </div>
+
+                    <div class="users-content">
+                        <div class="single-user flex" v-for="deliveryWorker in deliveryWorkers" style="border: 1px solid grey;" v-on:click="editDeliveryWorker(deliveryWorker)">
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail delivery-worker-detail delivery-truck"></div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.name}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.surname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.username}}</div>
+                                <div class="user-detail delivery-worker-detail"></div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.dateOfBirth}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.gender}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admins -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'admins'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="adminFilterObj.name">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="adminFilterObj.surname">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="adminFilterObj.username">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescAdminButton">
+                            <span class="placeholder-text">Order : </span> {{adminFilterObj.ascDes}}
+                        </button>
+                    </div>
+
+                    <div class="users-content">
+                        <div class="single-user flex" v-for="admin in admins" style="border: 1px solid grey;">
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail delivery-worker-detail admin-picture"></div>
+                                <div class="user-detail delivery-worker-detail">{{admin.name}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.surname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.username}}</div>
+                                <div class="user-detail delivery-worker-detail"></div>
+                                <div class="user-detail delivery-worker-detail">{{admin.dateOfBirth}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.gender}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Add/edit user -->
+        <div class="content" v-if="visible == 'addEditUser'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative">
+                <div style="border-bottom: 1px solid black;">
+                    <span class="menu-header-text content-header-text">Manipulate users</span>
+                </div>
+            </div>
+
+            <div class="flex relative w-50 flex-column">
+                <div class="input-group flex space-between">
+                    <span class="input-label">Username :</span>
+                    <div class="flex">
+                        <input type="text" v-bind:class="'text-input ' + (manipulatedUser.status == 'normal' ? 'input-field' : '')" v-model="manipulatedUser.username" disabled>
+                        <button class="block-user-button" v-if="manipulatedUser.status == 'suspicious'">block user</button>
+                        <button class="unblock-user-button" v-if="manipulatedUser.status == 'blocked'">unblock user</button>
+                    </div>
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Password :</span>
+                    <input type="password" class="text-input input-field" v-model="manipulatedUser.password">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Name :</span>
+                    <input type="text" class="text-input input-field" v-model="manipulatedUser.name">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Surname :</span>
+                    <input type="text" class="text-input input-field" v-model="manipulatedUser.surname">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Date of birth :</span>
+                    <input type="date" class="input-field datepicker" v-model="manipulatedUser.dateOfBirth">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Gender :</span>
+                    <div class="flex input-field">
+                        
+                        <div class="flex relative flex-column">
+                            <div class="combo-imput manager-select-width" onclick="openDropDown('genderSelect')" name="genderSelect">
+                                {{manipulatedUser.gender}}
+                            </div>
+                            <div class="combo-options manager-combo-options" name="genderSelectdropdown">
+                                <button class="combo-option combo-option-first" v-on:click="chooseGender('MALE', 'genderSelect')">MALE</button>
+                                <button class="combo-option" v-on:click="chooseGender('FEMALE', 'genderSelect')">FEMALE</button>
+                                <button class="combo-option combo-option-last" v-on:click="chooseGender('PREFER NOT TO SAY', 'genderSelect')">PREFER NOT TO SAY</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Role :</span>
+                    <div class="flex input-field">
+                        
+                        <div class="flex relative flex-column" v-if="manipulatedUser.cameFrom == 'addUser'">
+                            <div class="combo-imput manager-select-width" onclick="openDropDown('roleSelect')" name="roleSelect">
+                                {{displayRole()}}
+                            </div>
+                            <div class="combo-options manager-combo-options" name="roleSelectdropdown">
+                                <button class="combo-option combo-option-first" v-on:click="chooseRole('SHOPPER', 'roleSelect')">SHOPPER</button>
+                                <button class="combo-option" v-on:click="chooseRole('MANAGER', 'roleSelect')">MANAGER</button>
+                                <button class="combo-option combo-option-last" v-on:click="chooseRole('DELIVERY_WORKER', 'roleSelect')">DELIVERY WORKER</button>
+                            </div>
+                        </div>
+
+                        <div class="flex relative flex-column" v-if="manipulatedUser.cameFrom != 'addUser'">
+                            <input type="text" class="text-input" v-model="displayRole()" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit-restaurant-div flex relative">
+                    <button class="add-restaurant-button">Submit</button>
                 </div>
             </div>
         </div>

@@ -147,7 +147,7 @@ button {
 
 
 .user-menu {
-    background-image: url("../Images/user.png");
+    background-image: url("../Images/users.png");
 }
 
 .add-submenu {
@@ -156,6 +156,10 @@ button {
 
 .search-submenu {
     background-image: url("../Images/magnifyingGlass.png");
+}
+
+.account-menu {
+    background-image: url("../Images/user.png");
 }
 
 
@@ -542,4 +546,135 @@ input[type=file]::file-selector-button {
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.users-content {
+    overflow: auto;
+    height: 650px;
+}
+
+.users-content::-webkit-scrollbar{
+    display: none;
+}
+
+.single-user {
+    width: 100%;
+    height: 100px;
+    border-radius: 25px;
+    background-color: white;
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.single-user:hover {
+    background-color: #E7EDF1;
+    cursor: pointer;
+}
+
+/* user suspicios */
+.non-sus-user {
+    border: 1px solid #1A9900;
+}
+
+.sus-user {
+    border: 1px solid #FFB818;
+}
+
+.blocked-user {
+    border: 1px solid #F32013;
+}
+
+/* user suspicios icons */
+.green-mark {
+    width: 50px;
+    height: 100%;
+    background-image: url("../Images/greenCheckmark.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 50px;
+}
+
+.warning-sign {
+    width: 50px;
+    height: 100%;
+    background-image: url("../Images/warning.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 50px;
+}
+
+.red-cross {
+    width: 50px;
+    height: 100%;
+    background-image: url("../Images/cross.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 50px;
+}
+
+.user-detail {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    font: Inter;
+    font-weight: 490;
+    font-style: oblique;
+}
+
+.shopper-detail {
+    width: calc(100% / 7);
+}
+
+.manager-detail {
+    width: calc(100% / 6);
+}
+
+.delivery-worker-detail {
+    width: calc(100% / 7);
+}
+
+.delivery-truck {
+    background-image: url("../Images/delivery.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.admin-picture {
+    background-image: url("../Images/admin.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+/* addEdit user */
+.datepicker {
+    width: 220px;
+    border-radius: 25px !important;
+    height: 40px;
+    border: none;
+    background-color: #E7EDF1;
+    padding-left: 26px;
+    padding-right: 26px;
+    outline: none;
+}
+
+.block-user-button {
+    width: 150px;
+    border-radius: 25px;
+    background-color: #F32013;
+    color: white;
+    font-weight: 500;
+    margin-left: 65px;
+    margin-right: 25px;
+}
+
+.unblock-user-button {
+    width: 150px;
+    border-radius: 25px;
+    background-color: #FFB818;
+    font-weight: 500;
+    margin-left: 65px;
+    margin-right: 25px;
 }

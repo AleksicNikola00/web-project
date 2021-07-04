@@ -1,4 +1,4 @@
-//visible : restaurants, specificRestaurant, addEditRestaurant, users, specificUser, addEditUser
+//visible : restaurants, specificRestaurant, addEditRestaurant, users, addEditUser
 //userVisible : shoppers, managers, deliveryWorkers, admins
 
 function displaySubmenu(submenu){
@@ -25,8 +25,8 @@ function changeTag(tag){
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible : 'users',
-        userVisible : 'shoppers',
+        visible : 'addEditUser',
+        userVisible : 'managers',
         currentUser : {},
         receivedRestaurants : [],
         receivedUsers : [],
@@ -211,7 +211,109 @@ var webShop = new Vue({
                 id : '9',
             }
         ],
-
+        receivedShoppers : [],
+        shoppers : [
+            {
+                name : 'Nikola',
+                surname : 'Milosavljevic',
+                username : 'nikkiyuh',
+                dateOfBirth : '1999-07-04',
+                gender : 'MALE',
+                collectedPoints : '1300',
+                type : 'BRONZE',
+                status : 'normal'
+            },
+            {
+                name : 'Nikola',
+                surname : 'Aleksic',
+                username : 'otherNikky',
+                dateOfBirth : '1940-07-02',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'suspicious'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'blocked'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'normal'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'suspicious'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'normal'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'suspicious'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'blocked'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'normal'
+            },
+            {
+                name : 'Filler',
+                surname : 'User',
+                username : 'fillerUser',
+                dateOfBirth : '1.1.1940',
+                gender : 'MALE',
+                collectedPoints : '2600',
+                type : 'SILVER',
+                status : 'suspicious'
+            }
+        ],
         shopperFilterObj : {
             name : '',
             surname : '',
@@ -219,6 +321,70 @@ var webShop = new Vue({
             ascDes : 'Ascending',
             points : 0,
             shopperType : 'BRONZE',
+        },
+
+        receivedManagers : [],
+        managers : [
+            {
+                name : 'Dzoni',
+                surname : 'Stagod',
+                dateOfBirth : '1941-05-26',
+                gender : 'MALE',
+                restaurant : 'Ciao',
+                username : 'nikkiyyuh'
+            }
+        ],
+        managerFilterObj : {
+            name : '',
+            surname : '',
+            username : '',
+            ascDes : 'Ascending'
+        },
+
+        receivedDeliveryWorkers : [],
+        deliveryWorkers : [
+            {
+                name : 'Nikola',
+                surname : 'Milosavljevic',
+                username : 'nikkiyuh',
+                dateOfBirth : '4.7.1999.',
+                gender : 'MALE'
+            }
+        ],
+        deliveryWorkerFilterObj : {
+            name : '',
+            surname : '',
+            username : '',
+            ascDes : 'Ascending'
+        },
+
+        receivedAdmins : [],
+        admins : [
+            {
+                name : 'Nikola',
+                surname : 'Milosavljevic',
+                dateOfBirth : '4.7.1999.',
+                username : 'nikkiyuh',
+                gender : 'MALE'
+            }
+        ],
+        adminFilterObj : {
+            name : '',
+            surname : '',
+            username : '',
+            ascDes : 'Ascending'
+        },
+        
+        manipulatedUser : {
+            username : 'some username',
+            password : '',
+            name : 'some name',
+            surname : 'some surname',
+            dateOfBirth : '1999-07-04',
+            gender : 'MALE',
+            role : 'ADMIN',
+            status : 'normal',
+            cameFrom : 'editUser'
         }
     },
     created (){
@@ -226,6 +392,8 @@ var webShop = new Vue({
     async mounted (){
         let user = window.localStorage.getItem('User');
         this.currentUser = JSON.parse(user);
+        this.currentUser = {};
+        this.currentUser.username = 'curr';
 
         this.changeDisplayedUsers('shoppers');
 
@@ -240,22 +408,52 @@ var webShop = new Vue({
         changeAscDes() {
             if (this.restaurantFilterObj.ascDes.toLowerCase().includes('ascending')){
                 this.restaurantFilterObj.ascDes = 'Descending';
-                $("button[name='ascDescButton']").css('background-image', 'url("../Images/angleDown.png")');
+                $("button[name='ascDescButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
             }
             else {
                 this.restaurantFilterObj.ascDes = 'Ascending';
-                $("button[name='ascDescButton']").css('background-image', 'url("../Images/angleUp.png")');
+                $("button[name='ascDescButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
             }
         },
         changeAscDesUser() {
             if (this.userVisible == 'shoppers'){
                 if (this.shopperFilterObj.ascDes.toLowerCase().includes('ascending')){
                     this.shopperFilterObj.ascDes = 'Descending';
-                    $("button[name='ascDescShopperButton']").css('background-image', 'url("../Images/angleDown.png")');
+                    $("button[name='ascDescShopperButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
                 }
                 else {
                     this.shopperFilterObj.ascDes = 'Ascending';
-                    $("button[name='ascDescShopperButton']").css('background-image', 'url("../Images/angleUp.png")');
+                    $("button[name='ascDescShopperButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
+                }
+            }
+            else if (this.userVisible == 'managers'){
+                if (this.managerFilterObj.ascDes.toLowerCase().includes('ascending')){
+                    this.managerFilterObj.ascDes = 'Descending';
+                    $("button[name='ascDescManagerButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
+                }
+                else {
+                    this.managerFilterObj.ascDes = 'Ascending';
+                    $("button[name='ascDescManagerButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
+                }
+            }
+            else if (this.userVisible == 'deliveryWorkers'){
+                if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('ascending')){
+                    this.deliveryWorkerFilterObj.ascDes = 'Descending';
+                    $("button[name='ascDescDeliveryButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
+                }
+                else {
+                    this.deliveryWorkerFilterObj.ascDes = 'Ascending';
+                    $("button[name='ascDescDeliveryButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
+                }
+            }
+            else if (this.userVisible == 'admins'){
+                if (this.adminFilterObj.ascDes.toLowerCase().includes('ascending')){
+                    this.adminFilterObj.ascDes = 'Descending';
+                    $("button[name='ascDescAdminButton']").get(0).style.setProperty('background-image', 'url("../Images/angleDown.png")');
+                }
+                else {
+                    this.adminFilterObj.ascDes = 'Ascending';
+                    $("button[name='ascDescAdminButton']").get(0).style.setProperty('background-image', 'url("../Images/angleUp.png")');
                 }
             }
         },
@@ -309,6 +507,80 @@ var webShop = new Vue({
             this.shopperFilterObj.shopperType = value;
 
             openDropDown(dropdown);
+        },
+        chooseGender(value, dropdown){
+            this.manipulatedUser.gender = value;
+
+            openDropDown(dropdown);
+        },
+        displayRole(){
+            return this.manipulatedUser.role.replace('_',' ');
+        },
+        chooseRole(value, dropdown){
+            this.manipulatedUser.role = value;
+
+            openDropDown(dropdown);
+        },
+        
+        editShopper(shopper){
+            this.manipulatedUser.username = shopper.username;
+            this.manipulatedUser.name = shopper.name;
+            this.manipulatedUser.surname = shopper.surname;
+            this.manipulatedUser.dateOfBirth = shopper.dateOfBirth;
+            this.manipulatedUser.gender = shopper.gender;
+            this.manipulatedUser.status = shopper.status;
+            this.manipulatedUser.role = "SHOPPER";
+            this.manipulatedUser.cameFrom = 'editUser';
+
+            this.visible = 'addEditUser';
+        },
+        editManager(manager){
+            this.manipulatedUser.username = manager.username;
+            this.manipulatedUser.name = manager.name;
+            this.manipulatedUser.surname = manager.surname;
+            this.manipulatedUser.dateOfBirth = manager.dateOfBirth;
+            this.manipulatedUser.gender = manager.gender;
+            this.manipulatedUser.status = 'normal';
+            this.manipulatedUser.role = "MANAGER";
+            this.manipulatedUser.cameFrom = 'editUser';
+
+            this.visible = 'addEditUser';
+        },
+        editDeliveryWorker(delWorker){
+            this.manipulatedUser.username = delWorker.username;
+            this.manipulatedUser.name = delWorker.name;
+            this.manipulatedUser.surname = delWorker.surname;
+            this.manipulatedUser.dateOfBirth = delWorker.dateOfBirth;
+            this.manipulatedUser.gender = delWorker.gender;
+            this.manipulatedUser.status = 'normal';
+            this.manipulatedUser.role = "DELIVERY_WORKER";
+            this.manipulatedUser.cameFrom = 'editUser';
+
+            this.visible = 'addEditUser';
+        },
+        addNewUser(){
+            this.manipulatedUser.username = '';
+            this.manipulatedUser.name = '';
+            this.manipulatedUser.surname = '';
+            this.manipulatedUser.dateOfBirth = '';
+            this.manipulatedUser.gender = '';
+            this.manipulatedUser.status = 'normal';
+            this.manipulatedUser.role = '';
+            this.manipulatedUser.cameFrom = 'addUser';
+
+            this.visible = 'addEditUser';
+        },
+        editMyAccount() {
+            this.manipulatedUser.username = this.currentUser.username;
+            this.manipulatedUser.name = this.currentUser.username;
+            this.manipulatedUser.surname = this.currentUser.username;
+            this.manipulatedUser.dateOfBirth = this.currentUser.username;
+            this.manipulatedUser.gender = this.currentUser.username;
+            this.manipulatedUser.status = 'normal';
+            this.manipulatedUser.role = 'ADMIN';
+            this.manipulatedUser.cameFrom = 'editUser';
+
+            this.visible = 'addEditUser';
         }
     },
     computed: {
