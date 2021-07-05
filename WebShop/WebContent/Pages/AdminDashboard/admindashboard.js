@@ -338,16 +338,30 @@ var webShop = new Vue({
             ascDes: 'Ascending'
         },
 
-        receivedAdmins: [],
-        admins: [
+        receivedAdmins: [
             {
                 name: 'Nikola',
                 surname: 'Milosavljevic',
                 dateOfBirth: '4.7.1999.',
                 username: 'nikkiyuh',
                 gender: 'MALE'
+            },
+            {
+                name: 'Krki',
+                surname: 'Males',
+                dateOfBirth: '4.7.1999.',
+                username: 'nikkiyuh',
+                gender: 'MALE'
+            },
+            {
+                name: 'Nikola',
+                surname: 'Ment',
+                dateOfBirth: '4.7.1999.',
+                username: 'nikkiyuh',
+                gender: 'MALE'
             }
         ],
+        admins: [],
         adminFilterObj: {
             name: '',
             surname: '',
@@ -384,8 +398,9 @@ var webShop = new Vue({
         this.shoppers = Object.assign({}, this.receivedShoppers);
         this.managers = Object.assign({}, this.receivedManagers);
         this.deliveryWorkers = Object.assign({}, this.receivedDeliveryWorkers);
+        this.admins = Object.assign({}, this.receivedAdmins);
 
-        this.changeDisplayedUsers('deliveryWorkers');
+        this.changeDisplayedUsers('admins');
 
         this.selectedRestaurant = this.restaurants[0];
 
@@ -877,6 +892,22 @@ var webShop = new Vue({
 
             this.deliveryWorkers = result;
         },
+
+        filterAdmins(){
+            let result = this.receivedAdmins.slice();
+
+            if (this.adminFilterObj.username != ''){
+                result = this.sortUserUsername(result, this.adminFilterObj.username, this.adminFilterObj.ascDes);
+            }
+            if (this.adminFilterObj.surname != ''){
+                result = this.sortUserSurname(result, this.adminFilterObj.surname, this.adminFilterObj.ascDes);
+            }
+            if (this.adminFilterObj.name != ''){
+                result = this.sortUserName(result, this.adminFilterObj.name, this.adminFilterObj.ascDes);
+            }
+
+            this.admins = result;
+        }
     },
     computed: {
         //Restaurants
@@ -943,6 +974,19 @@ var webShop = new Vue({
             return this.deliveryWorkerFilterObj.ascDes;
         },
 
+        //Admins
+        adminNameWatch(){
+            return this.adminFilterObj.name;
+        },
+        adminSurnameWatch(){
+            return this.adminFilterObj.surname;
+        },
+        adminUsernameWatch(){
+            return this.adminFilterObj.username;
+        },
+        adminOrderWatch() {
+            return this.adminFilterObj.ascDes;
+        }
     },
     watch: {
         //Restaurants
@@ -1009,5 +1053,19 @@ var webShop = new Vue({
         deliveryWorkerOrderWatch() {
             this.filterDeliveryWorkers();
         },
+
+        //Admins
+        adminNameWatch(){
+            this.filterAdmins();
+        },
+        adminSurnameWatch(){
+            this.filterAdmins();
+        },
+        adminUsernameWatch(){
+            this.filterAdmins();
+        },
+        adminOrderWatch() {
+            this.filterAdmins();
+        }
     }
 })
