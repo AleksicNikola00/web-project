@@ -83,12 +83,12 @@
 
             <!-- Filtering area -->
             <div class="flex relative filtering-area">
-                <input type="text" class="text-input name-input-filter" placeholder="Restaurant name..." v-model="restaurantFilterObj.name">
-                <input type="text" class="text-input name-input-filter" placeholder="Type..." v-model="restaurantFilterObj.type">
-                <input type="text" class="text-input name-input-filter" placeholder="Location..." v-model="restaurantFilterObj.location">
+                <input type="text" class="text-input name-input-filter" placeholder="Restaurant name..." v-model="restaurantFilterObj.name" id="restaurant_name" v-on:focus="changeCriteria('restaurant_name')">
+                <input type="text" class="text-input name-input-filter" placeholder="Type..." v-model="restaurantFilterObj.type" id="restaurant_type" v-on:focus="changeCriteria('restaurant_type')">
+                <input type="text" class="text-input name-input-filter" placeholder="Location..." v-model="restaurantFilterObj.location" id="restaurant_location" v-on:focus="changeCriteria('restaurant_location')">
                 
                 <div class="flex relative flex-column">
-                    <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('typefilterselect')" name="typefilterselect">
+                    <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('typefilterselect')" name="typefilterselect" id="restaurant_mark" v-on:click="changeCriteria('restaurant_mark')">
                         <span class="placeholder-text">Mark :        </span> {{restaurantFilterObj.mark}}
                     </div>
                     <div class="combo-options" name="typefilterselectdropdown">

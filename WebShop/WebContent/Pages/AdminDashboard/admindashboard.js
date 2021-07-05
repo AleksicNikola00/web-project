@@ -711,40 +711,16 @@ var webShop = new Vue({
         /* Filter parts */
         sortRestName(restaurants) {
             let result = restaurants.filter(rest => rest.name.toLowerCase().includes(this.restaurantFilterObj.name.toLowerCase()));
-            
-            result.sort(function(a,b){
-                return ('' + a.name).localeCompare(b.name);
-            });
-
-            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
 
             return result;
         },
         sortRestType(restaurants){
             let result = restaurants.filter(rest => rest.type.toLowerCase().includes(this.restaurantFilterObj.type.toLowerCase()));
 
-            result.sort(function(a,b){
-                return ('' + a.type).localeCompare(b.type);
-            });
-
-            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
-
             return result;
         },
         sortRestLoc(restaurants){
             let result = restaurants.filter(rest => rest.location.toLowerCase().includes(this.restaurantFilterObj.location.toLowerCase()));
-
-            result.sort(function(a,b){
-                return ('' + a.location).localeCompare(b.location);
-            });
-
-            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
 
             return result;
         },
@@ -752,10 +728,6 @@ var webShop = new Vue({
             let refNumber = parseFloat(this.restaurantFilterObj.mark);
 
             let result = restaurants.filter(rest => parseFloat(rest.rating) > refNumber);
-
-            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
 
             return result;
         },
@@ -802,6 +774,43 @@ var webShop = new Vue({
             }
             if (this.restaurantFilterObj.name != ''){
                 result = this.sortRestName(result);
+            }
+
+            if (this.restaurantFilterObj.criteria == 'name'){
+                result.sort(function(a, b){
+                    return ('' + a.name).localeCompare(b.name);
+                });
+
+                if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.restaurantFilterObj.criteria == 'type'){
+                result.sort(function(a, b){
+                    return ('' + a.type).localeCompare(b.type);
+                });
+
+                if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.restaurantFilterObj.criteria == 'location'){
+                result.sort(function(a, b){
+                    return ('' + a.location).localeCompare(b.location);
+                });
+
+                if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.restaurantFilterObj.criteria == 'mark'){
+                result.sort(function(a,b){
+                    return (parseFloat(a.rating) - parseFloat(b.rating));
+                });
+
+                if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
             }
 
             this.restaurants = result;
@@ -1011,6 +1020,9 @@ var webShop = new Vue({
             else if (critParts[0] == 'manager'){
                 this.managerFilterObj.criteria = critParts[1];
             }
+            else if (critParts[0] == 'restaurant'){
+                this.restaurantFilterObj.criteria = critParts[1];
+            }
             else {
                 this.deliveryWorkerFilterObj.criteria = critParts[1];
             }
@@ -1019,6 +1031,9 @@ var webShop = new Vue({
             $("#" + critParts[0] +"_surname").css('border', 'none');
             $("#" + critParts[0] +"_username").css('border', 'none');
             $("#" + critParts[0] +"_points").css('border', 'none');
+            $("#" + critParts[0] +"_type").css('border', 'none');
+            $("#" + critParts[0] +"_location").css('border', 'none');
+            $("#" + critParts[0] +"_mark").css('border', 'none');
 
             if (critParts[1] == 'name'){
                 $("#" + critParts[0] + "_name").css('border', '1px solid #021056');   
@@ -1031,6 +1046,15 @@ var webShop = new Vue({
             }
             else if (critParts[1] == 'points'){
                 $("#" + critParts[0] + "_points").css('border', '1px solid #021056'); 
+            }
+            else if (critParts[1] == 'location'){
+                $("#" + critParts[0] + "_location").css('border', '1px solid #021056'); 
+            }
+            else if (critParts[1] == 'type'){
+                $("#" + critParts[0] + "_type").css('border', '1px solid #021056'); 
+            }
+            else if (critParts[1] == 'mark'){
+                $("#" + critParts[0] + "_mark").css('border', '1px solid #021056');
             }
         }
     },
