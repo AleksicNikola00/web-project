@@ -305,15 +305,31 @@ var webShop = new Vue({
             ascDes: 'Ascending'
         },
 
-        receivedDeliveryWorkers: [],
-        deliveryWorkers: [
+        receivedDeliveryWorkers: [
             {
                 name: 'Nikola',
                 surname: 'Milosavljevic',
                 username: 'nikkiyuh',
                 dateOfBirth: '4.7.1999.',
                 gender: 'MALE'
-            }
+            },
+            {
+                name: 'Drugi',
+                surname: 'Drugic',
+                username: 'nikkiyuhfsfaf',
+                dateOfBirth: '4.7.1999.',
+                gender: 'MALE'
+            },
+            {
+                name: 'Treci',
+                surname: 'fsfsAAA',
+                username: 'sfasfasggg',
+                dateOfBirth: '4.7.1999.',
+                gender: 'MALE'
+            },
+        ],
+        deliveryWorkers: [
+            
         ],
         deliveryWorkerFilterObj: {
             name: '',
@@ -367,8 +383,9 @@ var webShop = new Vue({
         this.restaurants = Object.assign({}, this.receivedRestaurants);
         this.shoppers = Object.assign({}, this.receivedShoppers);
         this.managers = Object.assign({}, this.receivedManagers);
+        this.deliveryWorkers = Object.assign({}, this.receivedDeliveryWorkers);
 
-        this.changeDisplayedUsers('managers');
+        this.changeDisplayedUsers('deliveryWorkers');
 
         this.selectedRestaurant = this.restaurants[0];
 
@@ -844,6 +861,22 @@ var webShop = new Vue({
 
             this.managers = result;
         },
+
+        filterDeliveryWorkers() {
+            let result = this.receivedDeliveryWorkers.slice();
+
+            if (this.deliveryWorkerFilterObj.username != ''){
+                result = this.sortUserUsername(result, this.deliveryWorkerFilterObj.username, this.deliveryWorkerFilterObj.ascDes);
+            }
+            if (this.deliveryWorkerFilterObj.surname != ''){
+                result = this.sortUserSurname(result, this.deliveryWorkerFilterObj.surname, this.deliveryWorkerFilterObj.ascDes);
+            }
+            if (this.deliveryWorkerFilterObj.name != ''){
+                result = this.sortUserName(result, this.deliveryWorkerFilterObj.name, this.deliveryWorkerFilterObj.ascDes);
+            }
+
+            this.deliveryWorkers = result;
+        },
     },
     computed: {
         //Restaurants
@@ -894,6 +927,20 @@ var webShop = new Vue({
         },
         managerOrderWatch() {
             return this.managerFilterObj.ascDes;
+        },
+
+        //DeliveryWorkers 
+        deliveryWorkerNameWatch() {
+            return this.deliveryWorkerFilterObj.name;
+        },
+        deliveryWorkerSurnameWatch() {
+            return this.deliveryWorkerFilterObj.surname;
+        },
+        deliveryWorkerUsernameWatch() {
+            return this.deliveryWorkerFilterObj.username;
+        },
+        deliveryWorkerOrderWatch() {
+            return this.deliveryWorkerFilterObj.ascDes;
         },
 
     },
@@ -947,6 +994,20 @@ var webShop = new Vue({
         },
         managerOrderWatch() {
             this.filterManagers();
+        },
+
+        //DeliveryWorkers 
+        deliveryWorkerNameWatch() {
+            this.filterDeliveryWorkers();
+        },
+        deliveryWorkerSurnameWatch() {
+            this.filterDeliveryWorkers();
+        },
+        deliveryWorkerUsernameWatch() {
+            this.filterDeliveryWorkers();
+        },
+        deliveryWorkerOrderWatch() {
+            this.filterDeliveryWorkers();
         },
     }
 })
