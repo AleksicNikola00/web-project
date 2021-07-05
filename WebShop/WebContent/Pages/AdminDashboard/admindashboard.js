@@ -26,7 +26,7 @@ function changeTag(tag) {
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible: 'restaurants',
+        visible: 'users',
         userVisible: 'managers',
         currentUser: {},
         receivedRestaurants: [
@@ -212,8 +212,7 @@ var webShop = new Vue({
                 id: '9',
             }
         ],
-        receivedShoppers: [],
-        shoppers: [
+        receivedShoppers: [
             {
                 name: 'Nikola',
                 surname: 'Milosavljevic',
@@ -315,13 +314,14 @@ var webShop = new Vue({
                 status: 'suspicious'
             }
         ],
+        shoppers: [],
         shopperFilterObj: {
             name: '',
             surname: '',
             username: '',
             ascDes: 'Ascending',
-            points: 0,
-            shopperType: 'BRONZE',
+            points: '',
+            shopperType: 'ALL',
         },
 
         receivedManagers: [],
@@ -411,6 +411,7 @@ var webShop = new Vue({
         this.currentUser.username = 'curr';
 
         this.restaurants = Object.assign({}, this.receivedRestaurants);
+        this.shoppers = Object.assign({}, this.receivedShoppers);
 
         this.changeDisplayedUsers('shoppers');
 
@@ -770,13 +771,70 @@ var webShop = new Vue({
 
             return result;
         },
+
+        sortUserName(users, crit, ascDes){
+            let result = users.filter(user => user.name.toLowerCase().includes(crit.toLowerCase()));
+
+            result.sort(function(a,b){
+                return ('' + a.name).localeCompare(b.name);
+            });
+
+            if (ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortUserSurname(users, crit, ascDes){
+            let result = users.filter(user => user.surname.toLowerCase().includes(crit.toLowerCase()));
+
+            result.sort(function(a,b){
+                return ('' + a.surname).localeCompare(b.surname);
+            });
+
+            if (ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortUserUsername(users,crit, ascDes){
+            let result = users.filter(user => user.username.toLowerCase().includes(crit.toLowerCase()));
+
+            result.sort(function(a,b){
+                return ('' + a.username).localeCompare(b.username);
+            });
+
+            if (ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortShopperPoints(users){
+            let ref = parseFloat(this.shopperFilterObj.points);
+            let result = users.filter(user => user.collectedPoints > ref);
+
+            result.sort(function(a,b){
+                return a.collectedPoints > b.collectedPoints;
+            });
+
+            if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortShopperType(users){
+            let result = users.filter(user => user.type.toLowerCase().includes(this.shopperFilterObj.shopperType.toLowerCase()));
+
+            return result;
+        },
+
         /* Filtering */
         filterRestaurants() {
             let result = this.receivedRestaurants.slice();
 
-            if (this.restaurantFilterObj.name != ''){
-                result = this.sortRestName(result);
-            }
             if (this.restaurantFilterObj.type != ''){
                 result = this.sortRestType(result);
             }
@@ -786,11 +844,37 @@ var webShop = new Vue({
             if (!this.restaurantFilterObj.mark.toLowerCase().includes('all marks')){
                 result = this.sortRestMark(result);
             }
+            if (this.restaurantFilterObj.name != ''){
+                result = this.sortRestName(result);
+            }
 
             this.restaurants = result;
+        },
+
+        filterShoppers() {
+            let result = this.receivedShoppers.slice();
+
+            if (this.shopperFilterObj.name != ''){
+                result = this.sortUserName(result, this.shopperFilterObj.name, this.shopperFilterObj.ascDes);
+            }
+            if (this.shopperFilterObj.surname != ''){
+                result = this.sortUserSurname(result, this.shopperFilterObj.surname, this.shopperFilterObj.ascDes);
+            }
+            if (this.shopperFilterObj.username != ''){
+                result = this.sortUserUsername(result, this.shopperFilterObj.username, this.shopperFilterObj.ascDes);
+            }
+            if (this.shopperFilterObj.points != ''){
+                result = this.sortShopperPoints(result);
+            }
+            if (this.shopperFilterObj.shopperType != 'ALL'){
+                result = this.sortShopperType(result);
+            }
+
+            this.shoppers = result;
         }
     },
     computed: {
+        //Restaurants
         restaurantNameWatch() {
             return this.restaurantFilterObj.name;
         },
@@ -805,9 +889,30 @@ var webShop = new Vue({
         },
         restaurantOrderWatch() {
             return this.restaurantFilterObj.ascDes;
+        },
+        //Shoppers
+        shopperNameWatch() {
+            return this.shopperFilterObj.name;
+        },
+        shopperSurnameWatch() {
+            return this.shopperFilterObj.surname;
+        },
+        shopperUsernameWatch() {
+            return this.shopperFilterObj.username;
+        },
+        shopperOrderWatch() {
+            return this.shopperFilterObj.ascDes;
+        },
+        shopperPointsWatch() {
+            return this.shopperFilterObj.points;
+        },
+        shopperTypeWatch() {
+            return this.shopperFilterObj.shopperType;
         }
+
     },
     watch: {
+        //Restaurants
         restaurantNameWatch(){
             this.filterRestaurants();
         },
@@ -822,6 +927,26 @@ var webShop = new Vue({
         },
         restaurantOrderWatch(){
             this.filterRestaurants();
+        },
+
+        //Shopper 
+        shopperNameWatch() {
+            this.filterShoppers();
+        },
+        shopperSurnameWatch() {
+            this.filterShoppers();
+        },
+        shopperUsernameWatch() {
+            this.filterShoppers();
+        },
+        shopperOrderWatch() {
+            this.filterShoppers();
+        },
+        shopperPointsWatch() {
+            this.filterShoppers();
+        },
+        shopperTypeWatch() {
+            this.filterShoppers();
         }
     }
 })
