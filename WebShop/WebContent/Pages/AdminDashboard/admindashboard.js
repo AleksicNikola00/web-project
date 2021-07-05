@@ -26,7 +26,7 @@ function changeTag(tag) {
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible: 'users',
+        visible: 'addEditRestaurant',
         userVisible: 'managers',
         currentUser: {},
         receivedRestaurants: [
@@ -561,6 +561,7 @@ var webShop = new Vue({
         },
         addRestaurantViewChange() {
             this.tempRestaurant = {
+                id : '',
                 name: '',
                 type: '',
                 location: '',
@@ -568,6 +569,12 @@ var webShop = new Vue({
                 logo: '',
                 managerId: ''
             }
+
+            this.tempRestaurant.geoLocation = '19.833549, 45.267136';
+            coords = [19.833549,45.267136];
+
+            this.addPin(ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857'));
+            this.map.getView().setCenter(ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857'));
 
             this.visible = 'addEditRestaurant';
         },
@@ -708,6 +715,30 @@ var webShop = new Vue({
 
             $("#username").prop("disabled", false);
         },
+
+        /* Validation */
+
+        //Restaurant validation
+        validateRestaurant(){
+            let message = '';
+            if (!this.tempRestaurant.name.match(/^[a-zA-Z0-9]$/)){
+                message += 'Name is not in the correct format... ';
+            }
+            if (this.tempRestaurant.type == ''){
+                message += "Type is also important! ";
+            }
+            if (this.tempRestaurant.location == ''){
+                message += "Tell us the location! ";
+            }
+            if (this.tempRestaurant.managerId == ''){
+                message += "Specify the manager for the restaurant...";
+            }
+
+            if (message != ''){
+                this.notificationText = message;
+            }
+        },
+
         /* Filter parts */
         sortRestName(restaurants) {
             let result = restaurants.filter(rest => rest.name.toLowerCase().includes(this.restaurantFilterObj.name.toLowerCase()));
