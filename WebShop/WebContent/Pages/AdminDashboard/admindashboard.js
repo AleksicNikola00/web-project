@@ -182,7 +182,7 @@ var webShop = new Vue({
                 username: 'otherNikky',
                 dateOfBirth: '1940-07-02',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '72645',
                 type: 'SILVER',
                 status: 'suspicious'
             },
@@ -192,7 +192,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '12515',
                 type: 'SILVER',
                 status: 'blocked'
             },
@@ -202,7 +202,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '261616',
                 type: 'SILVER',
                 status: 'normal'
             },
@@ -212,7 +212,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '24245',
                 type: 'SILVER',
                 status: 'suspicious'
             },
@@ -222,7 +222,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '26',
                 type: 'SILVER',
                 status: 'normal'
             },
@@ -232,7 +232,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '518',
                 type: 'SILVER',
                 status: 'suspicious'
             },
@@ -242,7 +242,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '626252',
                 type: 'SILVER',
                 status: 'blocked'
             },
@@ -252,7 +252,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '3244',
                 type: 'SILVER',
                 status: 'normal'
             },
@@ -262,7 +262,7 @@ var webShop = new Vue({
                 username: 'fillerUser',
                 dateOfBirth: '1.1.1940',
                 gender: 'MALE',
-                collectedPoints: '2600',
+                collectedPoints: '21452',
                 type: 'SILVER',
                 status: 'suspicious'
             }
@@ -366,7 +366,8 @@ var webShop = new Vue({
             name: '',
             surname: '',
             username: '',
-            ascDes: 'Ascending'
+            ascDes: 'Ascending',
+            criteria : '',
         },
 
         manipulatedUser: {
@@ -762,53 +763,21 @@ var webShop = new Vue({
         sortUserName(users, crit, ascDes){
             let result = users.filter(user => user.name.toLowerCase().includes(crit.toLowerCase()));
 
-            result.sort(function(a,b){
-                return ('' + a.name).localeCompare(b.name);
-            });
-
-            if (ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
-
             return result;
         },
         sortUserSurname(users, crit, ascDes){
             let result = users.filter(user => user.surname.toLowerCase().includes(crit.toLowerCase()));
-
-            result.sort(function(a,b){
-                return ('' + a.surname).localeCompare(b.surname);
-            });
-
-            if (ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
 
             return result;
         },
         sortUserUsername(users,crit, ascDes){
             let result = users.filter(user => user.username.toLowerCase().includes(crit.toLowerCase()));
 
-            result.sort(function(a,b){
-                return ('' + a.username).localeCompare(b.username);
-            });
-
-            if (ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
-
             return result;
         },
         sortShopperPoints(users){
             let ref = parseFloat(this.shopperFilterObj.points);
             let result = users.filter(user => user.collectedPoints > ref);
-
-            result.sort(function(a,b){
-                return a.collectedPoints > b.collectedPoints;
-            });
-
-            if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
-                result.reverse();
-            }
 
             return result;
         },
@@ -858,6 +827,43 @@ var webShop = new Vue({
                 result = this.sortUserName(result, this.shopperFilterObj.name, this.shopperFilterObj.ascDes);
             }
 
+            if (this.shopperFilterObj.criteria == 'name'){
+                result.sort(function(a, b){
+                    return ('' + a.name).localeCompare(b.name);
+                });
+
+                if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.shopperFilterObj.criteria == 'surname'){
+                result.sort(function(a, b){
+                    return ('' + a.surname).localeCompare(b.surname);
+                });
+
+                if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.shopperFilterObj.criteria == 'username'){
+                result.sort(function(a, b){
+                    return ('' + a.username).localeCompare(b.username);
+                });
+
+                if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.shopperFilterObj.criteria == 'points'){
+                result.sort(function(a,b){
+                    return (parseFloat(a.collectedPoints) - parseFloat(b.collectedPoints));
+                });
+
+                if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            
             this.shoppers = result;
         },
 
@@ -872,6 +878,34 @@ var webShop = new Vue({
             }
             if (this.managerFilterObj.name != ''){
                 result = this.sortUserName(result, this.managerFilterObj.name, this.managerFilterObj.ascDes);
+            }
+
+            if (this.managerFilterObj.criteria == 'name'){
+                result.sort(function(a, b){
+                    return ('' + a.name).localeCompare(b.name);
+                });
+
+                if (this.managerFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.managerFilterObj.criteria == 'surname'){
+                result.sort(function(a, b){
+                    return ('' + a.surname).localeCompare(b.surname);
+                });
+
+                if (this.managerFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.managerFilterObj.criteria == 'username'){
+                result.sort(function(a, b){
+                    return ('' + a.username).localeCompare(b.username);
+                });
+
+                if (this.managerFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
             }
 
             this.managers = result;
@@ -890,6 +924,34 @@ var webShop = new Vue({
                 result = this.sortUserName(result, this.deliveryWorkerFilterObj.name, this.deliveryWorkerFilterObj.ascDes);
             }
 
+            if (this.deliveryWorkerFilterObj.criteria == 'name'){
+                result.sort(function(a, b){
+                    return ('' + a.name).localeCompare(b.name);
+                });
+
+                if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.deliveryWorkerFilterObj.criteria == 'surname'){
+                result.sort(function(a, b){
+                    return ('' + a.surname).localeCompare(b.surname);
+                });
+
+                if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.deliveryWorkerFilterObj.criteria == 'username'){
+                result.sort(function(a, b){
+                    return ('' + a.username).localeCompare(b.username);
+                });
+
+                if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+
             this.deliveryWorkers = result;
         },
 
@@ -906,7 +968,70 @@ var webShop = new Vue({
                 result = this.sortUserName(result, this.adminFilterObj.name, this.adminFilterObj.ascDes);
             }
 
+            if (this.adminFilterObj.criteria == 'name'){
+                result.sort(function(a, b){
+                    return ('' + a.name).localeCompare(b.name);
+                });
+
+                if (this.adminFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.adminFilterObj.criteria == 'surname'){
+                result.sort(function(a, b){
+                    return ('' + a.surname).localeCompare(b.surname);
+                });
+
+                if (this.adminFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+            else if (this.adminFilterObj.criteria == 'username'){
+                result.sort(function(a, b){
+                    return ('' + a.username).localeCompare(b.username);
+                });
+
+                if (this.adminFilterObj.ascDes.toLowerCase().includes('descending')){
+                    result.reverse();
+                }
+            }
+
             this.admins = result;
+        },
+
+        changeCriteria(criteria){
+            let critParts = criteria.toString().split('_');
+
+            if (critParts[0] == 'admin'){
+                this.adminFilterObj.criteria = critParts[1];
+            }
+            else if (critParts[0] == 'shopper'){
+                this.shopperFilterObj.criteria = critParts[1];
+            }
+            else if (critParts[0] == 'manager'){
+                this.managerFilterObj.criteria = critParts[1];
+            }
+            else {
+                this.deliveryWorkerFilterObj.criteria = critParts[1];
+            }
+
+            $("#" + critParts[0] +"_name").css('border', 'none');
+            $("#" + critParts[0] +"_surname").css('border', 'none');
+            $("#" + critParts[0] +"_username").css('border', 'none');
+            $("#" + critParts[0] +"_points").css('border', 'none');
+
+            if (critParts[1] == 'name'){
+                $("#" + critParts[0] + "_name").css('border', '1px solid #021056');   
+            }
+            else if (critParts[1] == 'surname'){
+                $("#" + critParts[0] + "_surname").css('border', '1px solid #021056');   
+            }
+            else if (critParts[1] == 'username'){
+                $("#" + critParts[0] + "_username").css('border', '1px solid #021056');   
+            }
+            else if (critParts[1] == 'points'){
+                $("#" + critParts[0] + "_points").css('border', '1px solid #021056'); 
+            }
         }
     },
     computed: {
@@ -986,7 +1111,7 @@ var webShop = new Vue({
         },
         adminOrderWatch() {
             return this.adminFilterObj.ascDes;
-        }
+        },
     },
     watch: {
         //Restaurants
