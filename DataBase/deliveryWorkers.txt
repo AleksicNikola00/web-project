@@ -1,1 +1,17 @@
-[]
+[{
+  "username" : "panta",
+  "name" : "Petar",
+  "surname" : "Pantelic",
+  "gender" : "MALE",
+  "dateOfBirth" : 326419200000,
+  "role" : "DELIVERY",
+  "deleted" : false
+}, {
+  "username" : "Kolja",
+  "name" : "Kolja",
+  "surname" : "Koljic",
+  "gender" : "MALE",
+  "dateOfBirth" : 331430400000,
+  "role" : "DELIVERY",
+  "deleted" : false
+}]

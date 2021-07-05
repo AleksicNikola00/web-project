@@ -52,6 +52,9 @@ $(document).ready(function(){
 					if (user.role == "SHOPPER"){
 						window.location.replace("http://localhost:8080/WebShop/Pages/ShopperDashboard/dashboard.html");	
 					}
+                    if(user.role == "DELIVERY"){
+                        window.location.replace("http://localhost:8080/WebShop/Pages/DeliveryBoyDashboard/dashboard.html");
+                    }
                     clearRegForm();
                     clearSignInForm();
                 }

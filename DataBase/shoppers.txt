@@ -5,7 +5,7 @@
   "gender" : "MALE",
   "dateOfBirth" : 931039200000,
   "role" : "SHOPPER",
-  "collectedPoints" : 385,
+  "collectedPoints" : 0,
   "shopperType" : "BRONZE",
   "deleted" : false
 }, {

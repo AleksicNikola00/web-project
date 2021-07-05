@@ -20,6 +20,6 @@
   "date" : 1625263687354,
   "price" : 1000.0,
   "username" : "mili",
-  "status" : "PENDING",
+  "status" : "CANCELED",
   "deleted" : false
 } ]
