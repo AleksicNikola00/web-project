@@ -264,8 +264,8 @@
                                     {{getManagerByNameSurnameById(tempRestaurant.managerId)}}
                                 </div>
                                 <div class="combo-options manager-combo-options" name="managerSelectdropdown">
-                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == allManagers.length - 1 ? 'combo-option-last' : '')"
-                                        v-for="(manager, index) in allManagers" v-on:click="chooseManager(manager,'managerSelect')">
+                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == receivedManagers.length - 1 ? 'combo-option-last' : '')"
+                                        v-for="(manager, index) in receivedManagers" v-on:click="chooseManager(manager,'managerSelect')">
                                         {{manager.name}} {{manager.surname}}
                                     </button>
                                 </div>

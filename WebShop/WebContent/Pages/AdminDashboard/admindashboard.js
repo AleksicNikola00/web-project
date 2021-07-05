@@ -165,53 +165,6 @@ var webShop = new Vue({
             'Pub',
             'Barbecue'
         ],
-        allManagers: [
-            {
-                name: 'Nikola',
-                surname: 'Milosavljevic',
-                id: '1',
-            },
-            {
-                name: 'Nikola',
-                surname: 'Aleksic',
-                id: '2',
-            },
-            {
-                name: 'Momo',
-                surname: 'Kapor',
-                id: '3',
-            },
-            {
-                name: 'Istvan',
-                surname: 'Becar',
-                id: '4',
-            },
-            {
-                name: 'Maksim',
-                surname: 'Uskokovic',
-                id: '5',
-            },
-            {
-                name: 'Deki',
-                surname: 'Stankela',
-                id: '6',
-            },
-            {
-                name: 'Emina',
-                surname: 'Jahovic',
-                id: '7',
-            },
-            {
-                name: 'Boris',
-                surname: 'Dzonsonovic',
-                id: '8',
-            },
-            {
-                name: 'Kemal',
-                surname: 'Monteno',
-                id: '9',
-            }
-        ],
         receivedShoppers: [
             {
                 name: 'Nikola',
@@ -324,26 +277,27 @@ var webShop = new Vue({
             shopperType: 'ALL',
         },
 
-        receivedManagers: [],
-        managers: [
+        receivedManagers: [
             {
                 name: 'Dzoni',
                 surname: 'Stagod',
                 dateOfBirth: '1941-05-26',
                 gender: 'MALE',
                 restaurant: 'Ciao',
-                username: 'nikkiyyuh'
+                username: 'nikkiyyuh',
+                id : '1'
             },
             {
                 name: 'Dzoni',
-                surname: 'Stagod',
+                surname: 'Drugi',
                 dateOfBirth: '1941-05-26',
                 gender: 'MALE',
                 restaurant: '',
-                username: 'nikkiyyuh'
+                username: 'nikkiyyuh',
+                id : '2'
             }
-            
         ],
+        managers: [],
         managerFilterObj: {
             name: '',
             surname: '',
@@ -412,8 +366,9 @@ var webShop = new Vue({
 
         this.restaurants = Object.assign({}, this.receivedRestaurants);
         this.shoppers = Object.assign({}, this.receivedShoppers);
+        this.managers = Object.assign({}, this.receivedManagers);
 
-        this.changeDisplayedUsers('shoppers');
+        this.changeDisplayedUsers('managers');
 
         this.selectedRestaurant = this.restaurants[0];
 
@@ -584,7 +539,7 @@ var webShop = new Vue({
             this.visible = 'addEditRestaurant';
         },
         getManagerByNameSurnameById(id) {
-            for (manager of this.allManagers) {
+            for (manager of this.receivedManagers) {
                 if (id == manager.id) {
                     return manager.name + ' ' + manager.surname;
                 }
@@ -854,24 +809,41 @@ var webShop = new Vue({
         filterShoppers() {
             let result = this.receivedShoppers.slice();
 
-            if (this.shopperFilterObj.name != ''){
-                result = this.sortUserName(result, this.shopperFilterObj.name, this.shopperFilterObj.ascDes);
-            }
-            if (this.shopperFilterObj.surname != ''){
-                result = this.sortUserSurname(result, this.shopperFilterObj.surname, this.shopperFilterObj.ascDes);
-            }
-            if (this.shopperFilterObj.username != ''){
-                result = this.sortUserUsername(result, this.shopperFilterObj.username, this.shopperFilterObj.ascDes);
+            
+            if (this.shopperFilterObj.shopperType != 'ALL'){
+                result = this.sortShopperType(result);
             }
             if (this.shopperFilterObj.points != ''){
                 result = this.sortShopperPoints(result);
             }
-            if (this.shopperFilterObj.shopperType != 'ALL'){
-                result = this.sortShopperType(result);
+            if (this.shopperFilterObj.username != ''){
+                result = this.sortUserUsername(result, this.shopperFilterObj.username, this.shopperFilterObj.ascDes);
+            }
+            if (this.shopperFilterObj.surname != ''){
+                result = this.sortUserSurname(result, this.shopperFilterObj.surname, this.shopperFilterObj.ascDes);
+            }
+            if (this.shopperFilterObj.name != ''){
+                result = this.sortUserName(result, this.shopperFilterObj.name, this.shopperFilterObj.ascDes);
             }
 
             this.shoppers = result;
-        }
+        },
+
+        filterManagers() {
+            let result = this.receivedManagers.slice();
+
+            if (this.managerFilterObj.username != ''){
+                result = this.sortUserUsername(result, this.managerFilterObj.username, this.managerFilterObj.ascDes);
+            }
+            if (this.managerFilterObj.surname != ''){
+                result = this.sortUserSurname(result, this.managerFilterObj.surname, this.managerFilterObj.ascDes);
+            }
+            if (this.managerFilterObj.name != ''){
+                result = this.sortUserName(result, this.managerFilterObj.name, this.managerFilterObj.ascDes);
+            }
+
+            this.managers = result;
+        },
     },
     computed: {
         //Restaurants
@@ -908,7 +880,21 @@ var webShop = new Vue({
         },
         shopperTypeWatch() {
             return this.shopperFilterObj.shopperType;
-        }
+        },
+
+        //Managers
+        managerNameWatch() {
+            return this.managerFilterObj.name;
+        },
+        managerLastnameWatch(){
+            return this.managerFilterObj.surname;
+        },
+        managerUsernameWatch(){
+            return this.managerFilterObj.username;
+        },
+        managerOrderWatch() {
+            return this.managerFilterObj.ascDes;
+        },
 
     },
     watch: {
@@ -947,6 +933,20 @@ var webShop = new Vue({
         },
         shopperTypeWatch() {
             this.filterShoppers();
-        }
+        },
+
+        //Managers
+        managerNameWatch() {
+            this.filterManagers();
+        },
+        managerLastnameWatch(){
+            this.filterManagers();
+        },
+        managerUsernameWatch(){
+            this.filterManagers();
+        },
+        managerOrderWatch() {
+            this.filterManagers();
+        },
     }
 })
