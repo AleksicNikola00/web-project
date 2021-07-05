@@ -498,7 +498,7 @@ var app = new Vue({
             alert("Successfully delievered!");
         },
         requestOrder: function(order){
-            order.status='Pending';
+            order.status='Pending request';
             alert("Order requested!");
         }
 
