@@ -668,7 +668,9 @@ var app = new Vue({
             return result;
         },
 
-
+        logOut: function(){
+            alert("Log Out!");
+        }
 
 	},
 
