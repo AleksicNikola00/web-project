@@ -36,6 +36,11 @@ public class UserService extends BaseService {
 		return ret;
 	}
 	
+	public LoggedInUser updateDeliveryWorker() {
+		
+		return null;
+	}
+	
 	public LoggedInUser generateUserData(String username) {
 		return generateLoggedInShopper(uow.getCredentialsReadRepo().getById(username));
 	}

@@ -305,7 +305,7 @@ var app = new Vue({
             username: 'Koljisivoje',
             name: 'Njikalaj',
             surname: 'Aljeksijevic',
-            gender: 'FEMALE',
+            gender: undefined,
             date: '2000-02-22',
             password : '12345678',
             new_password: ''
@@ -469,9 +469,37 @@ var app = new Vue({
 		this.selectedButton = 'restaurants';
         this.changeVisibility();
         this.sortByStatus();
+        this.setCurrentUser();
 	},
 
 	methods: {
+
+        setCurrentUser: function(){
+            let user = JSON.parse(window.localStorage.getItem('User'));
+            this.user.username = user.username;
+            this.user.name = user.firstname;
+            this.user.surname = user.lastname;
+            this.user.gender = user.gender;
+            this.user.date = this.convertDate(user.dateOfBirth);
+            this.user.password = user.password;
+        },
+
+        convertDate : function(date) {
+            parts = date.split('-');
+            day = parseInt(parts[0]);
+            if (day < 10)
+                day = "0" + day.toString();
+            else
+                day = day.toString();
+            month = parseInt(parts[1]);
+            if (month < 10)
+                month = "0" + month.toString();
+            else
+                month = month.toString();
+            d = parts[2] + "-" + month + "-" + day;
+            return d;
+        },
+        
 		selectSubmenu: function(submenu){
 			var elem = $('#' + this.selectedButton);
             elem.removeClass('btn-primary');
