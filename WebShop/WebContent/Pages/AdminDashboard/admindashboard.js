@@ -26,17 +26,14 @@ function changeTag(tag) {
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible: 'addEditRestaurant',
+        visible: 'restaurants',
         userVisible: 'managers',
         currentUser: {},
-        receivedRestaurants: [],
-        receivedUsers: [],
-        users: [],
-        restaurants: [
+        receivedRestaurants: [
             {
                 name: 'First',
                 type: 'Turkish',
-                rating: '5',
+                rating: '3.2',
                 manager: 'Dzoni bova',
                 location: 'Stevana Mokranjca 24',
                 status: 'OPEN',
@@ -44,49 +41,49 @@ var webShop = new Vue({
                 managerId: '1',
             },
             {
-                name: 'First',
-                type: 'Turkish',
-                rating: '5',
+                name: 'Second',
+                type: 'Italian',
+                rating: '3.3',
                 manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
+                location: 'Address one',
                 status: 'OPEN',
                 geoLocation: '86.3333, 100.233',
                 managerId: '7',
             },
             {
-                name: 'First',
-                type: 'Turkish',
-                rating: '5',
+                name: 'Thrid',
+                type: 'Mexican',
+                rating: '4.8',
                 manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
+                location: 'Second Address',
                 status: 'OPEN',
                 geoLocation: '86.3333, 100.233',
                 managerId: '6',
             },
             {
-                name: 'First',
-                type: 'Turkish',
-                rating: '5',
+                name: 'Forth',
+                type: 'Barbecue',
+                rating: '2.4',
                 manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
+                location: 'ABBBBA',
                 status: 'OPEN',
                 geoLocation: '86.3333, 100.233',
                 managerId: '3',
             },
             {
-                name: 'First',
+                name: 'Fifth',
                 type: 'Turkish',
-                rating: '5',
+                rating: '4.4',
                 manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
+                location: 'CDCDCDCD',
                 status: 'OPEN',
-                geoLocation: '86.3333, 100.233',
+                geoLocation: 'LELELEL',
                 managerId: '5',
             },
             {
-                name: 'First',
-                type: 'Turkish',
-                rating: '5',
+                name: 'Sixth',
+                type: 'Greek',
+                rating: '2.2',
                 manager: 'Dzoni bova',
                 location: 'Stevana Mokranjca 24',
                 status: 'OPEN',
@@ -94,16 +91,19 @@ var webShop = new Vue({
                 managerId: '2',
             },
             {
-                name: 'First',
-                type: 'Turkish',
-                rating: '5',
+                name: 'Seventh',
+                type: 'Chinese',
+                rating: '1.9',
                 manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
+                location: 'Pasiceva',
                 status: 'OPEN',
                 geoLocation: '86.3333, 100.233',
                 managerId: '4',
             }
         ],
+        receivedUsers: [],
+        users: [],
+        restaurants: [],
         restaurantFilterObj: {
             name: '',
             type: '',
@@ -333,7 +333,16 @@ var webShop = new Vue({
                 gender: 'MALE',
                 restaurant: 'Ciao',
                 username: 'nikkiyyuh'
+            },
+            {
+                name: 'Dzoni',
+                surname: 'Stagod',
+                dateOfBirth: '1941-05-26',
+                gender: 'MALE',
+                restaurant: '',
+                username: 'nikkiyyuh'
             }
+            
         ],
         managerFilterObj: {
             name: '',
@@ -400,6 +409,8 @@ var webShop = new Vue({
         this.currentUser = JSON.parse(user);
         this.currentUser = {};
         this.currentUser.username = 'curr';
+
+        this.restaurants = Object.assign({}, this.receivedRestaurants);
 
         this.changeDisplayedUsers('shoppers');
 
@@ -651,6 +662,9 @@ var webShop = new Vue({
             this.visible = 'addEditUser';
         },
         editMyAccount() {
+
+            $("#username").prop("disabled", true);
+
             this.manipulatedUser.username = this.currentUser.username;
             this.manipulatedUser.name = this.currentUser.username;
             this.manipulatedUser.surname = this.currentUser.username;
@@ -658,22 +672,156 @@ var webShop = new Vue({
             this.manipulatedUser.gender = this.currentUser.username;
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = 'ADMIN';
-            this.manipulatedUser.cameFrom = 'editUser';
+            this.manipulatedUser.cameFrom = 'editMyAccount';
 
             this.visible = 'addEditUser';
         },
-        postNotificaiton() {
-            this.notificationText = 'Just testing this awesome feature!';
+        postChanges() {
+
+            if (this.manipulatedUser.cameFrom == 'addUser'){
+                this.notificationText = 'User successfully added!';
+
+                this.visible = 'users';
+            }
+            else if (this.manipulatedUser.cameFrom == 'editUser'){
+                this.notificationText = 'User successfully edited!';
+                
+                this.visible = 'users';
+            }
+            else if (this.manipulatedUser.cameFrom == 'editMyAccount'){
+                this.notificationText = 'Your account is successfully edited!';
+
+            }
+            else {
+                this.notificationText = 'User successfully added!';
+
+                this.visible = 'addEditRestaurant';
+            }
 
             $("#notification").fadeIn(700, function () {
                 setTimeout(function () {
                     $("#notification").fadeOut(700);
                 }, 3000);
             });
+        },
+
+        addManagerFromRest() {
+            this.manipulatedUser.username = '';
+            this.manipulatedUser.name = '';
+            this.manipulatedUser.surname = '';
+            this.manipulatedUser.dateOfBirth = '';
+            this.manipulatedUser.gender = 'PREFER NOT TO SAY';
+            this.manipulatedUser.role = 'MANAGER';
+            this.manipulatedUser.status = 'normal';
+            this.manipulatedUser.cameFrom = 'restaurant';
+
+            this.visible = "addEditUser";
+
+            $("#username").prop("disabled", false);
+        },
+        /* Filter parts */
+        sortRestName(restaurants) {
+            let result = restaurants.filter(rest => rest.name.toLowerCase().includes(this.restaurantFilterObj.name.toLowerCase()));
+            
+            result.sort(function(a,b){
+                return ('' + a.name).localeCompare(b.name);
+            });
+
+            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortRestType(restaurants){
+            let result = restaurants.filter(rest => rest.type.toLowerCase().includes(this.restaurantFilterObj.type.toLowerCase()));
+
+            result.sort(function(a,b){
+                return ('' + a.type).localeCompare(b.type);
+            });
+
+            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortRestLoc(restaurants){
+            let result = restaurants.filter(rest => rest.location.toLowerCase().includes(this.restaurantFilterObj.location.toLowerCase()));
+
+            result.sort(function(a,b){
+                return ('' + a.location).localeCompare(b.location);
+            });
+
+            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        sortRestMark(restaurants){
+            let refNumber = parseFloat(this.restaurantFilterObj.mark);
+
+            let result = restaurants.filter(rest => parseFloat(rest.rating) > refNumber);
+
+            if (this.restaurantFilterObj.ascDes.toLowerCase().includes('descending')){
+                result.reverse();
+            }
+
+            return result;
+        },
+        /* Filtering */
+        filterRestaurants() {
+            let result = this.receivedRestaurants.slice();
+
+            if (this.restaurantFilterObj.name != ''){
+                result = this.sortRestName(result);
+            }
+            if (this.restaurantFilterObj.type != ''){
+                result = this.sortRestType(result);
+            }
+            if (this.restaurantFilterObj.location != ''){
+                result = this.sortRestLoc(result);
+            }
+            if (!this.restaurantFilterObj.mark.toLowerCase().includes('all marks')){
+                result = this.sortRestMark(result);
+            }
+
+            this.restaurants = result;
         }
     },
     computed: {
+        restaurantNameWatch() {
+            return this.restaurantFilterObj.name;
+        },
+        restaurantTypeWatch() {
+            return this.restaurantFilterObj.type;
+        },
+        restaurantLocationWatch() {
+            return this.restaurantFilterObj.location;
+        },
+        restaurantMarkWatch() {
+            return this.restaurantFilterObj.mark;
+        },
+        restaurantOrderWatch() {
+            return this.restaurantFilterObj.ascDes;
+        }
     },
     watch: {
+        restaurantNameWatch(){
+            this.filterRestaurants();
+        },
+        restaurantTypeWatch() {
+            this.filterRestaurants();
+        },
+        restaurantLocationWatch() {
+            this.filterRestaurants();
+        },
+        restaurantMarkWatch(){
+            this.filterRestaurants();
+        },
+        restaurantOrderWatch(){
+            this.filterRestaurants();
+        }
     }
 })

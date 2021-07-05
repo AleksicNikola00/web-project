@@ -272,7 +272,7 @@
                             </div>
 
                             <button class="add-new-manager-button">
-                                <span class="add-new-manager-text">Add new manager?</span>
+                                <span class="add-new-manager-text" v-on:click="addManagerFromRest()">Add new manager?</span>
                             </button>
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                     <div class="users-content">
                         <div class="single-user flex" v-for="manager in managers" style="border: 1px solid grey;" v-on:click="editManager(manager)">
                             <div class="picture-area">
-                                <img src="../Images/bronze-member.png" style="max-width: 75px;">
+                                <img v-bind:src="manager.restaurant == '' ? '../Images/dashedLine.png' : '../Images/bronze-member.png'" style="max-width: 75px;">
                             </div>
 
                             <div class="flex relative" style="width: 94%;">
@@ -446,7 +446,7 @@
                 <div class="input-group flex space-between">
                     <span class="input-label">Username :</span>
                     <div class="flex">
-                        <input type="text" v-bind:class="'text-input ' + (manipulatedUser.status == 'normal' ? 'input-field' : '')" v-model="manipulatedUser.username" disabled>
+                        <input type="text" v-bind:class="'text-input ' + (manipulatedUser.status == 'normal' ? 'input-field' : '')" v-model="manipulatedUser.username" id="username">
                         <button class="block-user-button" v-if="manipulatedUser.status == 'suspicious'">block user</button>
                         <button class="unblock-user-button" v-if="manipulatedUser.status == 'blocked'">unblock user</button>
                     </div>
@@ -504,7 +504,7 @@
                     </div>
                 </div>
                 <div class="submit-restaurant-div flex relative">
-                    <button class="add-restaurant-button" v-on:click="postNotificaiton()">Submit</button>
+                    <button class="add-restaurant-button" v-on:click="postChanges()">Submit</button>
                 </div>
             </div>
         </div>
