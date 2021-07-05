@@ -2,6 +2,89 @@ var app = new Vue({
 	el: '#dashboard',
 	data: {
         selectedButton : '',
+        orderSorter: '',
+        orderFilter: {
+            name: '',
+            type: '',
+            status: '',
+            dateFrom: undefined,
+            dateTo: undefined,
+            priceFrom: undefined,
+            priceTo: undefined,
+            isAsc: true
+        },
+        allOrders: [
+            {
+                restaurantName : 'Ciao',
+                img : '../Images/gold-member.png',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '1500'
+                    }
+                ],
+                status : 'Delievered',
+                date : '2:23 6-6-2021',
+                restaurantType : 'Italian',
+                price : 2000
+            },
+            {
+                restaurantName : 'Neki',
+                img : '../Images/silver-member.png',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'Waiting delivery',
+                date : '23:23 6-16-2021',
+                restaurantType : 'Italian',
+                price: 1000
+            },
+            {
+                restaurantName : 'Naki',
+                img : '../Images/bronze-member.png',
+                items : [
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    },
+                    {
+                        name : 'pizza',
+                        amount : '2',
+                        price : '500'
+                    }
+                ],
+                status : 'In transport',
+                date : '12:12 5-4-2021',
+                restaurantType : 'Greek',
+                price: 1500
+            }
+        ],
         orders :[
             {
                 restaurantName : 'Ciao',
@@ -494,13 +577,96 @@ var app = new Vue({
         },
 
         deliveredOrder: function(order){
-            order.status = 'Delievered';
-            alert("Successfully delievered!");
+            order.status = 'Delievered';//toastDeliverSuccess
+            $('#toastDeliverSuccess').toast('show');
         },
         requestOrder: function(order){
-            order.status='Pending request';
-            alert("Order requested!");
-        }
+            order.status='Pending request';//toastDeliveryRequested
+            $('#toastDeliveryRequested').toast('show');
+        },
+
+        filterOrders: function(){
+            this.filterOrderByName();
+            this.filterOrderByType();
+            this.filterOrderByDate();
+            this.filterOrderByStatus();
+            this.filterOrderByPrice();
+            this.sortOrders();
+        },
+
+        filterOrderByName: function(){
+            this.orders = this.allOrders.filter(r => r.restaurantName.toLowerCase().includes(this.orderFilter.name.toLowerCase()));
+        },
+
+        filterOrderByType: function(){
+            this.orders = this.orders.filter(r => r.restaurantType.toLowerCase().includes(this.orderFilter.type.toLowerCase()));
+        },
+        
+        filterOrderByDate: function(){
+            if(!(this.orderFilter.dateFrom === undefined))
+                this.orders = this.orders.filter(order => this.calculateDate(order.date) >= Date.parse(this.orderFilter.dateFrom));
+            if(!(this.orderFilter.dateTo === undefined))
+                this.orders = this.orders.filter(order => this.calculateDate(order.date) <= Date.parse(this.orderFilter.dateTo));
+      
+        },
+
+        filterOrderByStatus: function(){
+            if(this.orderFilter.status.length >0)
+                this.orders = this.orders.filter(order => this.orderFilter.status == order.status);
+        },
+
+        filterOrderByPrice: function(){
+            if(!(this.orderFilter.priceFrom === undefined))
+                this.orders = this.orders.filter(order => order.price >= this.orderFilter.priceFrom);
+            if(!(this.orderFilter.priceTo === undefined))
+                this.orders = this.orders.filter(order => order.price <= this.orderFilter.priceTo);
+        },
+
+        sortOrders: function(){
+            if(this.orderSorter == 'name')
+                this.sortOrdersByName();
+            else if(this.orderSorter == 'price')
+                this.sortOrdersByPrice();
+            else if(this.orderSorter == 'date')
+                this.sortOrdersByDate();
+            
+            if(!this.orderFilter.isAsc)
+                this.orders.reverse();
+        },
+
+        setOrderSorter: function(preference){
+            this.orderSorter = preference;
+            this.sortOrders();
+        },
+
+        sortOrdersByName: function(){
+            this.orders.sort((a,b) => a.restaurantName.localeCompare(b.restaurantName));
+        },
+
+        
+        sortOrdersByPrice: function(){
+            this.orders.sort((a,b) => b.price - a.price);
+        },
+
+        
+        sortOrdersByDate: function(){
+            this.orders.sort(function(a,b){
+                return new Date(b.date) - new Date(a.date);
+              });
+        },
+
+        calculateDate : function(date) {
+            let result = new Date();
+            
+            let specificTime = date.split(' ')[0];
+            let specificDate = date.split(' ')[1];
+
+            result.setHours(parseInt(specificTime.split(':')[0]), parseInt(specificTime.split(':')[1]));
+
+            result.setFullYear(parseInt(specificDate.split('-')[2]), parseInt(specificDate.split('-')[0]) - 1, parseInt(specificDate.split('-')[1]));
+
+            return result;
+        },
 
 
 
@@ -533,6 +699,30 @@ var app = new Vue({
             this.sortRestaurants();
         },
 
+        'orderFilter.name':function(){
+            this.filterOrders();
+        },
+        'orderFilter.type':function(){
+            this.filterOrders();
+        },
+        'orderFilter.dateFrom':function(){
+            this.filterOrders();
+        },
+        'orderFilter.dateTo':function(){
+            this.filterOrders();
+        },
+        'orderFilter.status':function(){
+            this.filterOrders();
+        },
+        'orderFilter.priceFrom':function(){
+            this.filterOrders();
+        },
+        'orderFilter.priceTo':function(){
+            this.filterOrders();
+        },
+        'orderFilter.isAsc':function(){
+            this.orders.reverse();
+        },
         
     }
 
