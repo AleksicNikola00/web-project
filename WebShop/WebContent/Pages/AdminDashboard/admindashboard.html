@@ -253,7 +253,7 @@
                     </div>
                     <div class="input-group flex space-between">
                         <span class="input-label">Upload logo :</span>
-                        <input type="file"  class="custom-file-input" style="margin-right: 75px; width: 50%;" v-model="tempRestaurant.logo">
+                        <input type="file"  class="custom-file-input" style="margin-right: 75px; width: 50%;" @change="onFileChange">
                     </div>
                     <div class="input-group flex space-between">
                         <span class="input-label">Manager :</span>
@@ -278,7 +278,7 @@
                     </div>
 
                     <div class="submit-restaurant-div flex relative">
-                        <button class="add-restaurant-button">Add restaurant</button>
+                        <button class="add-restaurant-button" v-on:click="validateRestaurant()">Add restaurant</button>
                     </div>
                     
                 </div>

@@ -156,7 +156,7 @@ var webShop = new Vue({
             location: '',
             geoLocation: '',
             logo: '',
-            managerId: '1'
+            managerId: ''
         },
         allTypes: [
             'Turkish',
@@ -693,7 +693,9 @@ var webShop = new Vue({
 
                 this.visible = 'addEditRestaurant';
             }
+        },
 
+        postMessage() {
             $("#notification").fadeIn(700, function () {
                 setTimeout(function () {
                     $("#notification").fadeOut(700);
@@ -716,12 +718,33 @@ var webShop = new Vue({
             $("#username").prop("disabled", false);
         },
 
+        onFileChange(e){
+            var files = e.target.files || e.dataTransfer.files;
+
+            if (!files.length)
+                return;
+
+            this.createImage(files[0]);
+        },
+
+        createImage(file){
+            var image = new Image();
+            var reader = new FileReader();
+
+            var vm = this;
+
+            reader.onload = (e) => {
+                vm.tempRestaurant.logo = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
+
         /* Validation */
 
         //Restaurant validation
         validateRestaurant(){
             let message = '';
-            if (!this.tempRestaurant.name.match(/^[a-zA-Z0-9]$/)){
+            if (!this.tempRestaurant.name.match(/^([a-zA-Z0-9]|[\s])+$/)){
                 message += 'Name is not in the correct format... ';
             }
             if (this.tempRestaurant.type == ''){
@@ -733,9 +756,14 @@ var webShop = new Vue({
             if (this.tempRestaurant.managerId == ''){
                 message += "Specify the manager for the restaurant...";
             }
+            if (this.tempRestaurant.logo == ''){
+                message += "It would be nice to have a logo for your restaurant too!";
+            }
+
 
             if (message != ''){
                 this.notificationText = message;
+                this.postMessage();
             }
         },
 
