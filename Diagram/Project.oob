@@ -5054,7 +5054,7 @@ Shadow=0</a:DisplayPreferences>
 </o:GeneralizationSymbol>
 <o:AssociationSymbol Id="o38">
 <a:ModificationDate>1624403116</a:ModificationDate>
-<a:Rect>((-49132,16176), (-39516,18123))</a:Rect>
+<a:Rect>((-49132,16175), (-39516,18122))</a:Rect>
 <a:ListOfPoints>((-39916,17240),(-48732,17240))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
@@ -5134,7 +5134,7 @@ SOURCE 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o51">
 <a:ModificationDate>1624403657</a:ModificationDate>
-<a:Rect>((-28610,768), (-20431,2715))</a:Rect>
+<a:Rect>((-28610,767), (-20431,2714))</a:Rect>
 <a:ListOfPoints>((-28210,1833),(-21972,1833))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
@@ -5176,7 +5176,7 @@ SOURCE 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o55">
 <a:ModificationDate>1624404145</a:ModificationDate>
-<a:Rect>((-10898,-12918), (4969,18829))</a:Rect>
+<a:Rect>((-10898,-12918), (4969,18828))</a:Rect>
 <a:ListOfPoints>((-10498,17925),(-4573,17925),(-4573,6750),(4569,6750),(4569,-12518))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
@@ -7927,7 +7927,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>RestaurantType</a:Code>
 <a:CreationDate>1624391716</a:CreationDate>
 <a:Creator>nikol</a:Creator>
-<a:ModificationDate>1625074737</a:ModificationDate>
+<a:ModificationDate>1625179109</a:ModificationDate>
 <a:Modifier>nikol</a:Modifier>
 <a:Stereotype>Enum</a:Stereotype>
 <a:UseParentNamespace>0</a:UseParentNamespace>
@@ -24769,8 +24769,8 @@ Shadow=0</a:DisplayPreferences>
 </o:GeneralizationSymbol>
 <o:AssociationSymbol Id="o705">
 <a:ModificationDate>1625174885</a:ModificationDate>
-<a:Rect>((-4391,-24589), (4602,-22597))</a:Rect>
-<a:ListOfPoints>((-3991,-23592),(4202,-23592))</a:ListOfPoints>
+<a:Rect>((-4391,-24557), (4602,-22567))</a:Rect>
+<a:ListOfPoints>((-3991,-23561),(4202,-23561))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>0</a:ArrowStyle>
 <a:LineColor>16744448</a:LineColor>
@@ -24900,7 +24900,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:ClassSymbol Id="o706">
 <a:ModificationDate>1625174826</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((-24281,-27934), (-3991,-20218))</a:Rect>
+<a:Rect>((-24281,-28421), (-3991,-19731))</a:Rect>
 <a:LineColor>16744448</a:LineColor>
 <a:FillColor>16711808</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -25153,7 +25153,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>PastOrderDTO</a:Code>
 <a:CreationDate>1625174755</a:CreationDate>
 <a:Creator>nikol</a:Creator>
-<a:ModificationDate>1625174965</a:ModificationDate>
+<a:ModificationDate>1625179109</a:ModificationDate>
 <a:Modifier>nikol</a:Modifier>
 <a:UseParentNamespace>0</a:UseParentNamespace>
 <c:Attributes>
@@ -25196,9 +25196,9 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>date</a:Code>
 <a:CreationDate>1625174903</a:CreationDate>
 <a:Creator>nikol</a:Creator>
-<a:ModificationDate>1625174942</a:ModificationDate>
+<a:ModificationDate>1625177883</a:ModificationDate>
 <a:Modifier>nikol</a:Modifier>
-<a:DataType>java.util.Date</a:DataType>
+<a:DataType>String</a:DataType>
 <a:Attribute.Visibility>-</a:Attribute.Visibility>
 </o:Attribute>
 <o:Attribute Id="o733">
@@ -25215,6 +25215,20 @@ LABL 0 Arial,8,N</a:FontList>
 <o:Shortcut Ref="o734"/>
 </c:ObjectDataType>
 </o:Attribute>
+<o:Attribute Id="o735">
+<a:ObjectID>D000223A-F522-4399-B527-B97296297AFA</a:ObjectID>
+<a:Name>restaurantType</a:Name>
+<a:Code>restaurantType</a:Code>
+<a:CreationDate>1625179093</a:CreationDate>
+<a:Creator>nikol</a:Creator>
+<a:ModificationDate>1625179109</a:ModificationDate>
+<a:Modifier>nikol</a:Modifier>
+<a:DataType>RestaurantType</a:DataType>
+<a:Attribute.Visibility>-</a:Attribute.Visibility>
+<c:ObjectDataType>
+<o:Shortcut Ref="o721"/>
+</c:ObjectDataType>
+</o:Attribute>
 </c:Attributes>
 </o:Class>
 <o:Class Id="o716">
@@ -25227,7 +25241,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Modifier>nikol</a:Modifier>
 <a:UseParentNamespace>0</a:UseParentNamespace>
 <c:Attributes>
-<o:Attribute Id="o735">
+<o:Attribute Id="o736">
 <a:ObjectID>A7671955-847F-4572-B753-6B5E65D2C408</a:ObjectID>
 <a:Name>name</a:Name>
 <a:Code>name</a:Code>
@@ -25238,7 +25252,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:DataType>String</a:DataType>
 <a:Attribute.Visibility>-</a:Attribute.Visibility>
 </o:Attribute>
-<o:Attribute Id="o736">
+<o:Attribute Id="o737">
 <a:ObjectID>1FFBEBCB-F686-483A-8C79-8CE3BD7870F1</a:ObjectID>
 <a:Name>amount</a:Name>
 <a:Code>amount</a:Code>
@@ -25249,7 +25263,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:DataType>int</a:DataType>
 <a:Attribute.Visibility>-</a:Attribute.Visibility>
 </o:Attribute>
-<o:Attribute Id="o737">
+<o:Attribute Id="o738">
 <a:ObjectID>BB8FA487-5DD4-408B-830D-9F7AA49CC486</a:ObjectID>
 <a:Name>price</a:Name>
 <a:Code>price</a:Code>
@@ -25339,7 +25353,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:ClassDiagram Ref="o5"/>
 </c:DefaultDiagram>
 <c:TargetModels>
-<o:TargetModel Id="o738">
+<o:TargetModel Id="o739">
 <a:ObjectID>7EEAE0D7-6DAE-4530-9CC4-F6E013C137E0</a:ObjectID>
 <a:Name>Java</a:Name>
 <a:Code>Java</a:Code>
@@ -25355,7 +25369,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:Shortcut Ref="o3"/>
 </c:SessionShortcuts>
 </o:TargetModel>
-<o:TargetModel Id="o739">
+<o:TargetModel Id="o740">
 <a:ObjectID>8136C224-24AA-4422-9FAE-154B28010CE4</a:ObjectID>
 <a:Name>WSDL for Java</a:Name>
 <a:Code>WSDLJava</a:Code>
@@ -25371,13 +25385,13 @@ LABL 0 Arial,8,N</a:FontList>
 <o:Shortcut Ref="o4"/>
 </c:SessionShortcuts>
 </o:TargetModel>
-<o:TargetModel Id="o740">
+<o:TargetModel Id="o741">
 <a:ObjectID>33258F52-1E05-4E14-AE73-BF830035CE4D</a:ObjectID>
 <a:Name>Project</a:Name>
 <a:Code>Project</a:Code>
 <a:CreationDate>1624389078</a:CreationDate>
 <a:Creator>nikol</a:Creator>
-<a:ModificationDate>1625174965</a:ModificationDate>
+<a:ModificationDate>1625176720</a:ModificationDate>
 <a:Modifier>nikol</a:Modifier>
 <a:TargetModelURL>file:///.</a:TargetModelURL>
 <a:TargetModelID>1F41FA11-1A03-41E9-88BD-BBE2C0DDFF24</a:TargetModelID>

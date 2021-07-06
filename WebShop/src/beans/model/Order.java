@@ -12,8 +12,18 @@ public class Order {
 	private String username;
 	private OrderStatus status;
 	private boolean isDeleted;
+	private String deliveryWorkerUsername;
+
 
 	public Order() {}
+	
+	public String getDeliveryWorkerUsername() {
+		return deliveryWorkerUsername;
+	}
+
+	public void setDeliveryWorkerUsername(String deliveryWorkerUsername) {
+		this.deliveryWorkerUsername = deliveryWorkerUsername;
+	}
 
 	public UUID getId() {
 		return id;

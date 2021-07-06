@@ -4,6 +4,7 @@ import java.util.*;
 
 public enum OrderStatus {
    PENDING,
+   PENDING_DELIVERY,
    IN_PREPARATION,
    WAITING_DELIVERY,
    IN_TRANSPORT,
