@@ -1,9 +1,9 @@
 [ {
   "username" : "panta",
-  "name" : "Pavle",
-  "surname" : "Stefanovic",
-  "gender" : "FEMALE",
-  "dateOfBirth" : 957564000000,
+  "name" : "Stefan",
+  "surname" : "Kraljevic",
+  "gender" : "MALE",
+  "dateOfBirth" : 951174000000,
   "role" : "DELIVERY",
   "deleted" : false
 }, {

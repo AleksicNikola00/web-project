@@ -544,13 +544,8 @@ var app = new Vue({
             await axios.put('/WebShop/rest/user/updateworker',userToUpdate)
 					.then(response => {
 						let user = response.data;
-						this.user.username = user.username;
-                        this.user.name = user.firstname;
-                        this.user.surname = user.lastname;
-                        this.user.gender = user.gender;
-                        this.user.date = this.convertDate(user.dateOfBirth);
-                        this.user.password = user.password;
                         window.localStorage.setItem('User',JSON.stringify(user));
+                        this.setCurrentUser();
 					});
         },
 
