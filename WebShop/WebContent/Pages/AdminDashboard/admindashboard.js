@@ -26,7 +26,7 @@ function changeTag(tag) {
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible: 'addEditRestaurant',
+        visible: 'addEditUser',
         userVisible: 'managers',
         currentUser: {},
         receivedRestaurants: [
@@ -101,6 +101,7 @@ var webShop = new Vue({
                 managerId: '4',
             }
         ],
+        availableManagers : [],
         receivedUsers: [],
         users: [],
         restaurants: [],
@@ -371,15 +372,15 @@ var webShop = new Vue({
         },
 
         manipulatedUser: {
-            username: 'some username',
+            username: '',
             password: '',
-            name: 'some name',
-            surname: 'some surname',
-            dateOfBirth: '1999-07-04',
-            gender: 'MALE',
-            role: 'ADMIN',
+            name: '',
+            surname: '',
+            dateOfBirth: '',
+            gender: '',
+            role: '',
             status: 'normal',
-            cameFrom: 'editUser'
+            cameFrom: 'addUser'
         },
 
         notificationText: '',
@@ -401,7 +402,18 @@ var webShop = new Vue({
         this.deliveryWorkers = Object.assign({}, this.receivedDeliveryWorkers);
         this.admins = Object.assign({}, this.receivedAdmins);
 
-        this.changeDisplayedUsers('admins');
+        /* Setting date in date picker */
+        var now = new Date();
+        var first = new Date();
+        first.setFullYear(now.getFullYear() - 100);
+
+        maxDate = now.toISOString().substring(0,10);
+        minDate = first.toISOString().substring(0,10);
+
+        $("#datepicker").prop('max',maxDate);
+        $("#datepicker").prop('min',minDate);
+
+        this.changeDisplayedUsers('shoppers');
 
         this.selectedRestaurant = this.restaurants[0];
 
@@ -616,6 +628,7 @@ var webShop = new Vue({
             this.manipulatedUser.dateOfBirth = shopper.dateOfBirth;
             this.manipulatedUser.gender = shopper.gender;
             this.manipulatedUser.status = shopper.status;
+            this.manipulatedUser.password = '';
             this.manipulatedUser.role = "SHOPPER";
             this.manipulatedUser.cameFrom = 'editUser';
 
@@ -627,6 +640,7 @@ var webShop = new Vue({
             this.manipulatedUser.surname = manager.surname;
             this.manipulatedUser.dateOfBirth = manager.dateOfBirth;
             this.manipulatedUser.gender = manager.gender;
+            this.manipulatedUser.password = '';
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = "MANAGER";
             this.manipulatedUser.cameFrom = 'editUser';
@@ -639,6 +653,7 @@ var webShop = new Vue({
             this.manipulatedUser.surname = delWorker.surname;
             this.manipulatedUser.dateOfBirth = delWorker.dateOfBirth;
             this.manipulatedUser.gender = delWorker.gender;
+            this.manipulatedUser.password = '';
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = "DELIVERY_WORKER";
             this.manipulatedUser.cameFrom = 'editUser';
@@ -653,6 +668,7 @@ var webShop = new Vue({
             this.manipulatedUser.gender = '';
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = '';
+            this.manipulatedUser.password = '';
             this.manipulatedUser.cameFrom = 'addUser';
 
             this.visible = 'addEditUser';
@@ -662,10 +678,11 @@ var webShop = new Vue({
             $("#username").prop("disabled", true);
 
             this.manipulatedUser.username = this.currentUser.username;
-            this.manipulatedUser.name = this.currentUser.username;
-            this.manipulatedUser.surname = this.currentUser.username;
-            this.manipulatedUser.dateOfBirth = this.currentUser.username;
-            this.manipulatedUser.gender = this.currentUser.username;
+            this.manipulatedUser.name = this.currentUser.name;
+            this.manipulatedUser.surname = this.currentUser.surname;
+            this.manipulatedUser.dateOfBirth = this.currentUser.dateOfBirth;
+            this.manipulatedUser.gender = this.currentUser.gender;
+            this.manipulatedUser.password = '';
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = 'ADMIN';
             this.manipulatedUser.cameFrom = 'editMyAccount';
@@ -693,6 +710,8 @@ var webShop = new Vue({
 
                 this.visible = 'addEditRestaurant';
             }
+
+            this.postMessage();
         },
 
         postMessage() {
@@ -739,6 +758,20 @@ var webShop = new Vue({
             reader.readAsDataURL(file);
         },
 
+        blockUser() {
+            this.manipulatedUser.status = 'blocked';
+
+            this.notificationText = 'User is now blocked. To unblock him press the yellow unblock button!';
+            this.postMessage();
+
+        },
+        unblockUser() {
+            this.manipulatedUser.status = 'normal';
+
+            this.notificationText = 'User is now unblocked!';
+            this.postMessage();
+        },
+
         /* Validation */
 
         //Restaurant validation
@@ -764,6 +797,58 @@ var webShop = new Vue({
             if (message != ''){
                 this.notificationText = message;
                 this.postMessage();
+            }
+            else {
+                this.notificationText = 'Restaurant successfully saved!';
+                this.postMessage();
+            }
+        },
+
+        //User validation 
+        validateUser() {
+            let message = '';
+
+            if (!this.manipulatedUser.username.match(/^([\s]*[a-zA-Z0-9]+[\s]*)$/)){
+                message += 'Username is not in the correct format... ';
+            }
+            if (!this.manipulatedUser.name.match(/^([\s]*[a-zA-Z]+[\s]*)$/)){
+                message += 'Name is not in the correct format... ';
+            }
+            if (!this.manipulatedUser.surname.match(/^([\s]*[a-zA-Z]+[\s]*)$/)){
+                message += 'Surname is not in the correct format... ';
+            }
+            if (this.manipulatedUser.dateOfBirth == ''){
+                message += 'Tell us how you old want the user to be! ';
+            }
+            if (this.manipulatedUser.gender == ''){
+                message += 'Also specify some gender... ';
+            }
+            if (this.manipulatedUser.role == ''){
+                message += 'Users role is really important! ';
+            }
+
+            if (this.manipulatedUser.cameFrom == 'addUser'){
+                if (this.manipulatedUser.password == ''){
+                    message += 'And oh, password is important!';
+                }
+                else if (this.manipulatedUser.password.length < 8){
+                    message += 'Make the password atleast 8 chars long...';
+                }
+            }
+            else {
+                if (this.manipulatedUser.password != ''){
+                    if (this.manipulatedUser.password.length < 8){
+                        message += 'Make the password atleast 8 chars long...';
+                    }
+                }
+            }
+
+            if (message != ''){
+                this.notificationText = message;
+                this.postMessage();
+            }
+            else {
+                this.postChanges();
             }
         },
 

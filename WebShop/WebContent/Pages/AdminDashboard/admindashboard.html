@@ -265,7 +265,7 @@
                                 </div>
                                 <div class="combo-options manager-combo-options" name="managerSelectdropdown">
                                     <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == receivedManagers.length - 1 ? 'combo-option-last' : '')"
-                                        v-for="(manager, index) in receivedManagers" v-on:click="chooseManager(manager,'managerSelect')">
+                                        v-for="(manager, index) in availableManagers" v-on:click="chooseManager(manager,'managerSelect')">
                                         {{manager.name}} {{manager.surname}}
                                     </button>
                                 </div>
@@ -448,8 +448,8 @@
                     <span class="input-label">Username :</span>
                     <div class="flex">
                         <input type="text" v-bind:class="'text-input ' + (manipulatedUser.status == 'normal' ? 'input-field' : '')" v-model="manipulatedUser.username" id="username">
-                        <button class="block-user-button" v-if="manipulatedUser.status == 'suspicious'">block user</button>
-                        <button class="unblock-user-button" v-if="manipulatedUser.status == 'blocked'">unblock user</button>
+                        <button class="block-user-button" v-if="manipulatedUser.status == 'suspicious'" v-on:click="blockUser()">block user</button>
+                        <button class="unblock-user-button" v-if="manipulatedUser.status == 'blocked'" v-on:click="unblockUser()">unblock user</button>
                     </div>
                 </div>
                 <div class="input-group flex space-between">
@@ -466,7 +466,7 @@
                 </div>
                 <div class="input-group flex space-between">
                     <span class="input-label">Date of birth :</span>
-                    <input type="date" class="input-field datepicker" v-model="manipulatedUser.dateOfBirth">
+                    <input type="date" class="input-field datepicker" id="datepicker" v-model="manipulatedUser.dateOfBirth" maxDate="0">
                 </div>
                 <div class="input-group flex space-between">
                     <span class="input-label">Gender :</span>
@@ -505,7 +505,7 @@
                     </div>
                 </div>
                 <div class="submit-restaurant-div flex relative">
-                    <button class="add-restaurant-button" v-on:click="postChanges()">Submit</button>
+                    <button class="add-restaurant-button" v-on:click="validateUser()">Submit</button>
                 </div>
             </div>
         </div>
