@@ -2,6 +2,7 @@ package services;
 
 import beans.errors.DatabaseErrors;
 import beans.model.Credentials;
+import beans.model.DeliveryWorker;
 import beans.model.Shopper;
 import dto.LoggedInUser;
 import dto.NewShopper;
@@ -36,9 +37,43 @@ public class UserService extends BaseService {
 		return ret;
 	}
 	
-	public LoggedInUser updateDeliveryWorker() {
+	public LoggedInUser updateDeliveryWorker(NewShopper worker) {
+		DeliveryWorker workerInDataBase = uow.getDeliveryWorkerReadRepo().getById(worker.getUsername());
+		Credentials credsInDatabase = uow.getCredentialsReadRepo().getById(worker.getUsername());
+		if (workerInDataBase == null || credsInDatabase == null) {
+			return null;
+		}
+		workerInDataBase.setName(worker.getName());
+		workerInDataBase.setSurname(worker.getSurname());
+		workerInDataBase.setGender(worker.getGender());
+		workerInDataBase.setDateOfBirth(worker.getDateOfBirth());
 		
-		return null;
+		uow.getDeliveryWorkerWriteRepo().update(workerInDataBase);
+		
+		if(!worker.getPassword().isEmpty()) {
+			credsInDatabase.setPassword(worker.getPassword());
+			uow.getCredentialsWriteRepo().update(credsInDatabase);
+		}
+		LoggedInUser ret = generateLoggedInDeliveryWorker(credsInDatabase);
+		return ret;
+	}
+	
+	private LoggedInUser generateLoggedInDeliveryWorker(Credentials creds) {
+		DeliveryWorker worker = uow.getDeliveryWorkerReadRepo().getById(creds.getUsername());
+		
+		LoggedInUser retWorker = new LoggedInUser();
+		retWorker.setFirstname(worker.getName());
+		retWorker.setLastname(worker.getSurname());
+		retWorker.setUsername(worker.getUsername());
+		retWorker.setDateOfBirth(worker.getDateOfBirth().getDate() + "-" + 
+					(worker.getDateOfBirth().getMonth() + 1) + "-" +
+					(worker.getDateOfBirth().getYear() + 1900));
+		retWorker.setPoints("");
+		retWorker.setPassword(creds.getPassword());
+		retWorker.setGender(worker.getGender());
+		retWorker.setRole(worker.getRole());
+		retWorker.setShopperType(null);
+		return retWorker;
 	}
 	
 	public LoggedInUser generateUserData(String username) {

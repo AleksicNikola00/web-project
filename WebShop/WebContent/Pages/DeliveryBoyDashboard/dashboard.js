@@ -521,7 +521,37 @@ var app = new Vue({
                     {$('#toastPWError2').toast('show'); return;}
                 this.user.password = document.getElementById("oldpassword").value;
             }
+                this.updateUser();
                 $('#toastPWSuccess').toast('show');
+        },
+
+        updateUser:async function(){
+            let userToUpdate = {
+				username : this.user.username,
+				name : this.user.name,
+				surname : this.user.surname,
+				gender : this.user.gender,
+				dateOfBirth : new Date(),
+				password : this.user.new_password
+			}
+
+            let year = parseInt(this.user.date.split("-")[0]);
+			let day = parseInt(this.user.date.split("-")[2]);
+			let month = parseInt(this.user.date.split("-")[1]) - 1;
+			
+			userToUpdate.dateOfBirth = new Date(year,month,day);
+            //
+            await axios.put('/WebShop/rest/user/updateworker',userToUpdate)
+					.then(response => {
+						let user = response.data;
+						this.user.username = user.username;
+                        this.user.name = user.firstname;
+                        this.user.surname = user.lastname;
+                        this.user.gender = user.gender;
+                        this.user.date = this.convertDate(user.dateOfBirth);
+                        this.user.password = user.password;
+                        window.localStorage.setItem('User',JSON.stringify(user));
+					});
         },
 
         changeVisibility: function(){

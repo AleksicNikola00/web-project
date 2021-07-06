@@ -33,6 +33,15 @@ public class UserController {
 		return service.updateShopperInfo(shopper);
 	}
 	
+	@PUT
+	@Path("/updateworker")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public LoggedInUser updateDeliveryWorker(NewShopper worker) {
+		UserService service = new UserService(ctx.getRealPath(""));
+		return service.updateDeliveryWorker(worker);
+	}
+	
 	@GET
 	@Path("/getbyuser/{id}")
 	@Produces(MediaType.APPLICATION_JSON)

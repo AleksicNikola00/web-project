@@ -1,9 +1,9 @@
-[{
+[ {
   "username" : "panta",
-  "name" : "Petar",
-  "surname" : "Pantelic",
-  "gender" : "MALE",
-  "dateOfBirth" : 326419200000,
+  "name" : "Pavle",
+  "surname" : "Stefanovic",
+  "gender" : "FEMALE",
+  "dateOfBirth" : 957564000000,
   "role" : "DELIVERY",
   "deleted" : false
 }, {
@@ -14,4 +14,4 @@
   "dateOfBirth" : 331430400000,
   "role" : "DELIVERY",
   "deleted" : false
-}]
+} ]
