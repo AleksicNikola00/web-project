@@ -52,6 +52,9 @@ $(document).ready(function(){
 					if (user.role == "SHOPPER"){
 						window.location.replace("http://localhost:8080/WebShop/Pages/ShopperDashboard/dashboard.html");	
 					}
+					else if (user.role == "ADMIN"){
+						window.location.replace("http://localhost:8080/WebShop/Pages/AdminDashboard/admindashboard.html");
+					}
                     clearRegForm();
                     clearSignInForm();
                 }

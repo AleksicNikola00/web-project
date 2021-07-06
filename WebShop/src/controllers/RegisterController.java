@@ -13,7 +13,7 @@ import beans.enumerations.TypeOfShopper;
 import beans.errors.DatabaseErrors;
 import beans.model.Credentials;
 import beans.model.Shopper;
-import dto.NewShopper;
+import dto.NewUser;
 import services.RegisterService;
 
 @Path("/register")
@@ -25,7 +25,7 @@ public class RegisterController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String registerNewShopper(NewShopper newShopper) {
+	public String registerNewShopper(NewUser newShopper) {
 		
 		Credentials credsPart = new Credentials();
 		credsPart.setRole(Role.SHOPPER);

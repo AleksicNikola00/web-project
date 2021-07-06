@@ -17,6 +17,8 @@ import beans.model.Order;
 import beans.model.Restaurant;
 import beans.model.ShopperType;
 import dto.NewRestaurantDTO;
+import dto.NewUser;
+import services.CRUDAdminService;
 import services.CRUDCommentService;
 import services.CRUDItemService;
 import services.CRUDOrderService;
@@ -99,5 +101,16 @@ public class TestController {
 		CRUDShopperTypeService service = new CRUDShopperTypeService(ctx.getRealPath(""));
 		
 		return service.add(shopperType);
+	}
+	
+	//Adding admins
+	@PUT
+	@Path("/admin")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addAdmin(NewUser admin) {
+		CRUDAdminService service = new CRUDAdminService(ctx.getRealPath(""));
+		
+		return service.addAdmin(admin);
 	}
 }

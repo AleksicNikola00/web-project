@@ -26,8 +26,8 @@ function changeTag(tag) {
 var webShop = new Vue({
     el: '#dashboard',
     data: {
-        visible: 'addEditUser',
-        userVisible: 'managers',
+        visible: 'restaurants',
+        userVisible: 'shoppers',
         currentUser: {},
         receivedRestaurants: [
             {
@@ -39,66 +39,6 @@ var webShop = new Vue({
                 status: 'OPEN',
                 geoLocation: '18, 45.267136',
                 managerId: '1',
-            },
-            {
-                name: 'Second',
-                type: 'Italian',
-                rating: '3.3',
-                manager: 'Dzoni bova',
-                location: 'Address one',
-                status: 'OPEN',
-                geoLocation: '86.3333, 100.233',
-                managerId: '7',
-            },
-            {
-                name: 'Thrid',
-                type: 'Mexican',
-                rating: '4.8',
-                manager: 'Dzoni bova',
-                location: 'Second Address',
-                status: 'OPEN',
-                geoLocation: '86.3333, 100.233',
-                managerId: '6',
-            },
-            {
-                name: 'Forth',
-                type: 'Barbecue',
-                rating: '2.4',
-                manager: 'Dzoni bova',
-                location: 'ABBBBA',
-                status: 'OPEN',
-                geoLocation: '86.3333, 100.233',
-                managerId: '3',
-            },
-            {
-                name: 'Fifth',
-                type: 'Turkish',
-                rating: '4.4',
-                manager: 'Dzoni bova',
-                location: 'CDCDCDCD',
-                status: 'OPEN',
-                geoLocation: 'LELELEL',
-                managerId: '5',
-            },
-            {
-                name: 'Sixth',
-                type: 'Greek',
-                rating: '2.2',
-                manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
-                status: 'OPEN',
-                geoLocation: '86.3333, 100.233',
-                managerId: '2',
-            },
-            {
-                name: 'Seventh',
-                type: 'Chinese',
-                rating: '1.9',
-                manager: 'Dzoni bova',
-                location: 'Pasiceva',
-                status: 'OPEN',
-                geoLocation: '86.3333, 100.233',
-                managerId: '4',
             }
         ],
         availableManagers : [],
@@ -121,22 +61,6 @@ var webShop = new Vue({
                 type: 'FOOD',
                 unit: 'GRAM',
                 description: 'Some amazing pizza that has been created by the best chefs!'
-            },
-            {
-                name: 'Pizza',
-                price: '1000',
-                amount: '700',
-                type: 'FOOD',
-                unit: 'GRAM',
-                description: 'Some amazing pizza that has been created by the best chefs!'
-            },
-            {
-                name: 'Pizza',
-                price: '1000',
-                amount: '700',
-                type: 'FOOD',
-                unit: 'GRAM',
-                description: 'Some amazing pizza that has been created by the best chefs!'
             }
         ],
         comments: [
@@ -144,12 +68,7 @@ var webShop = new Vue({
                 text: 'its really amazing lads go ahead and try!',
                 username: 'ProSlayerXXX',
                 mark: '5'
-            },
-            {
-                text: 'Could be better i guess but whatevs bitches are good',
-                username: 'NiggaHigga',
-                mark: '3'
-            },
+            }
         ],
         tempRestaurant: {
             name: '',
@@ -168,104 +87,14 @@ var webShop = new Vue({
         ],
         receivedShoppers: [
             {
-                name: 'Nikola',
-                surname: 'Milosavljevic',
+                firstname: 'Nikola',
+                lastname: 'Milosavljevic',
                 username: 'nikkiyuh',
                 dateOfBirth: '1999-07-04',
                 gender: 'MALE',
                 collectedPoints: '1300',
                 type: 'BRONZE',
                 status: 'normal'
-            },
-            {
-                name: 'Nikola',
-                surname: 'Aleksic',
-                username: 'otherNikky',
-                dateOfBirth: '1940-07-02',
-                gender: 'MALE',
-                collectedPoints: '72645',
-                type: 'SILVER',
-                status: 'suspicious'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '12515',
-                type: 'SILVER',
-                status: 'blocked'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '261616',
-                type: 'SILVER',
-                status: 'normal'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '24245',
-                type: 'SILVER',
-                status: 'suspicious'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '26',
-                type: 'SILVER',
-                status: 'normal'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '518',
-                type: 'SILVER',
-                status: 'suspicious'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '626252',
-                type: 'SILVER',
-                status: 'blocked'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '3244',
-                type: 'SILVER',
-                status: 'normal'
-            },
-            {
-                name: 'Filler',
-                surname: 'User',
-                username: 'fillerUser',
-                dateOfBirth: '1.1.1940',
-                gender: 'MALE',
-                collectedPoints: '21452',
-                type: 'SILVER',
-                status: 'suspicious'
             }
         ],
         shoppers: [],
@@ -280,22 +109,13 @@ var webShop = new Vue({
 
         receivedManagers: [
             {
-                name: 'Dzoni',
-                surname: 'Stagod',
+                firstname: 'Dzoni',
+                lastname: 'Stagod',
                 dateOfBirth: '1941-05-26',
                 gender: 'MALE',
                 restaurant: 'Ciao',
                 username: 'nikkiyyuh',
                 id : '1'
-            },
-            {
-                name: 'Dzoni',
-                surname: 'Drugi',
-                dateOfBirth: '1941-05-26',
-                gender: 'MALE',
-                restaurant: '',
-                username: 'nikkiyyuh',
-                id : '2'
             }
         ],
         managers: [],
@@ -308,30 +128,14 @@ var webShop = new Vue({
 
         receivedDeliveryWorkers: [
             {
-                name: 'Nikola',
-                surname: 'Milosavljevic',
+                firstname: 'Nikola',
+                lastname: 'Milosavljevic',
                 username: 'nikkiyuh',
                 dateOfBirth: '4.7.1999.',
                 gender: 'MALE'
-            },
-            {
-                name: 'Drugi',
-                surname: 'Drugic',
-                username: 'nikkiyuhfsfaf',
-                dateOfBirth: '4.7.1999.',
-                gender: 'MALE'
-            },
-            {
-                name: 'Treci',
-                surname: 'fsfsAAA',
-                username: 'sfasfasggg',
-                dateOfBirth: '4.7.1999.',
-                gender: 'MALE'
-            },
+            }
         ],
-        deliveryWorkers: [
-            
-        ],
+        deliveryWorkers: [],
         deliveryWorkerFilterObj: {
             name: '',
             surname: '',
@@ -341,22 +145,8 @@ var webShop = new Vue({
 
         receivedAdmins: [
             {
-                name: 'Nikola',
-                surname: 'Milosavljevic',
-                dateOfBirth: '4.7.1999.',
-                username: 'nikkiyuh',
-                gender: 'MALE'
-            },
-            {
-                name: 'Krki',
-                surname: 'Males',
-                dateOfBirth: '4.7.1999.',
-                username: 'nikkiyuh',
-                gender: 'MALE'
-            },
-            {
-                name: 'Nikola',
-                surname: 'Ment',
+                firstname: 'Nikola',
+                lastname: 'Milosavljevic',
                 dateOfBirth: '4.7.1999.',
                 username: 'nikkiyuh',
                 gender: 'MALE'
@@ -374,8 +164,8 @@ var webShop = new Vue({
         manipulatedUser: {
             username: '',
             password: '',
-            name: '',
-            surname: '',
+            firstname: '',
+            lastname: '',
             dateOfBirth: '',
             gender: '',
             role: '',
@@ -392,9 +182,8 @@ var webShop = new Vue({
     },
     async mounted() {
         let user = window.localStorage.getItem('User');
-        this.currentUser = JSON.parse(user);
-        this.currentUser = {};
-        this.currentUser.username = 'curr';
+        this.currentUser = JSON.parse(user);	
+		this.currentUser.dateOfBirth = this.convertDate(this.currentUser.dateOfBirth);
 
         this.restaurants = Object.assign({}, this.receivedRestaurants);
         this.shoppers = Object.assign({}, this.receivedShoppers);
@@ -420,6 +209,32 @@ var webShop = new Vue({
         this.instantiateMap([19.833549,45.267136]);
     },
     methods: {
+	
+		convertDate : function(date) {
+            parts = date.split('-');
+
+            day = parseInt(parts[0]);
+            
+            if (day < 10){
+                day = "0" + day.toString();
+            }
+            else{
+                day = day.toString();
+            }
+
+            month = parseInt(parts[1]);
+            
+            if (month < 10){
+                month = "0" + month.toString();
+            }
+            else{
+                month = month.toString();
+            }
+
+            d = parts[2] + "-" + month + "-" + day;
+
+            return d;
+        },
         instantiateMap(coordinates) {
             this.map = new ol.Map({
                 target: 'map-div',
@@ -593,7 +408,7 @@ var webShop = new Vue({
         getManagerByNameSurnameById(id) {
             for (manager of this.receivedManagers) {
                 if (id == manager.id) {
-                    return manager.name + ' ' + manager.surname;
+                    return manager.firstname + ' ' + manager.lastname;
                 }
             }
         },
@@ -622,9 +437,10 @@ var webShop = new Vue({
         },
 
         editShopper(shopper) {
+
             this.manipulatedUser.username = shopper.username;
-            this.manipulatedUser.name = shopper.name;
-            this.manipulatedUser.surname = shopper.surname;
+            this.manipulatedUser.firstname = shopper.firstname;
+            this.manipulatedUser.lastname = shopper.lastname;
             this.manipulatedUser.dateOfBirth = shopper.dateOfBirth;
             this.manipulatedUser.gender = shopper.gender;
             this.manipulatedUser.status = shopper.status;
@@ -633,11 +449,13 @@ var webShop = new Vue({
             this.manipulatedUser.cameFrom = 'editUser';
 
             this.visible = 'addEditUser';
+            $("#username").css("pointer-events", 'none');
         },
         editManager(manager) {
+
             this.manipulatedUser.username = manager.username;
-            this.manipulatedUser.name = manager.name;
-            this.manipulatedUser.surname = manager.surname;
+            this.manipulatedUser.firstname = manager.firstname;
+            this.manipulatedUser.lastname = manager.lastname;
             this.manipulatedUser.dateOfBirth = manager.dateOfBirth;
             this.manipulatedUser.gender = manager.gender;
             this.manipulatedUser.password = '';
@@ -646,11 +464,13 @@ var webShop = new Vue({
             this.manipulatedUser.cameFrom = 'editUser';
 
             this.visible = 'addEditUser';
+            $("#username").css("pointer-events", 'none');
         },
         editDeliveryWorker(delWorker) {
+
             this.manipulatedUser.username = delWorker.username;
-            this.manipulatedUser.name = delWorker.name;
-            this.manipulatedUser.surname = delWorker.surname;
+            this.manipulatedUser.firstname = delWorker.firstname;
+            this.manipulatedUser.lastname = delWorker.lastname;
             this.manipulatedUser.dateOfBirth = delWorker.dateOfBirth;
             this.manipulatedUser.gender = delWorker.gender;
             this.manipulatedUser.password = '';
@@ -659,11 +479,13 @@ var webShop = new Vue({
             this.manipulatedUser.cameFrom = 'editUser';
 
             this.visible = 'addEditUser';
+            $("#username").css("pointer-events", 'none');
         },
         addNewUser() {
+			
             this.manipulatedUser.username = '';
-            this.manipulatedUser.name = '';
-            this.manipulatedUser.surname = '';
+            this.manipulatedUser.firstname = '';
+            this.manipulatedUser.lastname = '';
             this.manipulatedUser.dateOfBirth = '';
             this.manipulatedUser.gender = '';
             this.manipulatedUser.status = 'normal';
@@ -672,14 +494,14 @@ var webShop = new Vue({
             this.manipulatedUser.cameFrom = 'addUser';
 
             this.visible = 'addEditUser';
+            $("#username").css("pointer-events", 'auto');
         },
         editMyAccount() {
 
-            $("#username").prop("disabled", true);
 
             this.manipulatedUser.username = this.currentUser.username;
-            this.manipulatedUser.name = this.currentUser.name;
-            this.manipulatedUser.surname = this.currentUser.surname;
+            this.manipulatedUser.firstname = this.currentUser.firstname;
+            this.manipulatedUser.lastname = this.currentUser.lastname;
             this.manipulatedUser.dateOfBirth = this.currentUser.dateOfBirth;
             this.manipulatedUser.gender = this.currentUser.gender;
             this.manipulatedUser.password = '';
@@ -688,6 +510,7 @@ var webShop = new Vue({
             this.manipulatedUser.cameFrom = 'editMyAccount';
 
             this.visible = 'addEditUser';
+            $("#username").css("pointer-events", 'none');
         },
         postChanges() {
 
@@ -724,8 +547,8 @@ var webShop = new Vue({
 
         addManagerFromRest() {
             this.manipulatedUser.username = '';
-            this.manipulatedUser.name = '';
-            this.manipulatedUser.surname = '';
+            this.manipulatedUser.firstname = '';
+            this.manipulatedUser.lastname = '';
             this.manipulatedUser.dateOfBirth = '';
             this.manipulatedUser.gender = 'PREFER NOT TO SAY';
             this.manipulatedUser.role = 'MANAGER';
@@ -811,10 +634,10 @@ var webShop = new Vue({
             if (!this.manipulatedUser.username.match(/^([\s]*[a-zA-Z0-9]+[\s]*)$/)){
                 message += 'Username is not in the correct format... ';
             }
-            if (!this.manipulatedUser.name.match(/^([\s]*[a-zA-Z]+[\s]*)$/)){
+            if (!this.manipulatedUser.firstname.match(/^([\s]*[a-zA-Z]+[\s]*)$/)){
                 message += 'Name is not in the correct format... ';
             }
-            if (!this.manipulatedUser.surname.match(/^([\s]*[a-zA-Z]+[\s]*)$/)){
+            if (!this.manipulatedUser.lastname.match(/^([\s]*[a-zA-Z]+[\s]*)$/)){
                 message += 'Surname is not in the correct format... ';
             }
             if (this.manipulatedUser.dateOfBirth == ''){
@@ -877,12 +700,12 @@ var webShop = new Vue({
         },
 
         sortUserName(users, crit, ascDes){
-            let result = users.filter(user => user.name.toLowerCase().includes(crit.toLowerCase()));
+            let result = users.filter(user => user.firstname.toLowerCase().includes(crit.toLowerCase()));
 
             return result;
         },
         sortUserSurname(users, crit, ascDes){
-            let result = users.filter(user => user.surname.toLowerCase().includes(crit.toLowerCase()));
+            let result = users.filter(user => user.lastname.toLowerCase().includes(crit.toLowerCase()));
 
             return result;
         },
@@ -982,7 +805,7 @@ var webShop = new Vue({
 
             if (this.shopperFilterObj.criteria == 'name'){
                 result.sort(function(a, b){
-                    return ('' + a.name).localeCompare(b.name);
+                    return ('' + a.firstname).localeCompare(b.firstname);
                 });
 
                 if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -991,7 +814,7 @@ var webShop = new Vue({
             }
             else if (this.shopperFilterObj.criteria == 'surname'){
                 result.sort(function(a, b){
-                    return ('' + a.surname).localeCompare(b.surname);
+                    return ('' + a.lastname).localeCompare(b.lastname);
                 });
 
                 if (this.shopperFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -1035,7 +858,7 @@ var webShop = new Vue({
 
             if (this.managerFilterObj.criteria == 'name'){
                 result.sort(function(a, b){
-                    return ('' + a.name).localeCompare(b.name);
+                    return ('' + a.firstname).localeCompare(b.firstname);
                 });
 
                 if (this.managerFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -1044,7 +867,7 @@ var webShop = new Vue({
             }
             else if (this.managerFilterObj.criteria == 'surname'){
                 result.sort(function(a, b){
-                    return ('' + a.surname).localeCompare(b.surname);
+                    return ('' + a.lastname).localeCompare(b.lastname);
                 });
 
                 if (this.managerFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -1079,7 +902,7 @@ var webShop = new Vue({
 
             if (this.deliveryWorkerFilterObj.criteria == 'name'){
                 result.sort(function(a, b){
-                    return ('' + a.name).localeCompare(b.name);
+                    return ('' + a.firstname).localeCompare(b.firstname);
                 });
 
                 if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -1088,7 +911,7 @@ var webShop = new Vue({
             }
             else if (this.deliveryWorkerFilterObj.criteria == 'surname'){
                 result.sort(function(a, b){
-                    return ('' + a.surname).localeCompare(b.surname);
+                    return ('' + a.lastname).localeCompare(b.lastname);
                 });
 
                 if (this.deliveryWorkerFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -1123,7 +946,7 @@ var webShop = new Vue({
 
             if (this.adminFilterObj.criteria == 'name'){
                 result.sort(function(a, b){
-                    return ('' + a.name).localeCompare(b.name);
+                    return ('' + a.firstname).localeCompare(b.firstname);
                 });
 
                 if (this.adminFilterObj.ascDes.toLowerCase().includes('descending')){
@@ -1132,7 +955,7 @@ var webShop = new Vue({
             }
             else if (this.adminFilterObj.criteria == 'surname'){
                 result.sort(function(a, b){
-                    return ('' + a.surname).localeCompare(b.surname);
+                    return ('' + a.lastname).localeCompare(b.lastname);
                 });
 
                 if (this.adminFilterObj.ascDes.toLowerCase().includes('descending')){

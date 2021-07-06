@@ -266,7 +266,7 @@
                                 <div class="combo-options manager-combo-options" name="managerSelectdropdown">
                                     <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == receivedManagers.length - 1 ? 'combo-option-last' : '')"
                                         v-for="(manager, index) in availableManagers" v-on:click="chooseManager(manager,'managerSelect')">
-                                        {{manager.name}} {{manager.surname}}
+                                        {{manager.firstname}} {{manager.lastname}}
                                     </button>
                                 </div>
                             </div>
@@ -309,8 +309,8 @@
                 <!-- Shoppers -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'shoppers'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="shopperFilterObj.name" id="shopper_name" v-on:focus="changeCriteria('shopper_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="shopperFilterObj.surname" id="shopper_surname" v-on:focus="changeCriteria('shopper_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="shopperFilterObj.firstname" id="shopper_name" v-on:focus="changeCriteria('shopper_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="shopperFilterObj.lastname" id="shopper_surname" v-on:focus="changeCriteria('shopper_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="shopperFilterObj.username" id="shopper_username" v-on:focus="changeCriteria('shopper_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescShopperButton">
                             <span class="placeholder-text">Order : </span> {{shopperFilterObj.ascDes}}
@@ -338,8 +338,8 @@
                             <div class="red-cross" v-if="shopper.status == 'blocked'"></div>
 
                             <div class="flex relative" style="width: 94%;">
-                                <div class="user-detail shopper-detail">{{shopper.name}}</div>
-                                <div class="user-detail shopper-detail">{{shopper.surname}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.firstname}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.lastname}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.username}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.dateOfBirth}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.gender}}</div>
@@ -353,8 +353,8 @@
                 <!-- Managers -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'managers'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="managerFilterObj.name" id="manager_name" v-on:focus="changeCriteria('manager_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="managerFilterObj.surname" id="manager_surname" v-on:focus="changeCriteria('manager_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="managerFilterObj.firstname" id="manager_name" v-on:focus="changeCriteria('manager_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="managerFilterObj.lastname" id="manager_surname" v-on:focus="changeCriteria('manager_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="managerFilterObj.username" id="manager_username" v-on:focus="changeCriteria('manager_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescManagerButton">
                             <span class="placeholder-text">Order : </span> {{managerFilterObj.ascDes}}
@@ -368,8 +368,8 @@
                             </div>
 
                             <div class="flex relative" style="width: 94%;">
-                                <div class="user-detail manager-detail">{{manager.name}}</div>
-                                <div class="user-detail manager-detail">{{manager.surname}}</div>
+                                <div class="user-detail manager-detail">{{manager.firstname}}</div>
+                                <div class="user-detail manager-detail">{{manager.lastname}}</div>
                                 <div class="user-detail manager-detail">{{manager.username}}</div>
                                 <div class="user-detail manager-detail">{{manager.dateOfBirth}}</div>
                                 <div class="user-detail manager-detail">{{manager.gender}}</div>
@@ -382,8 +382,8 @@
                 <!-- Delivery workers -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'deliveryWorkers'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="deliveryWorkerFilterObj.name" id="deliveryWorker_name" v-on:focus="changeCriteria('deliveryWorker_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="deliveryWorkerFilterObj.surname" id="deliveryWorker_surname" v-on:focus="changeCriteria('deliveryWorker_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="deliveryWorkerFilterObj.firstname" id="deliveryWorker_name" v-on:focus="changeCriteria('deliveryWorker_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="deliveryWorkerFilterObj.lastname" id="deliveryWorker_surname" v-on:focus="changeCriteria('deliveryWorker_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="deliveryWorkerFilterObj.username" id="deliveryWorker_username" v-on:focus="changeCriteria('deliveryWorker_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescDeliveryButton">
                             <span class="placeholder-text">Order : </span> {{deliveryWorkerFilterObj.ascDes}}
@@ -394,8 +394,8 @@
                         <div class="single-user flex" v-for="deliveryWorker in deliveryWorkers" style="border: 1px solid grey;" v-on:click="editDeliveryWorker(deliveryWorker)">
                             <div class="flex relative" style="width: 94%;">
                                 <div class="user-detail delivery-worker-detail delivery-truck"></div>
-                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.name}}</div>
-                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.surname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.firstname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.lastname}}</div>
                                 <div class="user-detail delivery-worker-detail">{{deliveryWorker.username}}</div>
                                 <div class="user-detail delivery-worker-detail"></div>
                                 <div class="user-detail delivery-worker-detail">{{deliveryWorker.dateOfBirth}}</div>
@@ -408,8 +408,8 @@
                 <!-- Admins -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'admins'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="adminFilterObj.name" id="admin_name" v-on:focus="changeCriteria('admin_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="adminFilterObj.surname" id="admin_surname" v-on:focus="changeCriteria('admin_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="adminFilterObj.firstname" id="admin_name" v-on:focus="changeCriteria('admin_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="adminFilterObj.lastname" id="admin_surname" v-on:focus="changeCriteria('admin_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="adminFilterObj.username" id="admin_username" v-on:focus="changeCriteria('admin_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescAdminButton">
                             <span class="placeholder-text">Order : </span> {{adminFilterObj.ascDes}}
@@ -420,8 +420,8 @@
                         <div class="single-user flex" v-for="admin in admins" style="border: 1px solid grey;">
                             <div class="flex relative" style="width: 94%;">
                                 <div class="user-detail delivery-worker-detail admin-picture"></div>
-                                <div class="user-detail delivery-worker-detail">{{admin.name}}</div>
-                                <div class="user-detail delivery-worker-detail">{{admin.surname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.firstname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.lastname}}</div>
                                 <div class="user-detail delivery-worker-detail">{{admin.username}}</div>
                                 <div class="user-detail delivery-worker-detail"></div>
                                 <div class="user-detail delivery-worker-detail">{{admin.dateOfBirth}}</div>
@@ -435,7 +435,7 @@
         </div>
 
         <!-- Add/edit user -->
-        <div class="content" v-if="visible == 'addEditUser'">
+        <div class="content" v-show="visible == 'addEditUser'">
             <!-- Header -->
             <div class="content-header flex flex-column relative">
                 <div style="border-bottom: 1px solid black;">
@@ -458,11 +458,11 @@
                 </div>
                 <div class="input-group flex space-between">
                     <span class="input-label">Name :</span>
-                    <input type="text" class="text-input input-field" v-model="manipulatedUser.name">
+                    <input type="text" class="text-input input-field" v-model="manipulatedUser.firstname">
                 </div>
                 <div class="input-group flex space-between">
                     <span class="input-label">Surname :</span>
-                    <input type="text" class="text-input input-field" v-model="manipulatedUser.surname">
+                    <input type="text" class="text-input input-field" v-model="manipulatedUser.lastname">
                 </div>
                 <div class="input-group flex space-between">
                     <span class="input-label">Date of birth :</span>

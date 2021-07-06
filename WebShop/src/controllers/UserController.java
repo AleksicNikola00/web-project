@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import beans.enumerations.TypeOfShopper;
 import beans.model.ShopperType;
 import dto.LoggedInUser;
-import dto.NewShopper;
+import dto.NewUser;
 import services.CRUDShopperTypeService;
 import services.UserService;
 
@@ -27,7 +27,7 @@ public class UserController {
 	@Path("/updateshopper")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public LoggedInUser updateAccountInfo(NewShopper shopper) {
+	public LoggedInUser updateAccountInfo(NewUser shopper) {
 		UserService service = new UserService(ctx.getRealPath(""));
 		
 		return service.updateShopperInfo(shopper);

@@ -6,6 +6,15 @@ import java.util.*;
 public class Shopper extends User {
 	private int collectedPoints;
 	private TypeOfShopper shopperType;
+	private boolean blocked;
+
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
 
 	public Shopper() {}
 

@@ -13,9 +13,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import beans.enumerations.Role;
+import beans.model.Admin;
 import beans.model.Credentials;
 import beans.model.Shopper;
 import dto.LoggedInUser;
+import services.CRUDAdminService;
 import services.CredentialsService;
 import services.ShopperService;
 
@@ -36,6 +38,15 @@ public class LoginController {
 			return "No such user in database";
 		} else if (!credsInDatabase.getPassword().equals(user.getPassword())) {
 			return "Invalid password";
+		}
+		
+		if (credsInDatabase.getRole() == Role.SHOPPER) {
+			ShopperService shopperService = new ShopperService(ctx.getRealPath(""));
+			Shopper shopper = shopperService.getShopper(credsInDatabase.getUsername());
+			
+			if (shopper.isBlocked()) {
+				return "It seems you are blocked...";
+			}
 		}
 		
 		LoggedInUser retUser = generateReturnUser(credsInDatabase);
@@ -63,8 +74,28 @@ public class LoginController {
 		if (creds.getRole() == Role.SHOPPER) {
 			return generateLoggedInShopper(creds);
 		}
+		else if (creds.getRole() == Role.ADMIN) {
+			return generateLoggedInAdmin(creds);
+		}
 		
 		return null;
+	}
+	
+	private LoggedInUser generateLoggedInAdmin(Credentials creds) {
+		CRUDAdminService service = new CRUDAdminService(ctx.getRealPath(""));
+		Admin currentAdmin = service.getAdmin(creds.getUsername());
+		
+		LoggedInUser retAdmin = new LoggedInUser();
+		retAdmin.setFirstname(currentAdmin.getName());
+		retAdmin.setLastname(currentAdmin.getSurname());
+		retAdmin.setUsername(currentAdmin.getUsername());
+		retAdmin.setDateOfBirth(currentAdmin.getDateOfBirth().getDate() + "-" + 
+					(currentAdmin.getDateOfBirth().getMonth() + 1) + "-" +
+					(currentAdmin.getDateOfBirth().getYear() + 1900));
+		retAdmin.setGender(currentAdmin.getGender());
+		retAdmin.setRole(currentAdmin.getRole());
+		
+		return retAdmin;
 	}
 	
 	private LoggedInUser generateLoggedInShopper(Credentials creds) {

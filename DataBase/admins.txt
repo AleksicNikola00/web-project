@@ -1,17 +1,17 @@
 [ {
   "username" : "admin",
-  "name" : "MainAdmin",
-  "surname" : "MainAdminSurname",
-  "gender" : "FEMALE",
-  "dateOfBirth" : 326419200000,
+  "name" : "Admin",
+  "surname" : "AdminSurname",
+  "gender" : "MALE",
+  "dateOfBirth" : 1625591188750,
   "role" : "ADMIN",
   "deleted" : false
 }, {
-  "username" : "admin2",
-  "name" : "changed",
-  "surname" : "changed",
+  "username" : "secondAdmin",
+  "name" : "Admin2",
+  "surname" : "AdminSurname2",
   "gender" : "MALE",
-  "dateOfBirth" : 331430400000,
+  "dateOfBirth" : 1625591188750,
   "role" : "ADMIN",
-  "deleted" : true
+  "deleted" : false
 } ]
