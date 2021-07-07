@@ -21,6 +21,7 @@ import dto.NewUser;
 import services.CRUDAdminService;
 import services.CRUDCommentService;
 import services.CRUDItemService;
+import services.CRUDManagerService;
 import services.CRUDOrderService;
 import services.CRUDRestaurantService;
 import services.CRUDShopperTypeService;
@@ -112,5 +113,16 @@ public class TestController {
 		CRUDAdminService service = new CRUDAdminService(ctx.getRealPath(""));
 		
 		return service.addAdmin(admin);
+	}
+	
+	//Adding managers
+	@PUT
+	@Path("/manager")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String addManager(NewUser manager) {
+		CRUDManagerService service = new CRUDManagerService(ctx.getRealPath(""));
+		
+		return service.add(manager);
 	}
 }

@@ -41,9 +41,25 @@
 }, {
   "username" : "emmagurl",
   "name" : "Emily",
-  "surname" : "Maddison",
+  "surname" : "Johnson",
   "gender" : "FEMALE",
-  "dateOfBirth" : 1625591188750,
+  "dateOfBirth" : 1625528363282,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "managerUsername",
+  "name" : "Matty",
+  "surname" : "Mathison",
+  "gender" : "MALE",
+  "dateOfBirth" : 1625696026202,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "anotherManager",
+  "name" : "Kelly",
+  "surname" : "Robinson",
+  "gender" : "UNKNOWN",
+  "dateOfBirth" : 1625701960866,
   "role" : "MANAGER",
   "deleted" : false
 } ]

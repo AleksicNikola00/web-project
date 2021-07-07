@@ -3,7 +3,7 @@
   "name" : "Admin",
   "surname" : "AdminSurname",
   "gender" : "MALE",
-  "dateOfBirth" : 1625591188750,
+  "dateOfBirth" : 1623281743232,
   "role" : "ADMIN",
   "deleted" : false
 }, {

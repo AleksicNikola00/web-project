@@ -263,18 +263,18 @@
                             
                             <div class="flex relative flex-column">
                                 <div class="combo-imput manager-select-width" onclick="openDropDown('managerSelect')" name="managerSelect">
-                                    {{getManagerByNameSurnameById(tempRestaurant.username)}}
+                                    {{getManagerByNameSurnameById(tempRestaurant.managerId)}}
                                 </div>
                                 <div class="combo-options manager-combo-options" name="managerSelectdropdown">
-                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == receivedManagers.length - 1 ? 'combo-option-last' : '')"
+                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == availableManagers.length - 1 ? 'combo-option-last' : '')"
                                         v-for="(manager, index) in availableManagers" v-on:click="chooseManager(manager,'managerSelect')">
                                         {{manager.firstname}} {{manager.lastname}}
                                     </button>
                                 </div>
                             </div>
 
-                            <button class="add-new-manager-button">
-                                <span class="add-new-manager-text" v-on:click="addManagerFromRest()">Add new manager?</span>
+                            <button class="add-new-manager-button" v-on:click="addManagerFromRest()">
+                                <span class="add-new-manager-text">Add new manager?</span>
                             </button>
                         </div>
                     </div>
@@ -344,7 +344,7 @@
                                 <div class="user-detail shopper-detail">{{shopper.lastname}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.username}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.dateOfBirth}}</div>
-                                <div class="user-detail shopper-detail">{{shopper.gender}}</div>
+                                <div class="user-detail shopper-detail">{{(shopper.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : shopper.gender}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.collectedPoints}}</div>
                                 <div class="user-detail shopper-detail">{{shopper.type}}</div>
                             </div>
@@ -374,7 +374,7 @@
                                 <div class="user-detail manager-detail">{{manager.lastname}}</div>
                                 <div class="user-detail manager-detail">{{manager.username}}</div>
                                 <div class="user-detail manager-detail">{{manager.dateOfBirth}}</div>
-                                <div class="user-detail manager-detail">{{manager.gender}}</div>
+                                <div class="user-detail manager-detail">{{(manager.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : manager.gender}}</div>
                                 <div class="user-detail manager-detail">{{manager.restaurant}}</div>
                             </div>
                         </div>
@@ -401,7 +401,7 @@
                                 <div class="user-detail delivery-worker-detail">{{deliveryWorker.username}}</div>
                                 <div class="user-detail delivery-worker-detail"></div>
                                 <div class="user-detail delivery-worker-detail">{{deliveryWorker.dateOfBirth}}</div>
-                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.gender}}</div>
+                                <div class="user-detail delivery-worker-detail">{{(deliveryWorker.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : deliveryWorker.gender}}</div>
                             </div>
                         </div>
                     </div>
@@ -427,7 +427,7 @@
                                 <div class="user-detail delivery-worker-detail">{{admin.username}}</div>
                                 <div class="user-detail delivery-worker-detail"></div>
                                 <div class="user-detail delivery-worker-detail">{{admin.dateOfBirth}}</div>
-                                <div class="user-detail delivery-worker-detail">{{admin.gender}}</div>
+                                <div class="user-detail delivery-worker-detail">{{(admin.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : admin.gender}}</div>
                             </div>
                         </div>
                     </div>
@@ -497,7 +497,7 @@
                             <div class="combo-options manager-combo-options" name="roleSelectdropdown">
                                 <button class="combo-option combo-option-first" v-on:click="chooseRole('SHOPPER', 'roleSelect')">SHOPPER</button>
                                 <button class="combo-option" v-on:click="chooseRole('MANAGER', 'roleSelect')">MANAGER</button>
-                                <button class="combo-option combo-option-last" v-on:click="chooseRole('DELIVERY_WORKER', 'roleSelect')">DELIVERY WORKER</button>
+                                <button class="combo-option combo-option-last" v-on:click="chooseRole('DELIVERY', 'roleSelect')">DELIVERY WORKER</button>
                             </div>
                         </div>
 

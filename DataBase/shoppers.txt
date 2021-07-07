@@ -22,11 +22,22 @@
   "deleted" : false
 }, {
   "username" : "testUsernamefasgas",
-  "name" : "sgsagagag",
-  "surname" : "sagsagagasgsa",
-  "gender" : "MALE",
-  "dateOfBirth" : 1422745200000,
+  "name" : "ChangedName",
+  "surname" : "ActualSurname",
+  "gender" : "FEMALE",
+  "dateOfBirth" : 1422751155160,
   "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "newShopper",
+  "name" : "newGuy",
+  "surname" : "InTown",
+  "gender" : "UNKNOWN",
+  "dateOfBirth" : 1680738394713,
+  "role" : null,
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
   "blocked" : false,

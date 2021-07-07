@@ -1,9 +1,9 @@
-[{
+[ {
   "username" : "someuser",
-  "name" : "somename",
-  "surname" : "somesurname",
+  "name" : "Callum",
+  "surname" : "Olsen",
   "gender" : "MALE",
-  "dateOfBirth" : 1625591188750,
+  "dateOfBirth" : 1625529175947,
   "role" : "DELIVERY",
   "deleted" : false
-}]
+} ]

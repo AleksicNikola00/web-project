@@ -18,4 +18,7 @@ public class DatabaseErrors {
 	public static String OK = "OK";
 	public static String PARTIAL = "PARTIAL";
 	public static String FAILED = "FAILED";
+	
+	//Adding a nonpermitted object
+	public static String ACTION_NOT_ALLOWED = "That action is not allowed!";
 }

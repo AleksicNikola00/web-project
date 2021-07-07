@@ -189,9 +189,13 @@ var webShop = new Vue({
 			return await axios.get('/WebShop/rest/adminuser/managers')
 							.then(response => {
 								this.receivedManagers = new Array();
+								this.availableManagers = new Array();
 								let vm = this;
 								response.data.forEach(manager => {
 									manager.dateOfBirth = vm.convertDate(manager.dateOfBirth);
+									if (manager.restaurant == ''){
+										vm.availableManagers.push(manager);
+									}
 									vm.receivedManagers.push(manager);
 								});
 								
@@ -385,7 +389,7 @@ var webShop = new Vue({
             this.visible = 'specificRestaurant';
         },
         chooseManager(value, dropdown) {
-            this.tempRestaurant.managerId = value.id;
+            this.tempRestaurant.managerId = value.username;
 
             openDropDown(dropdown);
         },
@@ -462,7 +466,7 @@ var webShop = new Vue({
             this.manipulatedUser.firstname = shopper.firstname;
             this.manipulatedUser.lastname = shopper.lastname;
             this.manipulatedUser.dateOfBirth = shopper.dateOfBirth;
-            this.manipulatedUser.gender = shopper.gender;
+            this.manipulatedUser.gender = (shopper.gender == "UNKNOWN") ? 'PREFER NOT TO SAY' : shopper.gender;
             this.manipulatedUser.status = shopper.status;
             this.manipulatedUser.password = '';
             this.manipulatedUser.role = "SHOPPER";
@@ -477,7 +481,7 @@ var webShop = new Vue({
             this.manipulatedUser.firstname = manager.firstname;
             this.manipulatedUser.lastname = manager.lastname;
             this.manipulatedUser.dateOfBirth = manager.dateOfBirth;
-            this.manipulatedUser.gender = manager.gender;
+            this.manipulatedUser.gender = (manager.gender == "UNKNOWN") ? 'PREFER NOT TO SAY' : manager.gender;
             this.manipulatedUser.password = '';
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = "MANAGER";
@@ -492,10 +496,10 @@ var webShop = new Vue({
             this.manipulatedUser.firstname = delWorker.firstname;
             this.manipulatedUser.lastname = delWorker.lastname;
             this.manipulatedUser.dateOfBirth = delWorker.dateOfBirth;
-            this.manipulatedUser.gender = delWorker.gender;
+            this.manipulatedUser.gender = (delWorker.gender == "UNKNOWN") ? 'PREFER NOT TO SAY' : delWorker.gender;
             this.manipulatedUser.password = '';
             this.manipulatedUser.status = 'normal';
-            this.manipulatedUser.role = "DELIVERY_WORKER";
+            this.manipulatedUser.role = "DELIVERY";
             this.manipulatedUser.cameFrom = 'editUser';
 
             this.visible = 'addEditUser';
@@ -523,7 +527,7 @@ var webShop = new Vue({
             this.manipulatedUser.firstname = this.currentUser.firstname;
             this.manipulatedUser.lastname = this.currentUser.lastname;
             this.manipulatedUser.dateOfBirth = this.currentUser.dateOfBirth;
-            this.manipulatedUser.gender = this.currentUser.gender;
+            this.manipulatedUser.gender = (this.currentUser.gender == "UNKNOWN") ? 'PREFER NOT TO SAY' : this.currentUser.gender;
             this.manipulatedUser.password = '';
             this.manipulatedUser.status = 'normal';
             this.manipulatedUser.role = 'ADMIN';
@@ -532,29 +536,140 @@ var webShop = new Vue({
             this.visible = 'addEditUser';
             $("#username").css("pointer-events", 'none');
         },
-        postChanges() {
+		recoverDate(str){
+			let date = new Date();
+			
+			let parts = str.split('-');
+			
+			let year = parseInt(parts[0]);
+			let month = parseInt(parts[2] - 1);
+			let day = parseInt(parts[1]);
+			
+			date.setFullYear(year, month, day);
+			
+			return date;
+		},
+
+        async postChanges() {
+
+			let newUser = {
+				name : this.manipulatedUser.firstname,
+				surname : this.manipulatedUser.lastname,
+				username : this.manipulatedUser.username,
+				gender : this.manipulatedUser.gender,
+				dateOfBirth : this.recoverDate(this.manipulatedUser.dateOfBirth),
+				password : this.manipulatedUser.password,
+				role : this.manipulatedUser.role
+			}
+
+			if (newUser.gender.includes('PREFER')){
+				newUser.gender = "UNKNOWN";
+			}
 
             if (this.manipulatedUser.cameFrom == 'addUser'){
-                this.notificationText = 'User successfully added!';
+				let vm = this;
+				await axios.post('/WebShop/rest/adminusermanipulation/add', newUser)
+							.then(response =>{
+								if (response.data == ''){
+									vm.notificationText = 'User successfully added!';
 
-                this.visible = 'users';
+                					vm.visible = 'users';
+
+									vm.postMessage();
+								}
+								else {
+									vm.notificationText = response.data.toString();
+
+                					vm.visible = 'users';
+
+									vm.postMessage();
+								}
+							});
             }
             else if (this.manipulatedUser.cameFrom == 'editUser'){
-                this.notificationText = 'User successfully edited!';
+				let vm = this;
+				await axios.post('/WebShop/rest/adminusermanipulation/edit', newUser)
+							.then(response =>{
+								if (response.data == ''){
+									vm.notificationText = 'User successfully edited!';
                 
-                this.visible = 'users';
+                					vm.visible = 'users';
+
+									vm.postMessage();
+								}
+								else {
+									vm.notificationText = response.data.toString();
+
+                					vm.visible = 'users';
+
+									vm.postMessage();
+								}
+							});
+                
             }
             else if (this.manipulatedUser.cameFrom == 'editMyAccount'){
-                this.notificationText = 'Your account is successfully edited!';
+				let vm = this;
+				await axios.post('/WebShop/rest/adminusermanipulation/editmyacc', newUser)
+							.then(response =>{
+								if (response.data == ''){
+									vm.notificationText = 'Your account is successfully edited!';
+                
+                					vm.visible = 'users';
 
+									vm.postMessage();
+								}
+								else {
+									vm.notificationText = response.data.toString();
+
+                					vm.visible = 'users';
+
+									vm.postMessage();
+								}
+							});
             }
             else {
-                this.notificationText = 'User successfully added!';
+				let vm = this;
+				await axios.post('/WebShop/rest/adminusermanipulation/add', newUser)
+							.then(response =>{
+								if (response.data == ''){
+									vm.notificationText = 'User successfully added!';
+                
+                					vm.visible = 'addEditRestaurant';
 
-                this.visible = 'addEditRestaurant';
+									vm.postMessage();
+								}
+								else {
+									vm.notificationText = response.data.toString();
+
+                					vm.visible = 'addEditRestaurant';
+
+									vm.postMessage();
+								}
+							});
             }
-
-            this.postMessage();
+			
+			
+			if (newUser.role == "SHOPPER"){
+				await this.getShoppers();
+			}
+			else if (newUser.role == "MANAGER"){
+				await this.getManagers();
+			}
+			else if (newUser.role == "ADMIN"){
+				let vm = this;
+				await this.getAdmins()
+					.then(() => {
+						for(admin of vm.receivedAdmins){
+							if (admin.username == vm.currentUser.username){
+								vm.currentUser = admin;
+								window.localStorage.setItem('User', JSON.stringify(admin));
+							}
+						}
+					});
+			}
+			else {
+				await this.getDeliveryWorkers();
+			}
         },
 
         postMessage() {
@@ -648,7 +763,7 @@ var webShop = new Vue({
         },
 
         //User validation 
-        validateUser() {
+        async validateUser() {
             let message = '';
 
             if (!this.manipulatedUser.username.match(/^([\s]*[a-zA-Z0-9]+[\s]*)$/)){
@@ -691,7 +806,7 @@ var webShop = new Vue({
                 this.postMessage();
             }
             else {
-                this.postChanges();
+                await this.postChanges();
             }
         },
 
