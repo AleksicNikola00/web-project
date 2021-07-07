@@ -263,7 +263,7 @@
                             
                             <div class="flex relative flex-column">
                                 <div class="combo-imput manager-select-width" onclick="openDropDown('managerSelect')" name="managerSelect">
-                                    {{getManagerByNameSurnameById(tempRestaurant.managerId)}}
+                                    {{getManagerByNameSurnameById(tempRestaurant.username)}}
                                 </div>
                                 <div class="combo-options manager-combo-options" name="managerSelectdropdown">
                                     <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == receivedManagers.length - 1 ? 'combo-option-last' : '')"
@@ -311,8 +311,8 @@
                 <!-- Shoppers -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'shoppers'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="shopperFilterObj.firstname" id="shopper_name" v-on:focus="changeCriteria('shopper_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="shopperFilterObj.lastname" id="shopper_surname" v-on:focus="changeCriteria('shopper_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="shopperFilterObj.name" id="shopper_name" v-on:focus="changeCriteria('shopper_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="shopperFilterObj.surname" id="shopper_surname" v-on:focus="changeCriteria('shopper_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="shopperFilterObj.username" id="shopper_username" v-on:focus="changeCriteria('shopper_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescShopperButton">
                             <span class="placeholder-text">Order : </span> {{shopperFilterObj.ascDes}}
@@ -355,8 +355,8 @@
                 <!-- Managers -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'managers'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="managerFilterObj.firstname" id="manager_name" v-on:focus="changeCriteria('manager_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="managerFilterObj.lastname" id="manager_surname" v-on:focus="changeCriteria('manager_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="managerFilterObj.name" id="manager_name" v-on:focus="changeCriteria('manager_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="managerFilterObj.surname" id="manager_surname" v-on:focus="changeCriteria('manager_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="managerFilterObj.username" id="manager_username" v-on:focus="changeCriteria('manager_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescManagerButton">
                             <span class="placeholder-text">Order : </span> {{managerFilterObj.ascDes}}
@@ -366,7 +366,7 @@
                     <div class="users-content">
                         <div class="single-user flex" v-for="manager in managers" style="border: 1px solid grey;" v-on:click="editManager(manager)">
                             <div class="picture-area">
-                                <img v-bind:src="manager.restaurant == '' ? '../Images/dashedLine.png' : '../Images/bronze-member.png'" style="max-width: 75px;">
+                                <img v-bind:src="manager.restaurant == '' ? '../Images/dashedLine.png' : ('data:image/png;base64, ' + manager.logoPath)" style="max-width: 75px;">
                             </div>
 
                             <div class="flex relative" style="width: 94%;">
@@ -384,8 +384,8 @@
                 <!-- Delivery workers -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'deliveryWorkers'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="deliveryWorkerFilterObj.firstname" id="deliveryWorker_name" v-on:focus="changeCriteria('deliveryWorker_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="deliveryWorkerFilterObj.lastname" id="deliveryWorker_surname" v-on:focus="changeCriteria('deliveryWorker_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="deliveryWorkerFilterObj.name" id="deliveryWorker_name" v-on:focus="changeCriteria('deliveryWorker_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="deliveryWorkerFilterObj.surname" id="deliveryWorker_surname" v-on:focus="changeCriteria('deliveryWorker_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="deliveryWorkerFilterObj.username" id="deliveryWorker_username" v-on:focus="changeCriteria('deliveryWorker_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescDeliveryButton">
                             <span class="placeholder-text">Order : </span> {{deliveryWorkerFilterObj.ascDes}}
@@ -410,8 +410,8 @@
                 <!-- Admins -->
                 <div class="users-for-category flex flex-column" v-show="userVisible == 'admins'">
                     <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="adminFilterObj.firstname" id="admin_name" v-on:focus="changeCriteria('admin_name')">
-                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="adminFilterObj.lastname" id="admin_surname" v-on:focus="changeCriteria('admin_surname')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="adminFilterObj.name" id="admin_name" v-on:focus="changeCriteria('admin_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="adminFilterObj.surname" id="admin_surname" v-on:focus="changeCriteria('admin_surname')">
                         <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="adminFilterObj.username" id="admin_username" v-on:focus="changeCriteria('admin_username')">
                         <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescAdminButton">
                             <span class="placeholder-text">Order : </span> {{adminFilterObj.ascDes}}

@@ -8,7 +8,7 @@
   "date" : 1625263687330,
   "price" : 1900.0,
   "username" : "mili",
-  "status" : "PENDING",
+  "status" : "CANCELED",
   "deleted" : false
 }, {
   "id" : "412806b1-0ffa-4ef4-8db1-bd1a3492e42c",
@@ -35,7 +35,7 @@
   "date" : 1625589540660,
   "price" : 4200.0,
   "username" : "mili",
-  "status" : "PENDING",
+  "status" : "CANCELED",
   "deleted" : false
 }, {
   "id" : "b8b5c1e8-9234-4fa4-a4a2-8f1cc16cb162",
@@ -47,6 +47,30 @@
   "date" : 1625589680496,
   "price" : 1900.0,
   "username" : "mili",
-  "status" : "PENDING",
+  "status" : "CANCELED",
+  "deleted" : false
+}, {
+  "id" : "b48cc686-a108-48a1-82b9-f0e20a54c604",
+  "orderedItems" : [ {
+    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "amount" : 2
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625677311378,
+  "price" : 2000.0,
+  "username" : "mili",
+  "status" : "CANCELED",
+  "deleted" : false
+}, {
+  "id" : "49d68c05-c935-471c-824a-0cc9d5b6e378",
+  "orderedItems" : [ {
+    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "amount" : 3
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625677322365,
+  "price" : 3000.0,
+  "username" : "mili",
+  "status" : "CANCELED",
   "deleted" : false
 } ]

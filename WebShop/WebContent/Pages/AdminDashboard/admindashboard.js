@@ -40,23 +40,8 @@ var webShop = new Vue({
             ascDes: 'Ascending'
         },
         selectedRestaurant: {},
-        items: [
-            {
-                name: 'Pizza',
-                price: '1000',
-                amount: '700',
-                type: 'FOOD',
-                unit: 'GRAM',
-                description: 'Some amazing pizza that has been created by the best chefs!'
-            }
-        ],
-        comments: [
-            {
-                text: 'its really amazing lads go ahead and try!',
-                username: 'ProSlayerXXX',
-                mark: '5'
-            }
-        ],
+        items: [],
+        comments: [],
         tempRestaurant: {
             name: '',
             type: '',
@@ -72,18 +57,7 @@ var webShop = new Vue({
             'Pub',
             'Barbecue'
         ],
-        receivedShoppers: [
-            {
-                firstname: 'Nikola',
-                lastname: 'Milosavljevic',
-                username: 'nikkiyuh',
-                dateOfBirth: '1999-07-04',
-                gender: 'MALE',
-                collectedPoints: '1300',
-                type: 'BRONZE',
-                status: 'normal'
-            }
-        ],
+        receivedShoppers: [],
         shoppers: [],
         shopperFilterObj: {
             name: '',
@@ -94,17 +68,7 @@ var webShop = new Vue({
             shopperType: 'ALL',
         },
 
-        receivedManagers: [
-            {
-                firstname: 'Dzoni',
-                lastname: 'Stagod',
-                dateOfBirth: '1941-05-26',
-                gender: 'MALE',
-                restaurant: 'Ciao',
-                username: 'nikkiyyuh',
-                id : '1'
-            }
-        ],
+        receivedManagers: [],
         managers: [],
         managerFilterObj: {
             name: '',
@@ -113,15 +77,7 @@ var webShop = new Vue({
             ascDes: 'Ascending'
         },
 
-        receivedDeliveryWorkers: [
-            {
-                firstname: 'Nikola',
-                lastname: 'Milosavljevic',
-                username: 'nikkiyuh',
-                dateOfBirth: '4.7.1999.',
-                gender: 'MALE'
-            }
-        ],
+        receivedDeliveryWorkers: [],
         deliveryWorkers: [],
         deliveryWorkerFilterObj: {
             name: '',
@@ -130,15 +86,7 @@ var webShop = new Vue({
             ascDes: 'Ascending'
         },
 
-        receivedAdmins: [
-            {
-                firstname: 'Nikola',
-                lastname: 'Milosavljevic',
-                dateOfBirth: '4.7.1999.',
-                username: 'nikkiyuh',
-                gender: 'MALE'
-            }
-        ],
+        receivedAdmins: [],
         admins: [],
         adminFilterObj: {
             name: '',
@@ -180,6 +128,10 @@ var webShop = new Vue({
 
 		/* Calling database */
 		await this.getRestaurants();
+		await this.getShoppers();
+		await this.getManagers();
+		await this.getDeliveryWorkers();
+		await this.getAdmins();
 
         /* Setting date in date picker */
         var now = new Date();
@@ -218,6 +170,59 @@ var webShop = new Vue({
 			return await axios.get('/WebShop/rest/getcomments/all/' + this.selectedRestaurant.id)
 							.then(response => {
 								this.comments = response.data;
+							});
+		},
+		async getShoppers() {
+			return await axios.get('/WebShop/rest/adminuser/shoppers')
+							.then(response => {
+								this.receivedShoppers = new Array();
+								let vm = this;
+								response.data.forEach(shopper => {
+									shopper.dateOfBirth = vm.convertDate(shopper.dateOfBirth);
+									vm.receivedShoppers.push(shopper);
+								});
+								
+								this.shoppers = Object.assign({}, this.receivedShoppers);
+							});
+		},
+		async getManagers(){
+			return await axios.get('/WebShop/rest/adminuser/managers')
+							.then(response => {
+								this.receivedManagers = new Array();
+								let vm = this;
+								response.data.forEach(manager => {
+									manager.dateOfBirth = vm.convertDate(manager.dateOfBirth);
+									vm.receivedManagers.push(manager);
+								});
+								
+								this.managers = Object.assign({}, this.receivedManagers);
+							});
+			
+		},
+		async getDeliveryWorkers() {
+			return await axios.get('/WebShop/rest/adminuser/deliveryworkers')
+							.then(response => {
+								this.receivedDeliveryWorkers = new Array();
+								let vm = this;
+								response.data.forEach(deliveryWorker => {
+									deliveryWorker.dateOfBirth = vm.convertDate(deliveryWorker.dateOfBirth);
+									vm.receivedDeliveryWorkers.push(deliveryWorker);
+								});
+								
+								this.deliveryWorkers = Object.assign({}, this.receivedDeliveryWorkers);
+							});
+		},
+		async getAdmins() {
+			return await axios.get('/WebShop/rest/adminuser/admins')
+							.then(response => {
+								this.receivedAdmins = new Array();
+								let vm = this;
+								response.data.forEach(admin => {
+									admin.dateOfBirth = vm.convertDate(admin.dateOfBirth);
+									vm.receivedAdmins.push(admin);
+								});
+								
+								this.admins = Object.assign({}, this.receivedAdmins);
 							});
 		},
 		/* Front functions*/
@@ -420,9 +425,9 @@ var webShop = new Vue({
 
             this.visible = 'addEditRestaurant';
         },
-        getManagerByNameSurnameById(id) {
+        getManagerByNameSurnameById(username) {
             for (manager of this.receivedManagers) {
-                if (id == manager.id) {
+                if (username == manager.username) {
                     return manager.firstname + ' ' + manager.lastname;
                 }
             }
