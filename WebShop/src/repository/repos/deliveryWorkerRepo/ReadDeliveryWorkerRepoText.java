@@ -15,7 +15,7 @@ public class ReadDeliveryWorkerRepoText implements IReadDeliveryWorkerRepo {
 	private static String path;
 
 	public ReadDeliveryWorkerRepoText(String path) {
-		this.path = path + File.separator + "deliveryWorker.txt";
+		this.path = path + File.separator + "deliveryWorkers.txt";
 	}
 
 	@Override

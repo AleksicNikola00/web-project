@@ -6,7 +6,7 @@ public class DeliveryWorkerDTO {
 	private String firstname;
 	private String lastname;
 	private String username;
-	private String dateofBirth;
+	private String dateOfBirth;
 	private Gender gender;
 
 	public DeliveryWorkerDTO() {}
@@ -35,12 +35,12 @@ public class DeliveryWorkerDTO {
 		this.username = username;
 	}
 
-	public String getDateofBirth() {
-		return dateofBirth;
+	public String getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDateofBirth(String dateofBirth) {
-		this.dateofBirth = dateofBirth;
+	public void setDateOfBirth(String dateofBirth) {
+		this.dateOfBirth = dateofBirth;
 	}
 
 	public Gender getGender() {

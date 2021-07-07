@@ -1,1 +1,9 @@
-[]
+[{
+  "username" : "someuser",
+  "name" : "somename",
+  "surname" : "somesurname",
+  "gender" : "MALE",
+  "dateOfBirth" : 1625591188750,
+  "role" : "DELIVERY",
+  "deleted" : false
+}]

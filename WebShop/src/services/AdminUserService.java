@@ -110,7 +110,7 @@ public class AdminUserService extends BaseService {
 			curr.setLastname(deliveryWorker.getSurname());
 			curr.setUsername(deliveryWorker.getUsername());
 			
-			curr.setDateofBirth(buildDate(deliveryWorker.getDateOfBirth()));
+			curr.setDateOfBirth(buildDate(deliveryWorker.getDateOfBirth()));
 			curr.setGender(deliveryWorker.getGender());
 			
 			ret.add(curr);
