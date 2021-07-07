@@ -5,7 +5,7 @@
   "text" : "Amazing restaurant and amazing food. Simply fantastic!",
   "mark" : 5.0,
   "deleted" : false,
-  "allowed" : true
+  "status" : "PENDING"
 }, {
   "id" : "c422e92c-4bfb-4d7c-9c73-efba756839d3",
   "username" : "aleksic",
@@ -13,7 +13,7 @@
   "text" : "Shambolic service people... Really gutted...",
   "mark" : 2.0,
   "deleted" : false,
-  "allowed" : true
+  "status" : "ALLOWED"
 }, {
   "id" : "baa53e37-4655-4b92-b42c-b4cf2207d85c",
   "username" : "mili",
@@ -21,7 +21,7 @@
   "text" : "Second comment that i had to post... That good...",
   "mark" : 5.0,
   "deleted" : false,
-  "allowed" : true
+  "status" : "REJECTED"
 }, {
   "id" : "80fafeae-3085-4217-8117-ac3199cf9098",
   "username" : "mili",
@@ -29,7 +29,7 @@
   "text" : "Third comment that i had to post... Probably not allowed but i know!",
   "mark" : 5.0,
   "deleted" : false,
-  "allowed" : false
+  "status" : "PENDING"
 }, {
   "id" : "97d48d7d-cb29-40f1-8d0c-f8b7e5ee8108",
   "username" : "mili",
@@ -37,7 +37,7 @@
   "text" : "Pokusaj jako dobrog komentara",
   "mark" : 5.0,
   "deleted" : false,
-  "allowed" : true
+  "status" : "PENDING"
 }, {
   "id" : "3cc2e4eb-c5f1-4bb1-9a7c-9b31d4b99f26",
   "username" : "mili",
@@ -45,5 +45,5 @@
   "text" : "Pokusaj loseg komentara",
   "mark" : 2.0,
   "deleted" : false,
-  "allowed" : false
+  "status" : "PENDING"
 } ]

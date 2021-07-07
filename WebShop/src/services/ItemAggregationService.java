@@ -30,4 +30,22 @@ public class ItemAggregationService extends BaseService {
 		
 		return items;
 	}
+	
+	public ArrayList<Item> getAllItemsForRestaurantId(UUID id){
+		ArrayList<Item> items = new ArrayList<Item>();
+		
+		ArrayList<Item> allItems = uow.getItemReadRepo().getAll();
+		for (Item item : allItems) {
+			if (!item.getRestaurantId().equals(id)) {
+				continue;
+			}
+			
+			File picutre = new File(uow.getDatabasePath() + DatabaseConstants.ITEM_LOGO_PATH + item.getId() + ".png");
+			
+			item.setPicturePath(DatabaseConstants.encodeBase64(picutre));
+			items.add(item);
+		}
+		
+		return items;
+	}
 }

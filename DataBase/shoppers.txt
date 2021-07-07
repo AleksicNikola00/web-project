@@ -7,6 +7,7 @@
   "role" : "SHOPPER",
   "collectedPoints" : 810,
   "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 }, {
   "username" : "aleksic",
@@ -17,25 +18,17 @@
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 }, {
-  "username" : "testUsername",
-  "name" : "promenjeno ime",
-  "surname" : "promenjeno prezime",
+  "username" : "testUsernamefasgas",
+  "name" : "sgsagagag",
+  "surname" : "sagsagagasgsa",
   "gender" : "MALE",
-  "dateOfBirth" : 1625247287202,
+  "dateOfBirth" : 1422745200000,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
-  "deleted" : false
-}, {
-  "username" : null,
-  "name" : "foajsfi",
-  "surname" : "foaijsfa",
-  "gender" : "UNKNOWN",
-  "dateOfBirth" : 1170284400000,
-  "role" : "SHOPPER",
-  "collectedPoints" : 0,
-  "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 } ]

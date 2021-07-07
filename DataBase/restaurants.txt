@@ -6,6 +6,7 @@
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "94f0bc68-cd53-4627-a775-b405214a8c69",
   "rating" : 1.0,
+  "managerId" : "manageruser",
   "deleted" : false
 }, {
   "name" : "Ciao",
@@ -15,6 +16,7 @@
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "b459976d-7407-43c5-bf1a-e518a0f8bc37",
   "rating" : 1.0,
+  "managerId" : "kleojohnson",
   "deleted" : false
 }, {
   "name" : "Pizza Hut",
@@ -24,6 +26,7 @@
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "61888de1-67f8-430f-973d-4e248dd9a261",
   "rating" : 1.0,
+  "managerId" : "bigsteve",
   "deleted" : false
 }, {
   "name" : "Hindi Sindy",
@@ -33,6 +36,7 @@
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "bb6f2a18-b1ed-4a19-8bbc-61599974b0f6",
   "rating" : 1.0,
+  "managerId" : "lollyoli",
   "deleted" : false
 }, {
   "name" : "Kombinat",
@@ -42,6 +46,7 @@
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "2ffc70cc-bb14-418d-8c89-f16e9283b23c",
   "rating" : 1.0,
+  "managerId" : "trickyguy",
   "deleted" : false
 }, {
   "name" : "Grekos",
@@ -51,5 +56,6 @@
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "56fd439b-abd8-467f-b3a1-297fded1b2a2",
   "rating" : 1.0,
+  "managerId" : "emmagurl",
   "deleted" : false
 } ]

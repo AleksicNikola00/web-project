@@ -1,1 +1,49 @@
-[]
+[ {
+  "username" : "manageruser",
+  "name" : "Manager",
+  "surname" : "ManagerSurname",
+  "gender" : "MALE",
+  "dateOfBirth" : 1625591188750,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "kleojohnson",
+  "name" : "Kleo",
+  "surname" : "Johnson",
+  "gender" : "MALE",
+  "dateOfBirth" : 1625591188750,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "bigsteve",
+  "name" : "Steven",
+  "surname" : "McManaman",
+  "gender" : "MALE",
+  "dateOfBirth" : 1625591188750,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "lollyoli",
+  "name" : "Olivia",
+  "surname" : "Austin",
+  "gender" : "FEMALE",
+  "dateOfBirth" : 1625591188750,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "trickyguy",
+  "name" : "Tristan",
+  "surname" : "Cara",
+  "gender" : "UNKNOWN",
+  "dateOfBirth" : 1625591188750,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "emmagurl",
+  "name" : "Emily",
+  "surname" : "Maddison",
+  "gender" : "FEMALE",
+  "dateOfBirth" : 1625591188750,
+  "role" : "MANAGER",
+  "deleted" : false
+} ]

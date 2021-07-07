@@ -2,7 +2,7 @@ package beans.model;
 
 import java.util.UUID;
 
-import beans.enumerations.Mark;
+import beans.enumerations.CommentStatus;
 
 public class Comment {
 	private UUID id;
@@ -11,14 +11,15 @@ public class Comment {
 	private String text;
 	private double mark;
 	private boolean isDeleted;
-	private boolean isAllowed;
+	private CommentStatus status;
 
-	public boolean isAllowed() {
-		return isAllowed;
+	
+	public CommentStatus getStatus() {
+		return status;
 	}
 
-	public void setAllowed(boolean isAllowed) {
-		this.isAllowed = isAllowed;
+	public void setStatus(CommentStatus status) {
+		this.status = status;
 	}
 
 	public Comment() {}

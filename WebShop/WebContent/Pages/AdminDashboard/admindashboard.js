@@ -29,21 +29,8 @@ var webShop = new Vue({
         visible: 'restaurants',
         userVisible: 'shoppers',
         currentUser: {},
-        receivedRestaurants: [
-            {
-                name: 'First',
-                type: 'Turkish',
-                rating: '3.2',
-                manager: 'Dzoni bova',
-                location: 'Stevana Mokranjca 24',
-                status: 'OPEN',
-                geoLocation: '18, 45.267136',
-                managerId: '1',
-            }
-        ],
+        receivedRestaurants: [],
         availableManagers : [],
-        receivedUsers: [],
-        users: [],
         restaurants: [],
         restaurantFilterObj: {
             name: '',
@@ -191,6 +178,9 @@ var webShop = new Vue({
         this.deliveryWorkers = Object.assign({}, this.receivedDeliveryWorkers);
         this.admins = Object.assign({}, this.receivedAdmins);
 
+		/* Calling database */
+		await this.getRestaurants();
+
         /* Setting date in date picker */
         var now = new Date();
         var first = new Date();
@@ -210,6 +200,27 @@ var webShop = new Vue({
     },
     methods: {
 	
+		/* Data getting */
+		async getRestaurants() {
+			return await axios.get('/WebShop/rest/getrestaurants/admin')
+							.then(response => {
+								this.receivedRestaurants = response.data;
+        						this.restaurants = Object.assign({}, this.receivedRestaurants);
+							})
+		},
+		async getItemForRestaurant() {
+			return await axios.get('/WebShop/rest/getitemsforrestaurant/all/' + this.selectedRestaurant.id)
+							.then(response => {
+								this.items = response.data;
+							});
+		},
+		async getCommentsForRestaurant() {
+			return await axios.get('/WebShop/rest/getcomments/all/' + this.selectedRestaurant.id)
+							.then(response => {
+								this.comments = response.data;
+							});
+		},
+		/* Front functions*/
 		convertDate : function(date) {
             parts = date.split('-');
 
@@ -360,8 +371,12 @@ var webShop = new Vue({
         changeDisplay(view) {
             this.visible = view;
         },
-        displaySpecificRestaurant(restaurant) {
+        async displaySpecificRestaurant(restaurant) {
             this.selectedRestaurant = restaurant;
+			
+			await this.getItemForRestaurant();
+			await this.getCommentsForRestaurant();
+
             this.visible = 'specificRestaurant';
         },
         chooseManager(value, dropdown) {
@@ -1023,7 +1038,15 @@ var webShop = new Vue({
             else if (critParts[1] == 'mark'){
                 $("#" + critParts[0] + "_mark").css('border', '1px solid #021056');
             }
-        }
+        },
+
+		logout() {
+			this.currentUser = undefined;
+            this.tempCurrUser = undefined;
+            window.localStorage.removeItem('User');
+
+            window.location.replace("http://localhost:8080/WebShop/");
+		}
     },
     computed: {
         //Restaurants

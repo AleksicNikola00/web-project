@@ -26,28 +26,28 @@
 
                 <!--Menu items-->
                 <div class="flex flex-column">
-                    <button class="menu-item restaurant-menu">
-                        <span class="menu-item-text" onclick="displaySubmenu('restaurantSubmenu')">Restaurants</span>
+                    <button class="menu-item restaurant-menu" onclick="displaySubmenu('restaurantSubmenu')">
+                        <span class="menu-item-text">Restaurants</span>
                     </button>
 
                     <div class="submenu flex relative flex-column" name="restaurantSubmenu">
-                        <button class="submenu-item search-submenu">
-                            <span class="submenu-item-text" v-on:click="changeDisplay('restaurants')">Show restaurants</span>
+                        <button class="submenu-item search-submenu" v-on:click="changeDisplay('restaurants')">
+                            <span class="submenu-item-text" >Show restaurants</span>
                         </button>
-                        <button class="submenu-item add-submenu">
-                            <span class="submenu-item-text" v-on:click="addRestaurantViewChange()">Add restaurant</span>
+                        <button class="submenu-item add-submenu" v-on:click="addRestaurantViewChange()">
+                            <span class="submenu-item-text" >Add restaurant</span>
                         </button>
                     </div>
                 </div>
 
                 <div class="flex flex-column">
-                    <button class="menu-item user-menu">
-                        <span class="menu-item-text" onclick="displaySubmenu('userSubmenu')">Users</span>
+                    <button class="menu-item user-menu" onclick="displaySubmenu('userSubmenu')">
+                        <span class="menu-item-text" >Users</span>
                     </button>
 
                     <div class="submenu flex relative flex-column" name="userSubmenu">
-                        <button class="submenu-item search-submenu">
-                            <span class="submenu-item-text" v-on:click="changeDisplay('users')">Show users</span>
+                        <button class="submenu-item search-submenu" v-on:click="changeDisplay('users')">
+                            <span class="submenu-item-text" >Show users</span>
                         </button>
                         <button class="submenu-item add-submenu" v-on:click="addNewUser()">
                             <span class="submenu-item-text">Add users</span>
@@ -56,15 +56,15 @@
                 </div>
 
                 <div class="flex flex-column">
-                    <button class="menu-item account-menu">
-                        <span class="menu-item-text" v-on:click="editMyAccount()">My Account</span>
+                    <button class="menu-item account-menu" v-on:click="editMyAccount()">
+                        <span class="menu-item-text" >My Account</span>
                     </button>
                 </div>
             </div>
 
             <!--Logout menu item-->
             <div class="menu-logout">
-                <button class="logout-button">
+                <button class="logout-button" v-on:click="logout()">
                     <span class="menu-item-text logout-text">Logout</span>
                 </button>
             </div>
@@ -110,7 +110,7 @@
 
                 <div class="single-restaurant flex relative" v-for="restaurant in restaurants" v-on:click="displaySpecificRestaurant(restaurant)">
                     <div class="picture-area">
-                        <img src="../Images/gold-member.png" style="max-width: 120px;">
+                        <img v-bind:src="'data:image/png;base64, ' + restaurant.logoPath" style="max-width: 120px;">
                     </div>
 
                     <div class="flex relative space-between">
@@ -123,7 +123,7 @@
                         </div>
                         <div class="rest-name-and-type flex flex-column" style="min-width: 250px;">
                             <span class="rest-detail-text">{{restaurant.rating}}*</span>
-                            <span class="rest-detail-text">{{getManagerByNameSurnameById(restaurant.managerId)}}</span>
+                            <span class="rest-detail-text">{{restaurant.manager}}</span>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                     <div class="restaurant-item flex space-between" v-for="item in items">
                         <div class="w-50 flex flex-column" style="padding-right: 10px; border-right: 1px solid #dadada;">
                             <div class="put-center flex flex-column">
-                                <img src="../Images/silver-member.png" style="max-width: 100px; border-radius: 10px; margin-bottom: 30px;">
+                                <img v-bind:src="'data:image/png;base64, ' + item.picturePath" style="max-width: 100px; border-radius: 10px; margin-bottom: 30px;">
                                 <span class="restaurant-item-header">{{item.name}}</span>
 
                                 <div class="flex flex-column item-detail">
@@ -159,7 +159,7 @@
                                     </div>
                                     <div class="flex space-between" style="margin-bottom: 20px;">
                                         <span class="item-detail-text">Amount</span>
-                                        <span class="item-detail-text">{{item.amount + (item.unit == 'GRAM' ? 'g' : 'l')}}</span>
+                                        <span class="item-detail-text">{{item.unitAmount + (item.unitType == 'GRAM' ? 'g' : 'l')}}</span>
                                     </div>
                                     <div class="flex space-between" style="margin-bottom: 20px;">
                                         <span class="item-detail-text">Type</span>
@@ -181,7 +181,7 @@
                     <div class="flex restaurant-details flex-column space-between">
                         <div class="flex space-between put-center">
                             <span class="item-detail-text">{{selectedRestaurant.type}}</span>
-                            <img src="../Images/bronze-member.png" style="max-width: 75px; border-radius: 10px;">
+                            <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" style="max-width: 75px; border-radius: 10px;">
                         </div>
                         <div class="flex space-between put-center">
                             <span class="item-detail-text">{{selectedRestaurant.status}}</span>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="flex put-center space-between">
                             <span class="item-detail-text">{{selectedRestaurant.rating}}*</span>
-                            <span class="item-detail-text">{{getManagerByNameSurnameById(selectedRestaurant.managerId)}}</span>
+                            <span class="item-detail-text">{{selectedRestaurant.manager}}</span>
                         </div>
                     </div>
 
@@ -198,7 +198,9 @@
                             comments
                         </div>
                         <div class="comments-content flex flex-column">
-                            <div class="flex flex-column" style="margin-bottom: 40px;" v-for="comment in comments">
+                            <div class="flex flex-column relative" style="margin-bottom: 40px;" v-for="comment in comments">
+                            	<div v-bind:class="'comment ' + ((comment.status == 'ALLOWED') ? 'approved-com' : 
+                            		(comment.status == 'REJECTED') ? 'rejected-com' : 'spinner-com')"></div>
                                 <span class="comment-text">{{comment.text}}</span>
                                 <div class="flex space-between">
                                     <span>Mark : {{comment.mark}}*</span>
