@@ -58,11 +58,11 @@
   "name" : "lewis",
   "surname" : "hamilton",
   "gender" : "MALE",
-  "dateOfBirth" : 1612616423179,
+  "dateOfBirth" : 1612629265120,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
-  "blocked" : false,
+  "blocked" : true,
   "deleted" : false
 }, {
   "username" : "final",

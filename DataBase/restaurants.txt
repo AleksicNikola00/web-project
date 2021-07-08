@@ -68,4 +68,24 @@
   "rating" : 0.0,
   "managerId" : "newManager",
   "deleted" : false
+}, {
+  "name" : "testRest2",
+  "id" : "53eed732-c787-49cc-8032-bd0a122f25da",
+  "type" : "GREEK",
+  "status" : "OPEN",
+  "logoPath" : null,
+  "geoLocationId" : "03a13f09-061b-4e58-843f-d92eb83d03c5",
+  "rating" : 0.0,
+  "managerId" : "managerUsername",
+  "deleted" : false
+}, {
+  "name" : "novoIme",
+  "id" : "45e6d9f5-da88-43fc-9dcd-17772a7b1977",
+  "type" : "GREEK",
+  "status" : "OPEN",
+  "logoPath" : null,
+  "geoLocationId" : "276b3b65-b54e-4f17-863b-024c09cb1626",
+  "rating" : 0.0,
+  "managerId" : "anotherManager",
+  "deleted" : false
 } ]

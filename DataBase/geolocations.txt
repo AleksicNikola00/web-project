@@ -54,4 +54,20 @@
   "id" : "e8f11489-7fa0-4d66-9136-def741183fa9",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
+}, {
+  "x" : 19.875,
+  "y" : 45.271,
+  "streetName" : "test location",
+  "number" : 2,
+  "id" : "03a13f09-061b-4e58-843f-d92eb83d03c5",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 19.817,
+  "y" : 45.268,
+  "streetName" : "brace ribnikara",
+  "number" : 25,
+  "id" : "276b3b65-b54e-4f17-863b-024c09cb1626",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
 } ]

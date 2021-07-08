@@ -4,46 +4,62 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Amazing restaurant and amazing food. Simply fantastic!",
   "mark" : 5.0,
-  "deleted" : false,
-  "status" : "PENDING"
+  "status" : "PENDING",
+  "deleted" : false
 }, {
   "id" : "c422e92c-4bfb-4d7c-9c73-efba756839d3",
   "username" : "aleksic",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Shambolic service people... Really gutted...",
   "mark" : 2.0,
-  "deleted" : false,
-  "status" : "ALLOWED"
+  "status" : "ALLOWED",
+  "deleted" : false
 }, {
   "id" : "baa53e37-4655-4b92-b42c-b4cf2207d85c",
   "username" : "mili",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Second comment that i had to post... That good...",
   "mark" : 5.0,
-  "deleted" : false,
-  "status" : "REJECTED"
+  "status" : "REJECTED",
+  "deleted" : false
 }, {
   "id" : "80fafeae-3085-4217-8117-ac3199cf9098",
   "username" : "mili",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Third comment that i had to post... Probably not allowed but i know!",
   "mark" : 5.0,
-  "deleted" : false,
-  "status" : "PENDING"
+  "status" : "PENDING",
+  "deleted" : false
 }, {
   "id" : "97d48d7d-cb29-40f1-8d0c-f8b7e5ee8108",
   "username" : "mili",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Pokusaj jako dobrog komentara",
   "mark" : 5.0,
-  "deleted" : false,
-  "status" : "PENDING"
+  "status" : "PENDING",
+  "deleted" : false
 }, {
   "id" : "3cc2e4eb-c5f1-4bb1-9a7c-9b31d4b99f26",
   "username" : "mili",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Pokusaj loseg komentara",
   "mark" : 2.0,
-  "deleted" : false,
-  "status" : "PENDING"
+  "status" : "PENDING",
+  "deleted" : false
+}, {
+  "id" : "9c231745-2cf8-43cc-9672-34a2f3ef12a7",
+  "username" : "lewis",
+  "restaurantId" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "text" : "I changed my mind sorry",
+  "mark" : 3.0,
+  "status" : "PENDING",
+  "deleted" : false
+}, {
+  "id" : "ba2aaed5-3a82-4aaf-b67a-3ea2c1d61487",
+  "username" : "lewis",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "text" : "I dont know",
+  "mark" : 4.0,
+  "status" : "PENDING",
+  "deleted" : false
 } ]

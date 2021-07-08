@@ -2,6 +2,7 @@ package services;
 
 import java.util.UUID;
 
+import beans.enumerations.CommentStatus;
 import beans.errors.DatabaseErrors;
 import beans.model.Comment;
 import beans.model.Restaurant;
@@ -24,6 +25,7 @@ public class CRUDCommentService extends BaseService {
 		}
 		
 		comment.setId(UUID.randomUUID());
+		comment.setStatus(CommentStatus.PENDING);
 		uow.getCommentWriteRepo().add(comment);
 		
 		return DatabaseErrors.NO_ERROR;

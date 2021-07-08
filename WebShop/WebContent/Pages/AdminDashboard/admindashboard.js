@@ -6,7 +6,7 @@ function displaySubmenu(submenu) {
 }
 
 function openDropDown(dropdown) {
-	if (webShop.tempRestaurant.cameFrom == 'editRest'){
+	if (webShop.tempRestaurant.cameFrom == 'editRest' && dropdown == 'managerSelect'){
 		return;
 	}
 	
@@ -137,6 +137,7 @@ var webShop = new Vue({
 		await this.getManagers();
 		await this.getDeliveryWorkers();
 		await this.getAdmins();
+		await this.getTypes();
 
         /* Setting date in date picker */
         var now = new Date();
@@ -232,6 +233,16 @@ var webShop = new Vue({
 								});
 								
 								this.admins = Object.assign({}, this.receivedAdmins);
+							});
+		},
+		async getTypes() {
+			return await axios.get('/WebShop/rest/restaurant/gettypes')
+							.then(response => {
+								this.allTypes = new Array();
+								let vm = this;
+								response.data.forEach(rt => {
+									vm.allTypes.push(rt.toString());
+								});
 							});
 		},
 		/* Front functions*/
@@ -405,6 +416,8 @@ var webShop = new Vue({
         },
         editRestaurantViewChange() {
             this.tempRestaurant = Object.assign({}, this.selectedRestaurant);
+			this.tempRestaurant.logoPath = '';
+			$("#fileInput").val('');
 
             loc = this.tempRestaurant.geoLocation.split(', ');
             coords = [parseFloat(loc[0]), parseFloat(loc[1])];
@@ -423,10 +436,12 @@ var webShop = new Vue({
                 type: '',
                 location: '',
                 geoLocation: '',
-                logo: '',
+                logoPath: '',
                 managerId: '',
 				cameFrom: 'addRest'
             }
+
+			$("#fileInput").val('');
 
             this.tempRestaurant.geoLocation = '19.833549, 45.267136';
             coords = [19.833549,45.267136];
@@ -723,18 +738,38 @@ var webShop = new Vue({
             reader.readAsDataURL(file);
         },
 
-        blockUser() {
-            this.manipulatedUser.status = 'blocked';
-
-            this.notificationText = 'User is now blocked. To unblock him press the yellow unblock button!';
-            this.postMessage();
+        async blockUser() {
+			
+			await axios.get('/WebShop/rest/adminusermanipulation/block/' + this.manipulatedUser.username)
+						.then(response => {
+							if (response.data.toString() == ''){
+								this.notificationText = 'User is now blocked. To unblock him press the yellow unblock button!';
+								this.manipulatedUser.status = 'blocked';
+							}
+							else{
+								this.notificationText = reponse.data.toString();
+							}
+							this.postMessage();
+						});
+			
+            await this.getShoppers();
 
         },
-        unblockUser() {
-            this.manipulatedUser.status = 'normal';
-
-            this.notificationText = 'User is now unblocked!';
-            this.postMessage();
+        async unblockUser() {
+	
+			await axios.get('/WebShop/rest/adminusermanipulation/unblock/' + this.manipulatedUser.username)
+						.then(response => {
+							if (response.data.toString() == ''){
+								this.notificationText = 'User is now unblocked!';
+								this.manipulatedUser.status = 'normal';
+							}
+							else{
+								this.notificationText = reponse.data.toString();
+							}
+							this.postMessage();
+						});
+			
+            await this.getShoppers();
         },
 
 
@@ -768,8 +803,46 @@ var webShop = new Vue({
 						
 			await this.getRestaurants();
 			await this.getManagers();
+			
+			this.visible = 'restaurants';
 		},
-		
+		async submitEditRestaurant() {
+			let newRestaurant = {
+				name: this.tempRestaurant.name.trim(),
+				type: this.tempRestaurant.type.toUpperCase().trim(),
+				location: this.tempRestaurant.location.trim().replace(",", ', '),
+				geoLocation: this.tempRestaurant.geoLocation,
+				managerId: this.tempRestaurant.managerId,
+				logoPath: this.tempRestaurant.logoPath.split('png;base64,')[1],
+				id: this.tempRestaurant.id
+			}
+			
+			newRestaurant.location = newRestaurant.location.replace(/[\s]+/, ' ');
+			
+			if (newRestaurant.logoPath == undefined){
+				newRestaurant.logoPath = '';
+			}
+			
+			let vm = this;
+			
+			await axios.post('/WebShop/rest/restaurant/editrestaurant', newRestaurant)
+						.then(response => {
+							if (response.data.toString() != ''){
+								vm.notificationText = response.data.toString();
+							}
+							else {
+								vm.notificationText = 'Successfully added!';
+							}
+							
+							vm.postMessage();
+						});
+						
+			await this.getRestaurants();
+			await this.getManagers();
+			
+			this.visible = 'restaurants';
+			
+		},
 		
         /* Validation */
 
@@ -803,6 +876,9 @@ var webShop = new Vue({
             else {
 				if (this.tempRestaurant.cameFrom == 'addRest'){
                 	await this.submitNewRestaurant();
+				}
+				else {
+					await this.submitEditRestaurant();
 				}
             }
         },

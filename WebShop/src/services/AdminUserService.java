@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import beans.enumerations.OrderStatus;
+import beans.errors.DatabaseErrors;
 import beans.model.Admin;
 import beans.model.DeliveryWorker;
 import beans.model.Manager;
@@ -141,6 +142,38 @@ public class AdminUserService extends BaseService {
 		}
 		
 		return ret;
+	}
+	
+	public String blockUser(String username) {
+		if (checkIfSuspicious(username)) {
+			Shopper shopper = uow.getShopperReadRepo().getById(username);
+			shopper.setBlocked(true);
+			
+			uow.getShopperWriteRepo().update(shopper);
+			
+			return DatabaseErrors.NO_ERROR;
+		}
+		else {
+			return DatabaseErrors.FAILED;
+		}
+	}
+	
+	public String unblockUser(String username) {
+		Shopper shopper = uow.getShopperReadRepo().getById(username);
+		
+		if (shopper == null) {
+			return DatabaseErrors.NOT_FOUND;
+		}
+		
+		if (shopper.isBlocked()) {
+			shopper.setBlocked(false);
+			
+			uow.getShopperWriteRepo().update(shopper);
+			return DatabaseErrors.NO_ERROR;
+		}
+		else {
+			return DatabaseErrors.FAILED;
+		}
 	}
 	
 	private boolean checkIfSuspicious(String username) {

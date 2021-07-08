@@ -1,16 +1,17 @@
 package controllers;
 
-import java.util.UUID;
+import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import beans.enumerations.RestaurantType;
 import beans.enumerations.Role;
 import beans.enumerations.TypeOfShopper;
 import beans.errors.DatabaseErrors;
@@ -18,7 +19,6 @@ import beans.model.Credentials;
 import beans.model.Manager;
 import beans.model.Shopper;
 import dto.NewUser;
-import services.CRUDRestaurantService;
 import services.RegisterService;
 
 @Path("/register")
@@ -89,4 +89,6 @@ public class RegisterController {
 			return "";
 		}
 	}
+	
+	
 }
