@@ -3,11 +3,16 @@ package controllers;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
+import dto.AdminViewRestaurantsDTO;
+import dto.RestaurantsDTO;
 import services.CRUDRestaurantService;
 
 @Path("/restaurant")
@@ -23,5 +28,15 @@ public class RestaurantController {
 		CRUDRestaurantService service = new CRUDRestaurantService(ctx.getRealPath(""));
 		
 		return service.linkRestaurantAndManager(managerUsername, restaurantId);
+	}
+	
+	@POST
+	@Path("/addrestaurant")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String createNewRestaurant(AdminViewRestaurantsDTO rest) {
+		CRUDRestaurantService service = new CRUDRestaurantService(ctx.getRealPath(""));
+		
+		return service.createNewRestaurant(rest);
 	}
 }

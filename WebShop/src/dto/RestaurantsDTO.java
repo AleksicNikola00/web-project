@@ -12,6 +12,7 @@ public class RestaurantsDTO {
 	private boolean open;
 	private UUID id;
 	private double x;
+	private double y;
 	private String logoPath;
 	
 	
@@ -80,6 +81,5 @@ public class RestaurantsDTO {
 	public void setY(double y) {
 		this.y = y;
 	}
-	private double y;
 
 }

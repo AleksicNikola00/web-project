@@ -6,6 +6,10 @@ function displaySubmenu(submenu) {
 }
 
 function openDropDown(dropdown) {
+	if (webShop.tempRestaurant.cameFrom == 'editRest'){
+		return;
+	}
+	
     if ($("div[name='" + dropdown + "']").css('background-image').includes('angleDown.png')) {
         $("div[name='" + dropdown + "']").css('background-image', 'url("../Images/angleUp.png")');
     }
@@ -48,7 +52,8 @@ var webShop = new Vue({
             location: '',
             geoLocation: '',
             logo: '',
-            managerId: ''
+            managerId: '',
+			cameFrom : ''
         },
         allTypes: [
             'Turkish',
@@ -407,7 +412,8 @@ var webShop = new Vue({
             this.addPin(ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857'));
             this.map.getView().setCenter(ol.proj.transform(coords, 'EPSG:4326', 'EPSG:3857'));
             
-
+			this.tempRestaurant.cameFrom = 'editRest';
+			
             this.visible = 'addEditRestaurant';
         },
         addRestaurantViewChange() {
@@ -418,7 +424,8 @@ var webShop = new Vue({
                 location: '',
                 geoLocation: '',
                 logo: '',
-                managerId: ''
+                managerId: '',
+				cameFrom: 'addRest'
             }
 
             this.tempRestaurant.geoLocation = '19.833549, 45.267136';
@@ -711,7 +718,7 @@ var webShop = new Vue({
             var vm = this;
 
             reader.onload = (e) => {
-                vm.tempRestaurant.logo = e.target.result;
+                vm.tempRestaurant.logoPath = e.target.result;
             };
             reader.readAsDataURL(file);
         },
@@ -730,10 +737,44 @@ var webShop = new Vue({
             this.postMessage();
         },
 
+
+		/* Posting restaurant data */
+		//Adding restaurant
+		async submitNewRestaurant(){
+			let newRestaurant = {
+				name: this.tempRestaurant.name.trim(),
+				type: this.tempRestaurant.type.toUpperCase().trim(),
+				location: this.tempRestaurant.location.trim().replace(",", ', '),
+				geoLocation: this.tempRestaurant.geoLocation,
+				managerId: this.tempRestaurant.managerId,
+				logoPath: this.tempRestaurant.logoPath.split('png;base64,')[1]
+			}
+			
+			newRestaurant.location = newRestaurant.location.replace(/[\s]+/, ' ');
+			
+			let vm = this;
+			
+			await axios.post('/WebShop/rest/restaurant/addrestaurant', newRestaurant)
+						.then(response => {
+							if (response.data.toString() != ''){
+								vm.notificationText = response.data.toString();
+							}
+							else {
+								vm.notificationText = 'Successfully added!';
+							}
+							
+							vm.postMessage();
+						});
+						
+			await this.getRestaurants();
+			await this.getManagers();
+		},
+		
+		
         /* Validation */
 
         //Restaurant validation
-        validateRestaurant(){
+        async validateRestaurant(){
             let message = '';
             if (!this.tempRestaurant.name.match(/^([a-zA-Z0-9]|[\s])+$/)){
                 message += 'Name is not in the correct format... ';
@@ -744,10 +785,13 @@ var webShop = new Vue({
             if (this.tempRestaurant.location == ''){
                 message += "Tell us the location! ";
             }
+			if (!this.tempRestaurant.location.match(/^[a-zA-Z0-9]+([a-zA-Z0-9]+|[\s]+)*[','][\s]*[0-9]+$/)){
+				message += "Location is not in the correct format! ";
+			}
             if (this.tempRestaurant.managerId == ''){
                 message += "Specify the manager for the restaurant...";
             }
-            if (this.tempRestaurant.logo == ''){
+            if (this.tempRestaurant.logoPath == ''){
                 message += "It would be nice to have a logo for your restaurant too!";
             }
 
@@ -757,8 +801,9 @@ var webShop = new Vue({
                 this.postMessage();
             }
             else {
-                this.notificationText = 'Restaurant successfully saved!';
-                this.postMessage();
+				if (this.tempRestaurant.cameFrom == 'addRest'){
+                	await this.submitNewRestaurant();
+				}
             }
         },
 

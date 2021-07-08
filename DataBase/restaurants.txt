@@ -58,4 +58,14 @@
   "rating" : 1.0,
   "managerId" : "emmagurl",
   "deleted" : false
+}, {
+  "name" : "addRest",
+  "id" : "696a18f1-57a1-485c-a560-66d1d8a06a0e",
+  "type" : "GREEK",
+  "status" : "OPEN",
+  "logoPath" : null,
+  "geoLocationId" : "e8f11489-7fa0-4d66-9136-def741183fa9",
+  "rating" : 0.0,
+  "managerId" : "newManager",
+  "deleted" : false
 } ]

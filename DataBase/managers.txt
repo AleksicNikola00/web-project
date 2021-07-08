@@ -62,4 +62,12 @@
   "dateOfBirth" : 1625701960866,
   "role" : "MANAGER",
   "deleted" : false
+}, {
+  "username" : "newManager",
+  "name" : "some",
+  "surname" : "newManager",
+  "gender" : "MALE",
+  "dateOfBirth" : 1680609888699,
+  "role" : "MANAGER",
+  "deleted" : false
 } ]

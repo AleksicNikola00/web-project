@@ -1,12 +1,17 @@
 package services;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.UUID;
 
+import beans.enumerations.RestaurantStatus;
 import beans.errors.DatabaseErrors;
 import beans.model.City;
 import beans.model.GeoLocation;
 import beans.model.Manager;
 import beans.model.Restaurant;
+import dto.AdminViewRestaurantsDTO;
+import repository.DatabaseConstants;
 
 public class CRUDRestaurantService extends BaseService {
 	
@@ -48,6 +53,86 @@ public class CRUDRestaurantService extends BaseService {
 		
 		restaurant.setManagerId(username);
 		uow.getRestaurantWriteRepo().update(restaurant);
+		
+		return DatabaseErrors.NO_ERROR;
+	}
+	
+	public String createNewRestaurant(AdminViewRestaurantsDTO newRestaurant) {
+		
+		//Create city
+		
+		ArrayList<City> cities = uow.getCityReadRepo().getAll();
+		City city = null;
+		if (cities != null || cities.size() != 0) {
+			for(City c : cities) {
+				if (c.getName().equalsIgnoreCase("novi sad")) {
+					city = c;
+					break;
+				}
+			}
+		}
+		
+		if (city == null) {
+			city = new City();
+			city.setName("Novi Sad");
+			city.setPostalCode(21000);
+			city.setCountry("Serbia");
+			city.setId(UUID.randomUUID());
+			uow.getCityWriteRepo().add(city);
+		}
+		
+		//Create geoLoc
+		if (!newRestaurant.getLocation().contains(",")) {
+			System.out.println(newRestaurant.getLocation());
+			return DatabaseErrors.FAILED;
+		}
+		if (!newRestaurant.getGeoLocation().contains(",")) {
+			System.out.println(newRestaurant.getGeoLocation());
+			return DatabaseErrors.FAILED;
+		}
+		
+		
+		GeoLocation geoLoc = new GeoLocation();
+		
+		try {
+			String[] parts = newRestaurant.getGeoLocation().split(", ");
+			
+			geoLoc.setX(Double.parseDouble(parts[0]));
+			geoLoc.setY(Double.parseDouble(parts[1]));
+		} catch(Exception e) {
+			System.out.println(newRestaurant.getLocation());
+			return DatabaseErrors.FAILED;
+		}
+		
+		geoLoc.setStreetName(newRestaurant.getLocation().split(", ")[0]);
+		try {
+			geoLoc.setNumber(Integer.parseInt(newRestaurant.getLocation().split(", ")[1].trim()));
+		} catch(Exception e) {
+			System.out.println(newRestaurant.getLocation());
+			return DatabaseErrors.FAILED;
+		}
+		geoLoc.setId(UUID.randomUUID());
+		geoLoc.setCityId(city.getId());
+		
+		//Create restaurant
+		Restaurant rest = new Restaurant();
+		rest.setName(newRestaurant.getName());
+		rest.setId(UUID.randomUUID());
+		rest.setType(newRestaurant.getType());
+		rest.setStatus(RestaurantStatus.OPEN);
+		rest.setGeoLocationId(geoLoc.getId());
+		rest.setManagerId(newRestaurant.getManagerId());
+		
+		if (uow.getManagerReadRepo().getById(rest.getManagerId()) == null ||
+				uow.getRestaurantReadRepo().getRestaurantByManagerUsername(rest.getManagerId()) != null) {
+			return DatabaseErrors.FAILED;
+		}
+		
+		File file = new File(uow.getDatabasePath() + DatabaseConstants.RESTAURANTS_LOGO_PATH + rest.getId() + ".png");
+		DatabaseConstants.writeEncodedBase64(file, newRestaurant.getLogoPath());
+		
+		uow.getGeoLocationWriteRepo().add(geoLoc);
+		uow.getRestaurantWriteRepo().add(rest);
 		
 		return DatabaseErrors.NO_ERROR;
 	}

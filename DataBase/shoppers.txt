@@ -37,8 +37,41 @@
   "surname" : "InTown",
   "gender" : "UNKNOWN",
   "dateOfBirth" : 1680738394713,
-  "role" : null,
+  "role" : "SHOPPER",
   "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "afrojack",
+  "name" : "tamo",
+  "surname" : "neki",
+  "gender" : "MALE",
+  "dateOfBirth" : 1688558176631,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "lewis",
+  "name" : "lewis",
+  "surname" : "hamilton",
+  "gender" : "MALE",
+  "dateOfBirth" : 1612616423179,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "final",
+  "name" : "final",
+  "surname" : "test",
+  "gender" : "MALE",
+  "dateOfBirth" : 1620165600000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 1083,
   "shopperType" : "BRONZE",
   "blocked" : false,
   "deleted" : false

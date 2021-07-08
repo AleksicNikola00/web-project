@@ -41,6 +41,7 @@ public class AdminUserManipulationService extends BaseService {
 			shopper.setDateOfBirth(user.getDateOfBirth());
 			shopper.setShopperType(TypeOfShopper.BRONZE);
 			shopper.setCollectedPoints(0);
+			shopper.setRole(Role.SHOPPER);
 			
 			uow.getShopperWriteRepo().add(shopper);
 		}
@@ -51,6 +52,7 @@ public class AdminUserManipulationService extends BaseService {
 			delivery.setUsername(user.getUsername());
 			delivery.setGender(user.getGender());
 			delivery.setDateOfBirth(user.getDateOfBirth());
+			delivery.setRole(Role.DELIVERY);
 			
 			uow.getDeliveryWorkerWriteRepo().add(delivery);
 		}
@@ -62,6 +64,7 @@ public class AdminUserManipulationService extends BaseService {
 			manager.setUsername(user.getUsername());
 			manager.setGender(user.getGender());
 			manager.setDateOfBirth(user.getDateOfBirth());
+			manager.setRole(Role.MANAGER);
 			
 			uow.getManagerWriteRepo().add(manager);
 		}

@@ -46,4 +46,12 @@
   "id" : "56fd439b-abd8-467f-b3a1-297fded1b2a2",
   "cityId" : "21bbf30f-41e1-4952-9311-f85b5556ce8a",
   "deleted" : false
+}, {
+  "x" : 19.823,
+  "y" : 45.269,
+  "streetName" : "fjaosf 12",
+  "number" : 12,
+  "id" : "e8f11489-7fa0-4d66-9136-def741183fa9",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
 } ]
