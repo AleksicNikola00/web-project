@@ -5,7 +5,7 @@ import beans.model.Credentials;
 import beans.model.DeliveryWorker;
 import beans.model.Shopper;
 import dto.LoggedInUser;
-import dto.NewShopper;
+import dto.NewUser;
 
 public class UserService extends BaseService {
 	
@@ -14,7 +14,7 @@ public class UserService extends BaseService {
 		super(path);
 	}
 	
-	public LoggedInUser updateShopperInfo(NewShopper shopper) {
+	public LoggedInUser updateShopperInfo(NewUser shopper) {
 		Shopper shopperInDatabase = uow.getShopperReadRepo().getById(shopper.getUsername());
 		Credentials credsInDatabase = uow.getCredentialsReadRepo().getById(shopper.getUsername());
 		if (shopperInDatabase == null || credsInDatabase == null) {

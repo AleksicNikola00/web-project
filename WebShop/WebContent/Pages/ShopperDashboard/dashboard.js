@@ -75,7 +75,6 @@ var webShop = new Vue({
 			return await axios.get('/WebShop/rest/user/getshoppertype/' + this.currentUser.shopperType)
 							.then(response =>{
 								this.shopperTypeInfo = response.data;
-								console.log(this.shopperTypeInfo);
 							});	
 		},
         async requestRestaurants(){
@@ -104,6 +103,7 @@ var webShop = new Vue({
 			return await axios.get('/WebShop/rest/user/getbyuser/' + this.currentUser.username)
 						.then(response => {
 							this.currentUser = response.data;
+							window.localStorage.setItem('User', JSON.stringify(response.data));
 							this.tempCurrUser = Object.assign({}, this.currentUser);
 							this.tempCurrUser.dateOfBirth = this.convertDate(this.tempCurrUser.dateOfBirth);
 					        this.tempCurrUser.points = parseInt(this.tempCurrUser.points);

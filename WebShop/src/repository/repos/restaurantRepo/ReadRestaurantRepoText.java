@@ -55,4 +55,25 @@ public class ReadRestaurantRepoText implements IReadRestaurantRepo {
 		return null;
 	}
 
+	@Override
+	public Restaurant getRestaurantByManagerUsername(String username) {
+		try {
+			String readString = Files.readString(Paths.get(this.path));
+			
+			ObjectMapper objectMapper = new ObjectMapper();
+			ArrayList<Restaurant> restaurants = objectMapper.readValue(readString, new TypeReference<ArrayList<Restaurant>>(){});
+			
+			for(Restaurant rest : restaurants) {
+				if (rest.getManagerId().equals(username)) {
+					return rest;
+				}
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error in reading from path : " + this.path);
+		}
+		return null;
+	}
+
 }

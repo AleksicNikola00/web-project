@@ -30,4 +30,14 @@ public class ItemGetController {
 		
 		return service.getItemsForRestaurantId(id);
 	}
+	
+	@GET
+	@Path("/all/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Item> getAllItemsFroRestaurant(@PathParam("id") UUID id){
+		ItemAggregationService service = new ItemAggregationService(ctx.getRealPath(""));
+		
+		return service.getAllItemsForRestaurantId(id);
+	}
 }

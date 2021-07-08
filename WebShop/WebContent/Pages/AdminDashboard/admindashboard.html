@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="admindashboard.css">
+    <link rel="stylesheet" href="../OpenLayers/openlayers.css">
+
+    <title>Admin dashboard</title>
+
+</head>
+<body>
+    
+    <div class="whole-container" id="dashboard">
+
+        <!-- Menu -->
+        <div class="menu">
+            <div>
+                <!--header-->
+                <div class="menu-header-container">
+                    <p class="menu-header-text">Menu</p>
+                </div>
+
+                <!--Menu items-->
+                <div class="flex flex-column">
+                    <button class="menu-item restaurant-menu" onclick="displaySubmenu('restaurantSubmenu')">
+                        <span class="menu-item-text">Restaurants</span>
+                    </button>
+
+                    <div class="submenu flex relative flex-column" name="restaurantSubmenu">
+                        <button class="submenu-item search-submenu" v-on:click="changeDisplay('restaurants')">
+                            <span class="submenu-item-text" >Show restaurants</span>
+                        </button>
+                        <button class="submenu-item add-submenu" v-on:click="addRestaurantViewChange()">
+                            <span class="submenu-item-text" >Add restaurant</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-column">
+                    <button class="menu-item user-menu" onclick="displaySubmenu('userSubmenu')">
+                        <span class="menu-item-text" >Users</span>
+                    </button>
+
+                    <div class="submenu flex relative flex-column" name="userSubmenu">
+                        <button class="submenu-item search-submenu" v-on:click="changeDisplay('users')">
+                            <span class="submenu-item-text" >Show users</span>
+                        </button>
+                        <button class="submenu-item add-submenu" v-on:click="addNewUser()">
+                            <span class="submenu-item-text">Add users</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-column">
+                    <button class="menu-item account-menu" v-on:click="editMyAccount()">
+                        <span class="menu-item-text" >My Account</span>
+                    </button>
+                </div>
+            </div>
+
+            <!--Logout menu item-->
+            <div class="menu-logout">
+                <button class="logout-button" v-on:click="logout()">
+                    <span class="menu-item-text logout-text">Logout</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Panels -->
+        <!-- Restaurants view -->
+        <div class="content" v-show="visible == 'restaurants'">
+
+            <!-- Header -->
+            <div class="content-header flex flex-column relative">
+                <div style="border-bottom: 1px solid black;">
+                    <span class="menu-header-text content-header-text">Restaurants view</span>
+                </div>
+            </div>
+
+            <!-- Filtering area -->
+            <div class="flex relative filtering-area">
+                <input type="text" class="text-input name-input-filter" placeholder="Restaurant name..." v-model="restaurantFilterObj.name" id="restaurant_name" v-on:focus="changeCriteria('restaurant_name')">
+                <input type="text" class="text-input name-input-filter" placeholder="Type..." v-model="restaurantFilterObj.type" id="restaurant_type" v-on:focus="changeCriteria('restaurant_type')">
+                <input type="text" class="text-input name-input-filter" placeholder="Location..." v-model="restaurantFilterObj.location" id="restaurant_location" v-on:focus="changeCriteria('restaurant_location')">
+                
+                <div class="flex relative flex-column">
+                    <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('typefilterselect')" name="typefilterselect" id="restaurant_mark" v-on:click="changeCriteria('restaurant_mark')">
+                        <span class="placeholder-text">Mark :        </span> {{restaurantFilterObj.mark}}
+                    </div>
+                    <div class="combo-options" name="typefilterselectdropdown">
+                        <button class="combo-option combo-option-first" v-on:click="changeFilterMark('All marks', 'typefilterselect')">All marks</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('1', 'typefilterselect')">1</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('2', 'typefilterselect')">2</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('3', 'typefilterselect')">3</button>
+                        <button class="combo-option"  v-on:click="changeFilterMark('4', 'typefilterselect')">4</button>
+                        <button class="combo-option combo-option-last" v-on:click="changeFilterMark('5', 'typefilterselect')">5</button>
+                    </div>
+                </div>
+
+                <button class="asc-desc text-input" v-on:click="changeAscDes()" name="ascDescButton">
+                    <span class="placeholder-text">Order :    </span> {{restaurantFilterObj.ascDes}}
+                </button>
+            </div>
+
+            <div class="restaurants">
+
+                <div class="single-restaurant flex relative" v-for="restaurant in restaurants" v-on:click="displaySpecificRestaurant(restaurant)">
+                    <div class="picture-area">
+                        <img v-bind:src="'data:image/png;base64, ' + restaurant.logoPath" style="max-width: 120px;">
+                    </div>
+
+                    <div class="flex relative space-between">
+                        <div class="rest-name-and-type flex flex-column">
+                            <span class="rest-detail-text">{{restaurant.name}}</span>
+                            <span class="rest-detail-text">{{restaurant.type}}</span>
+                        </div>
+                        <div class="rest-name-and-type flex flex-column align-center-column">
+                            <span class="rest-detail-text">{{restaurant.location}}</span>
+                        </div>
+                        <div class="rest-name-and-type flex flex-column" style="min-width: 250px;">
+                            <span class="rest-detail-text">{{restaurant.rating}}*</span>
+                            <span class="rest-detail-text">{{restaurant.manager}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Specific restaurant view -->
+        <div class="content" v-if="visible == 'specificRestaurant'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative space-between">
+                <div style="border-bottom: 1px solid black; height: 69px;" class="flex max-width space-between">
+                    <span class="menu-header-text content-header-text">{{selectedRestaurant.name}}</span>
+                    
+                    <button class="edit-restaurant-button" v-on:click="editRestaurantViewChange()">Edit restaurant details</button>
+                </div>
+            </div>
+
+            <div class="flex space-between relative">
+                <div class="restaurant-items w-50 flex relative">
+                    <!-- Single restaurant item -->
+                    <div class="restaurant-item flex space-between" v-for="item in items">
+                        <div class="w-50 flex flex-column" style="padding-right: 10px; border-right: 1px solid #dadada;">
+                            <div class="put-center flex flex-column">
+                                <img v-bind:src="'data:image/png;base64, ' + item.picturePath" style="max-width: 100px; border-radius: 10px; margin-bottom: 30px;">
+                                <span class="restaurant-item-header">{{item.name}}</span>
+
+                                <div class="flex flex-column item-detail">
+                                    <div class="flex space-between" style="margin-bottom: 20px;">
+                                        <span class="item-detail-text">Price</span>
+                                        <span class="item-detail-text">{{item.price}}</span>
+                                    </div>
+                                    <div class="flex space-between" style="margin-bottom: 20px;">
+                                        <span class="item-detail-text">Amount</span>
+                                        <span class="item-detail-text">{{item.unitAmount + (item.unitType == 'GRAM' ? 'g' : 'l')}}</span>
+                                    </div>
+                                    <div class="flex space-between" style="margin-bottom: 20px;">
+                                        <span class="item-detail-text">Type</span>
+                                        <span class="item-detail-text">{{item.type}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="w-50 flex put-center" style ="padding-left: 10px; justify-content: center;">
+                            <span class="item-description text-center">{{item.description}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex w-50 flex-column space-between" style="padding-left: 25px;">
+                    <!-- Restaurants details -->
+                    <div class="flex restaurant-details flex-column space-between">
+                        <div class="flex space-between put-center">
+                            <span class="item-detail-text">{{selectedRestaurant.type}}</span>
+                            <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" style="max-width: 75px; border-radius: 10px;">
+                        </div>
+                        <div class="flex space-between put-center">
+                            <span class="item-detail-text">{{selectedRestaurant.status}}</span>
+                            <span class="item-detail-text">{{selectedRestaurant.location}} <a href="#" style="color: black;">({{selectedRestaurant.geoLocation}})</a></span>
+                        </div>
+                        <div class="flex put-center space-between">
+                            <span class="item-detail-text">{{selectedRestaurant.rating}}*</span>
+                            <span class="item-detail-text">{{selectedRestaurant.manager}}</span>
+                        </div>
+                    </div>
+
+                    <div class="flex restaurant-comments flex-column">
+                        <div class="comments-header flex">
+                            comments
+                        </div>
+                        <div class="comments-content flex flex-column">
+                            <div class="flex flex-column relative" style="margin-bottom: 40px;" v-for="comment in comments">
+                            	<div v-bind:class="'comment ' + ((comment.status == 'ALLOWED') ? 'approved-com' : 
+                            		(comment.status == 'REJECTED') ? 'rejected-com' : 'spinner-com')"></div>
+                                <span class="comment-text">{{comment.text}}</span>
+                                <div class="flex space-between">
+                                    <span>Mark : {{comment.mark}}*</span>
+                                    <span>{{comment.username}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AddEdit restaurant view -->
+        <div class="content" v-show="visible == 'addEditRestaurant'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative space-between">
+                <div style="border-bottom: 1px solid black; height: 69px;" class="flex max-width space-between">
+                    <span class="menu-header-text content-header-text">Manipulate restaurants</span>
+                </div>
+            </div>
+
+            <div class="flex relative">
+                <div class="flex relative w-50 flex-column">
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Name :</span>
+                        <input type="text" class="text-input input-field" v-model="tempRestaurant.name">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Type :</span>
+                        <div class="flex input-field">
+                            
+                            <div class="flex relative flex-column">
+                                <div class="combo-imput manager-select-width" onclick="openDropDown('typeSelect')" name="typeSelect">
+                                    {{tempRestaurant.type}}
+                                </div>
+                                <div class="combo-options manager-combo-options" name="typeSelectdropdown">
+                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == allTypes.length - 1 ? 'combo-option-last' : '')"
+                                        v-for="(type, index) in allTypes" v-on:click="chooseType(type,'typeSelect')">
+                                        {{type}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Location :</span>
+                        <input type="text" class="text-input input-field" v-model="tempRestaurant.location">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Coordinates :</span>
+                        <input type="text" class="text-input input-field" disabled v-model="tempRestaurant.geoLocation">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Upload logo :</span>
+                        <input type="file"  class="custom-file-input" id="fileInput" style="margin-right: 75px; width: 50%;" @change="onFileChange">
+                    </div>
+                    <div class="input-group flex space-between">
+                        <span class="input-label">Manager :</span>
+                        <div class="flex">
+                            
+                            <div class="flex relative flex-column">
+                                <div class="combo-imput manager-select-width" onclick="openDropDown('managerSelect')" name="managerSelect">
+                                    {{getManagerByNameSurnameById(tempRestaurant.managerId)}}
+                                </div>
+                                <div class="combo-options manager-combo-options" name="managerSelectdropdown">
+                                    <button v-bind:class="'combo-option ' + (index == 0 ? 'combo-option-first' : '') + (index == availableManagers.length - 1 ? 'combo-option-last' : '')"
+                                        v-for="(manager, index) in availableManagers" v-on:click="chooseManager(manager,'managerSelect')">
+                                        {{manager.firstname}} {{manager.lastname}}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button class="add-new-manager-button" v-on:click="addManagerFromRest()">
+                                <span class="add-new-manager-text">Add new manager?</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="submit-restaurant-div flex relative">
+                        <button class="add-restaurant-button" v-on:click="validateRestaurant()">Submit</button>
+                    </div>
+                    
+                </div>
+
+                <div class="flex relative w-50" >
+                    <div class="map-div flex map" id="map-div">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users -->
+        <div class="content" v-show="visible == 'users'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative">
+                <div style="border-bottom: 1px solid black;">
+                    <span class="menu-header-text content-header-text">users view</span>
+                </div>
+            </div>
+
+            <div class="flex relative flex-column">
+                <div class="user-categories flex">
+                    <button class="category first-category" id="shoppers" name="tags" v-on:click="changeDisplayedUsers('shoppers')">Shoppers</button>
+                    <button class="category" id="managers" name="tags" v-on:click="changeDisplayedUsers('managers')">Managers</button>
+                    <button class="category" id="deliveryWorkers" name="tags" v-on:click="changeDisplayedUsers('deliveryWorkers')">Delivery workers</button>
+                    <button class="category last-category" id="admins" name="tags" v-on:click="changeDisplayedUsers('admins')">Admins</button>
+                </div>
+                <!-- Shoppers -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'shoppers'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="shopperFilterObj.name" id="shopper_name" v-on:focus="changeCriteria('shopper_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="shopperFilterObj.surname" id="shopper_surname" v-on:focus="changeCriteria('shopper_surname')">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="shopperFilterObj.username" id="shopper_username" v-on:focus="changeCriteria('shopper_username')">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescShopperButton">
+                            <span class="placeholder-text">Order : </span> {{shopperFilterObj.ascDes}}
+                        </button>
+                        <input type="number" class="text-input user-text-filter user-filter" placeholder="Points..." min="0" oninput="validity.valid||(value='');" v-model="shopperFilterObj.points"
+                        id="shopper_points" v-on:focus="changeCriteria('shopper_points')">
+                        <div class="flex relative flex-column">
+                            <div class="combo-imput rest-type-width-filtering" onclick="openDropDown('shoppertypefilterselect')" name="shoppertypefilterselect">
+                                <span class="placeholder-text">Type of shopper : </span> {{shopperFilterObj.shopperType}}
+                            </div>
+                            <div class="combo-options" name="shoppertypefilterselectdropdown">
+                                <button class="combo-option combo-option-first" v-on:click="changeFilterShopperType('ALL', 'shoppertypefilterselect')">ALL</button>
+                                <button class="combo-option"  v-on:click="changeFilterShopperType('BRONZE', 'shoppertypefilterselect')">BRONZE</button>
+                                <button class="combo-option"  v-on:click="changeFilterShopperType('SILVER', 'shoppertypefilterselect')">SILVER</button>
+                                <button class="combo-option combo-option-last" v-on:click="changeFilterShopperType('GOLD', 'shoppertypefilterselect')">GOLD</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="users-content">
+                        <div v-bind:class="'single-user flex ' + (shopper.status == 'normal' ? 'non-sus-user' : (shopper.status == 'suspicious' ? 'sus-user' : 'blocked-user'))" 
+                            v-for="shopper in shoppers" v-on:click="editShopper(shopper)">
+                            <div class="green-mark" v-if="shopper.status == 'normal'"></div>
+                            <div class="warning-sign" v-if="shopper.status == 'suspicious'"></div>
+                            <div class="red-cross" v-if="shopper.status == 'blocked'"></div>
+
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail shopper-detail">{{shopper.firstname}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.lastname}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.username}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.dateOfBirth}}</div>
+                                <div class="user-detail shopper-detail">{{(shopper.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : shopper.gender}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.collectedPoints}}</div>
+                                <div class="user-detail shopper-detail">{{shopper.type}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Managers -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'managers'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="managerFilterObj.name" id="manager_name" v-on:focus="changeCriteria('manager_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="managerFilterObj.surname" id="manager_surname" v-on:focus="changeCriteria('manager_surname')">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="managerFilterObj.username" id="manager_username" v-on:focus="changeCriteria('manager_username')">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescManagerButton">
+                            <span class="placeholder-text">Order : </span> {{managerFilterObj.ascDes}}
+                        </button>
+                    </div>
+
+                    <div class="users-content">
+                        <div class="single-user flex" v-for="manager in managers" style="border: 1px solid grey;" v-on:click="editManager(manager)">
+                            <div class="picture-area">
+                                <img v-bind:src="manager.restaurant == '' ? '../Images/dashedLine.png' : ('data:image/png;base64, ' + manager.logoPath)" style="max-width: 75px;">
+                            </div>
+
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail manager-detail">{{manager.firstname}}</div>
+                                <div class="user-detail manager-detail">{{manager.lastname}}</div>
+                                <div class="user-detail manager-detail">{{manager.username}}</div>
+                                <div class="user-detail manager-detail">{{manager.dateOfBirth}}</div>
+                                <div class="user-detail manager-detail">{{(manager.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : manager.gender}}</div>
+                                <div class="user-detail manager-detail">{{manager.restaurant}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery workers -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'deliveryWorkers'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="deliveryWorkerFilterObj.name" id="deliveryWorker_name" v-on:focus="changeCriteria('deliveryWorker_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="deliveryWorkerFilterObj.surname" id="deliveryWorker_surname" v-on:focus="changeCriteria('deliveryWorker_surname')">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="deliveryWorkerFilterObj.username" id="deliveryWorker_username" v-on:focus="changeCriteria('deliveryWorker_username')">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescDeliveryButton">
+                            <span class="placeholder-text">Order : </span> {{deliveryWorkerFilterObj.ascDes}}
+                        </button>
+                    </div>
+
+                    <div class="users-content">
+                        <div class="single-user flex" v-for="deliveryWorker in deliveryWorkers" style="border: 1px solid grey;" v-on:click="editDeliveryWorker(deliveryWorker)">
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail delivery-worker-detail delivery-truck"></div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.firstname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.lastname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.username}}</div>
+                                <div class="user-detail delivery-worker-detail"></div>
+                                <div class="user-detail delivery-worker-detail">{{deliveryWorker.dateOfBirth}}</div>
+                                <div class="user-detail delivery-worker-detail">{{(deliveryWorker.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : deliveryWorker.gender}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admins -->
+                <div class="users-for-category flex flex-column" v-show="userVisible == 'admins'">
+                    <div class="flex" style="border-bottom: 1px solid #dadada; height: 50px; margin-bottom: 10px;">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="First name..." v-model="adminFilterObj.name" id="admin_name" v-on:focus="changeCriteria('admin_name')">
+                        <input type="text" class="text-input user-text-filter user-filter" placeholder="Last name..." v-model="adminFilterObj.surname" id="admin_surname" v-on:focus="changeCriteria('admin_surname')">
+                        <input type="text" class="text-input user-text-filter " placeholder="Username..." v-model="adminFilterObj.username" id="admin_username" v-on:focus="changeCriteria('admin_username')">
+                        <button class="asc-desc text-input" v-on:click="changeAscDesUser()" name="ascDescAdminButton">
+                            <span class="placeholder-text">Order : </span> {{adminFilterObj.ascDes}}
+                        </button>
+                    </div>
+
+                    <div class="users-content">
+                        <div class="single-user flex" v-for="admin in admins" style="border: 1px solid grey;">
+                            <div class="flex relative" style="width: 94%;">
+                                <div class="user-detail delivery-worker-detail admin-picture"></div>
+                                <div class="user-detail delivery-worker-detail">{{admin.firstname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.lastname}}</div>
+                                <div class="user-detail delivery-worker-detail">{{admin.username}}</div>
+                                <div class="user-detail delivery-worker-detail"></div>
+                                <div class="user-detail delivery-worker-detail">{{admin.dateOfBirth}}</div>
+                                <div class="user-detail delivery-worker-detail">{{(admin.gender == 'UNKNOWN') ? 'PREFER NOT TO SAY' : admin.gender}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Add/edit user -->
+        <div class="content" v-show="visible == 'addEditUser'">
+            <!-- Header -->
+            <div class="content-header flex flex-column relative">
+                <div style="border-bottom: 1px solid black;">
+                    <span class="menu-header-text content-header-text">Manipulate users</span>
+                </div>
+            </div>
+
+            <div class="flex relative w-50 flex-column">
+                <div class="input-group flex space-between">
+                    <span class="input-label">Username :</span>
+                    <div class="flex">
+                        <input type="text" v-bind:class="'text-input ' + (manipulatedUser.status == 'normal' ? 'input-field' : '')" v-model="manipulatedUser.username" id="username">
+                        <button class="block-user-button" v-if="manipulatedUser.status == 'suspicious'" v-on:click="blockUser()">block user</button>
+                        <button class="unblock-user-button" v-if="manipulatedUser.status == 'blocked'" v-on:click="unblockUser()">unblock user</button>
+                    </div>
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Password :</span>
+                    <input type="password" class="text-input input-field" v-model="manipulatedUser.password">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Name :</span>
+                    <input type="text" class="text-input input-field" v-model="manipulatedUser.firstname">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Surname :</span>
+                    <input type="text" class="text-input input-field" v-model="manipulatedUser.lastname">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Date of birth :</span>
+                    <input type="date" class="input-field datepicker" id="datepicker" v-model="manipulatedUser.dateOfBirth" maxDate="0">
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Gender :</span>
+                    <div class="flex input-field">
+                        
+                        <div class="flex relative flex-column">
+                            <div class="combo-imput manager-select-width" onclick="openDropDown('genderSelect')" name="genderSelect">
+                                {{manipulatedUser.gender}}
+                            </div>
+                            <div class="combo-options manager-combo-options" name="genderSelectdropdown">
+                                <button class="combo-option combo-option-first" v-on:click="chooseGender('MALE', 'genderSelect')">MALE</button>
+                                <button class="combo-option" v-on:click="chooseGender('FEMALE', 'genderSelect')">FEMALE</button>
+                                <button class="combo-option combo-option-last" v-on:click="chooseGender('PREFER NOT TO SAY', 'genderSelect')">PREFER NOT TO SAY</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group flex space-between">
+                    <span class="input-label">Role :</span>
+                    <div class="flex input-field">
+                        
+                        <div class="flex relative flex-column" v-if="manipulatedUser.cameFrom == 'addUser'">
+                            <div class="combo-imput manager-select-width" onclick="openDropDown('roleSelect')" name="roleSelect">
+                                {{displayRole()}}
+                            </div>
+                            <div class="combo-options manager-combo-options" name="roleSelectdropdown">
+                                <button class="combo-option combo-option-first" v-on:click="chooseRole('SHOPPER', 'roleSelect')">SHOPPER</button>
+                                <button class="combo-option" v-on:click="chooseRole('MANAGER', 'roleSelect')">MANAGER</button>
+                                <button class="combo-option combo-option-last" v-on:click="chooseRole('DELIVERY', 'roleSelect')">DELIVERY WORKER</button>
+                            </div>
+                        </div>
+
+                        <div class="flex relative flex-column" v-if="manipulatedUser.cameFrom != 'addUser'">
+                            <input type="text" class="text-input" v-model="displayRole()" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit-restaurant-div flex relative">
+                    <button class="add-restaurant-button" v-on:click="validateUser()">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="my-notificaiton flex flex-column" id="notification">
+            <div class="notification-header">Notification!</div>
+            <div class="notification-content">{{notificationText}}</div>
+        </div>
+    </div>
+
+    <script src="../OpenLayers/openlayers.js"></script>
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../jquery-3.3.1.min.js"></script>
+    <script src="../../axios.js"></script>
+    <script src="../../vue.js"></script>
+    <script src="../AdminDashboard/admindashboard.js"></script>
+
+</body>
+</html>

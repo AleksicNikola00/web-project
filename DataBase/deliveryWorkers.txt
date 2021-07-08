@@ -1,17 +1,9 @@
 [ {
-  "username" : "panta",
-  "name" : "Stefan",
-  "surname" : "Kraljevic",
+  "username" : "someuser",
+  "name" : "Callum",
+  "surname" : "Olsen",
   "gender" : "MALE",
-  "dateOfBirth" : 951174000000,
-  "role" : "DELIVERY",
-  "deleted" : false
-}, {
-  "username" : "Kolja",
-  "name" : "Kolja",
-  "surname" : "Koljic",
-  "gender" : "MALE",
-  "dateOfBirth" : 331430400000,
+  "dateOfBirth" : 1625529175947,
   "role" : "DELIVERY",
   "deleted" : false
 } ]

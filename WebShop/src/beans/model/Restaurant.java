@@ -13,6 +13,15 @@ public class Restaurant {
 	private UUID geoLocationId;
 	private boolean isDeleted;
 	private double rating;
+	private String managerId;
+
+	public String getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
 
 	public double getRating() {
 		return rating;

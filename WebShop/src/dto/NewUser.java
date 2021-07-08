@@ -2,10 +2,10 @@ package dto;
 
 import beans.model.User;
 
-public class NewShopper extends User {
+public class NewUser extends User {
 	private String password;
 
-	public NewShopper() {}
+	public NewUser() {}
 
 	public String getPassword() {
 		return password;

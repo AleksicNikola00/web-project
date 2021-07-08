@@ -1,0 +1,739 @@
+/* Basics */
+body::-webkit-scrollbar{
+    display: none;
+} 
+
+button {
+    border: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.relative {
+    position: relative;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.whole-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.space-between {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.put-center {
+    align-items: center;
+}
+
+.align-center-column {
+    justify-content: center !important;
+}
+
+/* Menu */
+
+.menu {
+    background-color: #021056;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.submenu {
+    display: none;
+    width: 100%;
+}
+
+.menu-header-container {
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.menu-header-text {
+    font-size: 35px;
+    font: Inter;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.menu-item {
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 75px;
+    background-color: #021056;
+    background-repeat: no-repeat;
+    background-position: center left 25px;
+    border-bottom: 1px solid #DADADA;
+}
+
+.menu-item:hover{
+    background-color: #3757F5;
+}
+
+.menu-item-text {
+    font: Inter;
+    font-size: 20px;
+    color: white;
+}
+
+.submenu-item {
+    height: 35px;
+    border-bottom: 1px solid #DADADA;
+    background-color: #021056;
+    background-repeat: no-repeat;
+    background-position: center left 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
+    width: 100%;
+}
+
+.submenu-item:hover {
+    background-color: #3757F5;
+}
+
+.submenu-item-text {
+    font: Inter;
+    font-size: 15px;
+    color: white;
+}
+
+.menu-logout {
+    position: relative;
+    display: flex;
+    height: 100px;
+    width: 100%;
+}
+
+.logout-button {
+    background-color: #021056;
+    width: 100%;
+}
+
+.logout-button:hover {
+    background-color: #3757F5;
+}
+
+.logout-text {
+    text-transform: uppercase;
+}
+
+/* Specific items */ 
+.restaurant-menu {
+    background-image: url("../Images/restaurant.png");
+}
+
+
+.user-menu {
+    background-image: url("../Images/users.png");
+}
+
+.add-submenu {
+    background-image: url("../Images/plus.png");
+}
+
+.search-submenu {
+    background-image: url("../Images/magnifyingGlass.png");
+}
+
+.account-menu {
+    background-image: url("../Images/user.png");
+}
+
+
+/* Views */
+.content {
+    width: calc(100% - 250px);
+    height: 100vh;
+    background-color: #F2F6F9;
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.content-header {
+    height: 100px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.content-header-text {
+    color: black !important;
+}
+
+/* Restaurant filtering area */
+.filtering-area {
+    height: 40px;
+    margin-bottom: 25px;
+    justify-content: space-between;
+}
+
+.text-input {
+    border-radius: 25px !important;
+    background-color: #E7EDF1;
+    padding-left: 26px;
+    padding-right: 26px;
+    border: 0;
+    outline-width: 0;
+    font: Inter;
+    background-repeat: no-repeat;
+    background-position: center right 20px;
+    height: 40px;
+}
+
+.combo-imput {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    padding-left: 26px;
+    border: 0;
+    outline-width: 0;
+    font: Inter;
+    background-image: url("../Images/angleDown.png");
+    background-repeat: no-repeat;
+    align-items: center;
+    display: flex;
+    height: 40px !important;
+    cursor: pointer;
+}
+
+.combo-options {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    display: none;
+    z-index: 10;
+}
+
+.combo-option-first {
+    border-radius: 25px 25px 0 0;
+}
+
+.combo-option-last {
+    border-radius: 0 0 25px 25px;
+    border-bottom: none !important;
+}
+
+.combo-option {
+    width: 100%;
+    height: 40px;
+    background-color: #AEADAA;
+    border-bottom: 1px solid #DADADA;
+}
+
+.name-input-filter {
+    width: 250px;
+    background-image: url("../Images/blackMagniGlass.png");
+    padding-right: 50px !important;
+}
+
+.rest-type-width-filtering {
+    width: 270px;
+    background-position: center right 15px;
+}
+
+.asc-desc {
+    width: 230px;
+    background-image: url("../Images/angleUp.png");
+    justify-content: start;
+    align-items: center;
+    display: flex;
+}
+
+.placeholder-text {
+    white-space: pre;
+    color: #877575;
+}
+
+/* restaurants */
+.restaurants {
+    width: 100%;
+    height: calc(100% - 170px);
+    overflow: auto;
+}
+
+.restaurants::-webkit-scrollbar{
+    display: none;
+}
+
+.single-restaurant {
+    height: 150px;
+    width: 100%;
+    background-color: #E7EDF1;
+    border-radius: 25px;
+    margin-bottom: 25px;
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.single-restaurant:hover {
+    background-color: #8D949E;
+    cursor: pointer;
+}
+
+.picture-area {
+    width: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 30px;
+}
+
+.rest-name-and-type {
+    justify-content: space-between;
+}
+
+.rest-detail-text {
+    font: Inter;
+    font-size: 21px;
+    font-weight: 450;
+}
+
+/* specific restaurant view */
+.edit-restaurant-button {
+    width: 250px;
+    border-radius: 25px;
+    height: 50px;
+    background-color: #1A9900;
+    color: white;
+    font: Inter;
+    font-weight: 500;
+}
+
+.restaurant-items {
+    height: calc(100vh - 100px);
+    padding-right: 25px;
+    overflow: auto;
+    flex-direction: column;
+    position: relative;
+}
+.restaurant-items::-webkit-scrollbar{
+    display: none;
+}
+
+.restaurant-item {
+    border-radius: 25px;
+    margin-bottom: 20px;
+    background-color: #E7EDF1;
+    width: 100%;
+    height: auto;
+    padding: 26px;
+}
+
+.restaurant-item-header {
+    font: Inter;
+    font-weight: 500;
+    font-size: 23px;
+    font-style: oblique;
+}
+
+.item-detail {
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top: 1px solid #dadada;
+    justify-content: center;
+}
+
+.item-detail-text {
+    font: Inter;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.item-description {
+    font: Inter;
+    font-weight: 300;
+    font-size: 26px;
+    padding: 20px;
+    font-style: italic;
+}
+
+.restaurant-details {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    height: 300px;
+    padding: 26px;
+}
+
+.restaurant-comments {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    height: 530px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 26px;
+}
+
+.comments-header {
+    justify-content: center;
+    text-transform: uppercase;
+    font: Inter;
+    font-weight: 400;
+    font-size: 25px;
+    height: 60px;
+    border-bottom: 1px solid #dadada;
+}
+
+.comments-content {
+    padding: 20px;
+    overflow: auto;
+}
+
+.comments-content::-webkit-scrollbar{
+    display: none;
+}
+
+.comment-text {
+    font: Inter;
+    font-style: oblique;
+    font-size: 16px;
+    text-align: end;
+    padding-left: 20px;
+}
+
+.comment {
+	width: 30px;
+	height: 30px;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: -20px;
+	left: -10px; 
+}
+
+.approved-com {
+	background-image: url("../Images/approved.png");
+}
+
+.rejected-com {
+	background-image: url("../Images/rejected.png");
+}
+
+.spinner-com {
+	background-image: url("../Images/spinner.png");
+}
+
+/* Manipulate restaurants */
+.input-group {
+    padding-right: 20px;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.input-field {
+    margin-right: 240px;
+}
+
+.input-label {
+    font: Inter;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.add-new-manager-button {
+    border-radius: 25px;
+    background-color: chocolate;
+    color: white;
+    width: 220px;
+    margin-left: 20px;
+    background-image: url("../Images/plus.png");
+    background-repeat: no-repeat;
+    background-position: left 10px center;
+    display: flex;
+}
+
+.add-new-manager-text {
+    position: relative;
+    top: 6px;
+    left: 45px;
+}
+
+.manager-select-width {
+    width: 220px;
+    background-position: center right 15px;
+}
+
+.manager-combo-options {
+    height: 200px;
+    overflow: auto;
+}
+
+.manager-combo-options::-webkit-scrollbar{
+    display: none;
+}
+
+/* custom file upload button */
+input[type=file]::file-selector-button {
+    border-radius: 25px;
+    padding-left: 26px;
+    padding-right: 26px;
+    height: 40px;
+    border: none;
+    width: 220px;
+    margin-right: 25px;
+    background-color: #E7EDF1;
+    cursor: pointer;
+  }
+
+.submit-restaurant-div {
+    justify-content: center;
+    align-items: center;
+    height: 300px
+}
+
+.add-restaurant-button {
+    border-radius: 25px;
+    height: 50px;
+    width: 150px;
+    background-color: #1A9900;
+    color: white;
+    font: Inter;
+    font-weight: 500;
+}
+
+.map-div {
+    border-radius: 25px;
+    background-color: #E7EDF1;
+    height: 500px;
+    width: 100%;
+}
+
+/* users view */
+.user-categories {
+    height: 75px;
+    padding-left: 100px;
+}
+
+.category {
+    background-color: #877575;
+    width: 170px;
+    font-size: 20px;
+}
+
+.first-category {
+    border-top-left-radius: 25px;
+}
+
+.last-category {
+    border-top-right-radius: 25px;
+}
+
+.users-for-category {
+    background-color: #E7EDF1;
+    height: 750px;
+    border-radius: 25px;
+    width: 100%;
+    padding: 26px;
+}
+
+.selected-tag {
+    background-color: #E7EDF1 !important;
+}
+
+.user-text-filter {
+    background-color: white !important;
+    background-image: url("../Images/blackMagniGlass.png");
+    padding-right: 45px;
+}
+
+.user-filter {
+    margin-right: 20px;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.users-content {
+    overflow: auto;
+    height: 650px;
+}
+
+.users-content::-webkit-scrollbar{
+    display: none;
+}
+
+.single-user {
+    width: 100%;
+    height: 100px;
+    border-radius: 25px;
+    background-color: white;
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.single-user:hover {
+    background-color: #E7EDF1;
+    cursor: pointer;
+}
+
+/* user suspicios */
+.non-sus-user {
+    border: 1px solid #1A9900;
+}
+
+.sus-user {
+    border: 1px solid #FFB818;
+}
+
+.blocked-user {
+    border: 1px solid #F32013;
+}
+
+/* user suspicios icons */
+.green-mark {
+    width: 50px;
+    height: 100%;
+    background-image: url("../Images/greenCheckmark.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 50px;
+}
+
+.warning-sign {
+    width: 50px;
+    height: 100%;
+    background-image: url("../Images/warning.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 50px;
+}
+
+.red-cross {
+    width: 50px;
+    height: 100%;
+    background-image: url("../Images/cross.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 50px;
+}
+
+.user-detail {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    font: Inter;
+    font-weight: 490;
+    font-style: oblique;
+}
+
+.shopper-detail {
+    width: calc(100% / 7);
+}
+
+.manager-detail {
+    width: calc(100% / 6);
+}
+
+.delivery-worker-detail {
+    width: calc(100% / 7);
+}
+
+.delivery-truck {
+    background-image: url("../Images/delivery.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.admin-picture {
+    background-image: url("../Images/admin.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+/* addEdit user */
+.datepicker {
+    width: 220px;
+    border-radius: 25px !important;
+    height: 40px;
+    border: none;
+    background-color: #E7EDF1;
+    padding-left: 26px;
+    padding-right: 26px;
+    outline: none;
+}
+
+.block-user-button {
+    width: 150px;
+    border-radius: 25px;
+    background-color: #F32013;
+    color: white;
+    font-weight: 500;
+    margin-left: 65px;
+    margin-right: 25px;
+}
+
+.unblock-user-button {
+    width: 150px;
+    border-radius: 25px;
+    background-color: #FFB818;
+    font-weight: 500;
+    margin-left: 65px;
+    margin-right: 25px;
+}
+
+/* notificaiton */
+.my-notificaiton {
+    display: none;
+    position: absolute;
+    right: 40px;
+    bottom: 20px;
+    height: 250px;
+    width: 400px;
+    padding: 25px;
+    padding-bottom: 80px;
+    border-radius: 25px;
+    background-color: #021056;
+    background-image: url("../Images/chatbot.png");
+    background-repeat: no-repeat;
+    background-position: right 10px bottom 10px;
+    z-index: 100;
+}
+
+.notification-header {
+    color: white;
+    font-weight: 450;
+    font-size: 18px;
+}
+
+.notification-content {
+    font-size: 16px;
+    color: white;
+    font-weight: 350;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-style: oblique;
+}

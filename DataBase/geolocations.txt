@@ -1,49 +1,73 @@
 [ {
-  "x" : 72.2226,
-  "y" : 66.5554,
+  "x" : 18.667,
+  "y" : 45.267,
   "streetName" : "Stevana Mokranjca",
   "number" : 24,
   "id" : "94f0bc68-cd53-4627-a775-b405214a8c69",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 }, {
-  "x" : 71.122,
-  "y" : 56.223,
+  "x" : 19.1,
+  "y" : 46.261,
   "streetName" : "Pasiceva",
   "number" : 24,
   "id" : "b459976d-7407-43c5-bf1a-e518a0f8bc37",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 }, {
-  "x" : 66.23,
-  "y" : 76.22,
+  "x" : 19.25,
+  "y" : 46.456,
   "streetName" : "Trg slobode",
   "number" : 24,
   "id" : "61888de1-67f8-430f-973d-4e248dd9a261",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 }, {
-  "x" : 98.0,
-  "y" : 76.21,
+  "x" : 18.94,
+  "y" : 45.276,
   "streetName" : "1300 kaplara",
   "number" : 12,
   "id" : "bb6f2a18-b1ed-4a19-8bbc-61599974b0f6",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 }, {
-  "x" : 65.0,
-  "y" : 79.2,
+  "x" : 19.03,
+  "y" : 46.02,
   "streetName" : "1300 kaplara",
   "number" : 12,
   "id" : "2ffc70cc-bb14-418d-8c89-f16e9283b23c",
   "cityId" : "21bbf30f-41e1-4952-9311-f85b5556ce8a",
   "deleted" : false
 }, {
-  "x" : 65.0,
-  "y" : 79.2,
+  "x" : 19.1,
+  "y" : 45.55,
   "streetName" : "Tosin bunar",
   "number" : 12,
   "id" : "56fd439b-abd8-467f-b3a1-297fded1b2a2",
   "cityId" : "21bbf30f-41e1-4952-9311-f85b5556ce8a",
+  "deleted" : false
+}, {
+  "x" : 19.823,
+  "y" : 45.269,
+  "streetName" : "fjaosf 12",
+  "number" : 12,
+  "id" : "e8f11489-7fa0-4d66-9136-def741183fa9",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 19.875,
+  "y" : 45.271,
+  "streetName" : "test location",
+  "number" : 2,
+  "id" : "03a13f09-061b-4e58-843f-d92eb83d03c5",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 19.817,
+  "y" : 45.268,
+  "streetName" : "brace ribnikara",
+  "number" : 25,
+  "id" : "276b3b65-b54e-4f17-863b-024c09cb1626",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 } ]

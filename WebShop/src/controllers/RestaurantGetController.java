@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import dto.AdminViewRestaurantsDTO;
 import dto.RestaurantsDTO;
 import services.RestaurantAggregationService;
 
@@ -24,5 +25,14 @@ public class RestaurantGetController {
 		RestaurantAggregationService service = new RestaurantAggregationService(ctx.getRealPath(""));
 		
 		return service.getRestaurantsAggregated();
+	}
+	
+	@GET
+	@Path("/admin")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<AdminViewRestaurantsDTO> getAdminRestaurantsInfo(){
+		RestaurantAggregationService service = new RestaurantAggregationService(ctx.getRealPath(""));
+		
+		return service.getAdminRestaurantsAggregated();
 	}
 }

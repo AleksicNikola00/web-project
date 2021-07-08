@@ -7,6 +7,7 @@
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 }, {
   "username" : "aleksic",
@@ -17,25 +18,61 @@
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 }, {
-  "username" : "testUsername",
-  "name" : "promenjeno ime",
-  "surname" : "promenjeno prezime",
-  "gender" : "MALE",
-  "dateOfBirth" : 1625247287202,
+  "username" : "testUsernamefasgas",
+  "name" : "ChangedName",
+  "surname" : "ActualSurname",
+  "gender" : "FEMALE",
+  "dateOfBirth" : 1422751155160,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 }, {
-  "username" : null,
-  "name" : "foajsfi",
-  "surname" : "foaijsfa",
+  "username" : "newShopper",
+  "name" : "newGuy",
+  "surname" : "InTown",
   "gender" : "UNKNOWN",
-  "dateOfBirth" : 1170284400000,
+  "dateOfBirth" : 1680738394713,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "afrojack",
+  "name" : "tamo",
+  "surname" : "neki",
+  "gender" : "MALE",
+  "dateOfBirth" : 1688558176631,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "lewis",
+  "name" : "lewis",
+  "surname" : "hamilton",
+  "gender" : "MALE",
+  "dateOfBirth" : 1612629265120,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : true,
+  "deleted" : false
+}, {
+  "username" : "final",
+  "name" : "final",
+  "surname" : "test",
+  "gender" : "MALE",
+  "dateOfBirth" : 1620165600000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 1083,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
   "deleted" : false
 } ]

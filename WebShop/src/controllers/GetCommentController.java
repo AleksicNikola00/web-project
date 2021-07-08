@@ -28,4 +28,14 @@ public class GetCommentController {
 		
 		return service.getCommentsForRestaurant(id);
 	}
+	
+	@GET
+	@Path("/all/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Comment> getAllCommentForRestaurant(@PathParam("id") UUID id){
+		CommentAggregationService service = new CommentAggregationService(ctx.getRealPath(""));
+		
+		return service.getAllCommentsForRestaurant(id);
+	}
+	
 }
