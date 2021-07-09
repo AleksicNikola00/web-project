@@ -7,11 +7,11 @@
   "role" : "DELIVERY",
   "deleted" : false
 }, {
-  "username" : "testDeliveryBoy",
-  "name" : "Johnny",
-  "surname" : "Johnson",
+  "username" : "kolja",
+  "name" : "Kolja",
+  "surname" : "Koljic",
   "gender" : "MALE",
-  "dateOfBirth" : 1619520010179,
+  "dateOfBirth" : 1619474400000,
   "role" : "DELIVERY",
   "deleted" : false
 } ]

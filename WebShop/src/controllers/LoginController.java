@@ -15,10 +15,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import beans.enumerations.Role;
 import beans.model.Admin;
 import beans.model.Credentials;
+import beans.model.DeliveryWorker;
 import beans.model.Shopper;
 import dto.LoggedInUser;
 import services.CRUDAdminService;
 import services.CredentialsService;
+import services.DeliveryService;
 import services.ShopperService;
 
 @Path("/login")
@@ -77,6 +79,9 @@ public class LoginController {
 		else if (creds.getRole() == Role.ADMIN) {
 			return generateLoggedInAdmin(creds);
 		}
+		else if (creds.getRole() == Role.DELIVERY) {
+			return generateLoggedInDeliveryWorker(creds);
+		}
 		
 		return null;
 	}
@@ -96,6 +101,25 @@ public class LoginController {
 		retAdmin.setRole(currentAdmin.getRole());
 		
 		return retAdmin;
+	}
+	
+	private LoggedInUser generateLoggedInDeliveryWorker(Credentials creds) {
+		DeliveryService deliveryService = new DeliveryService(ctx.getRealPath(""));
+		DeliveryWorker worker = deliveryService.getDeliveryWorker(creds.getUsername());
+
+		LoggedInUser retWorker = new LoggedInUser();
+		retWorker.setFirstname(worker.getName());
+		retWorker.setLastname(worker.getSurname());
+		retWorker.setUsername(worker.getUsername());
+		retWorker.setDateOfBirth(worker.getDateOfBirth().getDate() + "-" + 
+					(worker.getDateOfBirth().getMonth() + 1) + "-" +
+					(worker.getDateOfBirth().getYear() + 1900));
+		retWorker.setPoints("");
+		retWorker.setPassword(creds.getPassword());
+		retWorker.setGender(worker.getGender());
+		retWorker.setRole(worker.getRole());
+		retWorker.setShopperType(null);
+		return retWorker;
 	}
 	
 	private LoggedInUser generateLoggedInShopper(Credentials creds) {

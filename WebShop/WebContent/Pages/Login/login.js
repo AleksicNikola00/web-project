@@ -55,6 +55,9 @@ $(document).ready(function(){
 					else if (user.role == "ADMIN"){
 						window.location.replace("http://localhost:8080/WebShop/Pages/AdminDashboard/admindashboard.html");
 					}
+                    else if (user.role == "DELIVERY"){
+						window.location.replace("http://localhost:8080/WebShop/Pages/DeliveryBoyDashboard/dashboard.html");
+					}
                     clearRegForm();
                     clearSignInForm();
                 }
