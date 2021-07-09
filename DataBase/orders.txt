@@ -254,7 +254,7 @@
   "date" : 1625844181584,
   "price" : 1000.0,
   "username" : "mili",
-  "status" : "IN_TRANSPORT",
+  "status" : "DELIEVERED",
   "deliveryWorkerUsername" : "kolja",
   "deleted" : false
 } ]

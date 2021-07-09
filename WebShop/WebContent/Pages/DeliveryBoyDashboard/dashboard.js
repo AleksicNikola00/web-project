@@ -266,10 +266,14 @@ var app = new Vue({
 
         deliveredOrder: function(order){
             order.status = 'DELIEVERED';//toastDeliverSuccess
+            axios.put('/WebShop/rest/order/delieverorder/'+order.id)
+                .then(response => {console.log(response.data)});
             $('#toastDeliverSuccess').toast('show');
         },
         requestOrder: function(order){
             order.status='PENDING DELIVERY';//toastDeliveryRequested
+            axios.put('/WebShop/rest/order/requestorder/'+order.id+'/'+this.user.username)
+                .then(response => {console.log(response.data)});
             $('#toastDeliveryRequested').toast('show');
         },
 

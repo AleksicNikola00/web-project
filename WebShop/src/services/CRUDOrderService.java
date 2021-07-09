@@ -54,6 +54,35 @@ public class CRUDOrderService extends BaseService {
 		return DatabaseErrors.NO_ERROR;
 	}
 	
+	public String requestOrder(UUID id,String username) {
+		Order order = uow.getOrderReadRepo().getById(id);
+		
+		if (order.getStatus() != OrderStatus.WAITING_DELIVERY) {
+			return DatabaseErrors.WRONG_ORDER_STATUS;
+		}
+		
+		order.setStatus(OrderStatus.PENDING_DELIVERY);
+		order.setDeliveryWorkerUsername(username);
+		
+		uow.getOrderWriteRepo().update(order);
+		
+		return DatabaseErrors.NO_ERROR;
+	}
+	
+	public String delieveredOrder(UUID id) {
+		Order order = uow.getOrderReadRepo().getById(id);
+		
+		if (order.getStatus() != OrderStatus.IN_TRANSPORT) {
+			return DatabaseErrors.WRONG_ORDER_STATUS;
+		}
+		
+		order.setStatus(OrderStatus.DELIEVERED);
+		
+		uow.getOrderWriteRepo().update(order);
+		
+		return DatabaseErrors.NO_ERROR;
+	}
+	
 	public String submitOrders(ArrayList<Order> orders) {
 		
 		int succededNumber = 0;
