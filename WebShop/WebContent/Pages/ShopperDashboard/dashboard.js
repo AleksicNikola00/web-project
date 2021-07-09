@@ -1,4 +1,4 @@
-//visible : restaurants, viewCart, myProfile, orders, specificRestaurant, comment
+//visible : restaurants, viewCart, myProfile, orders, specificRestaurant, comment, registerLogin
 
 var webShop = new Vue({
     el: '#dashboard',
@@ -42,18 +42,68 @@ var webShop = new Vue({
             text : '',
             rating : '5'
         },
-        validationMessage : ''
-
+        validationMessage : '',
+		tempRegisterUser : {
+			username: '',
+			password: '',
+			firstname: '',
+			lastname: '',
+			dateOfBirth: '',
+			gender: 'MALE',
+		},
+		registerMessage : '',
+		tempLoginUser : {
+			username : '',
+			password : ''
+		},
+		loginMessage : ''
     },
     created (){
     },
     async mounted (){
         let user = window.localStorage.getItem('User');
-        this.currentUser = JSON.parse(user);
+		if (user != undefined){
+        	this.currentUser = JSON.parse(user);	
+		}
+		else {
+			this.currentUser = {
+				username : '',
+				firstname : '',
+				lastname : '',
+				gender : '',
+				dateOfBirth : '',
+				points : '0'
+			}
+		}
 		
-		await this.requestTypeOfShopper();
+		if (this.currentUser.username != ''){
+			await this.requestTypeOfShopper();
+			await this.requestPastOrders();
+		}
+		else {
+			this.shopperTypeInfo = {
+				logoPath : '../Images/bronze-member.png',
+				typeName : 'BRONZE',
+				discount : 0 
+			}
+		}
+		
+		/* Setting date in date picker */
+        var now = new Date();
+        var first = new Date();
+        first.setFullYear(now.getFullYear() - 100);
+
+        maxDate = now.toISOString().substring(0,10);
+        minDate = first.toISOString().substring(0,10);
+
+		this.tempRegisterUser.dateOfBirth = maxDate;
+
+		let datepic = $("#datepicker12");
+
+        datepic.prop('max',maxDate);
+        datepic.prop('min',minDate);
+		
 		await this.requestRestaurants();
-		await this.requestPastOrders();
 		
         //Actual
         this.orderFilterObj.bottomDate = new Date(0);
@@ -137,6 +187,11 @@ var webShop = new Vue({
             this.selectedButton = $('#' + actualSubmenu);
             this.selectedButton.removeClass('btn-light');
             this.selectedButton.addClass('btn-primary');
+
+			if (submenu == 'myProfile' && this.currentUser.username == ''){
+				this.visible = 'registerLogin';
+				return;
+			}
             this.visible = submenu;
             return;
         },
@@ -667,6 +722,11 @@ var webShop = new Vue({
 			await this.requestTypeOfShopper();
 		},
 		async postOrder() {
+			if (this.currentUser.username == ''){
+				this.visible = 'registerLogin';
+				return;
+			}
+			
 			if (this.cart.length == 0){
 				$('#sendOrderFail').toast('show');
 				return;
@@ -687,7 +747,121 @@ var webShop = new Vue({
 			await this.requestUserData();
 			
 			await this.requestTypeOfShopper();
-		} 
+		},
+		
+		async register(){
+			let message = '';
+			
+			if (!this.tempRegisterUser.username.match(/^[\s]*[a-zA-Z0-9]+[\s]*$/)){
+				message += "Username not in correct format! ";
+			}
+			if (this.validateString(this.tempRegisterUser.firstname)){
+				message += "Name not in the correct format! ";
+			}
+			if (this.validateString(this.tempRegisterUser.lastname)){
+				message += "Surname not in the correct format!";
+			}
+			
+			if (message != ''){
+				this.registerMessage = message;
+				$("#registerFail").toast('show');
+			}
+			else {
+				let newUser = {
+					username : this.tempRegisterUser.username,
+					password : this.tempRegisterUser.password,
+					name : this.tempRegisterUser.firstname,
+					surname : this.tempRegisterUser.lastname,
+					gender : this.tempRegisterUser.gender,
+					dateOfBirth : this.recoverDate(this.tempRegisterUser.dateOfBirth)
+				}
+				
+				await this.registerNewUser(newUser);
+			}
+		},
+		async registerNewUser(newUser){
+			let vm = this;
+			return await axios.post('/WebShop/rest/register', newUser)
+						.then(response => {
+							if (response.data.toString() != ''){
+								vm.registerText = response.data.toString();
+								$("#registerFail").toast('show');
+							}
+							else {
+								vm.currentUser.username = newUser.username;
+								vm.requestData();
+								$("#registerSuccess").toast('show');
+								vm.visible = 'restaurants';
+							}
+						});
+			
+		},
+		async requestData(){
+			await this.requestUserData();
+			await this.requestPastOrders();
+			await this.requestTypeOfShopper();
+		},
+		recoverDate(str){
+			let date = new Date();
+			
+			let parts = str.split('-');
+			
+			let year = parseInt(parts[0]);
+			let month = parseInt(parts[1] - 1);
+			let day = parseInt(parts[2]);
+			
+			date.setFullYear(year, month, day);
+			
+			return date;
+		},
+		
+		async login() {
+			let message = '';
+			
+			if(this.tempLoginUser.username == ''){
+				message += 'Username is required... ';
+			}
+			if (this.tempLoginUser.password == ''){ 
+				message += "Password is required... ";
+			}
+			if (this.tempLoginUser.password.length < 8){
+				message += "Password needs to be atleast 8 chars long!";
+			}
+			
+			if (message != ''){
+				this.loginMessage = message;
+				$("#loginFail").toast('show');
+			}
+			else {
+				let user = {
+					username : this.tempLoginUser.username,
+					password : this.tempLoginUser.password,
+					role : "SHOPPER"
+				}
+				await this.loginUser(user);
+			}
+		},
+		
+		async loginUser(user){
+			let vm = this;
+			$.post({
+				url: '/WebShop/rest/login',
+				data: JSON.stringify({username: this.tempLoginUser.username, password: this.tempLoginUser.password, role: "SHOPPER"}),
+				contentType: 'application/json',
+				success: function(data) {
+	                if (!data.includes("{")){
+						vm.loginMessage = data;
+	                    $("#loginFail").toast('show');
+	                } else{
+						let user = JSON.parse(data);
+	                    vm.currentUser.username = user.username;
+						vm.requestData();
+						$("#loginSuccess").toast('show');
+						vm.visible = 'restaurants';
+	                }
+				}
+			});
+		}
     },
     computed: {
         /* used for filtering */

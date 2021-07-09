@@ -5,7 +5,7 @@
   "gender" : "MALE",
   "dateOfBirth" : 931039200000,
   "role" : "SHOPPER",
-  "collectedPoints" : 0,
+  "collectedPoints" : 266,
   "shopperType" : "BRONZE",
   "blocked" : false,
   "deleted" : false
@@ -81,6 +81,17 @@
   "surname" : "Milosavljevic",
   "gender" : "MALE",
   "dateOfBirth" : 1328096058395,
+  "role" : "SHOPPER",
+  "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "lastTest",
+  "name" : "someName",
+  "surname" : "someSurname",
+  "gender" : "MALE",
+  "dateOfBirth" : 1622647836743,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
   "shopperType" : "BRONZE",
