@@ -1,0 +1,110 @@
+
+.mainmenu{
+    color: black;
+    margin-top: 20px;
+}
+
+.restaurantInfo{
+    color: black;
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+.myButtonMenu {
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.columns{
+    border: 2px solid;
+    color: azure;
+    height: 890px;
+}
+
+.restaurantView{
+        overflow-y:scroll; 
+        max-height: 97%;
+}
+.myInputLabel{
+    min-width: 150px;
+    background-color: grey;
+    color: black;
+    font-weight: 520;
+}
+
+.profileInput{
+    max-width: 600px;
+    margin-top: 50px;
+    margin-left: 430px;
+}
+
+.profileInputError{
+    max-width: 800px;
+    margin-top: 50px;
+    margin-left: 430px;
+    max-height: 48px;
+}
+
+.profileFrame{
+    min-height: 770px;
+}
+
+.myCard{
+    max-width: 270px;
+    max-height: 490px;
+}
+
+.myCardItem{
+    max-width: 150px;
+    max-height: 250px;
+}
+
+.myCardComment{
+    max-width: 250px;
+    max-height: fit-content;
+}
+
+.logoImage{
+    max-width: 270px;
+    max-height: 160px;
+}
+
+.itemImage{
+    max-width: 110px;
+    max-height: 80px;
+    min-width: 110px;
+    min-height: 80px;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.picturecontainer {
+    height: 200px;
+}
+
+.caroselimage{
+    height: 200px;
+}
+
+.secondrow{
+    height: 650px;
+}
+
+.blackLetters{
+    color: black;
+}
+
+.greyLetters{
+    color: grey;
+}
+
+.putDown{
+    margin-bottom: 20px;
+}
+
+.mysidebar {
+    height: 890px;
+    margin-left: 100px;
+}
+

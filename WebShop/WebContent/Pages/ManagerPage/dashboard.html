@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>DeliveryDashboard</title>
+</head>
+<body>
+    <h2 class="my-3 text-center shadow-sm"> Delivery Dashboard</h2>
+    <div class="container-fluid g-5" id="dashboard">
+
+        <div class="row">
+
+            <!-- Main menu -->
+          <div class="col-2  columns">
+            <div class="card bg-light h-100">
+
+                <div class="container-fluid mainmenu text-center">
+                    <h4>Main menu</h4>
+                    <hr style="color: black;"/>
+                </div>
+
+                <button type="button" id="restaurants" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('restaurants')">Restaurants</button>
+                <button type="button" id="myProfile" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('myProfile')">My profile</button>
+                <button type="button" id="orders" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('orders')">Orders</button>
+               
+                <div class="container mt-auto text-center putDown">
+                    <hr style="color: black;"/>
+                    <button type="button" class="btn btn-ligt w-100" v-on:click="logOut()">Logout</button>
+                </div>
+            </div>
+          </div>
+
+          
+          <div class="col-10  columns" >
+               <!-- Main frame restaurants -->
+                <div class="container-fluid g-0 " v-if="activeSubmenu == 'restaurants'">
+
+                    <div class="row picturecontainer mh-100 shadow-sm">
+                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img src="../Images/dashboard-1.png" class="caroselimage d-block w-100"  alt="...">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="../Images/dashboard-1.png"  class="caroselimage d-block w-100" alt="...">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="../Images/dashboard-1.png"  class="caroselimage d-block w-100" alt="...">
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+
+                    <hr style="color: black;"/>
+
+                    <div class="row secondrow  mh-100">
+
+                        <!-- Restaurants view-->
+                        <div class="col-8  m-3 bg-light shadow-sm blackLetters restaurantView">
+
+                          <div class="container-fluid">
+                            <div class="row">
+
+                              <div class="col g-3" v-for="r in restaurants">
+                                <div class="card myCard" style="width: 18rem;">
+                                  <img v-bind:src="'data:image/png;base64, ' + r.logoPath" class="card-img-top logoImage" alt="...">
+                                  <div class="card-body px-3">
+                                    <h5 class="card-title">{{r.name}}</h5>
+                                    <p v-if="r.open" class="text-end g-0 mb-0" style="color: green;">opened</p> 
+                                    <p v-else class="text-end g-0 mb-0" style="color: red;">closed</p> 
+                                  </div>
+                                  <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Type: <label>{{r.type}}</label></label></li>
+                                    <li class="list-group-item">City: <label>{{r.city}}</label></label></li>
+                                    <li class="list-group-item">Adress: <label>{{r.address}}</label></label></li>
+                                    <li class="list-group-item">Average mark: <label>{{r.rating}}</label></label></li>
+                                  </ul>
+                                  <div class="card-body text-center">
+                                    <button class="btn btn-primary"  type="button" v-on:click="detailsClicked(r)" >Details</button>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                            </div>
+                          </div>
+
+                        </div>
+                        
+                        <!-- Filter restaurants -->
+                         <div class="col-3 m-3  bg-light shadow-sm">
+                             <h4 class="blackLetters text-center mt-3">Search restaurants</h4>
+                            
+                             <div class="form-floating mb-3">
+                                <input type="text" class="form-control" v-model="filterRestaurant.name" id="floatingInput" placeholder="">
+                                <label for="floatingInput" class="blackLetters">Name</label>
+                              </div>
+                              <div class="form-floating mb-3">
+                                <input type="text" class="form-control" v-model="filterRestaurant.location" id="location" placeholder="">
+                                <label for="location" class="blackLetters">Location</label>
+                              </div>
+                              <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="type" v-model="filterRestaurant.type" placeholder="">
+                                <label for="type" class="blackLetters">Type</label>
+                              </div>
+                              <label for="customRange3" class="form-label blackLetters">Mark</label>
+                                <input type="range" class="form-range" min="0" max="5" step="1" id="mark"  v-on:change="updateTextInput()">
+                                <input type="text" id="textInput" disabled value="">
+
+                                <div class="form-check form-switch mt-3 ">
+                                  <input class="form-check-input" type="checkbox" v-model="filterRestaurant.isOpen" id="flexSwitchCheckDefault">
+                                  <label class="form-check-label blackLetters" for="flexSwitchCheckDefault">Only open restaurants</label>
+                                </div>
+
+                                <h5 class="blackLetters text-center mt-3">Sort by</h5>
+                                <div class="form-check ">
+                                  <input class="form-check-input" type="radio" v-on:click="setSorter('name')"   name="exampleRadios1" id="exampleRadios11" value="option11" >
+                                  <label class="form-check-label blackLetters" for="exampleRadios11">
+                                    Name
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" v-on:click="setSorter('location')"  name="exampleRadios1" id="exampleRadios21" value="option22">
+                                  <label class="form-check-label blackLetters" for="exampleRadios21">
+                                    Location
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" v-on:click="setSorter('mark')"  name="exampleRadios1" id="exampleRadios22" value="option3">
+                                  <label class="form-check-label blackLetters" for="exampleRadios22">
+                                    Mark
+                                  </label>
+                                </div>
+                                
+                                <h5 class="blackLetters text-center">Sort order</h5>
+                                <div class="form-check ">
+                                  <input class="form-check-input" type="radio" v-model="filterRestaurant.isAsc" v-bind:value="true"  name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                  <label class="form-check-label blackLetters" for="exampleRadios1">
+                                    Ascending
+                                  </label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" v-model="filterRestaurant.isAsc" v-bind:value="false" name="exampleRadios" id="exampleRadios2" value="option2">
+                                  <label class="form-check-label blackLetters" for="exampleRadios2">
+                                    Descending
+                                  </label>
+                                </div>
+                         </div>
+
+                    </div>
+                </div>
+                <!--Mainframe restaurants end-->
+
+                <!--Mainframe profile-->
+                <div class="container-fluid bg-light g-0" v-if="activeSubmenu == 'myProfile'">
+
+                  <div class="container-fluid mainmenu">
+                    <h4 >My profile</h4>
+                    <hr style="color: black;"/>
+                  </div>
+
+                  <div class="container-fluid profileFrame">  
+
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Username</span>
+                      <input type="text" class="form-control" v-model="user.username" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Name</span>
+                      <input type="text" class="form-control" v-model="user.name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                      onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Surname </span>
+                      <input type="text" class="form-control" v-model="user.surname" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                      onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Gender </span>
+                      <select class="form-control" v-model="user.gender">
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="UNKNOWN">Prefer not to say</option>
+                      </select>
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel"   id="inputGroup-sizing-lg">Date of birth </span>
+                      <input class="form-control" type="date" v-model="user.date" id="example-date-input">
+                    </div>
+
+                   
+                    
+                    <div class="container-fluid mainmenu">
+                      <h4 >Change password</h4>
+                      <hr style="color: black;"/>
+                    </div>
+                    
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">New password</span>
+                      <input type="password" class="form-control" aria-label="Sizing example input" v-model="user.new_password" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="input-group input-group-lg profileInput shadow">
+                      <span class="input-group-text myInputLabel"  id="inputGroup-sizing-lg">Old password</span>
+                      <input type="password" id="oldpassword" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    </div>
+                    <div class="card-body text-center">
+                      <button class="btn btn-primary"  type="button" v-on:click="changeUser()" >Apply changes</button>
+                    </div>
+
+                  </div>
+    
+                </div>
+                <!--Mainframe profile end-->
+
+                <!--Mainframe restaurant details-->
+                <div class="container-fluid bg-light g-0" v-if="activeSubmenu == 'restaurantDetails'">
+
+                  <!--Restaurant info-->
+                  <div class="row  g-3 mt-2">
+
+                   <div class="col-4  mt-0 text-center">
+                      <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
+                    </div>
+
+                    <div class="col-8  mt-0">
+                      <div class="row">
+
+                        <div class="col-6 g-5 mt-3 ">
+                          <div class="row">
+                            <h5 class="greyLetters">Name: </h5><label class="restaurantInfo">{{selectedRestaurant.name}}</label>
+                          </div>
+                          <div class="row">
+                            <h5 class="greyLetters">Type: </h5><label class="restaurantInfo">{{selectedRestaurant.type}}</label>
+                          </div>
+                      </div>
+                      <div class="col-6  g-5 mt-3 ">
+                        <div class="row">
+                          <h5 class="greyLetters">Location: </h5><label class="restaurantInfo">{{selectedRestaurant.location}}</label>
+                        </div>
+                        <div class="row">
+                          <h5 class="greyLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
+                          <label v-if="selectedRestaurant.open" class="text-end " style="color: green;font-size: 24px;">opened</label> 
+                          <label v-else class="text-end" style="color: red;font-size: 24px;">closed</label> 
+                        </div>
+                      </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                  <hr style="color: black;"/>
+                  <!--Items and comments-->
+                  <div class="row mh-100">
+
+                      <div class="col-9">
+                        <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
+                          <div class="row ">
+                            <h4 class="blackLetters mt-3 ms-3">Items</h4>
+                            <div class="col g-3" v-for="item in restaurantItems">
+                              <div class="card myCardItem" style="width: 18rem;">
+                                <img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="card-img-top itemImage" alt="...">
+                                <div class="card-body px-3">
+                                  <h5 class="card-title blackLetters">{{item.name}}</h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                  <li class="list-group-item">Type: <label>{{item.type}}</label></label></li>
+                                  <li class="list-group-item">Price: <label>{{item.price}}</label></label></li>
+                                </ul>
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; min-height: 630px; scrollbar-width: none;">
+                        <h4 class="blackLetters mt-3 ms-3">Comments</h4>
+                        <div class="col g-3" v-for="comment in restaurantComments">
+                          <div class="card myCardComment m-5" style="width: 25rem;">
+                            <div class="card-body px-3">
+                              <h5 class="card-title blackLetters">{{comment.username}}</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.text}}</div></label></li>
+                              <li class="list-group-item">Mark: <label>{{comment.mark}}</label></label></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                  </div>
+
+                </div>
+                <!--Mainframe restaurant details end-->
+
+                <!--Mainframe orders-->
+                <div class="container-fluid" v-if="activeSubmenu == 'orders'">
+
+                  <div class="row">
+                    <h4 class="blackLetters mt-4">Orders</h4>
+                    <hr style="color: black;"/>
+                  </div>
+
+                  <div class="row">
+
+                    <div class="col-8 m-2 bg-light shadow-sm" style="max-height: 790px;overflow-y: scroll;min-height: 790px;">
+                      <!--prikaz ordera-->
+                      <div class="card ms-5 blackLetters mt-3" style="height: auto; width: 800px; margin-bottom: 20px;" v-for="pastOrder in orders">
+                        <div class="row my-auto">
+                            <div class="col-2" style="padding: 0%;">
+                                <img v-bind:src="pastOrder.img" style="max-width: 90px; padding-top: 20px; padding-left: 20px;">
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-7" style="padding-top: 30px;">
+                                <h4>{{pastOrder.restaurantType}} restaurant "{{pastOrder.restaurantName}}"</h4>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!--Ordered items-->
+                        <div class="row my-auto" v-for="(item) in pastOrder.items">
+                            <div class="col-1"></div>
+                            
+                            <div class="col-3">
+                                <h5>{{item.name}}</h5>
+                            </div>
+
+                            <div class="col-1">
+                                <h5>-</h5>
+                            </div>
+
+                            <div class="col-5">
+                                <h5>{{item.amount}}x, {{item.amount * item.price}}</h5>
+                            </div>
+
+                            <div class="col-2"></div>
+                        </div>
+
+                        <hr>
+                        <!--Total, status and rate-->
+                        <div class="row my-auto">
+                            <div class="col-1"></div>
+
+                            <div class="col-3">
+                                <h5>Total :</h5>
+                            </div>
+
+                            <div class="col-1"></div>
+
+                            <div class="col-5">
+                                <h5>{{pastOrder.price}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="row my-auto">
+                            <div class="col-1"></div>
+
+                            <div class="col-3">
+                                <h5>Date :</h5>
+                            </div>
+
+                            <div class="col-1"></div>
+                            <div class="col-5">
+                                <h5>{{pastOrder.date}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="row my-auto" style="margin-bottom: 25px;">
+                            <div class="col-1"></div>
+                            
+                            <div class="col-3 my-auto">
+                                <h5>Status :</h5>
+                            </div>
+                            
+                            <div class="col-1"></div>
+
+                            <div class="col-4 my-auto">
+                                <h5>{{pastOrder.status}}</h5>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-5"></div>
+
+                            <div class="col-2">
+
+                              <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
+                                <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="requestOrder(pastOrder)">Request</button>
+                             </div>
+                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN TRANSPORT'">
+                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Deliver</button>
+                            </div>
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'PENDING DELIVERY'">
+                              <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Pending request</span>
+                            </div>
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'DELIEVERED'">
+                              <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delivered</span>
+                            </div>
+                            
+                            
+                            </div>
+                        </div>
+                    </div>
+                      <!--kraj prikaza oredera-->
+                    </div>
+
+                    <div class="col-3 m-2  bg-light shadow-sm" >
+                        <h4 class="blackLetters text-center mt-3">Search order</h4>
+                       
+                        <div class="form-floating mb-3">
+                           <input type="text" class="form-control" v-model="orderFilter.name"  id="floatingInput" placeholder="">
+                           <label for="floatingInput" class="blackLetters">Restaurant name</label>
+                         </div>
+                         <div class="form-floating mb-3">
+                           <input type="text" class="form-control" v-model="orderFilter.type"  id="location" placeholder="">
+                           <label for="location" class="blackLetters">Restaurant type</label>
+                         </div>
+                         <select class="form-select form-select-lg mb-3" v-model="orderFilter.status" aria-label=".form-select-lg example">
+                          <option selected value="">Select status</option>
+                          <option value="DELIEVERED">Delievered</option>
+                          <option value="WAITING DELIVERY">Waiting delivery</option>
+                          <option value="IN TRANSPORT">In transport</option>
+                          <option value="PENDING DELIVERY">Pending request</option>
+                        </select>
+
+                        <div class="container p-0">
+                          <label for="customRange3" class="form-label blackLetters">Date from:</label>
+                          <input type="datetime-local" class="form-control" name="datepicker" v-model="orderFilter.dateFrom"  id="example-date-input">
+                          <label for="customRange3" class="form-label  blackLetters mt-2">Date to:</label>
+                          <input type="datetime-local" class="form-control" name="datepicker"  v-model="orderFilter.dateTo" id="example-date-input">
+                        </div>
+
+                        <div class="container p-0 mt-3">
+                          <label for="customRange3" class="form-label blackLetters">Price from:</label>
+                          <input class="form-control" type="number" v-model="orderFilter.priceFrom" min="0" onkeypress="return event.charCode >= 48" id="example-date-input">
+                          <label for="customRange3" class="form-label blackLetters mt-2">Price to:</label>
+                          <input class="form-control" type="number" v-model="orderFilter.priceTo" min="0" onkeypress="return event.charCode >= 48" id="example-date-input">
+                        </div>
+                         
+
+                           
+
+                           <h5 class="blackLetters text-center mt-3">Sort by</h5>
+                           <div class="form-check ">
+                             <input class="form-check-input" type="radio" v-on:click="setOrderSorter('name')"   name="exampleRadios1" id="exampleRadios11" value="option11" >
+                             <label class="form-check-label blackLetters" for="exampleRadios11">
+                               Name
+                             </label>
+                           </div>
+                           <div class="form-check">
+                             <input class="form-check-input" type="radio"  v-on:click="setOrderSorter('price')"  name="exampleRadios1" id="exampleRadios21" value="option22">
+                             <label class="form-check-label blackLetters" for="exampleRadios21">
+                               Price
+                             </label>
+                           </div>
+                           <div class="form-check">
+                             <input class="form-check-input" type="radio" v-on:click="setOrderSorter('date')"   name="exampleRadios1" id="exampleRadios22" value="option3">
+                             <label class="form-check-label blackLetters" for="exampleRadios22">
+                               Date
+                             </label>
+                           </div>
+                           
+                           <h5 class="blackLetters text-center">Sort order</h5>
+                           <div class="form-check ">
+                             <input class="form-check-input"  type="radio" v-model="orderFilter.isAsc" v-bind:value="true"   name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                             <label class="form-check-label blackLetters" for="exampleRadios1">
+                               Ascending
+                             </label>
+                           </div>
+                           <div class="form-check">
+                             <input class="form-check-input" type="radio" v-model="orderFilter.isAsc" v-bind:value="false" name="exampleRadios" id="exampleRadios2" value="option2">
+                             <label class="form-check-label blackLetters" for="exampleRadios2">
+                               Descending
+                             </label>
+                           </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!--Mainframe orders end-->
+
+
+          </div> 
+          
+
+        </div>
+
+      </div>
+
+
+      <!--Toast area-->
+      <div aria-live="polite" aria-atomic="true">
+        <div class="toast-container position-absolute bottom-0 end-0 p-3" id="toast-container">
+
+          <div class="toast" id="toastPWError2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto" style="color: red;">Password error</strong>
+              <small class="blackLetters">Just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body blackLetters">
+              Password missmatch!
+            </div>
+          </div>
+
+          <div class="toast" id="toastPWError1" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto" style="color: red;">Password error</strong>
+              <small class="blackLetters">Just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body blackLetters">
+              Password must cointain at least 8 characters!
+            </div>
+          </div>
+
+          <div class="toast" id="toastDeliverSuccess" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto" style="color: green;">Delivery!</strong>
+              <small class="blackLetters">Just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body blackLetters">
+              Delivery has been successfully done!
+            </div>
+          </div>
+
+          <div class="toast" id="toastDeliveryRequested" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto" style="color: green;">Delivery!</strong>
+              <small class="blackLetters">Just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body blackLetters">
+              Delivery has been successfully requested!
+            </div>
+          </div>
+
+          <div class="toast" id="toastPWSuccess" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto" style="color: green;">Account update!</strong>
+              <small class="blackLetters">Just now</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body blackLetters">
+              Account has successfully been updated!
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!--Toast area end-->
+
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src="../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../jquery-3.3.1.min.js"></script>
+    <script src="../../axios.js"></script>
+    <script src="../../vue.js"></script>
+    <script src="../DeliveryBoyDashboard/dashboard.js"></script>
+</body>
+</html>

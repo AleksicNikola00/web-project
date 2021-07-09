@@ -19,11 +19,13 @@ import beans.errors.DatabaseErrors;
 import beans.model.Admin;
 import beans.model.Credentials;
 import beans.model.DeliveryWorker;
+import beans.model.Manager;
 import beans.model.Shopper;
 import dto.LoggedInUser;
 import services.CRUDAdminService;
 import services.CredentialsService;
 import services.DeliveryService;
+import services.ManagerService;
 import services.ShopperService;
 
 @Path("/login")
@@ -84,6 +86,8 @@ public class LoginController {
 		}
 		else if (creds.getRole() == Role.DELIVERY) {
 			return generateLoggedInDeliveryWorker(creds);
+		}else if(creds.getRole() == Role.MANAGER) {
+			return generateLoggedInManager(creds);
 		}
 		
 		return null;
@@ -104,6 +108,22 @@ public class LoginController {
 		retAdmin.setRole(currentAdmin.getRole());
 		
 		return retAdmin;
+	}
+	
+	private LoggedInUser generateLoggedInManager(Credentials creds) {
+		ManagerService service = new ManagerService(ctx.getRealPath(""));
+		Manager currentManager = service.getManager(creds.getUsername());
+		
+		LoggedInUser retManager = new LoggedInUser();
+		retManager.setFirstname(currentManager.getName());
+		retManager.setLastname(currentManager.getSurname());
+		retManager.setUsername(currentManager.getUsername());
+		retManager.setDateOfBirth(currentManager.getDateOfBirth().getDate() + "-" + 
+					(currentManager.getDateOfBirth().getMonth() + 1) + "-" +
+					(currentManager.getDateOfBirth().getYear() + 1900));
+		retManager.setGender(currentManager.getGender());
+		retManager.setRole(currentManager.getRole());
+		return retManager;
 	}
 	
 	private LoggedInUser generateLoggedInDeliveryWorker(Credentials creds) {

@@ -58,6 +58,9 @@ $(document).ready(function(){
                     else if (user.role == "DELIVERY"){
 						window.location.replace("http://localhost:8080/WebShop/Pages/DeliveryBoyDashboard/dashboard.html");
 					}
+                    else if (user.role == "MANAGER"){
+						window.location.replace("http://localhost:8080/WebShop/Pages/ManagerPage/dashboard.html");
+					}
                     clearRegForm();
                     clearSignInForm();
                 }
