@@ -159,138 +159,8 @@ var app = new Vue({
         ],
         activeSubmenu : '',
         restaurantSorter: '',
-        restaurantComments: [
-            {
-                username: 'panda',
-                comment: 'Hrana je krimi-rad necu vise nikad jesti odje!',
-                mark: 1
-            },
-            {
-                username: 'Jole',
-                comment: 'Hrana je Topcina od sad cu uvek ovde da jedem!',
-                mark: 3
-            },
-            {
-                username: 'panda',
-                comment: 'dasdsadasdadasdadsadasdasdasdasdasdnasjdnasodmasspdnmasindas-md[loasmdiasnd0iansm[odaslospdmasidnaspdmap;lknmdain!',
-                mark: 4
-            },
-            {
-                username: 'losmi',
-                comment: 'Hrana je fuj, necu vise nikad jesti odje!',
-                mark: 1
-            },
-        ],
-        restaurantItems: [
-         {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-    ],
+        restaurantComments: [],
+        restaurantItems: [],
         selectedRestaurant: {
                 name : '',
                 type : '',
@@ -429,9 +299,25 @@ var app = new Vue({
             this.activeSubmenu = this.selectedButton;
         },
 
-        detailsClicked: function(selectedRestaurant){
+        detailsClicked: async function(selectedRestaurant){
             this.selectedRestaurant = selectedRestaurant;
             this.activeSubmenu = 'restaurantDetails';
+            await this.loadComments(selectedRestaurant);
+            await this.loadItems(selectedRestaurant);
+        },
+
+         loadComments: async function(selectedRestaurant){
+            return await axios.get('/WebShop/rest/getcomments/' +selectedRestaurant.id)
+						.then(response => {
+							this.restaurantComments = response.data;
+						});
+        },
+
+        loadItems: async function(selectedRestaurant){
+            await axios.get('/WebShop/rest/getitemsforrestaurant/' + selectedRestaurant.id)
+						.then(response => {
+							this.restaurantItems = response.data;
+						});
         },
 
         updateTextInput: function(){

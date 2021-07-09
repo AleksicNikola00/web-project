@@ -73,7 +73,10 @@
 .itemImage{
     max-width: 110px;
     max-height: 80px;
+    min-width: 110px;
+    min-height: 80px;
     margin-left: 20px;
+    margin-top: 5px;
 }
 
 .picturecontainer {

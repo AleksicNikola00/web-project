@@ -226,7 +226,7 @@
                   <div class="row  g-3 mt-2">
 
                    <div class="col-4  mt-0 text-center">
-                      <img v-bind:src="selectedRestaurant.img"/>
+                      <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
                     </div>
 
                     <div class="col-8  mt-0">
@@ -261,12 +261,12 @@
                   <div class="row mh-100">
 
                       <div class="col-9">
-                        <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;">
+                        <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
                           <div class="row ">
                             <h4 class="blackLetters mt-3 ms-3">Items</h4>
                             <div class="col g-3" v-for="item in restaurantItems">
                               <div class="card myCardItem" style="width: 18rem;">
-                                <img v-bind:src="item.img" class="card-img-top itemImage" alt="...">
+                                <img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="card-img-top itemImage" alt="...">
                                 <div class="card-body px-3">
                                   <h5 class="card-title blackLetters">{{item.name}}</h5>
                                 </div>
@@ -283,7 +283,7 @@
                       </div>
 
 
-                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; scrollbar-width: none;">
+                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; min-height: 630px; scrollbar-width: none;">
                         <h4 class="blackLetters mt-3 ms-3">Comments</h4>
                         <div class="col g-3" v-for="comment in restaurantComments">
                           <div class="card myCardComment m-5" style="width: 25rem;">
@@ -291,7 +291,7 @@
                               <h5 class="card-title blackLetters">{{comment.username}}</h5>
                             </div>
                             <ul class="list-group list-group-flush">
-                              <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.comment}}</div></label></li>
+                              <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.text}}</div></label></li>
                               <li class="list-group-item">Mark: <label>{{comment.mark}}</label></label></li>
                             </ul>
                           </div>
