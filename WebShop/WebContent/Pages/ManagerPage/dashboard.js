@@ -48,15 +48,40 @@ var app = new Vue({
         },
         restaurants : [],
         allRestaurants :[],
+        shoppers: [{
+            firstname: "Kolja",
+            lastname: "Koljic",
+            username: "Trala",
+            dateOfBirth: "22-02-2000",
+            gender: "MALE",
+            type: "BRONZE"
+        },{
+            firstname: "Trass",
+            lastname: "Koljic",
+            username: "Trala",
+            dateOfBirth: "22-02-2000",
+            gender: "MALE",
+            type: "BRONZE"
+        },{
+            firstname: "Trass",
+            lastname: "Koljic",
+            username: "dasdad",
+            dateOfBirth: "22-02-1980",
+            gender: "MALE",
+            type: "BRONZE"
+        },{
+            firstname: "Kolja",
+            lastname: "Koljic",
+            username: "asdasd",
+            dateOfBirth: "22-01-2000",
+            gender: "MALE",
+            type: "BRONZE"
+        },]
         
 	},
 
 	async mounted() {
-
-        if (window.localStorage.getItem("User") === null) {
-            window.location.replace("http://localhost:8080/WebShop/");
-            return;
-        }
+        
 
 		this.selectedButton = 'restaurants';
         

@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="dashboard.css">
-    <title>DeliveryDashboard</title>
+    <title>Manager Dashboard</title>
 </head>
 <body>
-    <h2 class="my-3 text-center shadow-sm"> Delivery Dashboard</h2>
+    <h2 class="my-3 text-center shadow-sm"> Manager Dashboard</h2>
     <div class="container-fluid g-5" id="dashboard">
 
         <div class="row">
@@ -25,10 +25,14 @@
 
                 <button type="button" id="restaurants" class="btn btn-light myButtonMenu"
                             v-on:click="selectSubmenu('restaurants')">Restaurants</button>
+                <button type="button" id="myRestaurant" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('myRestaurant')">My Restaurant</button>
                 <button type="button" id="myProfile" class="btn btn-light myButtonMenu"
                             v-on:click="selectSubmenu('myProfile')">My profile</button>
                 <button type="button" id="orders" class="btn btn-light myButtonMenu"
                             v-on:click="selectSubmenu('orders')">Orders</button>
+                <button type="button" id="shoppers" class="btn btn-light myButtonMenu"
+                            v-on:click="selectSubmenu('shoppers')">Shoppers</button>
                
                 <div class="container mt-auto text-center putDown">
                     <hr style="color: black;"/>
@@ -157,6 +161,120 @@
                     </div>
                 </div>
                 <!--Mainframe restaurants end-->
+
+
+                <!--Mainframe shoppers-->
+                <div class="container-fluid bg-light g-0 mt-3" v-if="activeSubmenu == 'shoppers'">
+                  
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">First name</th>
+                        <th scope="col">Last name</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Date of birth</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Type</th>
+                      </tr>
+                    </thead>
+                    <tbody v-for="shopper in shoppers">
+                      <tr>
+                        <td>{{shopper.firstname}}</td>
+                        <td>{{shopper.lastname}}</td>
+                        <td>{{shopper.username}}</td>
+                        <td>{{shopper.dateOfBirth}}</td>
+                        <td>{{shopper.gender}}</td>
+                        <td>{{shopper.type}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                </div>
+                <!--Mainframe shoppers ends-->
+
+
+                <!--Mainframe myRestaurant-->
+                <div class="container-fluid bg-light g-0 mt-3" v-if="activeSubmenu == 'myRestaurant'">
+                  <div class="row  g-3 mt-2">
+
+                    <div class="col-4  mt-0 text-center">
+                       <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
+                     </div>
+ 
+                     <div class="col-8  mt-0">
+                       <div class="row">
+ 
+                         <div class="col-6 g-5 mt-3 ">
+                           <div class="row">
+                             <h5 class="greyLetters">Name: </h5><label class="restaurantInfo">{{selectedRestaurant.name}}</label>
+                           </div>
+                           <div class="row">
+                             <h5 class="greyLetters">Type: </h5><label class="restaurantInfo">{{selectedRestaurant.type}}</label>
+                           </div>
+                       </div>
+                       <div class="col-6  g-5 mt-3 ">
+                         <div class="row">
+                           <h5 class="greyLetters">Location: </h5><label class="restaurantInfo">{{selectedRestaurant.location}}</label>
+                         </div>
+                         <div class="row">
+                           <h5 class="greyLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
+                           <label v-if="selectedRestaurant.open" class="text-end " style="color: green;font-size: 24px;">opened</label> 
+                           <label v-else class="text-end" style="color: red;font-size: 24px;">closed</label> 
+                         </div>
+                       </div>
+ 
+                       </div>
+                     </div>
+ 
+                   </div>
+                   
+                   <hr style="color: black;"/>
+                   <!--Items and comments-->
+                   <div class="row mh-100">
+ 
+                       <div class="col-9">
+                         <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
+                           <div class="row ">
+                             <h4 class="blackLetters mt-3 ms-3">Items</h4>
+                             <div class="col g-3" v-for="item in restaurantItems">
+                               <div class="card myCardItem" style="width: 18rem;">
+                                 <img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="card-img-top itemImage" alt="...">
+                                 <div class="card-body px-3">
+                                   <h5 class="card-title blackLetters">{{item.name}}</h5>
+                                 </div>
+                                 <ul class="list-group list-group-flush">
+                                   <li class="list-group-item">Type: <label>{{item.type}}</label></label></li>
+                                   <li class="list-group-item">Price: <label>{{item.price}}</label></label></li>
+                                 </ul>
+                               </div>
+                             </div>
+ 
+ 
+                           </div>
+                         </div>
+                       </div>
+ 
+ 
+                       <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; min-height: 630px; scrollbar-width: none;">
+                         <h4 class="blackLetters mt-3 ms-3">Comments</h4>
+                         <div class="col g-3" v-for="comment in restaurantComments">
+                           <div class="card myCardComment m-5" style="width: 25rem;">
+                             <div class="card-body px-3">
+                               <h5 class="card-title blackLetters">{{comment.username}}</h5>
+                             </div>
+                             <ul class="list-group list-group-flush">
+                               <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.text}}</div></label></li>
+                               <li class="list-group-item">Mark: <label>{{comment.mark}}</label></label></li>
+                             </ul>
+                           </div>
+                         </div>
+                       </div>
+ 
+                   </div>
+ 
+                </div>
+                <!--Mainframe myRestaurant end-->
+
 
                 <!--Mainframe profile-->
                 <div class="container-fluid bg-light g-0" v-if="activeSubmenu == 'myProfile'">
@@ -569,6 +687,6 @@
     <script src="../../jquery-3.3.1.min.js"></script>
     <script src="../../axios.js"></script>
     <script src="../../vue.js"></script>
-    <script src="../DeliveryBoyDashboard/dashboard.js"></script>
+    <script src="../ManagerPage/dashboard.js"></script>
 </body>
 </html>
