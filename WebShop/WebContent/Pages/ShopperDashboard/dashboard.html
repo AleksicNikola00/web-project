@@ -906,6 +906,72 @@
                 </div>
             </div>
 			
+            
+            <!-- Registration page -->
+            <div class="col-10" v-show="visible == 'registerLogin'">
+                <div class="container">
+                    <div class="row headerRow">
+                        <h2 style="margin-left: 40px;">Register or login!</h2>
+                    </div>
+    
+                    <hr>
+
+                    <div class="row" style="position: relative;">
+                    	<!-- Register -->
+                    	<div class="col-6" style="border-right: 1px solid #dadada; height: 700px">
+                    		<div class="container">
+                    			<h4 style="margin-bottom: 25px">Register!</h4>
+                    			
+                    			<h5>Username:</h5>
+                    			<input type="text" class="form-control" style="margin-bottom: 10px" v-model="tempRegisterUser.username">
+                    			
+                    			<h5>Password:</h5>
+                    			<input type="password" class="form-control" style="margin-bottom: 10px" v-model="tempRegisterUser.password">
+                    			
+                    			<h5>Name:</h5>
+                    			<input type="text" class="form-control" style="margin-bottom: 10px" v-model="tempRegisterUser.firstname">
+                    			
+                    			<h5>Surname:</h5>
+                    			<input type="text" class="form-control" style="margin-bottom: 10px" v-model="tempRegisterUser.lastname">
+                    			
+                    			<h5>Gender:</h5>
+                    			<select class="form-select" style="margin-bottom: 10px" v-model="tempRegisterUser.gender">
+	                                <option selected value="MALE">Male</option>
+	                                <option value="FEMALE">Female</option>
+	                                <option value="UNKNOWN">Prefer not to say</option>
+                            	</select>
+                            	
+                    			<h5>Date of birth:</h5>
+                    			<input type="date" class="form-control" id="datepicker12" v-model="tempRegisterUser.dateOfBirth">
+                    			
+                    			<div class="col-12 text-center">
+                    				<button type="button" class="btn btn-primary" v-on:click="register()" style="margin-top:25px">Register</button>
+                    			</div>
+                    		</div>
+                    	</div>
+                    	<!-- Login -->
+                    	<div class="col-6">
+                    		<div class="container">
+                    			<h4 style="margin-bottom: 25px">Login!</h4>
+                    			
+                    			<h5>Username:</h5>
+                    			<input type="text" class="form-control" style="margin-bottom: 10px" v-model="tempLoginUser.username">
+                    			
+                    			<h5>Password:</h5>
+                    			<input type="password" class="form-control" style="margin-bottom: 25px" v-model="tempLoginUser.password">
+                    			
+                    			<div class="col-12 text-center">
+                    				<button type="button" class="btn btn-primary" v-on:click="login()">Login</button>
+                    			</div>
+                    		</div>
+                    	</div>
+                    </div>
+
+                </div>
+            </div>
+			
+            
+            
             <!--Toasts-->
             <div class="toast-container">
                 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
@@ -949,13 +1015,56 @@
                             Cannot submit empty order... First add something!
                         </div>
                     </div>
+                    <div name="liveToasts" id="registerFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-danger">
+                            <strong class="me-auto" style="color: white;">WebShop</strong>
+                            <small style="color: white;">just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{registerMessage}}
+                        </div>
+                    </div>
+                    <div name="liveToasts" id="registerSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-success">
+                            <strong class="me-auto" style="color: white;">WebShop</strong>
+                            <small style="color: white;">just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Registered successfully!
+                        </div>
+                    </div>
+                    <div name="liveToasts" id="loginFail" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-danger">
+                            <strong class="me-auto" style="color: white;">WebShop</strong>
+                            <small style="color: white;">just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            {{loginMessage}}
+                        </div>
+                    </div>
+                    <div name="liveToasts" id="loginSuccess" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header bg-success">
+                            <strong class="me-auto" style="color: white;">WebShop</strong>
+                            <small style="color: white;">just now</small>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Logged in successfully!
+                        </div>
+                    </div>
                 </div>
             </div>
-
+            
+			
+			
         </div>
     </div>
 
     <script src="../Bootstrap/js/bootstrap.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../jquery-3.3.1.min.js"></script>
     <script src="../../axios.js"></script>
     <script src="../../vue.js"></script>
