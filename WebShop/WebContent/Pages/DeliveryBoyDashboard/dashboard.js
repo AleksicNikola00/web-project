@@ -323,14 +323,13 @@ var app = new Vue({
         
 	},
 
-	mounted() {
+	async mounted() {
 		this.selectedButton = 'restaurants';
 
         this.setCurrentUser();
-        this.requestRestaurants();
+        await this.requestRestaurants();
 
         this.changeVisibility();
-        this.sortByStatus();
 	},
 
 	methods: {
@@ -338,8 +337,15 @@ var app = new Vue({
 			
 			return await axios.get('/WebShop/rest/getrestaurants')
 						.then(response => {
-							this.allRestaurants = response.data;
-                            this.restaurants = response.data;
+							this.allRestaurants = new Array();
+                            this.restaurants = new Array();
+                            let vm = this;
+                            response.data.forEach(restaurant =>{
+                                restaurant.location = restaurant.address + " " + restaurant.city;
+                                vm.allRestaurants.push(restaurant);
+                                vm.restaurants.push(restaurant)
+                            });
+                            this.sortByStatus();
 						});
 			
         },
