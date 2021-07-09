@@ -13,150 +13,8 @@ var app = new Vue({
             priceTo: undefined,
             isAsc: true
         },
-        allOrders: [
-            {
-                restaurantName : 'Ciao',
-                img : '../Images/gold-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '1500'
-                    }
-                ],
-                status : 'Delievered',
-                date : '2:23 6-6-2021',
-                restaurantType : 'Italian',
-                price : 2000
-            },
-            {
-                restaurantName : 'Neki',
-                img : '../Images/silver-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'Waiting delivery',
-                date : '23:23 6-16-2021',
-                restaurantType : 'Italian',
-                price: 1000
-            },
-            {
-                restaurantName : 'Naki',
-                img : '../Images/bronze-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'In transport',
-                date : '12:12 5-4-2021',
-                restaurantType : 'Greek',
-                price: 1500
-            }
-        ],
-        orders :[
-            {
-                restaurantName : 'Ciao',
-                img : '../Images/gold-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '1500'
-                    }
-                ],
-                status : 'Delievered',
-                date : '2:23 6-6-2021',
-                restaurantType : 'Italian',
-                price : 2000
-            },
-            {
-                restaurantName : 'Neki',
-                img : '../Images/silver-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'Waiting delivery',
-                date : '23:23 6-16-2021',
-                restaurantType : 'Italian',
-                price: 1000
-            },
-            {
-                restaurantName : 'Naki',
-                img : '../Images/bronze-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'In transport',
-                date : '12:12 5-4-2021',
-                restaurantType : 'Greek',
-                price: 1500
-            }
-        ],
+        allOrders: [],
+        orders :[],
         activeSubmenu : '',
         restaurantSorter: '',
         restaurantComments: [],
@@ -198,11 +56,26 @@ var app = new Vue({
 
         this.setCurrentUser();
         await this.requestRestaurants();
-
+        await this.requestOrders();
+        
         this.changeVisibility();
 	},
 
 	methods: {
+
+        requestOrders: async function(){
+            return await axios.get('/WebShop/rest/getorders/worker/' + this.user.username)
+						.then(response => {
+							this.allOrders = response.data;
+							for (order of this.allOrders){
+								order.status = order.status.replace("_"," ");
+							}
+							
+							this.allOrders.reverse();
+                            this.orders = Object.assign({}, this.allOrders);
+						});
+        },
+
         async requestRestaurants(){
 			
 			return await axios.get('/WebShop/rest/getrestaurants')
@@ -392,11 +265,11 @@ var app = new Vue({
         },
 
         deliveredOrder: function(order){
-            order.status = 'Delievered';//toastDeliverSuccess
+            order.status = 'DELIEVERED';//toastDeliverSuccess
             $('#toastDeliverSuccess').toast('show');
         },
         requestOrder: function(order){
-            order.status='Pending request';//toastDeliveryRequested
+            order.status='PENDING DELIVERY';//toastDeliveryRequested
             $('#toastDeliveryRequested').toast('show');
         },
 

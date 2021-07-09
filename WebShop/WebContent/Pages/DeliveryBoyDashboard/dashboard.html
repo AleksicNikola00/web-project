@@ -397,16 +397,16 @@
 
                             <div class="col-2">
 
-                              <div class="col-2 my-auto" v-if="pastOrder.status == 'Waiting delivery'">
+                              <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
                                 <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="requestOrder(pastOrder)">Request</button>
                              </div>
-                             <div class="col-2 my-auto" v-if="pastOrder.status == 'In transport'">
-                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Delievere</button>
+                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN TRANSPORT'">
+                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Deliver</button>
                             </div>
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'Pending request'">
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'PENDING DELIVERY'">
                               <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Pending request</span>
                             </div>
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'Delievered'">
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'DELIEVERED'">
                               <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delievered</span>
                             </div>
                             
