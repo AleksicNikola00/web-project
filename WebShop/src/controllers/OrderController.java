@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -29,6 +30,24 @@ public class OrderController {
 		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
 		
 		return service.cancelOrder(id);
+	}
+	
+	@PUT
+	@Path("/requestorder/{id}/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String requestOrder(@PathParam("id") UUID id,@PathParam("username") String username) {
+		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
+		
+		return service.requestOrder(id,username);
+	}
+	
+	@PUT
+	@Path("/delieverorder/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String delieverOrder(@PathParam("id") UUID id) {
+		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
+		
+		return service.delieveredOrder(id);
 	}
 	
 	@POST

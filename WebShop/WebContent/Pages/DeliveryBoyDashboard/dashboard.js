@@ -13,284 +13,12 @@ var app = new Vue({
             priceTo: undefined,
             isAsc: true
         },
-        allOrders: [
-            {
-                restaurantName : 'Ciao',
-                img : '../Images/gold-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '1500'
-                    }
-                ],
-                status : 'Delievered',
-                date : '2:23 6-6-2021',
-                restaurantType : 'Italian',
-                price : 2000
-            },
-            {
-                restaurantName : 'Neki',
-                img : '../Images/silver-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'Waiting delivery',
-                date : '23:23 6-16-2021',
-                restaurantType : 'Italian',
-                price: 1000
-            },
-            {
-                restaurantName : 'Naki',
-                img : '../Images/bronze-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'In transport',
-                date : '12:12 5-4-2021',
-                restaurantType : 'Greek',
-                price: 1500
-            }
-        ],
-        orders :[
-            {
-                restaurantName : 'Ciao',
-                img : '../Images/gold-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '1500'
-                    }
-                ],
-                status : 'Delievered',
-                date : '2:23 6-6-2021',
-                restaurantType : 'Italian',
-                price : 2000
-            },
-            {
-                restaurantName : 'Neki',
-                img : '../Images/silver-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'Waiting delivery',
-                date : '23:23 6-16-2021',
-                restaurantType : 'Italian',
-                price: 1000
-            },
-            {
-                restaurantName : 'Naki',
-                img : '../Images/bronze-member.png',
-                items : [
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    },
-                    {
-                        name : 'pizza',
-                        amount : '2',
-                        price : '500'
-                    }
-                ],
-                status : 'In transport',
-                date : '12:12 5-4-2021',
-                restaurantType : 'Greek',
-                price: 1500
-            }
-        ],
+        allOrders: [],
+        orders :[],
         activeSubmenu : '',
         restaurantSorter: '',
-        restaurantComments: [
-            {
-                username: 'panda',
-                comment: 'Hrana je krimi-rad necu vise nikad jesti odje!',
-                mark: 1
-            },
-            {
-                username: 'Jole',
-                comment: 'Hrana je Topcina od sad cu uvek ovde da jedem!',
-                mark: 3
-            },
-            {
-                username: 'panda',
-                comment: 'dasdsadasdadasdadsadasdasdasdasdasdnasjdnasodmasspdnmasindas-md[loasmdiasnd0iansm[odaslospdmasidnaspdmap;lknmdain!',
-                mark: 4
-            },
-            {
-                username: 'losmi',
-                comment: 'Hrana je fuj, necu vise nikad jesti odje!',
-                mark: 1
-            },
-        ],
-        restaurantItems: [
-         {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-        {
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'drink',
-            price: 23.5
-        },
-        {
-            img: '../Images/gold-member.png',
-            name: 'Coca-Fanta',
-            type: 'food',
-            price: 20.5
-        },
-        {
-            img: '../Images/silver-member.png',
-            name: 'Sprite',
-            type: 'food',
-            price: 200.5
-        },
-    ],
+        restaurantComments: [],
+        restaurantItems: [],
         selectedRestaurant: {
                 name : '',
                 type : '',
@@ -318,161 +46,59 @@ var app = new Vue({
             isOpen : false,
             isAsc : true
         },
-        restaurants : [
-            {
-                name : 'Pizza',
-                type : 'Italian',
-                rating : '2',
-                address : 'Test a',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test a',
-                open : true
-            },
-            {
-                name : 'Neki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Test b',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test b',
-                open : false
-            },
-            {
-                name : 'Naki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad  Bulevar oslobodjenja',
-                open : false
-            },
-            {
-                name : 'Opet',
-                type : 'Cheenese',
-                rating : '2',
-                address : 'Bulevar oslobodjenja 2',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 2',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Italian',
-                rating : '5',
-                address : 'Bulevar oslobodjenja 3',
-                city : 'Novi Sad',
-                img : '../Images/gold-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 3',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Itelian',
-                rating : '1',
-                address : 'Bulevar oslobodjenja 5',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 5',
-                open : false
-            },
-            {
-                name : 'Ciao',
-                type : 'Cheenese',
-                rating : '4',
-                address : 'Bulevar oslobodjenja 22',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 22',
-                open : true
-            }
-        ],
-        allRestaurants :[
-            {
-                name : 'Pizza',
-                type : 'Italian',
-                rating : '2',
-                address : 'Test a',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test a',
-                open : true
-            },
-            {
-                name : 'Neki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Test b',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test b',
-                open : false
-            },
-            {
-                name : 'Naki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad  Bulevar oslobodjenja',
-                open : false
-            },
-            {
-                name : 'Opet',
-                type : 'Cheenese',
-                rating : '2',
-                address : 'Bulevar oslobodjenja 2',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 2',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Italian',
-                rating : '5',
-                address : 'Bulevar oslobodjenja 3',
-                city : 'Novi Sad',
-                img : '../Images/gold-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 3',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Itelian',
-                rating : '1',
-                address : 'Bulevar oslobodjenja 5',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 5',
-                open : false
-            },
-            {
-                name : 'Ciao',
-                type : 'Cheenese',
-                rating : '4',
-                address : 'Bulevar oslobodjenja 22',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 22',
-                open : true
-            }
-        ],
+        restaurants : [],
+        allRestaurants :[],
         
 	},
 
-	mounted() {
+	async mounted() {
+
+        if (window.localStorage.getItem("User") === null) {
+            window.location.replace("http://localhost:8080/WebShop/");
+            return;
+        }
+
 		this.selectedButton = 'restaurants';
-        this.changeVisibility();
-        this.sortByStatus();
+        
+
         this.setCurrentUser();
+        await this.requestRestaurants();
+        await this.requestOrders();
+        
+        this.changeVisibility();
 	},
 
 	methods: {
+
+        requestOrders: async function(){
+            return await axios.get('/WebShop/rest/getorders/worker/' + this.user.username)
+						.then(response => {
+							this.allOrders = response.data;
+							for (order of this.allOrders){
+								order.status = order.status.replace("_"," ");
+							}
+							
+							this.allOrders.reverse();
+                            this.orders = Object.assign({}, this.allOrders);
+						});
+        },
+
+        async requestRestaurants(){
+			
+			return await axios.get('/WebShop/rest/getrestaurants')
+						.then(response => {
+							this.allRestaurants = new Array();
+                            this.restaurants = new Array();
+                            let vm = this;
+                            response.data.forEach(restaurant =>{
+                                restaurant.location = restaurant.address + " " + restaurant.city;
+                                vm.allRestaurants.push(restaurant);
+                                vm.restaurants.push(restaurant)
+                            });
+                            this.sortByStatus();
+						});
+			
+        },
 
         setCurrentUser: function(){
             let user = JSON.parse(window.localStorage.getItem('User'));
@@ -553,9 +179,25 @@ var app = new Vue({
             this.activeSubmenu = this.selectedButton;
         },
 
-        detailsClicked: function(selectedRestaurant){
+        detailsClicked: async function(selectedRestaurant){
             this.selectedRestaurant = selectedRestaurant;
             this.activeSubmenu = 'restaurantDetails';
+            await this.loadComments(selectedRestaurant);
+            await this.loadItems(selectedRestaurant);
+        },
+
+         loadComments: async function(selectedRestaurant){
+            return await axios.get('/WebShop/rest/getcomments/' +selectedRestaurant.id)
+						.then(response => {
+							this.restaurantComments = response.data;
+						});
+        },
+
+        loadItems: async function(selectedRestaurant){
+            await axios.get('/WebShop/rest/getitemsforrestaurant/' + selectedRestaurant.id)
+						.then(response => {
+							this.restaurantItems = response.data;
+						});
         },
 
         updateTextInput: function(){
@@ -630,11 +272,15 @@ var app = new Vue({
         },
 
         deliveredOrder: function(order){
-            order.status = 'Delievered';//toastDeliverSuccess
+            order.status = 'DELIEVERED';//toastDeliverSuccess
+            axios.put('/WebShop/rest/order/delieverorder/'+order.id)
+                .then(response => {console.log(response.data)});
             $('#toastDeliverSuccess').toast('show');
         },
         requestOrder: function(order){
-            order.status='Pending request';//toastDeliveryRequested
+            order.status='PENDING DELIVERY';//toastDeliveryRequested
+            axios.put('/WebShop/rest/order/requestorder/'+order.id+'/'+this.user.username)
+                .then(response => {console.log(response.data)});
             $('#toastDeliveryRequested').toast('show');
         },
 
@@ -722,7 +368,8 @@ var app = new Vue({
         },
 
         logOut: function(){
-            alert("Log Out!");
+            window.localStorage.removeItem('User');
+            window.location.replace("http://localhost:8080/WebShop/")
         }
 
 	},

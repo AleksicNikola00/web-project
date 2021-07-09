@@ -27,4 +27,13 @@ public class OrderGetController {
 		
 		return service.getPastOrdersForUser(id);
 	}
+	
+	@GET
+	@Path("/worker/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<PastOrderDTO> getPastOrdersForWorker(@PathParam("id") String id){
+		OrderAggregationService service = new OrderAggregationService(ctx.getRealPath(""));
+		
+		return service.getPastOrdersForWorker(id);
+	}
 }

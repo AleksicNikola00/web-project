@@ -70,7 +70,7 @@
 
                               <div class="col g-3" v-for="r in restaurants">
                                 <div class="card myCard" style="width: 18rem;">
-                                  <img v-bind:src="r.img" class="card-img-top logoImage" alt="...">
+                                  <img v-bind:src="'data:image/png;base64, ' + r.logoPath" class="card-img-top logoImage" alt="...">
                                   <div class="card-body px-3">
                                     <h5 class="card-title">{{r.name}}</h5>
                                     <p v-if="r.open" class="text-end g-0 mb-0" style="color: green;">opened</p> 
@@ -226,7 +226,7 @@
                   <div class="row  g-3 mt-2">
 
                    <div class="col-4  mt-0 text-center">
-                      <img v-bind:src="selectedRestaurant.img"/>
+                      <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
                     </div>
 
                     <div class="col-8  mt-0">
@@ -261,12 +261,12 @@
                   <div class="row mh-100">
 
                       <div class="col-9">
-                        <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;">
+                        <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
                           <div class="row ">
                             <h4 class="blackLetters mt-3 ms-3">Items</h4>
                             <div class="col g-3" v-for="item in restaurantItems">
                               <div class="card myCardItem" style="width: 18rem;">
-                                <img v-bind:src="item.img" class="card-img-top itemImage" alt="...">
+                                <img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="card-img-top itemImage" alt="...">
                                 <div class="card-body px-3">
                                   <h5 class="card-title blackLetters">{{item.name}}</h5>
                                 </div>
@@ -283,7 +283,7 @@
                       </div>
 
 
-                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; scrollbar-width: none;">
+                      <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; min-height: 630px; scrollbar-width: none;">
                         <h4 class="blackLetters mt-3 ms-3">Comments</h4>
                         <div class="col g-3" v-for="comment in restaurantComments">
                           <div class="card myCardComment m-5" style="width: 25rem;">
@@ -291,7 +291,7 @@
                               <h5 class="card-title blackLetters">{{comment.username}}</h5>
                             </div>
                             <ul class="list-group list-group-flush">
-                              <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.comment}}</div></label></li>
+                              <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.text}}</div></label></li>
                               <li class="list-group-item">Mark: <label>{{comment.mark}}</label></label></li>
                             </ul>
                           </div>
@@ -397,17 +397,17 @@
 
                             <div class="col-2">
 
-                              <div class="col-2 my-auto" v-if="pastOrder.status == 'Waiting delivery'">
+                              <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
                                 <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="requestOrder(pastOrder)">Request</button>
                              </div>
-                             <div class="col-2 my-auto" v-if="pastOrder.status == 'In transport'">
-                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Delievere</button>
+                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN TRANSPORT'">
+                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Deliver</button>
                             </div>
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'Pending request'">
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'PENDING DELIVERY'">
                               <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Pending request</span>
                             </div>
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'Delievered'">
-                              <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delievered</span>
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'DELIEVERED'">
+                              <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delivered</span>
                             </div>
                             
                             
@@ -430,17 +430,17 @@
                          </div>
                          <select class="form-select form-select-lg mb-3" v-model="orderFilter.status" aria-label=".form-select-lg example">
                           <option selected value="">Select status</option>
-                          <option value="Delievered">Delievered</option>
-                          <option value="Waiting delivery">Waiting delivery</option>
-                          <option value="In transport">In transport</option>
-                          <option value="Pending request">Pending request</option>
+                          <option value="DELIEVERED">Delievered</option>
+                          <option value="WAITING DELIVERY">Waiting delivery</option>
+                          <option value="IN TRANSPORT">In transport</option>
+                          <option value="PENDING DELIVERY">Pending request</option>
                         </select>
 
                         <div class="container p-0">
                           <label for="customRange3" class="form-label blackLetters">Date from:</label>
                           <input type="datetime-local" class="form-control" name="datepicker" v-model="orderFilter.dateFrom"  id="example-date-input">
                           <label for="customRange3" class="form-label  blackLetters mt-2">Date to:</label>
-                          <input type="datetime-local" class="form-control" name="datepicker" id="example-date-input"  v-model="orderFilter.dateTo">
+                          <input type="datetime-local" class="form-control" name="datepicker"  v-model="orderFilter.dateTo" id="example-date-input">
                         </div>
 
                         <div class="container p-0 mt-3">
