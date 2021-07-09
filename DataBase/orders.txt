@@ -9,6 +9,7 @@
   "price" : 1900.0,
   "username" : "mili",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "412806b1-0ffa-4ef4-8db1-bd1a3492e42c",
@@ -21,6 +22,7 @@
   "price" : 1000.0,
   "username" : "mili",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "6e815fb2-12b7-4001-aa83-666cd488731c",
@@ -36,6 +38,7 @@
   "price" : 4200.0,
   "username" : "mili",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "b8b5c1e8-9234-4fa4-a4a2-8f1cc16cb162",
@@ -48,6 +51,7 @@
   "price" : 1900.0,
   "username" : "mili",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "b48cc686-a108-48a1-82b9-f0e20a54c604",
@@ -60,6 +64,7 @@
   "price" : 2000.0,
   "username" : "mili",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "49d68c05-c935-471c-824a-0cc9d5b6e378",
@@ -72,6 +77,7 @@
   "price" : 3000.0,
   "username" : "mili",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "45807ca7-e6a3-46d5-a4ed-f978e955af61",
@@ -87,6 +93,7 @@
   "price" : 5300.0,
   "username" : "final",
   "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "3a3014a2-f596-4066-9f04-a0568313d7d3",
@@ -99,6 +106,7 @@
   "price" : 2850.0,
   "username" : "final",
   "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "d98a2794-7675-40b4-ba6c-18d5ce90b53e",
@@ -114,6 +122,7 @@
   "price" : 7400.0,
   "username" : "lewis",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "531c2e3b-cecb-450e-b429-947cdc8a176d",
@@ -126,6 +135,7 @@
   "price" : 15000.0,
   "username" : "lewis",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "eb4cabb8-235b-4a11-86c6-7fc880d08b0f",
@@ -138,6 +148,7 @@
   "price" : 4275.0,
   "username" : "lewis",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "92a33ec0-b981-4be6-b1dd-87a9cc1a51b9",
@@ -150,6 +161,7 @@
   "price" : 396.0,
   "username" : "lewis",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "f15bac9e-ee1b-4d5d-8c54-1766f975bfad",
@@ -162,6 +174,7 @@
   "price" : 2700.0,
   "username" : "lewis",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
   "id" : "03b8590c-f45b-420c-8481-e922f3fca610",
@@ -174,5 +187,61 @@
   "price" : 3000.0,
   "username" : "lewis",
   "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "ed0cb389-4f69-435f-a2d4-82d90de05002",
+  "orderedItems" : [ {
+    "id" : "3483b4e0-f555-420f-ae27-57941c2c54cb",
+    "amount" : 2
+  }, {
+    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "amount" : 1
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625824848106,
+  "price" : 1300.0,
+  "username" : "testerShopper",
+  "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "b8dc7f6a-1d3a-4b03-9437-9e5d3f2987ca",
+  "orderedItems" : [ {
+    "id" : "297db321-44c4-4c94-bb18-e5071115c3a3",
+    "amount" : 15
+  } ],
+  "restaurant" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "date" : 1625824880215,
+  "price" : 14250.0,
+  "username" : "testerShopper",
+  "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "594905a1-4725-4e4a-9e57-375c6c42e301",
+  "orderedItems" : [ {
+    "id" : "c8427e3f-d1a5-4416-abb1-b8656e07db58",
+    "amount" : 4
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625824894874,
+  "price" : 4800.0,
+  "username" : "testerShopper",
+  "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "a80d8091-6c8b-423f-8e11-6eba459438bd",
+  "orderedItems" : [ {
+    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "amount" : 1
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625824909684,
+  "price" : 900.0,
+  "username" : "testerShopper",
+  "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
   "deleted" : false
 } ]

@@ -37,7 +37,7 @@ public class UserService extends BaseService {
 		return ret;
 	}
 	
-	public LoggedInUser updateDeliveryWorker(NewShopper worker) {
+	public LoggedInUser updateDeliveryWorker(NewUser worker) {
 		DeliveryWorker workerInDataBase = uow.getDeliveryWorkerReadRepo().getById(worker.getUsername());
 		Credentials credsInDatabase = uow.getCredentialsReadRepo().getById(worker.getUsername());
 		if (workerInDataBase == null || credsInDatabase == null) {

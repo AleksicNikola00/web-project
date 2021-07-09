@@ -67,7 +67,23 @@
   "name" : "some",
   "surname" : "newManager",
   "gender" : "MALE",
-  "dateOfBirth" : 1680609888699,
+  "dateOfBirth" : 1617705635697,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "testerManager",
+  "name" : "OurManager",
+  "surname" : "OurManager",
+  "gender" : "MALE",
+  "dateOfBirth" : 1615376440970,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "testerManager2",
+  "name" : "ourSecMan",
+  "surname" : "ourSecMan",
+  "gender" : "MALE",
+  "dateOfBirth" : 1607514047319,
   "role" : "MANAGER",
   "deleted" : false
 } ]

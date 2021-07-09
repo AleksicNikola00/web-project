@@ -37,7 +37,7 @@ public class UserController {
 	@Path("/updateworker")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public LoggedInUser updateDeliveryWorker(NewShopper worker) {
+	public LoggedInUser updateDeliveryWorker(NewUser worker) {
 		UserService service = new UserService(ctx.getRealPath(""));
 		return service.updateDeliveryWorker(worker);
 	}

@@ -6,4 +6,12 @@
   "dateOfBirth" : 1625529175947,
   "role" : "DELIVERY",
   "deleted" : false
+}, {
+  "username" : "testDeliveryBoy",
+  "name" : "Johnny",
+  "surname" : "Johnson",
+  "gender" : "MALE",
+  "dateOfBirth" : 1619520010179,
+  "role" : "DELIVERY",
+  "deleted" : false
 } ]

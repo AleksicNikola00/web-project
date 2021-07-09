@@ -62,4 +62,12 @@
   "mark" : 4.0,
   "status" : "PENDING",
   "deleted" : false
+}, {
+  "id" : "c81c8039-e707-465a-80ef-5782b5cdad67",
+  "username" : "testerShopper",
+  "restaurantId" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "text" : "I think this restaurant is amazing i just had to cancel an order...",
+  "mark" : 4.0,
+  "status" : "PENDING",
+  "deleted" : false
 } ]

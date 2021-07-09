@@ -122,6 +122,7 @@ public class CRUDRestaurantService extends BaseService {
 		rest.setStatus(RestaurantStatus.OPEN);
 		rest.setGeoLocationId(geoLoc.getId());
 		rest.setManagerId(newRestaurant.getManagerId());
+		rest.setRating(1.0);
 
 		if (uow.getManagerReadRepo().getById(rest.getManagerId()) == null ||
 				uow.getRestaurantReadRepo().getRestaurantByManagerUsername(rest.getManagerId()) != null) {

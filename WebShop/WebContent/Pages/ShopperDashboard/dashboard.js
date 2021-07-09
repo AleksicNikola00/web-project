@@ -243,6 +243,9 @@ var webShop = new Vue({
 
             return result;
         },
+		resetPastOrderFilters() {
+			this.pastOrders = Object.assign({}, this.pastReceivedOrders);
+		},
 		getRestByCurr : function(isOpen){
 			let ret = [];
 			for (rest of this.receivedRestaurants){

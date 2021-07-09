@@ -70,4 +70,12 @@
   "id" : "276b3b65-b54e-4f17-863b-024c09cb1626",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
+}, {
+  "x" : 19.84512,
+  "y" : 45.25511,
+  "streetName" : "Bulevar oslobodjenja",
+  "number" : 25,
+  "id" : "c17ae06d-4d5c-472e-90f0-1e587a38643a",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
 } ]

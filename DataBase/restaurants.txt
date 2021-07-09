@@ -15,7 +15,7 @@
   "status" : "OPEN",
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "b459976d-7407-43c5-bf1a-e518a0f8bc37",
-  "rating" : 1.0,
+  "rating" : 2.0,
   "managerId" : "kleojohnson",
   "deleted" : false
 }, {
@@ -65,7 +65,7 @@
   "status" : "OPEN",
   "logoPath" : null,
   "geoLocationId" : "e8f11489-7fa0-4d66-9136-def741183fa9",
-  "rating" : 0.0,
+  "rating" : 1.0,
   "managerId" : "newManager",
   "deleted" : false
 }, {
@@ -75,7 +75,7 @@
   "status" : "OPEN",
   "logoPath" : null,
   "geoLocationId" : "03a13f09-061b-4e58-843f-d92eb83d03c5",
-  "rating" : 0.0,
+  "rating" : 1.0,
   "managerId" : "managerUsername",
   "deleted" : false
 }, {
@@ -85,7 +85,17 @@
   "status" : "OPEN",
   "logoPath" : null,
   "geoLocationId" : "276b3b65-b54e-4f17-863b-024c09cb1626",
-  "rating" : 0.0,
+  "rating" : 1.0,
   "managerId" : "anotherManager",
+  "deleted" : false
+}, {
+  "name" : "tester",
+  "id" : "24a34858-fa7f-4171-8375-6eaba53692f3",
+  "type" : "CAFE",
+  "status" : "OPEN",
+  "logoPath" : null,
+  "geoLocationId" : "c17ae06d-4d5c-472e-90f0-1e587a38643a",
+  "rating" : 1.0,
+  "managerId" : "testerManager",
   "deleted" : false
 } ]

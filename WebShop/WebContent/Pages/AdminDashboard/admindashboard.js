@@ -334,7 +334,7 @@ var webShop = new Vue({
 
             var lonlat = ol.proj.transform(coordinates, 'EPSG:3857', 'EPSG:4326');
 
-            this.tempRestaurant.geoLocation = lonlat[0].toString().substring(0,6) + ', ' + lonlat[1].toString().substring(0,6);
+            this.tempRestaurant.geoLocation = lonlat[0].toString().substring(0,8) + ', ' + lonlat[1].toString().substring(0,8);
         },
         changeFilterMark(value, dropdown) {
             this.restaurantFilterObj.mark = value;
@@ -564,8 +564,8 @@ var webShop = new Vue({
 			let parts = str.split('-');
 			
 			let year = parseInt(parts[0]);
-			let month = parseInt(parts[2] - 1);
-			let day = parseInt(parts[1]);
+			let month = parseInt(parts[1] - 1);
+			let day = parseInt(parts[2]);
 			
 			date.setFullYear(year, month, day);
 			
@@ -864,7 +864,7 @@ var webShop = new Vue({
             if (this.tempRestaurant.managerId == ''){
                 message += "Specify the manager for the restaurant...";
             }
-            if (this.tempRestaurant.logoPath == ''){
+            if (this.tempRestaurant.logoPath == '' && this.tempRestaurant.cameFrom == 'addRest'){
                 message += "It would be nice to have a logo for your restaurant too!";
             }
 
@@ -950,7 +950,7 @@ var webShop = new Vue({
         sortRestMark(restaurants){
             let refNumber = parseFloat(this.restaurantFilterObj.mark);
 
-            let result = restaurants.filter(rest => parseFloat(rest.rating) > refNumber);
+            let result = restaurants.filter(rest => parseFloat(rest.rating) >= refNumber);
 
             return result;
         },
