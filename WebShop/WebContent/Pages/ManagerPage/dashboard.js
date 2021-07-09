@@ -2,6 +2,7 @@ var app = new Vue({
 	el: '#dashboard',
 	data: {
         selectedButton : '',
+        myRestaurantSubMenu: '',
         orderSorter: '',
         orderFilter: {
             name: '',
@@ -14,7 +15,117 @@ var app = new Vue({
             isAsc: true
         },
         allOrders: [],
-        orders :[],
+        orders :[{
+            restaurantName : 'Ciao',
+            img : '../Images/gold-member.png',
+            items : [
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '1500'
+                }
+            ],
+            status : 'PENDING DELIVERY',
+            date : '2:23 6-6-2021',
+            restaurantType : 'Italian',
+            price : 2000
+        },
+        {
+            restaurantName : 'Ciao',
+            img : '../Images/gold-member.png',
+            items : [
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '1500'
+                }
+            ],
+            status : 'PENDING',
+            date : '2:23 6-6-2021',
+            restaurantType : 'Italian',
+            price : 2000
+        },
+        {
+            restaurantName : 'Neki',
+            img : '../Images/silver-member.png',
+            items : [
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                }
+            ],
+            status : 'IN PREPARATION',
+            date : '23:23 6-16-2021',
+            restaurantType : 'Italian',
+            price: 1000
+        },
+        {
+            restaurantName : 'Naki',
+            img : '../Images/bronze-member.png',
+            items : [
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                }
+            ],
+            status : 'IN TRANSPORT',
+            date : '12:12 5-4-2021',
+            restaurantType : 'Greek',
+            price: 1500
+        },
+        {
+            restaurantName : 'Naki',
+            img : '../Images/bronze-member.png',
+            items : [
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                },
+                {
+                    name : 'pizza',
+                    amount : '2',
+                    price : '500'
+                }
+            ],
+            status : 'WAITING DELIVERY',
+            date : '12:12 5-4-2021',
+            restaurantType : 'Greek',
+            price: 1500
+        }
+    ],
         activeSubmenu : '',
         restaurantSorter: '',
         restaurantComments: [
@@ -47,35 +158,48 @@ var app = new Vue({
                 status: 'PENDING'
             },
         ],
+        selectedItem: {
+               id: null,
+               img: '',
+               name: '',
+               type: '',
+               price: 0,
+               unitAmount: 0,
+               description: ""
+        },
         restaurantItems: [
             {
+                id: '1',
                img: '../Images/bronze-member.png',
                name: 'Coca-cola',
-               type: 'drink',
+               type: 'DRIK',
                price: 23.5,
                unitAmount: 25,
                description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd"
            },
            {
+            id: '1',
             img: '../Images/bronze-member.png',
             name: 'Coca-cola',
-            type: 'drink',
+            type: 'DRINK',
             price: 23.5,
             unitAmount: 25,
             description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd"
         },
            {
+            id: '1',
                img: '../Images/gold-member.png',
                name: 'Coca-Fanta',
-               type: 'food',
+               type: 'FOOD',
                price: 20.5,
                unitAmount: 22,
                description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd DSD"
            },
            {
+            id: '1',
                img: '../Images/silver-member.png',
                name: 'Sprite',
-               type: 'food',
+               type: 'FOOD',
                price: 200.5,
                unitAmount: 21,
                description: "SDADASDADDSNDAJNBSDOASND  ADNSDNAd"
@@ -157,6 +281,17 @@ var app = new Vue({
 	},
 
 	methods: {
+        updateItem: function(){
+            if( this.selectedItem.id == null)
+            {
+                    alert("novi item");
+            }
+            else
+            {
+                    alert("EDITOVAN");
+            }
+            this.myRestaurantSubMenu = 'myRestaurant'
+        },
 
         requestOrders: async function(){
             return await axios.get('/WebShop/rest/getorders/worker/' + this.user.username)
@@ -169,6 +304,10 @@ var app = new Vue({
 							this.allOrders.reverse();
                             this.orders = Object.assign({}, this.allOrders);
 						});
+        },
+
+        changeRestaurantSubmenu: function(submenu){
+            this.myRestaurantSubMenu = submenu;
         },
 
         async requestRestaurants(){
@@ -186,6 +325,11 @@ var app = new Vue({
                             this.sortByStatus();
 						});
 			
+        },
+
+        editItem: function(item){
+          this.myRestaurantSubMenu = 'edit';
+          this.selectedItem = item;  
         },
 
         setCurrentUser: function(){
@@ -219,7 +363,8 @@ var app = new Vue({
             elem.removeClass('btn-primary');
             elem.addClass('btn-light');
             //na novog
-            this.selectedButton = submenu
+            this.selectedButton = submenu;
+            this.myRestaurantSubMenu = submenu;
             var elem = $('#' + this.selectedButton);
             elem.removeClass('btn-light');
             elem.addClass('btn-primary');
@@ -369,17 +514,21 @@ var app = new Vue({
                 this.restaurants = this.restaurants.filter(r => r.open === this.filterRestaurant.isOpen);
         },
 
-        deliveredOrder: function(order){
-            order.status = 'DELIEVERED';//toastDeliverSuccess
-            axios.put('/WebShop/rest/order/delieverorder/'+order.id)
-                .then(response => {console.log(response.data)});
-            $('#toastDeliverSuccess').toast('show');
+        preparedOrder: function(order){
+            order.status = 'WAITING DELIVERY';//toastDeliverSuccess
+            alert("PREPARED");
         },
-        requestOrder: function(order){
-            order.status='PENDING DELIVERY';//toastDeliveryRequested
-            axios.put('/WebShop/rest/order/requestorder/'+order.id+'/'+this.user.username)
-                .then(response => {console.log(response.data)});
-            $('#toastDeliveryRequested').toast('show');
+        prepareOrder: function(order){
+            order.status='IN PREPARATION';//toastDeliveryRequested
+            alert("STARTED PREPARING");
+        },
+        acceptOrder: function(order){
+            order.status = 'IN TRANSPORT';//toastDeliverSuccess
+            alert("Accepted");
+        },
+        rejectOrder: function(order){
+            order.status = 'WAITING DELIVERY';//toastDeliverSuccess
+            alert("rejected");
         },
 
         filterOrders: function(){

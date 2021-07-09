@@ -233,11 +233,12 @@
                    <div class="row mh-100">
  
                        <div class="col-9">
-                         <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
+
+                         <div class="container-fluid" v-if="myRestaurantSubMenu == 'myRestaurant'" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
                            <div class="row ">
                              <div class="row">
                               <h4 class="blackLetters mt-3 ms-3" style="width: 500px;">Items</h4>
-                              <button class="btn-primary mt-2" style="height: 50px; width: 200px; margin-left: 300px;">Add item</button>
+                              <button class="btn-primary mt-2" v-on:click="changeRestaurantSubmenu('edit')" style="height: 50px; width: 200px; margin-left: 300px;">Add item</button>
                              </div>
                              <p></p>
                              <div class="col g-3" v-for="item in restaurantItems">
@@ -253,16 +254,55 @@
                                    <li class="list-group-item">Amount: <label>{{item.amount}}</label></label></li>
                                    <li>
                                       
-                                        <button type="button" class="btn btn-primary" style="margin-top: 5px; margin-bottom: 5px;margin-left: 120px;" v-on:click="editItem(edit)">Edit</button>
+                                        <button type="button" class="btn btn-primary" style="margin-top: 5px; margin-bottom: 5px;margin-left: 120px;" v-on:click="editItem(item)">Edit</button>
                                       
                                    </li>
                                  </ul>
                                </div>
                              </div>
- 
- 
                            </div>
                          </div>
+
+                         <div class="container-fluid" v-if="myRestaurantSubMenu == 'edit'" style="max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
+
+                          <div class="input-group input-group-lg itemInput shadow">
+                            <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Name*</span>
+                            <input type="text" class="form-control" v-model="selectedItem.name"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+                            onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)">
+                          </div>
+
+                          <div class="input-group input-group-lg itemInput shadow">
+                            <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Price*</span>
+                            <input type="number" class="form-control" onkeypress="return event.charCode >= 48" v-model="selectedItem.price" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                          </div>
+
+                          <div class="input-group input-group-lg itemInput shadow">
+                            <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Picture*</span>
+                            <input type="file"  class="form-control" id="fileInput" style="width: max-content;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" >
+                          </div>
+    
+                          <div class="input-group input-group-lg itemInput shadow">
+                            <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Type*</span>
+                            <select class="form-control" v-model="selectedItem.type">
+                              <option value="">Select type</option>
+                              <option value="FOOD">Food</option>
+                              <option value="DRINK">Drink</option>
+                            </select>
+                          </div>
+                          <div class="input-group input-group-lg itemInput shadow">
+                            <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Amount</span>
+                            <input type="number" class="form-control" onkeypress="return event.charCode >= 48" v-model="selectedItem.unitAmount" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                          </div>
+
+                          <div class="input-group input-group-lg itemInput shadow">
+                            <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Description</span>
+                            <input type="text" class="form-control" v-model="selectedItem.description"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                          </div>
+                          <button class="btn-primary mt-1" style="margin-left: 1000px;height: 30px;" v-on:click="updateItem()">Confirm</button>
+                          
+                        </div>
+
+
                        </div>
  
  
@@ -540,17 +580,32 @@
 
                             <div class="col-2">
 
-                              <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
-                                <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="requestOrder(pastOrder)">Request</button>
+                              <div class="col-2 my-auto" v-if="pastOrder.status == 'PENDING'">
+                                <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="prepareOrder(pastOrder)">Prepare</button>
                              </div>
-                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN TRANSPORT'">
-                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="deliveredOrder(pastOrder)">Deliver</button>
+                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN PREPARATION'">
+                              <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="preparedOrder(pastOrder)">Prepared</button>
                             </div>
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'PENDING DELIVERY'">
-                              <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Pending request</span>
-                            </div>
+                            
+                              <div class="row" v-if="pastOrder.status == 'PENDING DELIVERY'">
+                                <div class="col-5">
+                                  <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="acceptOrder(pastOrder)">Accept</button>
+                                </div>
+                                <div class="col-5 ">
+                                  <button type="button" class="btn btn-danger" style="margin-top: 25px; margin-bottom: 20px; margin-left: 20px;" v-on:click="rejectOrder(pastOrder)">Reject</button>
+                                </div>
+                              </div>
+                           
                             <div class="col-2 my-auto" v-if="pastOrder.status == 'DELIEVERED'">
                               <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delivered</span>
+                            </div>
+
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'IN TRANSPORT'">
+                              <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">In transport</span>
+                            </div>
+
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
+                              <span class="badge rounded-pill bg-secondary text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Waiting delivery</span>
                             </div>
                             
                             

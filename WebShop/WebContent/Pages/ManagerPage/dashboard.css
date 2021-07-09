@@ -39,6 +39,12 @@
     margin-left: 430px;
 }
 
+.itemInput{
+    max-width: 600px;
+    margin-top: 50px;
+    margin-left: 300px;
+}
+
 .profileInputError{
     max-width: 800px;
     margin-top: 50px;
