@@ -60,6 +60,11 @@
     max-height: 250px;
 }
 
+.myRestaurantCardItem{
+    width: 250px;
+    height: 500px;
+}
+
 .myCardComment{
     max-width: 250px;
     max-height: fit-content;
@@ -70,12 +75,23 @@
     max-height: 160px;
 }
 
+.commentButtons{
+    max-width: 90px;
+}
+
 .itemImage{
     max-width: 110px;
     max-height: 80px;
     min-width: 110px;
     min-height: 80px;
     margin-left: 20px;
+    margin-top: 5px;
+}
+
+.myRestaurantItemImage{
+    width: 200px;
+    height: 150px;
+    margin-left: 25px;
     margin-top: 5px;
 }
 

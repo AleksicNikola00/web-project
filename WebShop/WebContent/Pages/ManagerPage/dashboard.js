@@ -17,17 +17,80 @@ var app = new Vue({
         orders :[],
         activeSubmenu : '',
         restaurantSorter: '',
-        restaurantComments: [],
-        restaurantItems: [],
+        restaurantComments: [
+            {
+                id : '',
+                username: 'panda',
+                text: 'Hrana je krimi-rad necu vise nikad jesti odje!',
+                mark: 1,
+                status: 'ALLOWED'
+            },
+            {
+                id: '',
+                username: 'Jole',
+                text: 'Hrana je Topcina od sad cu uvek ovde da jedem!',
+                mark: 3,
+                status: 'PENDING'
+            },
+            {
+                id: '',
+                username: 'panda',
+                text: 'dasdsadasdadasdadsadasdasdasdasdasdnasjdnasodmasspdnmasindas-md[loasmdiasnd0iansm[odaslospdmasidnaspdmap;lknmdain!',
+                mark: 4,
+                status: 'REJECTED'
+            },
+            {
+                id: '',
+                username: 'losmi',
+                text: 'Hrana je fuj, necu vise nikad jesti odje!',
+                mark: 1,
+                status: 'PENDING'
+            },
+        ],
+        restaurantItems: [
+            {
+               img: '../Images/bronze-member.png',
+               name: 'Coca-cola',
+               type: 'drink',
+               price: 23.5,
+               unitAmount: 25,
+               description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd"
+           },
+           {
+            img: '../Images/bronze-member.png',
+            name: 'Coca-cola',
+            type: 'drink',
+            price: 23.5,
+            unitAmount: 25,
+            description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd"
+        },
+           {
+               img: '../Images/gold-member.png',
+               name: 'Coca-Fanta',
+               type: 'food',
+               price: 20.5,
+               unitAmount: 22,
+               description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd DSD"
+           },
+           {
+               img: '../Images/silver-member.png',
+               name: 'Sprite',
+               type: 'food',
+               price: 200.5,
+               unitAmount: 21,
+               description: "SDADASDADDSNDAJNBSDOASND  ADNSDNAd"
+           },
+           
+       ],
         selectedRestaurant: {
-                name : '',
-                type : '',
-                rating : '',
-                address : '',
-                city : '',
-                img : '',
-                location : '',
-                open : true
+            name : 'Pizza',
+            type : 'Italian',
+            rating : '2',
+            address : 'Test a',
+            city : 'Novi Sad',
+            img : '../Images/bronze-member.png',
+            location : 'Novi Sad Test a',
+            open : true
         },
         user : {
             username: 'Koljisivoje',
@@ -162,6 +225,16 @@ var app = new Vue({
             elem.addClass('btn-primary');
             this.changeVisibility();
 		},
+
+        allowComment: function(comment){
+            comment.status = 'ALLOWED';
+            alert("Dozvolio comment");
+        },
+
+        rejectComment: function(comment){
+            comment.status = 'REJECTED';
+            alert("Odbijen komentar");
+        },
 
         changeUser: function(){
             if(this.user.new_password.length > 0)

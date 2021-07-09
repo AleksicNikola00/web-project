@@ -198,7 +198,7 @@
                   <div class="row  g-3 mt-2">
 
                     <div class="col-4  mt-0 text-center">
-                       <img v-bind:src="'data:image/png;base64, ' + selectedRestaurant.logoPath" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
+                       <img v-bind:src="selectedRestaurant.img" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
                      </div>
  
                      <div class="col-8  mt-0">
@@ -235,16 +235,27 @@
                        <div class="col-9">
                          <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
                            <div class="row ">
-                             <h4 class="blackLetters mt-3 ms-3">Items</h4>
+                             <div class="row">
+                              <h4 class="blackLetters mt-3 ms-3" style="width: 500px;">Items</h4>
+                              <button class="btn-primary mt-2" style="height: 50px; width: 200px; margin-left: 300px;">Add item</button>
+                             </div>
+                             <p></p>
                              <div class="col g-3" v-for="item in restaurantItems">
-                               <div class="card myCardItem" style="width: 18rem;">
-                                 <img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="card-img-top itemImage" alt="...">
+                               <div class="card myRestaurantCardItem" style="width: 18rem;">
+                                 <img v-bind:src="item.img" class="card-img-top myRestaurantItemImage" alt="...">
                                  <div class="card-body px-3">
                                    <h5 class="card-title blackLetters">{{item.name}}</h5>
+                                   <div class="container blackLetters" style="word-wrap: break-word;">{{item.description}}</div>
                                  </div>
                                  <ul class="list-group list-group-flush">
                                    <li class="list-group-item">Type: <label>{{item.type}}</label></label></li>
                                    <li class="list-group-item">Price: <label>{{item.price}}</label></label></li>
+                                   <li class="list-group-item">Amount: <label>{{item.amount}}</label></label></li>
+                                   <li>
+                                      
+                                        <button type="button" class="btn btn-primary" style="margin-top: 5px; margin-bottom: 5px;margin-left: 120px;" v-on:click="editItem(edit)">Edit</button>
+                                      
+                                   </li>
                                  </ul>
                                </div>
                              </div>
@@ -266,6 +277,20 @@
                                <li class="list-group-item" style="max-height: fit-content;"><div class="container" style="word-wrap: break-word;">{{comment.text}}</div></label></li>
                                <li class="list-group-item">Mark: <label>{{comment.mark}}</label></label></li>
                              </ul>
+
+                             <div class="row my-auto" v-if="comment.status == 'PENDING'">
+                              <button type="button" class="btn btn-primary ms-5 commentButtons"  v-on:click="allowComment(comment)">Allow</button>
+                              <button type="button" class="btn btn-danger ms-2 commentButtons"  v-on:click="rejectComment(comment)">Reject</button>
+                            </div>
+
+                            <div class="row my-auto" v-if="comment.status == 'REJECTED'">
+                              <span class="badge rounded-pill bg-danger   mb-3 mt-2" style="width: 100px; height: 40px;padding: 12px;font-size: 13px;margin-left: 80px;">Rejected</span>
+                            </div>
+
+                            <div class="row my-auto" v-if="comment.status == 'ALLOWED'">
+                              <span class="badge rounded-pill bg-success  mb-3 mt-2" style="width: 100px; height: 40px;padding: 12px;font-size: 13px;margin-left: 80px;">Allowed</span>
+                            </div>
+
                            </div>
                          </div>
                        </div>
@@ -381,7 +406,7 @@
                       <div class="col-9">
                         <div class="container-fluid" style="overflow-y: scroll;max-height: 630px;overflow-x: hidden;border: 1px solid grey;min-height: 630px;">
                           <div class="row ">
-                            <h4 class="blackLetters mt-3 ms-3">Items</h4>
+                            <h4 class="blackLetters mt-3 ms-3">Items</h4> 
                             <div class="col g-3" v-for="item in restaurantItems">
                               <div class="card myCardItem" style="width: 18rem;">
                                 <img v-bind:src="'data:image/png;base64, ' + item.picturePath" class="card-img-top itemImage" alt="...">
@@ -620,66 +645,7 @@
 
 
       <!--Toast area-->
-      <div aria-live="polite" aria-atomic="true">
-        <div class="toast-container position-absolute bottom-0 end-0 p-3" id="toast-container">
-
-          <div class="toast" id="toastPWError2" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <strong class="me-auto" style="color: red;">Password error</strong>
-              <small class="blackLetters">Just now</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body blackLetters">
-              Password missmatch!
-            </div>
-          </div>
-
-          <div class="toast" id="toastPWError1" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <strong class="me-auto" style="color: red;">Password error</strong>
-              <small class="blackLetters">Just now</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body blackLetters">
-              Password must cointain at least 8 characters!
-            </div>
-          </div>
-
-          <div class="toast" id="toastDeliverSuccess" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <strong class="me-auto" style="color: green;">Delivery!</strong>
-              <small class="blackLetters">Just now</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body blackLetters">
-              Delivery has been successfully done!
-            </div>
-          </div>
-
-          <div class="toast" id="toastDeliveryRequested" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <strong class="me-auto" style="color: green;">Delivery!</strong>
-              <small class="blackLetters">Just now</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body blackLetters">
-              Delivery has been successfully requested!
-            </div>
-          </div>
-
-          <div class="toast" id="toastPWSuccess" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-              <strong class="me-auto" style="color: green;">Account update!</strong>
-              <small class="blackLetters">Just now</small>
-              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body blackLetters">
-              Account has successfully been updated!
-            </div>
-          </div>
-
-        </div>
-      </div>
+      
       <!--Toast area end-->
 
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
