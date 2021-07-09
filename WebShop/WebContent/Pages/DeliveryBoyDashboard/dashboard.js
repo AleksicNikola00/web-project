@@ -52,7 +52,14 @@ var app = new Vue({
 	},
 
 	async mounted() {
+
+        if (window.localStorage.getItem("User") === null) {
+            window.location.replace("http://localhost:8080/WebShop/");
+            return;
+        }
+
 		this.selectedButton = 'restaurants';
+        
 
         this.setCurrentUser();
         await this.requestRestaurants();
@@ -361,7 +368,8 @@ var app = new Vue({
         },
 
         logOut: function(){
-            alert("Log Out!");
+            window.localStorage.removeItem('User');
+            window.location.replace("http://localhost:8080/WebShop/")
         }
 
 	},
