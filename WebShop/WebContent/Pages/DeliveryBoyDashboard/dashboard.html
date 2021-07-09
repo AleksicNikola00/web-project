@@ -70,7 +70,7 @@
 
                               <div class="col g-3" v-for="r in restaurants">
                                 <div class="card myCard" style="width: 18rem;">
-                                  <img v-bind:src="r.img" class="card-img-top logoImage" alt="...">
+                                  <img v-bind:src="'data:image/png;base64, ' + r.logoPath" class="card-img-top logoImage" alt="...">
                                   <div class="card-body px-3">
                                     <h5 class="card-title">{{r.name}}</h5>
                                     <p v-if="r.open" class="text-end g-0 mb-0" style="color: green;">opened</p> 

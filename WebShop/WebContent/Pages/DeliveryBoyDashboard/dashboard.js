@@ -318,161 +318,31 @@ var app = new Vue({
             isOpen : false,
             isAsc : true
         },
-        restaurants : [
-            {
-                name : 'Pizza',
-                type : 'Italian',
-                rating : '2',
-                address : 'Test a',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test a',
-                open : true
-            },
-            {
-                name : 'Neki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Test b',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test b',
-                open : false
-            },
-            {
-                name : 'Naki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad  Bulevar oslobodjenja',
-                open : false
-            },
-            {
-                name : 'Opet',
-                type : 'Cheenese',
-                rating : '2',
-                address : 'Bulevar oslobodjenja 2',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 2',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Italian',
-                rating : '5',
-                address : 'Bulevar oslobodjenja 3',
-                city : 'Novi Sad',
-                img : '../Images/gold-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 3',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Itelian',
-                rating : '1',
-                address : 'Bulevar oslobodjenja 5',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 5',
-                open : false
-            },
-            {
-                name : 'Ciao',
-                type : 'Cheenese',
-                rating : '4',
-                address : 'Bulevar oslobodjenja 22',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 22',
-                open : true
-            }
-        ],
-        allRestaurants :[
-            {
-                name : 'Pizza',
-                type : 'Italian',
-                rating : '2',
-                address : 'Test a',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test a',
-                open : true
-            },
-            {
-                name : 'Neki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Test b',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Test b',
-                open : false
-            },
-            {
-                name : 'Naki',
-                type : 'Turkish',
-                rating : '3',
-                address : 'Bulevar oslobodjenja',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad  Bulevar oslobodjenja',
-                open : false
-            },
-            {
-                name : 'Opet',
-                type : 'Cheenese',
-                rating : '2',
-                address : 'Bulevar oslobodjenja 2',
-                city : 'Novi Sad',
-                img : '../Images/bronze-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 2',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Italian',
-                rating : '5',
-                address : 'Bulevar oslobodjenja 3',
-                city : 'Novi Sad',
-                img : '../Images/gold-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 3',
-                open : true
-            },
-            {
-                name : 'Ciao',
-                type : 'Itelian',
-                rating : '1',
-                address : 'Bulevar oslobodjenja 5',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 5',
-                open : false
-            },
-            {
-                name : 'Ciao',
-                type : 'Cheenese',
-                rating : '4',
-                address : 'Bulevar oslobodjenja 22',
-                city : 'Novi Sad',
-                img : '../Images/silver-member.png',
-                location : 'Novi Sad Bulevar oslobodjenja 22',
-                open : true
-            }
-        ],
+        restaurants : [],
+        allRestaurants :[],
         
 	},
 
 	mounted() {
 		this.selectedButton = 'restaurants';
+
+        this.setCurrentUser();
+        this.requestRestaurants();
+
         this.changeVisibility();
         this.sortByStatus();
-        this.setCurrentUser();
 	},
 
 	methods: {
+        async requestRestaurants(){
+			
+			return await axios.get('/WebShop/rest/getrestaurants')
+						.then(response => {
+							this.allRestaurants = response.data;
+                            this.restaurants = response.data;
+						});
+			
+        },
 
         setCurrentUser: function(){
             let user = JSON.parse(window.localStorage.getItem('User'));
