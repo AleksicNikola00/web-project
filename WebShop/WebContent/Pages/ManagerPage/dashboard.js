@@ -171,35 +171,7 @@ var app = new Vue({
         },
         restaurants : [],
         allRestaurants :[],
-        shoppers: [{
-            firstname: "Kolja",
-            lastname: "Koljic",
-            username: "Trala",
-            dateOfBirth: "22-02-2000",
-            gender: "MALE",
-            type: "BRONZE"
-        },{
-            firstname: "Trass",
-            lastname: "Koljic",
-            username: "Trala",
-            dateOfBirth: "22-02-2000",
-            gender: "MALE",
-            type: "BRONZE"
-        },{
-            firstname: "Trass",
-            lastname: "Koljic",
-            username: "dasdad",
-            dateOfBirth: "22-02-1980",
-            gender: "MALE",
-            type: "BRONZE"
-        },{
-            firstname: "Kolja",
-            lastname: "Koljic",
-            username: "asdasd",
-            dateOfBirth: "22-01-2000",
-            gender: "MALE",
-            type: "BRONZE"
-        },]
+        shoppers: []
         
 	},
 
@@ -216,11 +188,20 @@ var app = new Vue({
         await this.requestRestaurants();
         await this.requestOrders();
         await this.requestMyRestaurant();
+        await this.requestShoppers();
         
         this.changeVisibility();
 	},
 
 	methods: {
+
+        requestShoppers: async function(){
+            return await axios.get('/WebShop/rest/manager/shoppers/'+ this.myRestaurant.id)
+                        .then(response =>{
+                            this.shoppers = response.data;
+                        });
+        },
+
         requestMyRestaurant: async function(){
             return await axios.get('/WebShop/rest/restaurant/'+ this.user.username)
                         .then(response =>{

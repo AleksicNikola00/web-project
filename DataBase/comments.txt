@@ -36,7 +36,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Pokusaj jako dobrog komentara",
   "mark" : 5.0,
-  "status" : "PENDING",
+  "status" : "ALLOWED",
   "deleted" : false
 }, {
   "id" : "3cc2e4eb-c5f1-4bb1-9a7c-9b31d4b99f26",
@@ -60,7 +60,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "I dont know",
   "mark" : 4.0,
-  "status" : "PENDING",
+  "status" : "ALLOWED",
   "deleted" : false
 }, {
   "id" : "c81c8039-e707-465a-80ef-5782b5cdad67",
