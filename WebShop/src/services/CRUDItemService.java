@@ -1,5 +1,6 @@
 package services;
 
+import java.io.File;
 import java.util.UUID;
 
 import beans.errors.DatabaseErrors;
@@ -22,9 +23,10 @@ public class CRUDItemService extends BaseService {
 		
 		item.setId(UUID.randomUUID());
 		
-		if (item.getPicturePath() == null || item.getPicturePath().trim().equals("")) {
-			item.setPicturePath(DatabaseConstants.ITEM_LOGO_PATH);
-		}
+		
+		
+		File file = new File(uow.getDatabasePath() + DatabaseConstants.ITEM_LOGO_PATH + item.getId() + ".png");
+		DatabaseConstants.writeEncodedBase64(file, item.getPicturePath());
 		
 		uow.getItemWriteRepo().add(item);
 		
@@ -34,6 +36,11 @@ public class CRUDItemService extends BaseService {
 	
 	public String edit(Item item) {
 		if(uow.getItemReadRepo().getById(item.getId())==null) return DatabaseErrors.NOT_FOUND;
+		
+		if(item.getPicturePath() != null && !item.getPicturePath().equals("")) {
+			File file = new File(uow.getDatabasePath() + DatabaseConstants.ITEM_LOGO_PATH + item.getId() + ".png");
+			DatabaseConstants.writeEncodedBase64(file, item.getPicturePath());
+		}
 		
 		uow.getItemWriteRepo().update(item);
 		return DatabaseErrors.NO_ERROR;

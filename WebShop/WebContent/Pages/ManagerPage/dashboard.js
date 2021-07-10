@@ -92,8 +92,7 @@ var app = new Vue({
             var vm = this;
 
             reader.onload = (e) => {
-                vm.selectedItem.logoPath = e.target.result;
-                vm.selectedItem.logoPath = vm.selectedItem.logoPath.split('png;base64,')[1]
+                vm.selectedItem.picturePath = e.target.result;
             };
             reader.readAsDataURL(file);
         },
@@ -138,16 +137,21 @@ var app = new Vue({
         updateItem: async function(){
             if( this.selectedItem.id == null)
             {
-                return await await axios.put('/WebShop/rest/item/newitem',this.selectedItem)
+                this.selectedItem.picturePath = this.selectedItem.picturePath.split('png;base64,')[1];
+                this.selectedItem.type = this.selectedItem.type.toUpperCase();
+                console.log(this.selectedItem);
+                return await  axios.put('/WebShop/rest/item/newitem',this.selectedItem)
                 .then(response => {
                     console.log(response.data);
                     alert("Successfully added item!");
+                    this.loadMyItems();
                     this.myRestaurantSubMenu = 'myRestaurant'
                 });
             }
             else
-            {
-                    return await await axios.put('/WebShop/rest/item/edititem',this.selectedItem)
+            {//nisam sig jel treba
+                    this.selectedItem.picturePath = this.selectedItem.picturePath.split('png;base64,')[1];
+                    return await  axios.put('/WebShop/rest/item/edititem',this.selectedItem)
 					.then(response => {
 						console.log(response.data);
                         alert("Successfully edited item!")
@@ -195,6 +199,7 @@ var app = new Vue({
                 name: '',
                 type: '',
                 price: 0,
+                restaurantId: this.myRestaurant.id,
                 unitAmount: 0,
                 description: ""};
         },
