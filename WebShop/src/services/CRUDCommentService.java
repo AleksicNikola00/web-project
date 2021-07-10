@@ -30,4 +30,14 @@ public class CRUDCommentService extends BaseService {
 		
 		return DatabaseErrors.NO_ERROR;
 	}
+	
+	public String update(Comment comment) {
+		Restaurant restaurant = uow.getRestaurantReadRepo().getById(comment.getRestaurantId());
+		if(restaurant == null) return DatabaseErrors.NOT_FOUND;
+		
+		comment.setStatus(comment.getStatus());
+		uow.getCommentWriteRepo().update(comment);
+		
+		return DatabaseErrors.NO_ERROR;
+	}
 }

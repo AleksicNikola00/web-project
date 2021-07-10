@@ -197,7 +197,7 @@
                   <div class="row  g-3 mt-2">
 
                     <div class="col-4  mt-0 text-center">
-                       <img v-bind:src="selectedRestaurant.img" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
+                       <img v-bind:src="'data:image/png;base64, ' + myRestaurant.logoPath" class="mt-2" style="max-width: 187px;max-height: 187px;"/>
                      </div>
  
                      <div class="col-8  mt-0">
@@ -240,9 +240,9 @@
                               <button class="btn-primary mt-2" v-on:click="changeRestaurantSubmenu('edit')" style="height: 50px; width: 200px; margin-left: 300px;">Add item</button>
                              </div>
                              <p></p>
-                             <div class="col g-3" v-for="item in restaurantItems">
+                             <div class="col g-3" v-for="item in myRestaurantItems">
                                <div class="card myRestaurantCardItem" style="width: 18rem;">
-                                 <img v-bind:src="item.img" class="card-img-top myRestaurantItemImage" alt="...">
+                                 <img v-bind:src="'data:image/png;base64, ' + item.picturePath"  class="card-img-top myRestaurantItemImage" alt="...">
                                  <div class="card-body px-3">
                                    <h5 class="card-title blackLetters">{{item.name}}</h5>
                                    <div class="container blackLetters" style="word-wrap: break-word;">{{item.description}}</div>
@@ -250,7 +250,7 @@
                                  <ul class="list-group list-group-flush">
                                    <li class="list-group-item">Type: <label>{{item.type}}</label></label></li>
                                    <li class="list-group-item">Price: <label>{{item.price}}</label></label></li>
-                                   <li class="list-group-item">Amount: <label>{{item.amount}}</label></label></li>
+                                   <li class="list-group-item">Amount: <label>{{item.unitAmount}}</label></label></li>
                                    <li>
                                       
                                         <button type="button" class="btn btn-primary" style="margin-top: 5px; margin-bottom: 5px;margin-left: 120px;" v-on:click="editItem(item)">Edit</button>
@@ -307,7 +307,7 @@
  
                        <div class="col-3" style="border: 1px solid grey;max-width: 350px;overflow-y: scroll;max-height: 630px; min-height: 630px; scrollbar-width: none;">
                          <h4 class="blackLetters mt-3 ms-3">Comments</h4>
-                         <div class="col g-3" v-for="comment in restaurantComments">
+                         <div class="col g-3" v-for="comment in myRestaurantComments">
                            <div class="card myCardComment m-5" style="width: 25rem;">
                              <div class="card-body px-3">
                                <h5 class="card-title blackLetters">{{comment.username}}</h5>

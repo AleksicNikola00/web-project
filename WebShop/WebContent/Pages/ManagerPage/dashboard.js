@@ -128,36 +128,7 @@ var app = new Vue({
     ],
         activeSubmenu : '',
         restaurantSorter: '',
-        restaurantComments: [
-            {
-                id : '',
-                username: 'panda',
-                text: 'Hrana je krimi-rad necu vise nikad jesti odje!',
-                mark: 1,
-                status: 'ALLOWED'
-            },
-            {
-                id: '',
-                username: 'Jole',
-                text: 'Hrana je Topcina od sad cu uvek ovde da jedem!',
-                mark: 3,
-                status: 'PENDING'
-            },
-            {
-                id: '',
-                username: 'panda',
-                text: 'dasdsadasdadasdadsadasdasdasdasdasdnasjdnasodmasspdnmasindas-md[loasmdiasnd0iansm[odaslospdmasidnaspdmap;lknmdain!',
-                mark: 4,
-                status: 'REJECTED'
-            },
-            {
-                id: '',
-                username: 'losmi',
-                text: 'Hrana je fuj, necu vise nikad jesti odje!',
-                mark: 1,
-                status: 'PENDING'
-            },
-        ],
+        restaurantComments: [],
         selectedItem: {
                id: null,
                img: '',
@@ -167,46 +138,10 @@ var app = new Vue({
                unitAmount: 0,
                description: ""
         },
-        restaurantItems: [
-            {
-                id: '1',
-               img: '../Images/bronze-member.png',
-               name: 'Coca-cola',
-               type: 'DRIK',
-               price: 23.5,
-               unitAmount: 25,
-               description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd"
-           },
-           {
-            id: '1',
-            img: '../Images/bronze-member.png',
-            name: 'Coca-cola',
-            type: 'DRINK',
-            price: 23.5,
-            unitAmount: 25,
-            description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd"
-        },
-           {
-            id: '1',
-               img: '../Images/gold-member.png',
-               name: 'Coca-Fanta',
-               type: 'FOOD',
-               price: 20.5,
-               unitAmount: 22,
-               description: "SDADASDADDSNDAJNBSDOASND ASKDNASKNDASN ADNSDNAd DSD"
-           },
-           {
-            id: '1',
-               img: '../Images/silver-member.png',
-               name: 'Sprite',
-               type: 'FOOD',
-               price: 200.5,
-               unitAmount: 21,
-               description: "SDADASDADDSNDAJNBSDOASND  ADNSDNAd"
-           },
-           
-       ],
+        restaurantItems: [],
         myRestaurant:{},
+        myRestaurantItems: [],
+        myRestaurantComments: [],
         selectedRestaurant: {
             name : 'Pizza',
             type : 'Italian',
@@ -269,10 +204,10 @@ var app = new Vue({
 	},
 
 	async mounted() {
-        if (window.localStorage.getItem("User") === null) {
-            window.location.replace("http://localhost:8080/WebShop/");
-            return;
-        }
+        // if (window.localStorage.getItem("User") === null) {
+        //     window.location.replace("http://localhost:8080/WebShop/");
+        //     return;
+        // }
 
 		this.selectedButton = 'restaurants';
         
@@ -291,7 +226,27 @@ var app = new Vue({
                         .then(response =>{
                             this.myRestaurant = response.data;
                             this.myRestaurant.location = this.myRestaurant.city+ " "+this.myRestaurant.address;
+                            this.setMyRestaurant();
                         });
+        },
+
+        setMyRestaurant: async function(){ 
+            await this.loadMyRestaurantComments();
+            await this.loadMyItems();
+        },
+
+        loadMyRestaurantComments: async function(){
+            return await axios.get('/WebShop/rest/getcomments/all/' +this.myRestaurant.id)
+						.then(response => {
+							this.myRestaurantComments = response.data;
+						});
+        },
+
+        loadMyItems: async function(selectedRestaurant){
+            await axios.get('/WebShop/rest/getitemsforrestaurant/' + this.myRestaurant.id)
+						.then(response => {
+							this.myRestaurantItems = response.data;
+						});
         },
 
         updateItem: function(){
@@ -384,14 +339,23 @@ var app = new Vue({
             this.changeVisibility();
 		},
 
-        allowComment: function(comment){
+        allowComment: async function(comment){
             comment.status = 'ALLOWED';
-            alert("Dozvolio comment");
+            await axios.put('/WebShop/rest/comment/update',comment)
+					.then(response => {
+						console.log(response.data);
+					});
+
+            alert("Comment allowed!");
         },
 
-        rejectComment: function(comment){
+        rejectComment:async function(comment){
             comment.status = 'REJECTED';
-            alert("Odbijen komentar");
+            await axios.put('/WebShop/rest/comment/update',comment)
+					.then(response => {
+						console.log(response.data);
+					});
+            alert("Comment rejected!");
         },
 
         changeUser: function(){
