@@ -272,7 +272,7 @@
 
                           <div class="input-group input-group-lg itemInput shadow">
                             <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Price*</span>
-                            <input type="number" class="form-control" onkeypress="return event.charCode >= 48" v-model="selectedItem.price" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            <input type="number" min="0" class="form-control" onkeypress="return event.charCode >= 48" v-model="selectedItem.price" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                           </div>
 
                           <div class="input-group input-group-lg itemInput shadow">
@@ -290,7 +290,7 @@
                           </div>
                           <div class="input-group input-group-lg itemInput shadow">
                             <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Amount</span>
-                            <input type="number" class="form-control" onkeypress="return event.charCode >= 48" v-model="selectedItem.unitAmount" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                            <input type="number" min="0" class="form-control" onkeypress="return event.charCode >= 48" v-model="selectedItem.unitAmount" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                           </div>
 
                           <div class="input-group input-group-lg itemInput shadow">
