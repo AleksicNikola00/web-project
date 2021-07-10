@@ -237,7 +237,7 @@
                            <div class="row ">
                              <div class="row">
                               <h4 class="blackLetters mt-3 ms-3" style="width: 500px;">Items</h4>
-                              <button class="btn-primary mt-2" v-on:click="changeRestaurantSubmenu('edit')" style="height: 50px; width: 200px; margin-left: 300px;">Add item</button>
+                              <button class="btn-primary mt-2" v-on:click="addItem()" style="height: 50px; width: 200px; margin-left: 300px;">Add item</button>
                              </div>
                              <p></p>
                              <div class="col g-3" v-for="item in myRestaurantItems">
@@ -277,7 +277,7 @@
 
                           <div class="input-group input-group-lg itemInput shadow">
                             <span class="input-group-text myInputLabel" id="inputGroup-sizing-lg">Picture*</span>
-                            <input type="file"  class="form-control" id="fileInput" style="width: max-content;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" >
+                            <input type="file"  class="form-control" id="fileInput" @change="onFileChange" style="width: max-content;" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" >
                           </div>
     
                           <div class="input-group input-group-lg itemInput shadow">

@@ -19,15 +19,7 @@ var app = new Vue({
         activeSubmenu : '',
         restaurantSorter: '',
         restaurantComments: [],
-        selectedItem: {
-               id: null,
-               img: '',
-               name: '',
-               type: '',
-               price: 0,
-               unitAmount: 0,
-               description: ""
-        },
+        selectedItem: {},
         restaurantItems: [],
         myRestaurant:{},
         myRestaurantItems: [],
@@ -84,6 +76,28 @@ var app = new Vue({
 	},
 
 	methods: {
+        onFileChange(e){
+            var files = e.target.files || e.dataTransfer.files;
+
+            if (!files.length)
+                return;
+
+            this.createImage(files[0]);
+        },
+
+        createImage(file){
+            var image = new Image();
+            var reader = new FileReader();
+
+            var vm = this;
+
+            reader.onload = (e) => {
+                vm.selectedItem.logoPath = e.target.result;
+                vm.selectedItem.logoPath = vm.selectedItem.logoPath.split('png;base64,')[1]
+            };
+            reader.readAsDataURL(file);
+        },
+
 
         requestShoppers: async function(){
             return await axios.get('/WebShop/rest/manager/shoppers/'+ this.myRestaurant.id)
@@ -121,16 +135,25 @@ var app = new Vue({
 						});
         },
 
-        updateItem: function(){
+        updateItem: async function(){
             if( this.selectedItem.id == null)
             {
-                    alert("novi item");
+                return await await axios.put('/WebShop/rest/item/newitem',this.selectedItem)
+                .then(response => {
+                    console.log(response.data);
+                    alert("Successfully added item!");
+                    this.myRestaurantSubMenu = 'myRestaurant'
+                });
             }
             else
             {
-                    alert("EDITOVAN");
+                    return await await axios.put('/WebShop/rest/item/edititem',this.selectedItem)
+					.then(response => {
+						console.log(response.data);
+                        alert("Successfully edited item!")
+                        this.myRestaurantSubMenu = 'myRestaurant'
+					});
             }
-            this.myRestaurantSubMenu = 'myRestaurant'
         },
 
         requestOrders: async function(){
@@ -162,6 +185,18 @@ var app = new Vue({
                             this.sortByStatus();
 						});
 			
+        },
+
+        addItem: function(){
+            this.myRestaurantSubMenu = 'edit';
+            this.selectedItem = {
+                id: null,
+                picturePath: '',
+                name: '',
+                type: '',
+                price: 0,
+                unitAmount: 0,
+                description: ""};
         },
 
         editItem: function(item){

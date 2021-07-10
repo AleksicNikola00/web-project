@@ -31,4 +31,11 @@ public class CRUDItemService extends BaseService {
 		
 		return DatabaseErrors.NO_ERROR;
 	}
+	
+	public String edit(Item item) {
+		if(uow.getItemReadRepo().getById(item.getId())==null) return DatabaseErrors.NOT_FOUND;
+		
+		uow.getItemWriteRepo().update(item);
+		return DatabaseErrors.NO_ERROR;
+	}
 }
