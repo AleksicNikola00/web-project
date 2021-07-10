@@ -155,6 +155,7 @@ var app = new Vue({
 					.then(response => {
 						console.log(response.data);
                         alert("Successfully edited item!")
+                        this.loadMyItems();
                         this.myRestaurantSubMenu = 'myRestaurant'
 					});
             }
