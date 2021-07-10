@@ -15,117 +15,7 @@ var app = new Vue({
             isAsc: true
         },
         allOrders: [],
-        orders :[{
-            restaurantName : 'Ciao',
-            img : '../Images/gold-member.png',
-            items : [
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '1500'
-                }
-            ],
-            status : 'PENDING DELIVERY',
-            date : '2:23 6-6-2021',
-            restaurantType : 'Italian',
-            price : 2000
-        },
-        {
-            restaurantName : 'Ciao',
-            img : '../Images/gold-member.png',
-            items : [
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '1500'
-                }
-            ],
-            status : 'PENDING',
-            date : '2:23 6-6-2021',
-            restaurantType : 'Italian',
-            price : 2000
-        },
-        {
-            restaurantName : 'Neki',
-            img : '../Images/silver-member.png',
-            items : [
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                }
-            ],
-            status : 'IN PREPARATION',
-            date : '23:23 6-16-2021',
-            restaurantType : 'Italian',
-            price: 1000
-        },
-        {
-            restaurantName : 'Naki',
-            img : '../Images/bronze-member.png',
-            items : [
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                }
-            ],
-            status : 'IN TRANSPORT',
-            date : '12:12 5-4-2021',
-            restaurantType : 'Greek',
-            price: 1500
-        },
-        {
-            restaurantName : 'Naki',
-            img : '../Images/bronze-member.png',
-            items : [
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                },
-                {
-                    name : 'pizza',
-                    amount : '2',
-                    price : '500'
-                }
-            ],
-            status : 'WAITING DELIVERY',
-            date : '12:12 5-4-2021',
-            restaurantType : 'Greek',
-            price: 1500
-        }
-    ],
+        orders :[],
         activeSubmenu : '',
         restaurantSorter: '',
         restaurantComments: [],
@@ -186,11 +76,11 @@ var app = new Vue({
 
         this.setCurrentUser();
         await this.requestRestaurants();
-        await this.requestOrders();
         await this.requestMyRestaurant();
         await this.requestShoppers();
         
         this.changeVisibility();
+        await this.requestOrders();
 	},
 
 	methods: {
@@ -244,7 +134,7 @@ var app = new Vue({
         },
 
         requestOrders: async function(){
-            return await axios.get('/WebShop/rest/getorders/worker/' + this.user.username)
+            return await axios.get('/WebShop/rest/getorders/manager/' + this.myRestaurant.id)
 						.then(response => {
 							this.allOrders = response.data;
 							for (order of this.allOrders){

@@ -21,6 +21,46 @@ public class OrderAggregationService extends BaseService {
 		super(path);
 	}
 	
+	public ArrayList<PastOrderDTO> getPastOrdersForRestaurant(UUID restaurantID){
+		ArrayList<PastOrderDTO> ret = new ArrayList<PastOrderDTO>();
+
+		ArrayList<Order> orders = uow.getOrderReadRepo().getAll();
+		
+		for(Order order : orders) {
+			
+			if (order.isDeleted() || !restaurantID.equals(order.getRestaurant())) {
+				continue;
+			}
+			
+			PastOrderDTO current = new PastOrderDTO();
+			current.setId(order.getId());
+			current.setItems(new ArrayList<PastOrderedItemDTO>());
+			
+			ArrayList<Item> items = uow.getItemReadRepo().getAll();
+			for(OrderItemIDAmount item : order.getOrderedItems()) {
+				Item correlatingItem = findItem(items, item.getId());
+				PastOrderedItemDTO poi = new PastOrderedItemDTO();
+				poi.setName(correlatingItem.getName());
+				poi.setAmount(item.getAmount());
+				poi.setPrice(correlatingItem.getPrice());
+				
+				current.getItems().add(poi);
+			}
+			
+			Restaurant restaurant = uow.getRestaurantReadRepo().getById(order.getRestaurant());
+			File file = new File(uow.getDatabasePath() + DatabaseConstants.RESTAURANTS_LOGO_PATH + restaurant.getId() + ".png");
+			current.setLogoPath(DatabaseConstants.encodeBase64(file));
+			current.setRestaurantName(restaurant.getName());
+			current.setDate(buildDate(order.getDate()));
+			current.setStatus(order.getStatus());
+			current.setRestaurantType(restaurant.getType());
+			current.setPrice(order.getPrice());
+			
+			ret.add(current);
+		}
+		
+		return ret;
+	}
 	
 	public ArrayList<PastOrderDTO> getPastOrdersForWorker(String username){
 		ArrayList<PastOrderDTO> ret = new ArrayList<PastOrderDTO>();

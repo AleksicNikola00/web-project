@@ -606,6 +606,10 @@
                             <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
                               <span class="badge rounded-pill bg-secondary text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Waiting delivery</span>
                             </div>
+
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'CANCELED'">
+                              <span class="badge rounded-pill bg-danger text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Canceled</span>
+                            </div>
                             
                             
                             </div>

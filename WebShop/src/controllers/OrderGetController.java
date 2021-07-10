@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -35,5 +36,14 @@ public class OrderGetController {
 		OrderAggregationService service = new OrderAggregationService(ctx.getRealPath(""));
 		
 		return service.getPastOrdersForWorker(id);
+	}
+	
+	@GET
+	@Path("/manager/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<PastOrderDTO> getOrdersForRestaurant(@PathParam("id") UUID restaurantID){
+		OrderAggregationService service = new OrderAggregationService(ctx.getRealPath(""));
+		
+		return service.getPastOrdersForRestaurant(restaurantID);
 	}
 }
