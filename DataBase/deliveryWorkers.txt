@@ -11,7 +11,7 @@
   "name" : "Kolja",
   "surname" : "Koljic",
   "gender" : "MALE",
-  "dateOfBirth" : 1619474400000,
+  "dateOfBirth" : 956786400000,
   "role" : "DELIVERY",
   "deleted" : false
 } ]

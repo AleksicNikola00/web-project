@@ -17,6 +17,7 @@ import beans.enumerations.RestaurantType;
 import dto.AdminViewRestaurantsDTO;
 import dto.RestaurantsDTO;
 import services.CRUDRestaurantService;
+import services.RestaurantAggregationService;
 
 @Path("/restaurant")
 public class RestaurantController {
@@ -65,4 +66,17 @@ public class RestaurantController {
 		
 		return ret;
 	}
+	
+	@GET
+	@Path("/{managerID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public RestaurantsDTO getRestaurantByManager(@PathParam("managerID") String managerUsername) {
+		RestaurantAggregationService service = new RestaurantAggregationService(ctx.getRealPath(""));
+		
+		return service.getRestaurantByManager(managerUsername);
+	}
+	
+	
+	
+	
 }

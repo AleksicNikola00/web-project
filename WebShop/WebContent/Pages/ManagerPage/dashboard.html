@@ -205,18 +205,18 @@
  
                          <div class="col-6 g-5 mt-3 ">
                            <div class="row">
-                             <h5 class="greyLetters">Name: </h5><label class="restaurantInfo">{{selectedRestaurant.name}}</label>
+                             <h5 class="greyLetters">Name: </h5><label class="restaurantInfo">{{myRestaurant.name}}</label>
                            </div>
                            <div class="row">
-                             <h5 class="greyLetters">Type: </h5><label class="restaurantInfo">{{selectedRestaurant.type}}</label>
+                             <h5 class="greyLetters">Type: </h5><label class="restaurantInfo">{{myRestaurant.type}}</label>
                            </div>
                        </div>
                        <div class="col-6  g-5 mt-3 ">
                          <div class="row">
-                           <h5 class="greyLetters">Location: </h5><label class="restaurantInfo">{{selectedRestaurant.location}}</label>
+                           <h5 class="greyLetters">Location: </h5><label class="restaurantInfo">{{myRestaurant.location}}</label>
                          </div>
                          <div class="row">
-                           <h5 class="greyLetters">Mark: </h5><label class="restaurantInfo">{{selectedRestaurant.rating}}</label>
+                           <h5 class="greyLetters">Mark: </h5><label class="restaurantInfo">{{myRestaurant.rating}}</label>
                            <label v-if="selectedRestaurant.open" class="text-end " style="color: green;font-size: 24px;">opened</label> 
                            <label v-else class="text-end" style="color: red;font-size: 24px;">closed</label> 
                          </div>

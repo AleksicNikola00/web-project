@@ -16,10 +16,10 @@
   "deleted" : false
 }, {
   "username" : "bigsteve",
-  "name" : "Steven",
-  "surname" : "McManaman",
+  "name" : "Stevan",
+  "surname" : "Beric",
   "gender" : "MALE",
-  "dateOfBirth" : 1625591188750,
+  "dateOfBirth" : 899676000000,
   "role" : "MANAGER",
   "deleted" : false
 }, {

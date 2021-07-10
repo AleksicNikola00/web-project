@@ -3,6 +3,7 @@ package services;
 import beans.errors.DatabaseErrors;
 import beans.model.Credentials;
 import beans.model.DeliveryWorker;
+import beans.model.Manager;
 import beans.model.Shopper;
 import dto.LoggedInUser;
 import dto.NewUser;
@@ -35,6 +36,45 @@ public class UserService extends BaseService {
 		
 		LoggedInUser ret = generateLoggedInShopper(credsInDatabase);
 		return ret;
+	}
+	
+	public LoggedInUser updateManager(NewUser manager) {
+		Manager managerInDataBase = uow.getManagerReadRepo().getById(manager.getUsername());
+		Credentials credsInDatabase = uow.getCredentialsReadRepo().getById(manager.getUsername());
+		if (managerInDataBase == null || credsInDatabase == null) {
+			return null;
+		}
+		managerInDataBase.setName(manager.getName());
+		managerInDataBase.setSurname(manager.getSurname());
+		managerInDataBase.setGender(manager.getGender());
+		managerInDataBase.setDateOfBirth(manager.getDateOfBirth());
+		
+		uow.getManagerWriteRepo().update(managerInDataBase);
+		
+		if(!manager.getPassword().isEmpty()) {
+			credsInDatabase.setPassword(manager.getPassword());
+			uow.getCredentialsWriteRepo().update(credsInDatabase);
+		}
+		LoggedInUser ret = generateLoggedInManager(credsInDatabase);
+		return ret;
+	}
+	
+	private LoggedInUser generateLoggedInManager(Credentials creds) {
+		Manager manager = uow.getManagerReadRepo().getById(creds.getUsername());
+		
+		LoggedInUser retWorker = new LoggedInUser();
+		retWorker.setFirstname(manager.getName());
+		retWorker.setLastname(manager.getSurname());
+		retWorker.setUsername(manager.getUsername());
+		retWorker.setDateOfBirth(manager.getDateOfBirth().getDate() + "-" + 
+					(manager.getDateOfBirth().getMonth() + 1) + "-" +
+					(manager.getDateOfBirth().getYear() + 1900));
+		retWorker.setPoints("");
+		retWorker.setPassword(creds.getPassword());
+		retWorker.setGender(manager.getGender());
+		retWorker.setRole(manager.getRole());
+		retWorker.setShopperType(null);
+		return retWorker;
 	}
 	
 	public LoggedInUser updateDeliveryWorker(NewUser worker) {

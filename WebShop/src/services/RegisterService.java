@@ -1,9 +1,12 @@
 package services;
 
+
+
 import beans.errors.DatabaseErrors;
 import beans.model.Credentials;
 import beans.model.Manager;
 import beans.model.Shopper;
+
 
 public class RegisterService extends BaseService {
 	
@@ -24,6 +27,8 @@ public class RegisterService extends BaseService {
 		uow.getShopperWriteRepo().add(shopperPart);
 		return DatabaseErrors.NO_ERROR;
 	}
+	
+	
 	
 	public String registerNewManager(Credentials credsPart, Manager manager) {
 		

@@ -206,6 +206,7 @@ var app = new Vue({
            },
            
        ],
+        myRestaurant:{},
         selectedRestaurant: {
             name : 'Pizza',
             type : 'Italian',
@@ -220,7 +221,7 @@ var app = new Vue({
             username: 'Koljisivoje',
             name: 'Njikalaj',
             surname: 'Aljeksijevic',
-            gender: undefined,
+            gender: 'FEMALE',
             date: '2000-02-22',
             password : '12345678',
             new_password: ''
@@ -268,7 +269,10 @@ var app = new Vue({
 	},
 
 	async mounted() {
-        
+        if (window.localStorage.getItem("User") === null) {
+            window.location.replace("http://localhost:8080/WebShop/");
+            return;
+        }
 
 		this.selectedButton = 'restaurants';
         
@@ -276,11 +280,20 @@ var app = new Vue({
         this.setCurrentUser();
         await this.requestRestaurants();
         await this.requestOrders();
+        await this.requestMyRestaurant();
         
         this.changeVisibility();
 	},
 
 	methods: {
+        requestMyRestaurant: async function(){
+            return await axios.get('/WebShop/rest/restaurant/'+ this.user.username)
+                        .then(response =>{
+                            this.myRestaurant = response.data;
+                            this.myRestaurant.location = this.myRestaurant.city+ " "+this.myRestaurant.address;
+                        });
+        },
+
         updateItem: function(){
             if( this.selectedItem.id == null)
             {
@@ -385,13 +398,13 @@ var app = new Vue({
             if(this.user.new_password.length > 0)
             {
                 if(this.user.new_password.length < 8)
-                    {$('#toastPWError1').toast('show'); return;}
+                    {alert("Password must be at least 8 characters long!"); return;}
                 if(document.getElementById("oldpassword").value.localeCompare(this.user.password) != 0)
-                    {$('#toastPWError2').toast('show'); return;}
+                    {alert("Password missmatch!"); return;}
                 this.user.password = document.getElementById("oldpassword").value;
             }
                 this.updateUser();
-                $('#toastPWSuccess').toast('show');
+                alert("Successfully updated manager info!");
         },
 
         updateUser:async function(){
@@ -410,7 +423,7 @@ var app = new Vue({
 			
 			userToUpdate.dateOfBirth = new Date(year,month,day);
             //
-            await axios.put('/WebShop/rest/user/updateworker',userToUpdate)
+            await axios.put('/WebShop/rest/user/updatemanager',userToUpdate)
 					.then(response => {
 						let user = response.data;
                         window.localStorage.setItem('User',JSON.stringify(user));

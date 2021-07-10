@@ -34,6 +34,16 @@ public class UserController {
 	}
 	
 	@PUT
+	@Path("/updatemanager")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public LoggedInUser updateManager(NewUser shopper) {
+		UserService service = new UserService(ctx.getRealPath(""));
+		
+		return service.updateManager(shopper);
+	}
+	
+	@PUT
 	@Path("/updateworker")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

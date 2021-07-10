@@ -53,6 +53,36 @@ public class RestaurantAggregationService extends BaseService {
 		return ret;
 	}
 	
+	public RestaurantsDTO getRestaurantByManager(String managerId) {
+		RestaurantsDTO retRest = new RestaurantsDTO();
+		ArrayList<Restaurant> restaurants = uow.getRestaurantReadRepo().getAll();
+		for(Restaurant r : restaurants)
+		{
+			if(r.getManagerId().equals(managerId))
+			{
+				GeoLocation geoloc = uow.getGeoLocationReadRepo().getById(r.getGeoLocationId());
+				City city = uow.getCityReadRepo().getById(geoloc.getCityId());
+				
+				retRest.setName(r.getName());
+				retRest.setType(r.getType());
+				retRest.setRating(r.getRating());
+				retRest.setAddress(geoloc.getStreetName() + " " + geoloc.getNumber());
+				retRest.setCity(city.getName());
+				retRest.setOpen(r.getStatus() == RestaurantStatus.OPEN);
+				retRest.setId(r.getId());
+				retRest.setX(geoloc.getX());
+				retRest.setY(geoloc.getY());
+				
+				File picutre = new File(uow.getDatabasePath() + DatabaseConstants.RESTAURANTS_LOGO_PATH + r.getId() + ".png");
+				retRest.setLogoPath(DatabaseConstants.encodeBase64(picutre));
+	
+				break;
+			}
+		}
+		
+		return retRest;
+	}
+	
 	public ArrayList<AdminViewRestaurantsDTO> getAdminRestaurantsAggregated(){
 		ArrayList<AdminViewRestaurantsDTO> ret = new ArrayList<AdminViewRestaurantsDTO>();
 		
