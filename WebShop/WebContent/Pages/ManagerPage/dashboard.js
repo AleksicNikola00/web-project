@@ -225,6 +225,7 @@ var app = new Vue({
             return await axios.get('/WebShop/rest/restaurant/'+ this.user.username)
                         .then(response =>{
                             this.myRestaurant = response.data;
+                            this.myRestaurant.rating = parseFloat(this.myRestaurant.rating).toFixed(2);
                             this.myRestaurant.location = this.myRestaurant.city+ " "+this.myRestaurant.address;
                             this.setMyRestaurant();
                         });
@@ -287,6 +288,7 @@ var app = new Vue({
                             let vm = this;
                             response.data.forEach(restaurant =>{
                                 restaurant.location = restaurant.address + " " + restaurant.city;
+                                restaurant.rating = parseFloat(restaurant.rating).toFixed(2);
                                 vm.allRestaurants.push(restaurant);
                                 vm.restaurants.push(restaurant)
                             });
@@ -344,6 +346,7 @@ var app = new Vue({
             await axios.put('/WebShop/rest/comment/update',comment)
 					.then(response => {
 						console.log(response.data);
+                        this.requestMyRestaurant();
 					});
 
             alert("Comment allowed!");

@@ -1,6 +1,9 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.UUID;
+
+import com.sun.org.apache.xerces.internal.parsers.AbstractXMLDocumentParser;
 
 import beans.enumerations.CommentStatus;
 import beans.errors.DatabaseErrors;
@@ -37,6 +40,18 @@ public class CRUDCommentService extends BaseService {
 		
 		comment.setStatus(comment.getStatus());
 		uow.getCommentWriteRepo().update(comment);
+		if(comment.getStatus().equals(CommentStatus.ALLOWED)) {
+			ArrayList<Comment> comments = uow.getCommentReadRepo().getAll();
+			int allowedCommentsForSameRestaurant = 0;
+			for(Comment c : comments) {
+				if(c.getStatus().equals(CommentStatus.ALLOWED) && c.getRestaurantId().equals(comment.getRestaurantId()))
+					allowedCommentsForSameRestaurant++;
+			}
+		
+			double rating =(restaurant.getRating()+comment.getMark())/allowedCommentsForSameRestaurant;
+			restaurant.setRating(rating);
+			uow.getRestaurantWriteRepo().update(restaurant);
+		}
 		
 		return DatabaseErrors.NO_ERROR;
 	}

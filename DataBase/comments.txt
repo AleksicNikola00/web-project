@@ -4,7 +4,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Amazing restaurant and amazing food. Simply fantastic!",
   "mark" : 5.0,
-  "status" : "REJECTED",
+  "status" : "ALLOWED",
   "deleted" : false
 }, {
   "id" : "c422e92c-4bfb-4d7c-9c73-efba756839d3",
@@ -20,7 +20,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Second comment that i had to post... That good...",
   "mark" : 5.0,
-  "status" : "REJECTED",
+  "status" : "PENDING",
   "deleted" : false
 }, {
   "id" : "80fafeae-3085-4217-8117-ac3199cf9098",
@@ -28,7 +28,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Third comment that i had to post... Probably not allowed but i know!",
   "mark" : 5.0,
-  "status" : "PENDING",
+  "status" : "ALLOWED",
   "deleted" : false
 }, {
   "id" : "97d48d7d-cb29-40f1-8d0c-f8b7e5ee8108",
@@ -44,7 +44,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "Pokusaj loseg komentara",
   "mark" : 2.0,
-  "status" : "ALLOWED",
+  "status" : "REJECTED",
   "deleted" : false
 }, {
   "id" : "9c231745-2cf8-43cc-9672-34a2f3ef12a7",
@@ -60,7 +60,7 @@
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "text" : "I dont know",
   "mark" : 4.0,
-  "status" : "ALLOWED",
+  "status" : "PENDING",
   "deleted" : false
 }, {
   "id" : "c81c8039-e707-465a-80ef-5782b5cdad67",

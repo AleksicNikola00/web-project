@@ -7,6 +7,7 @@ import java.util.UUID;
 import beans.enumerations.RestaurantStatus;
 import beans.errors.DatabaseErrors;
 import beans.model.City;
+import beans.model.Comment;
 import beans.model.GeoLocation;
 import beans.model.Manager;
 import beans.model.Restaurant;
@@ -18,6 +19,8 @@ public class CRUDRestaurantService extends BaseService {
 	public CRUDRestaurantService(String path) {
 		super(path);
 	}
+	
+
 
 	public String addRestaurant(Restaurant restaurant, GeoLocation geoLoc, City city) {
 
