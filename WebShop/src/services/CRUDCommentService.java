@@ -40,15 +40,21 @@ public class CRUDCommentService extends BaseService {
 		
 		comment.setStatus(comment.getStatus());
 		uow.getCommentWriteRepo().update(comment);
+		
+		//update ocenu restorana ako je komentar dozvoljen
 		if(comment.getStatus().equals(CommentStatus.ALLOWED)) {
 			ArrayList<Comment> comments = uow.getCommentReadRepo().getAll();
 			int allowedCommentsForSameRestaurant = 0;
+			double sum = 0;
 			for(Comment c : comments) {
-				if(c.getStatus().equals(CommentStatus.ALLOWED) && c.getRestaurantId().equals(comment.getRestaurantId()))
+				if(c.getStatus().equals(CommentStatus.ALLOWED) && c.getRestaurantId().equals(comment.getRestaurantId())) {
 					allowedCommentsForSameRestaurant++;
+					sum+=c.getMark();
+				}
+					
 			}
 		
-			double rating =(restaurant.getRating()+comment.getMark())/allowedCommentsForSameRestaurant;
+			double rating = sum/allowedCommentsForSameRestaurant;
 			restaurant.setRating(rating);
 			uow.getRestaurantWriteRepo().update(restaurant);
 		}

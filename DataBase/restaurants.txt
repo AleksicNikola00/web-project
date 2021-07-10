@@ -15,7 +15,7 @@
   "status" : "OPEN",
   "logoPath" : "/WebShop/DatabasePictures/restaurants",
   "geoLocationId" : "b459976d-7407-43c5-bf1a-e518a0f8bc37",
-  "rating" : 1.3416666666666668,
+  "rating" : 3.8,
   "managerId" : "kleojohnson",
   "deleted" : false
 }, {
