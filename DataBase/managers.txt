@@ -11,7 +11,7 @@
   "name" : "Kleo",
   "surname" : "Johnson",
   "gender" : "MALE",
-  "dateOfBirth" : 1625591188750,
+  "dateOfBirth" : 868140000000,
   "role" : "MANAGER",
   "deleted" : false
 }, {

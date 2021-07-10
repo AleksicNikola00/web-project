@@ -582,11 +582,11 @@
                               <div class="col-2 my-auto" v-if="pastOrder.status == 'PENDING'">
                                 <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="prepareOrder(pastOrder)">Prepare</button>
                              </div>
-                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN PREPARATION'">
+                             <div class="col-2 my-auto" v-if="pastOrder.status == 'IN_PREPARATION'">
                               <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="preparedOrder(pastOrder)">Prepared</button>
                             </div>
                             
-                              <div class="row" v-if="pastOrder.status == 'PENDING DELIVERY'">
+                              <div class="row" v-if="pastOrder.status == 'PENDING_DELIVERY'">
                                 <div class="col-5">
                                   <button type="button" class="btn btn-primary" style="margin-top: 25px; margin-bottom: 20px;" v-on:click="acceptOrder(pastOrder)">Accept</button>
                                 </div>
@@ -599,11 +599,11 @@
                               <span class="badge rounded-pill bg-success mt-2 mb-3" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Delivered</span>
                             </div>
 
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'IN TRANSPORT'">
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'IN_TRANSPORT'">
                               <span class="badge rounded-pill bg-warning text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">In transport</span>
                             </div>
 
-                            <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING DELIVERY'">
+                            <div class="col-2 my-auto" v-if="pastOrder.status == 'WAITING_DELIVERY'">
                               <span class="badge rounded-pill bg-secondary text-dark mb-3 mt-2" style="min-width: 100px; min-height: 30px;padding: 12px;font-size: 13px;">Waiting delivery</span>
                             </div>
 
@@ -632,9 +632,10 @@
                          <select class="form-select form-select-lg mb-3" v-model="orderFilter.status" aria-label=".form-select-lg example">
                           <option selected value="">Select status</option>
                           <option value="DELIEVERED">Delievered</option>
-                          <option value="WAITING DELIVERY">Waiting delivery</option>
-                          <option value="IN TRANSPORT">In transport</option>
-                          <option value="PENDING DELIVERY">Pending request</option>
+                          <option value="WAITING_DELIVERY">Waiting delivery</option>
+                          <option value="IN_TRANSPORT">In transport</option>
+                          <option value="PENDING_DELIVERY">Pending request</option>
+                          <option value="CANCELED">Canceled</option>
                         </select>
 
                         <div class="container p-0">

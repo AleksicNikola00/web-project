@@ -92,7 +92,7 @@
   "date" : 1625745834992,
   "price" : 5300.0,
   "username" : "final",
-  "status" : "PENDING",
+  "status" : "WAITING_DELIVERY",
   "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
@@ -202,7 +202,7 @@
   "date" : 1625824848106,
   "price" : 1300.0,
   "username" : "testerShopper",
-  "status" : "PENDING",
+  "status" : "WAITING_DELIVERY",
   "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
@@ -228,7 +228,7 @@
   "date" : 1625824894874,
   "price" : 4800.0,
   "username" : "testerShopper",
-  "status" : "PENDING",
+  "status" : "WAITING_DELIVERY",
   "deliveryWorkerUsername" : null,
   "deleted" : false
 }, {
@@ -241,8 +241,8 @@
   "date" : 1625824909684,
   "price" : 900.0,
   "username" : "testerShopper",
-  "status" : "PENDING",
-  "deliveryWorkerUsername" : null,
+  "status" : "IN_TRANSPORT",
+  "deliveryWorkerUsername" : "kolja",
   "deleted" : false
 }, {
   "id" : "4109e3f4-ff67-4505-9b4f-f7b938e834b5",

@@ -137,12 +137,8 @@ var app = new Vue({
             return await axios.get('/WebShop/rest/getorders/manager/' + this.myRestaurant.id)
 						.then(response => {
 							this.allOrders = response.data;
-							for (order of this.allOrders){
-								order.status = order.status.replace("_"," ");
-							}
-							
 							this.allOrders.reverse();
-                            this.orders = Object.assign({}, this.allOrders);
+                            this.orders = Object.assign([], this.allOrders);
 						});
         },
 
@@ -365,21 +361,29 @@ var app = new Vue({
                 this.restaurants = this.restaurants.filter(r => r.open === this.filterRestaurant.isOpen);
         },
 
-        preparedOrder: function(order){
-            order.status = 'WAITING DELIVERY';//toastDeliverSuccess
-            alert("PREPARED");
+        preparedOrder: async function(order){
+            order.status = 'WAITING_DELIVERY';//toastDeliverSuccess
+            axios.put('/WebShop/rest/order/updateorder',order)
+                .then(response => {console.log(response.data)});
+            alert("Prepared order!");
         },
-        prepareOrder: function(order){
-            order.status='IN PREPARATION';//toastDeliveryRequested
-            alert("STARTED PREPARING");
+        prepareOrder: async function(order){
+            order.status='IN_PREPARATION';//toastDeliveryRequested
+            axios.put('/WebShop/rest/order/updateorder',order)
+                .then(response => {console.log(response.data)});
+            alert("Started preparing order!");
         },
-        acceptOrder: function(order){
-            order.status = 'IN TRANSPORT';//toastDeliverSuccess
-            alert("Accepted");
+        acceptOrder: async function(order){
+            order.status = 'IN_TRANSPORT';//toastDeliverSuccess
+            axios.put('/WebShop/rest/order/updateorder',order)
+                .then(response => {console.log(response.data)});
+            alert("Accepted order!");
         },
-        rejectOrder: function(order){
-            order.status = 'WAITING DELIVERY';//toastDeliverSuccess
-            alert("rejected");
+        rejectOrder: async function(order){
+            order.status = 'WAITING_DELIVERY';//toastDeliverSuccess
+            axios.put('/WebShop/rest/order/updateorder',order)
+                .then(response => {console.log(response.data)});
+            alert("Rejected order!");
         },
 
         filterOrders: function(){

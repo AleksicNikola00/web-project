@@ -15,6 +15,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import beans.model.Order;
+import dto.PastOrderDTO;
 import services.CRUDOrderService;
 
 @Path("/order")
@@ -58,5 +59,15 @@ public class OrderController {
 		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
 		
 		return service.submitOrders(orders);
+	}
+	
+	@PUT
+	@Path("/updateorder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateOrder(PastOrderDTO order) {
+		CRUDOrderService service = new CRUDOrderService(ctx.getRealPath(""));
+		System.out.println("Upao");
+		return service.updateOrderStatus(order);
 	}
 }

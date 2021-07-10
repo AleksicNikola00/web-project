@@ -10,6 +10,7 @@ import beans.model.Order;
 import beans.model.Restaurant;
 import beans.model.Shopper;
 import beans.model.ShopperType;
+import dto.PastOrderDTO;
 
 public class CRUDOrderService extends BaseService {
 	
@@ -65,6 +66,16 @@ public class CRUDOrderService extends BaseService {
 		order.setDeliveryWorkerUsername(username);
 		
 		uow.getOrderWriteRepo().update(order);
+		
+		return DatabaseErrors.NO_ERROR;
+	}
+	
+	public String updateOrderStatus(PastOrderDTO order) {
+		Order orderInDatabase = uow.getOrderReadRepo().getById(order.getId());
+		if(orderInDatabase == null ) return DatabaseErrors.NOT_FOUND;
+		
+		orderInDatabase.setStatus(order.getStatus());
+		uow.getOrderWriteRepo().update(orderInDatabase);
 		
 		return DatabaseErrors.NO_ERROR;
 	}
