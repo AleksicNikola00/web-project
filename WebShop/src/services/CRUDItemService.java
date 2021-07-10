@@ -28,6 +28,7 @@ public class CRUDItemService extends BaseService {
 		File file = new File(uow.getDatabasePath() + DatabaseConstants.ITEM_LOGO_PATH + item.getId() + ".png");
 		DatabaseConstants.writeEncodedBase64(file, item.getPicturePath());
 		
+		item.setPicturePath("");
 		uow.getItemWriteRepo().add(item);
 		
 		
@@ -41,6 +42,8 @@ public class CRUDItemService extends BaseService {
 			File file = new File(uow.getDatabasePath() + DatabaseConstants.ITEM_LOGO_PATH + item.getId() + ".png");
 			DatabaseConstants.writeEncodedBase64(file, item.getPicturePath());
 		}
+		
+		item.setPicturePath("");
 		
 		uow.getItemWriteRepo().update(item);
 		return DatabaseErrors.NO_ERROR;
