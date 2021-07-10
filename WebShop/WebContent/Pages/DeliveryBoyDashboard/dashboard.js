@@ -79,7 +79,7 @@ var app = new Vue({
 							}
 							
 							this.allOrders.reverse();
-                            this.orders = Object.assign({}, this.allOrders);
+                            this.orders = Object.assign([], this.allOrders);
 						});
         },
 
@@ -142,13 +142,13 @@ var app = new Vue({
             if(this.user.new_password.length > 0)
             {
                 if(this.user.new_password.length < 8)
-                    {$('#toastPWError1').toast('show'); return;}
+                    {alert("Password must be at least 8 characters long!"); return;}
                 if(document.getElementById("oldpassword").value.localeCompare(this.user.password) != 0)
-                    {$('#toastPWError2').toast('show'); return;}
+                    {alert("Password missmatch!"); return;}
                 this.user.password = document.getElementById("oldpassword").value;
             }
                 this.updateUser();
-                $('#toastPWSuccess').toast('show');
+                alert("Successfuly updated user info!");
         },
 
         updateUser:async function(){
@@ -275,13 +275,13 @@ var app = new Vue({
             order.status = 'DELIEVERED';//toastDeliverSuccess
             axios.put('/WebShop/rest/order/delieverorder/'+order.id)
                 .then(response => {console.log(response.data)});
-            $('#toastDeliverSuccess').toast('show');
+            alert("Delivery completed successfuly!");
         },
         requestOrder: function(order){
             order.status='PENDING DELIVERY';//toastDeliveryRequested
             axios.put('/WebShop/rest/order/requestorder/'+order.id+'/'+this.user.username)
                 .then(response => {console.log(response.data)});
-            $('#toastDeliveryRequested').toast('show');
+            alert("Delivery successfuly requested!");
         },
 
         filterOrders: function(){
