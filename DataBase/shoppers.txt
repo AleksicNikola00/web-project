@@ -3,7 +3,7 @@
   "name" : "Nikola",
   "surname" : "Milosavljevic",
   "gender" : "MALE",
-  "dateOfBirth" : 931039200000,
+  "dateOfBirth" : 923443308144,
   "role" : "SHOPPER",
   "collectedPoints" : 266,
   "shopperType" : "BRONZE",
@@ -94,6 +94,28 @@
   "dateOfBirth" : 1622647836743,
   "role" : "SHOPPER",
   "collectedPoints" : 0,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "finalTestShopper",
+  "name" : "finalTest",
+  "surname" : "finalTest",
+  "gender" : "MALE",
+  "dateOfBirth" : 1609282800000,
+  "role" : "SHOPPER",
+  "collectedPoints" : 653,
+  "shopperType" : "BRONZE",
+  "blocked" : false,
+  "deleted" : false
+}, {
+  "username" : "lastuser",
+  "name" : "lastuser",
+  "surname" : "lastuser",
+  "gender" : "MALE",
+  "dateOfBirth" : 1623196594274,
+  "role" : "SHOPPER",
+  "collectedPoints" : 478,
   "shopperType" : "BRONZE",
   "blocked" : false,
   "deleted" : false

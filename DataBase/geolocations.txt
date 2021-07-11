@@ -71,11 +71,19 @@
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 }, {
-  "x" : 19.84512,
-  "y" : 45.25511,
+  "x" : 19.81765,
+  "y" : 45.2452,
   "streetName" : "Bulevar oslobodjenja",
   "number" : 25,
   "id" : "c17ae06d-4d5c-472e-90f0-1e587a38643a",
+  "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
+  "deleted" : false
+}, {
+  "x" : 19.87868,
+  "y" : 45.24734,
+  "streetName" : "Pezos",
+  "number" : 256,
+  "id" : "b7806051-d91f-4983-86d5-52dbbea6edc8",
   "cityId" : "dde4cb4d-b53d-4fb7-84a3-bfbbe392f658",
   "deleted" : false
 } ]

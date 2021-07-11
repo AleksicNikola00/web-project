@@ -14,4 +14,12 @@
   "dateOfBirth" : 956786400000,
   "role" : "DELIVERY",
   "deleted" : false
+}, {
+  "username" : "nemamideje",
+  "name" : "nemamideje",
+  "surname" : "nemamideje",
+  "gender" : "MALE",
+  "dateOfBirth" : 1623110614303,
+  "role" : "DELIVERY",
+  "deleted" : false
 } ]

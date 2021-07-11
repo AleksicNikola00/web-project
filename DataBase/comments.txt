@@ -70,4 +70,12 @@
   "mark" : 4.0,
   "status" : "PENDING",
   "deleted" : false
+}, {
+  "id" : "96dc982f-27fe-46eb-a80a-bf6468980bbb",
+  "username" : "finalTestShopper",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "text" : "Really bad time\n",
+  "mark" : 3.0,
+  "status" : "PENDING",
+  "deleted" : false
 } ]

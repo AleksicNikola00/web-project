@@ -80,10 +80,18 @@
   "deleted" : false
 }, {
   "username" : "testerManager2",
-  "name" : "ourSecMan",
-  "surname" : "ourSecMan",
+  "name" : "finalTest",
+  "surname" : "finlaTest",
+  "gender" : "UNKNOWN",
+  "dateOfBirth" : 1599868929853,
+  "role" : "MANAGER",
+  "deleted" : false
+}, {
+  "username" : "testManager",
+  "name" : "tester",
+  "surname" : "tester",
   "gender" : "MALE",
-  "dateOfBirth" : 1607514047319,
+  "dateOfBirth" : 1624925105918,
   "role" : "MANAGER",
   "deleted" : false
 } ]

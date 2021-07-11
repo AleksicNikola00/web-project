@@ -257,4 +257,65 @@
   "status" : "DELIEVERED",
   "deliveryWorkerUsername" : "kolja",
   "deleted" : false
+}, {
+  "id" : "a4ffd841-a28a-4171-a962-95e9e92dbffd",
+  "orderedItems" : [ {
+    "id" : "1111bc84-3b14-4b81-97c1-6dbc872cf66f",
+    "amount" : 2
+  }, {
+    "id" : "38318e12-60cd-469d-9575-b0cb1c9f6ecb",
+    "amount" : 1
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625960848861,
+  "price" : 363.0,
+  "username" : "finalTestShopper",
+  "status" : "CANCELED",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "3bcc84bf-c502-41bc-b1b2-b3de6bfc3efc",
+  "orderedItems" : [ {
+    "id" : "27a9f087-fadd-4fb1-b7b5-1410c4b95132",
+    "amount" : 3
+  }, {
+    "id" : "297db321-44c4-4c94-bb18-e5071115c3a3",
+    "amount" : 1
+  } ],
+  "restaurant" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "date" : 1625960878359,
+  "price" : 2270.0,
+  "username" : "finalTestShopper",
+  "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "042152d1-4381-4f7d-b1e8-81095d49f13a",
+  "orderedItems" : [ {
+    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "amount" : 2
+  }, {
+    "id" : "3483b4e0-f555-420f-ae27-57941c2c54cb",
+    "amount" : 1
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625961363921,
+  "price" : 3750.0,
+  "username" : "finalTestShopper",
+  "status" : "PENDING",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "b6baa6a0-7782-42d4-8bc1-76e00bc5e8d0",
+  "orderedItems" : [ {
+    "id" : "0ef260e8-e3b4-4b2c-95ea-30b118dc210d",
+    "amount" : 2
+  } ],
+  "restaurant" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "date" : 1625961400931,
+  "price" : 3600.0,
+  "username" : "lastuser",
+  "status" : "IN_PREPARATION",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
 } ]

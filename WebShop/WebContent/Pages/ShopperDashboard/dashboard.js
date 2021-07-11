@@ -482,10 +482,11 @@ var webShop = new Vue({
             let result = this.pastReceivedOrders;
 
 
-            if (Date.parse(this.orderFilterObj.bottomDate) < new Date()){
+            if (Date.parse(this.orderFilterObj.bottomDate) < new Date() && this.orderFilterObj.bottomDate != '' && this.orderFilterObj.bottomDate != undefined){
                 result = this.orderFilterBottomDate(result);
             }
-            if (Date.parse(this.orderFilterObj.upperDate) < new Date() && Date.parse(this.orderFilterObj.upperDate) > Date.parse(this.orderFilterObj.bottomDate)){
+            if (Date.parse(this.orderFilterObj.upperDate) < new Date() && Date.parse(this.orderFilterObj.upperDate) > Date.parse(this.orderFilterObj.bottomDate)
+					&& this.orderFilterObj.upperDate != '' || this.orderFilterObj.upperDate != undefined){
                 result = this.orderFilterUpperDate(result);
             }
             if (this.orderFilterObj.bottomPrice != '' && parseFloat(this.orderFilterObj.bottomPrice) > 0){

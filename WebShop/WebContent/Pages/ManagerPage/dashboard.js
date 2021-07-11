@@ -58,10 +58,10 @@ var app = new Vue({
 	},
 
 	async mounted() {
-        // if (window.localStorage.getItem("User") === null) {
-        //     window.location.replace("http://localhost:8080/WebShop/");
-        //     return;
-        // }
+         if (window.localStorage.getItem("User") === null) {
+             window.location.replace("http://localhost:8080/WebShop/");
+             return;
+         }
 
 		this.selectedButton = 'restaurants';
         

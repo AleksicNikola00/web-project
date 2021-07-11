@@ -89,13 +89,23 @@
   "managerId" : "anotherManager",
   "deleted" : false
 }, {
-  "name" : "tester",
+  "name" : "changedName",
   "id" : "24a34858-fa7f-4171-8375-6eaba53692f3",
-  "type" : "CAFE",
+  "type" : "BARBECUE",
   "status" : "OPEN",
   "logoPath" : null,
   "geoLocationId" : "c17ae06d-4d5c-472e-90f0-1e587a38643a",
   "rating" : 1.0,
   "managerId" : "testerManager",
+  "deleted" : false
+}, {
+  "name" : "newName",
+  "id" : "17157f8b-7637-437e-a746-ddecbdc78a19",
+  "type" : "GREEK",
+  "status" : "OPEN",
+  "logoPath" : null,
+  "geoLocationId" : "b7806051-d91f-4983-86d5-52dbbea6edc8",
+  "rating" : 1.0,
+  "managerId" : "testManager",
   "deleted" : false
 } ]
