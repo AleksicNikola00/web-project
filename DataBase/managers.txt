@@ -9,7 +9,7 @@
 }, {
   "username" : "kleojohnson",
   "name" : "Kleo",
-  "surname" : "Johnson",
+  "surname" : "SD",
   "gender" : "MALE",
   "dateOfBirth" : 868140000000,
   "role" : "MANAGER",

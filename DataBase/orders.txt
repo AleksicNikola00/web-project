@@ -202,8 +202,8 @@
   "date" : 1625824848106,
   "price" : 1300.0,
   "username" : "testerShopper",
-  "status" : "WAITING_DELIVERY",
-  "deliveryWorkerUsername" : null,
+  "status" : "PENDING_DELIVERY",
+  "deliveryWorkerUsername" : "kolja",
   "deleted" : false
 }, {
   "id" : "b8dc7f6a-1d3a-4b03-9437-9e5d3f2987ca",
@@ -228,8 +228,8 @@
   "date" : 1625824894874,
   "price" : 4800.0,
   "username" : "testerShopper",
-  "status" : "WAITING_DELIVERY",
-  "deliveryWorkerUsername" : null,
+  "status" : "IN_TRANSPORT",
+  "deliveryWorkerUsername" : "kolja",
   "deleted" : false
 }, {
   "id" : "a80d8091-6c8b-423f-8e11-6eba459438bd",
@@ -241,7 +241,7 @@
   "date" : 1625824909684,
   "price" : 900.0,
   "username" : "testerShopper",
-  "status" : "IN_TRANSPORT",
+  "status" : "DELIEVERED",
   "deliveryWorkerUsername" : "kolja",
   "deleted" : false
 }, {
@@ -286,8 +286,8 @@
   "date" : 1625960878359,
   "price" : 2270.0,
   "username" : "finalTestShopper",
-  "status" : "PENDING",
-  "deliveryWorkerUsername" : null,
+  "status" : "PENDING_DELIVERY",
+  "deliveryWorkerUsername" : "kolja",
   "deleted" : false
 }, {
   "id" : "042152d1-4381-4f7d-b1e8-81095d49f13a",
@@ -316,6 +316,19 @@
   "price" : 3600.0,
   "username" : "lastuser",
   "status" : "IN_PREPARATION",
+  "deliveryWorkerUsername" : null,
+  "deleted" : false
+}, {
+  "id" : "6aa3e02b-197a-467a-9a3d-977a9cc90382",
+  "orderedItems" : [ {
+    "id" : "297db321-44c4-4c94-bb18-e5071115c3a3",
+    "amount" : 2
+  } ],
+  "restaurant" : "457082ac-ae11-4900-8913-dee6fb764e7c",
+  "date" : 1625962290939,
+  "price" : 1900.0,
+  "username" : "mili",
+  "status" : "PENDING",
   "deliveryWorkerUsername" : null,
   "deleted" : false
 } ]

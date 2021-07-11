@@ -11,7 +11,7 @@
   "deleted" : false
 }, {
   "id" : "c8427e3f-d1a5-4416-abb1-b8656e07db58",
-  "name" : "Pizza XL",
+  "name" : "Pizza XLL",
   "price" : 1200.0,
   "type" : "FOOD",
   "unitType" : "GRAM",
@@ -115,7 +115,18 @@
   "type" : "FOOD",
   "unitType" : null,
   "unitAmount" : 0.0,
-  "description" : "",
+  "description" : "sdasdadad",
+  "picturePath" : "",
+  "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
+  "deleted" : false
+}, {
+  "id" : "3aea733e-5e56-44e8-9773-8beaaa78ab2e",
+  "name" : "Pica",
+  "price" : 230.0,
+  "type" : "FOOD",
+  "unitType" : null,
+  "unitAmount" : 3323.0,
+  "description" : "sdasda",
   "picturePath" : "",
   "restaurantId" : "279dc880-c93b-4b77-b7e0-884c2dcb8637",
   "deleted" : false

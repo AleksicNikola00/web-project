@@ -10,7 +10,7 @@
   "username" : "kolja",
   "name" : "Kolja",
   "surname" : "Koljic",
-  "gender" : "MALE",
+  "gender" : "UNKNOWN",
   "dateOfBirth" : 956786400000,
   "role" : "DELIVERY",
   "deleted" : false

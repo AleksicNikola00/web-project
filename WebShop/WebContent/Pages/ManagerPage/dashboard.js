@@ -141,6 +141,10 @@ var app = new Vue({
                     alert("Please fill out mandatory(*) fields!");
                     return;
                 }
+                if(this.alreadyExists(this.selectedItem.name )){
+                    alert("Item already exists!");
+                    return;
+                }
                 this.selectedItem.picturePath = this.selectedItem.picturePath.split('png;base64,')[1];
                 this.selectedItem.type = this.selectedItem.type.toUpperCase();
                 console.log(this.selectedItem);
@@ -153,9 +157,13 @@ var app = new Vue({
                 });
             }
             else
-            {//nisam sig jel treba
+            {
                 if(this.selectedItem.name == "" || this.selectedItem.type == "" || this.selectedItem.price == 0 ){
                     alert("Please fill out mandatory(*) fields!");
+                    return;
+                }
+                if(this.alreadyExistsEdit(this.selectedItem.name,this.selectedItem.id )){
+                    alert("Item already exists!");
                     return;
                 }
                     this.selectedItem.picturePath = this.selectedItem.picturePath.split('png;base64,')[1];
@@ -167,6 +175,24 @@ var app = new Vue({
                         this.myRestaurantSubMenu = 'myRestaurant'
 					});
             }
+        },
+
+        alreadyExists:  function(name){
+            for(item of this.myRestaurantItems)
+                if(item.name == name)
+                    return true;
+                
+            return false;
+        },
+
+        alreadyExistsEdit:  function(name,id){
+            for(item of this.myRestaurantItems)
+                if(item.name == name && item.id != id)
+                    return true;
+                
+                    
+                
+            return false;
         },
 
         requestOrders: async function(){
@@ -255,6 +281,7 @@ var app = new Vue({
             elem.removeClass('btn-light');
             elem.addClass('btn-primary');
             this.changeVisibility();
+            this.loadMyItems();
 		},
 
         allowComment: async function(comment){
